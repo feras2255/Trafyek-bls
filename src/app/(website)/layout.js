@@ -1,8 +1,7 @@
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import Footer from "@/components/footer";
 import Header from "@/components/header";
+import Footer from "@/components/dashboard/footer";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import PageLoader from "@/components/PageLoader/PageLoader";
-import React from "react";
 
 export default function WebsiteLayout({ children }) {
   return (

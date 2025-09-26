@@ -1,7 +1,8 @@
-import { Instagram, Music2, Ghost, X } from "lucide-react";
-import Tiktok from "../icons/Tiktok";
-import InstagramIcon from "../icons/InstagramIcon";
-import SnapchatIcon from "../icons/SnapchatIcon";
+import { X } from "lucide-react";
+import Tiktok from "@/components/icons/Tiktok";
+
+import SnapchatIcon from "@/components/icons/SnapchatIcon";
+import InstagramIcon from "@/components/icons/InstagramIcon";
 
 export default function SocialLinks() {
   return (

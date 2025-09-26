@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import Input from "@/components/ui/input";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -31,23 +32,36 @@ export default function LoginPage() {
         <h2 className="text-2xl md:text-4xl text-primary font-bold mb-8">
           تسجيل الدخول
         </h2>
-        <div className="pb-4">
-          <input
+        <div className="pb-4 space-y-4">
+          <Input
+            type="email"
+            placeholder="البريد الإلكتروني"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {/* <input
             type="email"
             placeholder="البريد الإلكتروني"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="border p-2 w-full mb-3 rounded"
             required
+          /> */}
+
+          <Input
+            type="password"
+            placeholder="كلمة المرور"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <input
+          {/* <input
             type="password"
             placeholder="كلمة المرور"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="border p-2 w-full  rounded"
             required
-          />
+          /> */}
         </div>
 
         <button
