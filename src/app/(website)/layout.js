@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-import Footer from "@/components/dashboard/footer";
+import Footer from "@/components/footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import PageLoader from "@/components/PageLoader/PageLoader";
 
