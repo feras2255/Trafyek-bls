@@ -1,7 +1,16 @@
+"use client";
+import { supabase } from "@/lib/supabaseClient";
 import { TextAlignJustify } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function DashboardHeader({ toggleSidebar }) {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
   return (
     <header className="w-full h-16 bg-sidebar-primary border-b border-sidebar-accent flex items-center justify-between px-6">
       <div className="flex items-center gap-6">
@@ -12,6 +21,12 @@ export default function DashboardHeader({ toggleSidebar }) {
         <h1 className="text-xl font-bold text-maintext">لوحة التحكم</h1>
       </div>
       <div className="flex items-center gap-4">
+        <button
+          onClick={handleLogout}
+          className="bg-card text-white px-4 py-2 rounded cursor-pointer hover:bg-accent transition duration-300"
+        >
+          تسجيل خروج
+        </button>
         <button className="relative p-2 rounded-full hover:bg-accent transition duration-300 cursor-pointer">
           <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           🔔

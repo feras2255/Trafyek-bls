@@ -21,7 +21,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
       <body className={`${tajawal.className} `}>
-        <PageLoader logo="/logo.png" />
         <AOSProvider>{children}</AOSProvider>
       </body>
     </html>
