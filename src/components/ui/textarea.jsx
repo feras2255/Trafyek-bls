@@ -1,8 +1,9 @@
 import React from "react";
 
-export default function Textarea({ value, onChange, placeholder }) {
+export default function Textarea({ name, value, onChange, placeholder }) {
   return (
     <textarea
+      name={name}
       placeholder={placeholder}
       value={value}
       onChange={onChange}

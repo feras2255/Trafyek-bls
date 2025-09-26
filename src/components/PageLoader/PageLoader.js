@@ -22,7 +22,7 @@ export default function PageLoader({ logo }) {
         src={logo}
         alt="شعار المتجر"
         width={220}
-        height={100}
+        height={220}
         className="animate-pulse"
         priority
       />

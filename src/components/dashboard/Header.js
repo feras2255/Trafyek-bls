@@ -2,6 +2,7 @@
 import { supabase } from "@/lib/supabaseClient";
 import { TextAlignJustify } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function DashboardHeader({ toggleSidebar }) {
@@ -32,16 +33,20 @@ export default function DashboardHeader({ toggleSidebar }) {
           🔔
         </button>
 
-        <div className="flex items-center gap-2 cursor-pointer">
-          <Image
-            src="/profile.png"
-            alt="Profile"
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
-          <span className="text-sm font-medium text-secondary">المستخدم</span>
-        </div>
+        <Link href="/dashboard/settings">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Image
+              src="/profile.png"
+              alt="Profile"
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <span className="text-sm font-bold text-secondary mt-4">
+              المستخدم
+            </span>
+          </div>
+        </Link>
       </div>
     </header>
   );

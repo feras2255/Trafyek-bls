@@ -1,6 +1,7 @@
-export default function Input({ type, placeholder, value, onChange }) {
+export default function Input({ type, placeholder, name, value, onChange }) {
   return (
     <input
+      name={name}
       type={type}
       placeholder={placeholder}
       value={value}
