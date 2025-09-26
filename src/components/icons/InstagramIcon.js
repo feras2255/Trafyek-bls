@@ -67,7 +67,7 @@ export default function InstagramIcon({ size = 32, className = "" }) {
             gradientTransform="translate(12 23) rotate(-55.3758) scale(25.5196)"
           >
             {" "}
-            <stop stop-color="#B13589"></stop>{" "}
+            <stop stopColor="#B13589"></stop>{" "}
             <stop offset="0.79309" stop-color="#C62F94"></stop>{" "}
             <stop offset="1" stop-color="#8A3AC8"></stop>{" "}
           </radialGradient>{" "}

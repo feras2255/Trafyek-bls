@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
+import Textarea from "@/components/ui/textarea";
 
 export default function Contact() {
   return (
@@ -9,12 +9,12 @@ export default function Contact() {
       <div className="flex flex-col md:flex-row gap-10">
         <div className="w-full md:w-7/12">
           <form action="" className="space-y-6">
-            <Input placeholder="الاسم" className="w-full" />
-            <Input placeholder="الايميل" className="w-full" />
-            <Input placeholder="الجوال" className="w-full" />
-            <Textarea placeholder="الرسالة" className="w-full" />
+            <Input type={"text"} placeholder="الاسم" />
+            <Input type={"email"} placeholder="الايميل" />
+            <Input type={"number"} placeholder="الجوال" />
+            <Textarea placeholder="الرسالة" />
             <div className="flex justify-center mt-4">
-              <Button className="w-1/2 cursor-pointer text-xl">ارسال</Button>
+              <Button title={"ارسال"} color={"primary"} />
             </div>
           </form>
         </div>
