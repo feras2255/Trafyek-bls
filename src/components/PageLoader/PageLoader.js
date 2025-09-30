@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useSiteSettings } from "@/app/context/SiteSettingsContext";
 
 export default function PageLoader() {
   const settings = useSiteSettings();
