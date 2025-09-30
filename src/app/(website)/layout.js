@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 export default function WebsiteLayout({ children }) {
   return (
     <div className="pt-20">
-      <PageLoader logo="/logo.png" />
+      <PageLoader />
 
       <Header />
       {children}
