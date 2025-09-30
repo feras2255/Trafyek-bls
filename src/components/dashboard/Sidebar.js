@@ -1,13 +1,25 @@
 import Link from "next/link";
-import { Home, Users, Settings, Package, Mail } from "lucide-react";
+import { Home, Settings, Package, Mail, Layers, Folder } from "lucide-react";
 
 export default function DashboardSidebar({ isOpen }) {
+  //   <Tags size={32} />
+
   const menu = [
     { label: "الرئيسية", href: "/dashboard", icon: <Home size={20} /> },
+    {
+      label: "التصنيفات",
+      href: "/dashboard/categories",
+      icon: <Layers size={20} />,
+    },
     {
       label: "المنتجات",
       href: "/dashboard/products",
       icon: <Package size={20} />,
+    },
+    {
+      label: "المشاريع",
+      href: "/dashboard/projects",
+      icon: <Folder size={20} />,
     },
     {
       label: "المراسلات",

@@ -1,4 +1,3 @@
-// src/app/(dashboard)/dashboard/products/edit/[id]/page.js
 "use client";
 
 import { useEffect, useState } from "react";
@@ -15,14 +14,26 @@ export default function EditProductPage() {
   const router = useRouter();
   const id = params?.id;
 
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    price: "",
+    category_id: "",
+  });
+  const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // fetch product
   useEffect(() => {
     if (!id) return;
     const fetchProduct = async () => {
@@ -31,26 +42,41 @@ export default function EditProductPage() {
         .select("*")
         .eq("id", id)
         .single();
+
       if (error) {
         console.error(error);
         return;
       }
       setProduct(data);
-      setTitle(data.title ?? "");
-      setDescription(data.description ?? "");
-      setPrice(data.price ?? "");
-      setCategory(data.category ?? "");
+      setFormData({
+        title: data.title ?? "",
+        description: data.description ?? "",
+        price: data.price ?? "",
+        category_id: data.category_id ?? "",
+        image_url: data.image_url ?? "",
+      });
     };
     fetchProduct();
   }, [id]);
 
-  if (!product) return <p className="p-6">جاري التحميل...</p>;
+  // fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const { data, error } = await supabase.from("categories").select("*");
+      if (error) {
+        console.error("Error fetching categories:", error.message);
+      } else {
+        setCategories(data);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    let imageUrl = product.image_url || "";
+    let imageUrl = formData.image_url || "";
 
     if (image) {
       try {
@@ -58,7 +84,7 @@ export default function EditProductPage() {
         const fileName = `${Date.now()}.${fileExt}`;
         const filePath = fileName;
 
-        const { data: uploadData, error: uploadError } = await supabase.storage
+        const { error: uploadError } = await supabase.storage
           .from("products")
           .upload(filePath, image, { upsert: true });
 
@@ -79,7 +105,10 @@ export default function EditProductPage() {
 
     const { error } = await supabase
       .from("products")
-      .update({ title, description, price, category, image_url: imageUrl })
+      .update({
+        ...formData,
+        image_url: imageUrl,
+      })
       .eq("id", id);
 
     setLoading(false);
@@ -103,32 +132,43 @@ export default function EditProductPage() {
         className="bg-card shadow rounded p-6 space-y-4"
       >
         <Input
+          name="title"
           type="text"
           placeholder="العنوان"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={formData.title}
+          onChange={handleChange}
         />
 
         <Textarea
+          name="description"
           placeholder="الوصف"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={formData.description}
+          onChange={handleChange}
         />
 
         <Input
+          name="price"
           type="number"
           placeholder="السعر"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="التصنيف"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          value={formData.price}
+          onChange={handleChange}
         />
 
-        <FileInput setImage={setImage} initialImage={product.image_url} />
+        <select
+          name="category_id"
+          value={formData.category_id}
+          onChange={handleChange}
+          className="bg-card text-maintext w-full border rounded-md p-2 outline-none "
+        >
+          <option value="">اختر التصنيف</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.title}
+            </option>
+          ))}
+        </select>
+
+        <FileInput setImage={setImage} initialImage={product?.image_url} />
 
         <div>
           <button

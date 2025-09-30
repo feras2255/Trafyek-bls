@@ -1,7 +1,7 @@
 import { Tajawal } from "next/font/google";
 import "./globals.css";
 import AOSProvider from "./AOSProvider";
-import PageLoader from "@/components/PageLoader/PageLoader";
+import { SiteSettingsProvider } from "./context/SiteSettingsContext";
 
 const tajawal = Tajawal({
   subsets: ["arabic"],
@@ -21,7 +21,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
       <body className={`${tajawal.className} `}>
-        <AOSProvider>{children}</AOSProvider>
+        <SiteSettingsProvider>
+          <AOSProvider>{children}</AOSProvider>
+        </SiteSettingsProvider>
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { Toaster } from "@/components/ui/sonner";
+import DashboardLoader from "@/components/dashboard/DashboardLoader";
 
 export default function DashboardLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -34,7 +35,9 @@ export default function DashboardLayout({ children }) {
         <DashboardHeader
           toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         />
-        <main className="p-6">
+        <main className="p-6 relative min-h-screen">
+          <DashboardLoader />
+
           {children}
           <Toaster />
         </main>

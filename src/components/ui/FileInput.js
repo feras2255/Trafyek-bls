@@ -21,7 +21,6 @@ export default function FileInput({ setImage, initialImage }) {
 
   return (
     <div className="space-y-3">
-      {/* زر رفع */}
       <label className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer inline-block">
         اختر صورة
         <input
@@ -32,7 +31,6 @@ export default function FileInput({ setImage, initialImage }) {
         />
       </label>
 
-      {/* معاينة */}
       {preview && (
         <Image
           src={preview}

@@ -7,6 +7,8 @@ import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Card from "../card";
 import Title from "./Title";
+import { supabase } from "@/lib/supabaseClient";
+import { useEffect, useState } from "react";
 
 const services = [
   {
@@ -76,6 +78,15 @@ const services = [
 ];
 
 export default function ProductsSlider() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, error } = await supabase.from("products").select("*");
+      if (!error) setProducts(data);
+    };
+    fetchProducts();
+  }, []);
   return (
     <div className="container mx-auto px-4 py-10 ">
       <Title />
@@ -96,12 +107,12 @@ export default function ProductsSlider() {
         }}
         className="w-full h-full "
       >
-        {services.map((service) => (
+        {products.map((product) => (
           <SwiperSlide
-            key={service.id}
+            key={product.id}
             className="relative flex items-center justify-center"
           >
-            <Card service={service} />
+            <Card service={product} />
           </SwiperSlide>
         ))}
       </Swiper>

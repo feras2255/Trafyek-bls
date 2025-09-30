@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
@@ -9,13 +9,37 @@ import Textarea from "@/components/ui/textarea";
 import FileInput from "@/components/ui/FileInput";
 
 export default function NewProduct() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    price: "",
+    category: "",
+  });
+  const [categories, setCategories] = useState([]);
   const [image, setImage] = useState(null);
   const router = useRouter();
 
+  // fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const { data, error } = await supabase.from("categories").select("*");
+      if (error) {
+        console.error("Error fetching categories:", error.message);
+      } else {
+        setCategories(data);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,7 +49,7 @@ export default function NewProduct() {
       const fileName = `${Date.now()}.${fileExt}`;
       const filePath = `${fileName}`;
 
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from("products")
         .upload(filePath, image, {
           cacheControl: "3600",
@@ -48,10 +72,10 @@ export default function NewProduct() {
     // Insert the new product
     const { error } = await supabase.from("products").insert([
       {
-        title,
-        description,
-        price,
-        category,
+        title: formData.title,
+        description: formData.description,
+        price: formData.price,
+        category_id: formData.category,
         image_url: imageUrl,
       },
     ]);
@@ -75,31 +99,41 @@ export default function NewProduct() {
         className="bg-card shadow rounded-md p-6 space-y-4"
       >
         <Input
+          name="title"
           type="text"
           placeholder="العنوان"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={formData.title}
+          onChange={handleChange}
         />
 
         <Textarea
+          name="description"
           placeholder="الوصف"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={formData.description}
+          onChange={handleChange}
         />
 
         <Input
+          name="price"
           type="number"
           placeholder="السعر"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          value={formData.price}
+          onChange={handleChange}
         />
 
-        <Input
-          type="text"
-          placeholder="التصنيف"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
+        <select
+          name="category"
+          className="w-full border rounded-md p-2 bg-card text-maintext"
+          value={formData.category}
+          onChange={handleChange}
+        >
+          <option value="">اختر التصنيف</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.title}
+            </option>
+          ))}
+        </select>
 
         <FileInput setImage={setImage} />
 

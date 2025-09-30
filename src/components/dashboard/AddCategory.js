@@ -1,0 +1,144 @@
+"use client";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabaseClient";
+import { toast } from "sonner";
+import Dialog from "./Dialog";
+import Input from "../ui/input";
+import FileInput from "../ui/FileInput";
+
+export default function AddCategory({
+  onAdded,
+  categoryToEdit = null,
+  onClose,
+}) {
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // لما يكون تعديل عبّي الحقول
+  useEffect(() => {
+    if (categoryToEdit) {
+      setTitle(categoryToEdit.title || "");
+      setOpen(true);
+    }
+  }, [categoryToEdit]);
+
+  // Extract the file path from the public URL
+  const extractFilePath = (url) => {
+    try {
+      const parts = url.split("/storage/v1/object/public/categories/");
+      return parts[1];
+    } catch {
+      return null;
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    let imageUrl = categoryToEdit?.image_url || "";
+
+    // رفع صورة جديدة إذا تم اختيارها
+    if (image) {
+      // في حالة التعديل نحذف الصورة القديمة
+      if (categoryToEdit?.image_url) {
+        const oldPath = extractFilePath(categoryToEdit.image_url);
+        if (oldPath) {
+          await supabase.storage.from("categories").remove([oldPath]);
+        }
+      }
+
+      const fileExt = image.name.split(".").pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `uploads/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("categories")
+        .upload(filePath, image);
+
+      if (uploadError) {
+        toast.error("فشل رفع الصورة: " + uploadError.message);
+        setLoading(false);
+        return;
+      }
+
+      const { data } = supabase.storage
+        .from("categories")
+        .getPublicUrl(filePath);
+
+      imageUrl = data.publicUrl;
+    }
+
+    let data, error;
+    if (categoryToEdit) {
+      // تعديل
+      ({ data, error } = await supabase
+        .from("categories")
+        .update({ title, image_url: imageUrl })
+        .eq("id", categoryToEdit.id)
+        .select()
+        .single());
+    } else {
+      // إضافة
+      ({ data, error } = await supabase
+        .from("categories")
+        .insert([{ title, image_url: imageUrl }])
+        .select()
+        .single());
+    }
+
+    setLoading(false);
+    if (error) {
+      toast.error("فشل العملية: " + error.message);
+    } else {
+      toast.success(categoryToEdit ? "تم تحديث التصنيف" : "تم إضافة التصنيف");
+      setTitle("");
+      setImage(null);
+      setOpen(false);
+      onAdded?.(data);
+      onClose?.();
+    }
+  };
+
+  return (
+    <div>
+      {!categoryToEdit && (
+        <button
+          className="rounded bg-card px-4 py-2 text-white cursor-pointer"
+          onClick={() => setOpen(true)}
+        >
+          + إضافة تصنيف
+        </button>
+      )}
+
+      <Dialog
+        open={open}
+        onClose={() => {
+          setOpen(false);
+          onClose?.();
+        }}
+        title={categoryToEdit ? "تعديل التصنيف" : "إضافة تصنيف"}
+      >
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            type="text"
+            name="title"
+            placeholder="أدخل اسم التصنيف"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <FileInput setImage={setImage} />
+          <button
+            type="submit"
+            className="rounded bg-background px-4 py-2 text-white w-full cursor-pointer"
+            disabled={loading}
+          >
+            {loading ? "جاري الحفظ..." : categoryToEdit ? "تحديث" : "إضافة"}
+          </button>
+        </form>
+      </Dialog>
+    </div>
+  );
+}

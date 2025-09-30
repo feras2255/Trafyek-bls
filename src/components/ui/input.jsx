@@ -1,4 +1,11 @@
-export default function Input({ type, placeholder, name, value, onChange }) {
+export default function Input({
+  type,
+  placeholder,
+  name,
+  value,
+  onChange,
+  rquired,
+}) {
   return (
     <input
       name={name}
@@ -7,6 +14,7 @@ export default function Input({ type, placeholder, name, value, onChange }) {
       value={value}
       onChange={onChange}
       className="text-maintext placeholder:text-secondarytext font-semibold border border-border p-2 w-full rounded outline-none"
+      required={rquired}
     />
   );
 }

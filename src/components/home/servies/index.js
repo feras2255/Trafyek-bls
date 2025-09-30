@@ -7,47 +7,19 @@ import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import Link from "next/link";
-
-const services = [
-  {
-    id: crypto.randomUUID(),
-    title: "خدمات المتاجر",
-    image: "/Services.webp",
-    slug: "stores-services",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "الخدمات الحكومية",
-    image: "/Services2.webp",
-    slug: "government-services",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "خدمات جوجل ماب",
-    image: "/Services3.webp",
-    slug: "google-maps",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "الخدمات المالية",
-    image: "/Services4.webp",
-    slug: "financial-services",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "تحسين محركات البحث",
-    image: "/Services5.webp",
-    slug: "seo",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "التصميم الجرافيكي",
-    image: "/Services6.webp",
-    slug: "graphic-design",
-  },
-];
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function Slider() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const { data, error } = await supabase.from("categories").select("*");
+      if (!error) setCategories(data);
+    };
+    fetchCategories();
+  }, []);
   return (
     <div className="container mx-auto px-4 py-0 ">
       <div className="bg-gradient-to-r from-accent to-destructive w-fit mx-auto px-4 py-1  flex items-center justify-center rounded-lg mb-8">
@@ -70,18 +42,18 @@ export default function Slider() {
         }}
         className="w-full h-[120px] sm:h-[200px] md:h-[220px] lg:h-[250px]"
       >
-        {services.map((service) => (
+        {categories.map((category) => (
           <SwiperSlide
-            key={service.id}
+            key={category.id}
             className="relative flex items-center justify-center"
           >
             <Link
-              href={`/services/${service.slug}`}
+              href={`/services/${category.slug}`}
               className="w-full h-full block relative"
             >
               <Image
-                src={service.image}
-                alt={service.title}
+                src={category.image_url}
+                alt={category.title}
                 fill
                 className="object-cover"
                 priority

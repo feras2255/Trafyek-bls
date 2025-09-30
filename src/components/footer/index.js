@@ -1,9 +1,11 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import PaymentIcons from "./PaymentIcons";
 import ContactLinks from "./ContactLinks";
 import SocialLinks from "./SocialLinks";
+import { useSiteSettings } from "@/app/context/SiteSettingsContext";
 
 const links = [
   { id: 1, title: "الرئيسية", href: "/" },
@@ -14,6 +16,8 @@ const links = [
   { id: 6, title: "اتصل بنا", href: "/contact" },
 ];
 export default function Footer() {
+  const settings = useSiteSettings();
+  if (!settings) return null;
   return (
     <footer className="bg-accent text-maintext mt-20">
       <div className="container mx-auto px-4 py-8">
@@ -21,18 +25,14 @@ export default function Footer() {
           <div>
             <div>
               <Image
-                src="/logow.png"
+                src={settings.settings.image_url}
                 alt="logo"
-                width={400}
-                height={80}
+                width={160}
+                height={60}
                 className="mx-auto"
               />
             </div>
-            <p className="mt-4 text-justify">
-              مرحبًا بك في ترافيك بلس، وجهتك المتكاملة للخدمات المالية
-              والإدارية! نحن متخصصون في تقديم حلول مبتكرة لتلبية احتياجات
-              الأفراد والشركات، مع التركيز على الجودة والسرعة والموثوقية
-            </p>
+            <p className="mt-4 text-justify">{settings.settings.description}</p>
           </div>
           {/* quick links */}
           <div className="mt-2">
@@ -53,8 +53,8 @@ export default function Footer() {
           {/* Contact us */}
           <div className="mt-2">
             <h3 className="text-2xl font-bold text-primary">تواصل معنا</h3>
-            <ContactLinks />
-            <SocialLinks />
+            <ContactLinks links={settings.settings} />
+            <SocialLinks links={settings.settings} />
           </div>
           {/* saudia business center */}
           <div>

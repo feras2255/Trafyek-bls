@@ -5,17 +5,27 @@ import Link from "next/link";
 import Image from "next/image";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import { toast } from "sonner";
+import CategoryFilter from "@/components/dashboard/CategoryFilter";
 export default function ProductsDashboard() {
   const [products, setProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [selectedCategory]);
 
   const fetchProducts = async () => {
-    const { data, error } = await supabase.from("products").select("*");
-    if (error) console.log(error);
-    else setProducts(data);
+    let query = supabase
+      .from("products")
+      .select("id, title, price, image_url, categories(title)");
+
+    if (selectedCategory) {
+      query = query.eq("category_id", selectedCategory);
+    }
+
+    const { data, error } = await query;
+
+    if (!error) setProducts(data);
   };
 
   const handleDelete = async (id) => {
@@ -36,10 +46,13 @@ export default function ProductsDashboard() {
         url="/dashboard/products/new"
         textBtn={"إضافة منتج "}
       />
+      <div className="flex  mb-4">
+        <CategoryFilter onChange={setSelectedCategory} />
+      </div>
 
       {products.length > 0 ? (
         <table className="w-full bg-card shadow rounded-md border border-border overflow-hidden">
-          <thead className="bg-sidebar-primary text-maintext text-right">
+          <thead className="bg-sidebar-primary text-maintext text-center">
             <tr>
               <th className="p-3">الصورة</th>
               <th className="p-3">العنوان</th>
@@ -50,19 +63,26 @@ export default function ProductsDashboard() {
           </thead>
           <tbody>
             {products.map((p) => (
-              <tr key={p.id} className="border text-maintext font-semibold">
+              <tr
+                key={p.id}
+                className="border text-maintext font-semibold text-center"
+              >
                 <td className="p-3">
                   <Image
                     src={p.image_url}
                     alt={p.title}
-                    width={100}
-                    height={100}
+                    width={80}
+                    height={80}
                     className="object-cover rounded"
                   />
                 </td>
                 <td className="p-3">{p.title}</td>
                 <td className="p-3">{p.price} ريال</td>
-                <td className="p-3">{p.category}</td>
+                <td className="p-3">
+                  <p className="text-secondary bg-accent px-0 py-2 rounded block">
+                    {p.categories?.title || "غير مصنف"}
+                  </p>
+                </td>
                 <td className="p-3 space-x-2">
                   <Link
                     href={`/dashboard/products/edit/${p.id}`}

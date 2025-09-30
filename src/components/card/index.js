@@ -8,31 +8,31 @@ export default function Card({ service }) {
     <div className="bg-maintext rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative w-full h-36 md:h-48">
         <Image
-          src={service.image}
+          src={service.image_url}
           alt={service.title}
           fill
           className="object-cover"
         />
       </div>
 
-      <div className="p-2 md:p-4 flex flex-col gap-1 md:gap-2">
-        <h2 className="text-sm md:text-lg font-bold text-background">
+      <div className="p-2 md:p-4 bg-card flex flex-col gap-y-2 md:gap-2">
+        <h2 className="text-sm md:text-lg font-bold text-primary">
           {service.title}
         </h2>
 
-        <p className="text-sm font-semibold bg-secondarytext py-1 px-2 text-background rounded">
-          {service.category}
+        <p className="text-sm text-secondarytext font-semibold bg-accent px-2 py-1 rounded">
+          {service.categories?.title || "غير مصنف"}
         </p>
 
-        <p className="text-primary font-semibold text-base">
+        <p className="text-maintext font-semibold text-xl">
           {service.price} ر.س
         </p>
 
         <Link
           href={`/services/${service.slug}`}
-          className="mt-2 inline-block bg-gradient-to-r from-accent to-destructive text-white text-center py-2 px-4 rounded-lg font-medium hover:opacity-90 transition"
+          className=" py-2 px-4 mt-2 text-white font-semibold bg-background hover:bg-background/80 text-center rounded-lg transition"
         >
-          عرض الخدمة
+          لطلب الخدمة
         </Link>
       </div>
     </div>

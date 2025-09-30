@@ -4,11 +4,11 @@ import Tiktok from "@/components/icons/Tiktok";
 import SnapchatIcon from "@/components/icons/SnapchatIcon";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 
-export default function SocialLinks() {
+export default function SocialLinks({ links }) {
   return (
     <div className="flex justify-center gap-x-4 mt-3">
       <a
-        href="https://t.snapchat.com/"
+        href={links.snapchat}
         target="_blank"
         rel="noopener noreferrer"
         className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
@@ -17,7 +17,7 @@ export default function SocialLinks() {
       </a>
 
       <a
-        href="https://www.tiktok.com"
+        href={links.tiktok}
         target="_blank"
         rel="noopener noreferrer"
         className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
@@ -26,7 +26,7 @@ export default function SocialLinks() {
       </a>
 
       <a
-        href="https://www.instagram.com/"
+        href={links.instagram}
         target="_blank"
         rel="noopener noreferrer"
         className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
@@ -35,7 +35,7 @@ export default function SocialLinks() {
       </a>
 
       <a
-        href="https://x.com/"
+        href={links.x_account}
         target="_blank"
         rel="noopener noreferrer"
         className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
