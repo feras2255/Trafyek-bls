@@ -43,6 +43,17 @@ export default function NewProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { data: existingProducts, error: orderError } = await supabase
+      .from("products")
+      .select("order")
+      .order("order", { ascending: false })
+      .limit(1);
+
+    let nextOrder = 1;
+    if (!orderError && existingProducts.length > 0) {
+      nextOrder = (existingProducts[0].order || 0) + 1;
+    }
+
     let imageUrl = "";
     if (image) {
       const fileExt = image.name.split(".").pop();
@@ -77,6 +88,7 @@ export default function NewProduct() {
         price: formData.price,
         category_id: formData.category,
         image_url: imageUrl,
+        order: nextOrder,
       },
     ]);
 
@@ -123,7 +135,7 @@ export default function NewProduct() {
 
         <select
           name="category"
-          className="w-full border rounded-md p-2 bg-card text-maintext"
+          className="w-full border rounded-md p-2 bg-card text-secondarytext"
           value={formData.category}
           onChange={handleChange}
         >
@@ -137,7 +149,7 @@ export default function NewProduct() {
 
         <FileInput setImage={setImage} />
 
-        <Button title="حفظ" color="primary" type="submit" />
+        <Button title="حفظ" color="secondary" type="submit" size={"full"} />
       </form>
     </div>
   );

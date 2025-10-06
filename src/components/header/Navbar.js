@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <nav className="relative">
-      {/* للشاشات الكبيرة */}
+      {/* */}
       <ul className="hidden md:flex gap-6 text-maintext text-xl font-bold">
         {links.map((link) => (
           <li key={link.id}>

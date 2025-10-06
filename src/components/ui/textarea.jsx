@@ -8,7 +8,7 @@ export default function Textarea({ name, value, onChange, placeholder }) {
       value={value}
       onChange={onChange}
       rows="6"
-      className="text-maintext placeholder:text-secondarytext font-semibold border border-border p-2 w-full rounded outline-none"
+      className="text-secondarytext placeholder:text-border font-semibold border border-border p-2 w-full rounded outline-none"
     />
   );
 }

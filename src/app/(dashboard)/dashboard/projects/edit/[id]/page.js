@@ -137,7 +137,12 @@ export default function EditProject() {
           setImage={setImage}
           initialImage={formData?.image_url ?? null}
         />
-        <Button type="submit" title="تحديث المشروع" color="primary" />
+        <Button
+          type="submit"
+          title="تحديث المشروع"
+          color="secondary"
+          size={"full"}
+        />
       </form>
     </div>
   );

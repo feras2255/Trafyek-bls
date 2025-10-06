@@ -6,6 +6,8 @@ import Image from "next/image";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import { toast } from "sonner";
 import CategoryFilter from "@/components/dashboard/CategoryFilter";
+import SortableTable from "@/components/dashboard/SortableTable";
+
 export default function ProductsDashboard() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -17,25 +19,38 @@ export default function ProductsDashboard() {
   const fetchProducts = async () => {
     let query = supabase
       .from("products")
-      .select("id, title, price, image_url, categories(title)");
+      .select("id, title, price, image_url, order, categories(title)");
 
-    if (selectedCategory) {
-      query = query.eq("category_id", selectedCategory);
+    if (selectedCategory) query = query.eq("category_id", selectedCategory);
+
+    const { data, error } = await query.order("order", { ascending: true });
+
+    if (error) toast.error("فشل جلب المنتجات");
+    else setProducts(data || []);
+  };
+
+  const handleReorder = async (newProducts) => {
+    setProducts(newProducts);
+    try {
+      for (let p of newProducts) {
+        await supabase
+          .from("products")
+          .update({ order: p.order })
+          .eq("id", p.id);
+      }
+      toast.success("تم تحديث ترتيب المنتجات بنجاح");
+    } catch {
+      toast.error("فشل تحديث الترتيب");
     }
-
-    const { data, error } = await query;
-
-    if (!error) setProducts(data);
   };
 
   const handleDelete = async (id) => {
     const { error } = await supabase.from("products").delete().eq("id", id);
 
-    if (error) {
-      toast("فشل حذف المنتج.");
-    } else {
-      toast("تم حذف المنتج بنجاح.");
-      fetchProducts();
+    if (error) toast.error("فشل حذف المنتج");
+    else {
+      toast.success("تم حذف المنتج بنجاح");
+      setProducts((prev) => prev.filter((p) => p.id !== id));
     }
   };
 
@@ -44,68 +59,61 @@ export default function ProductsDashboard() {
       <TitleWithBack
         title="إدارة المنتجات"
         url="/dashboard/products/new"
-        textBtn={"إضافة منتج "}
+        textBtn="إضافة منتج"
       />
-      <div className="flex  mb-4">
+
+      <div className=" mb-4">
         <CategoryFilter onChange={setSelectedCategory} />
       </div>
 
-      {products.length > 0 ? (
-        <table className="w-full bg-card shadow rounded-md border border-border overflow-hidden">
-          <thead className="bg-sidebar-primary text-maintext text-center">
-            <tr>
-              <th className="p-3">الصورة</th>
-              <th className="p-3">العنوان</th>
-              <th className="p-3">السعر</th>
-              <th className="p-3">التصنيف</th>
-              <th className="p-3">إجراءات</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((p) => (
-              <tr
-                key={p.id}
-                className="border text-maintext font-semibold text-center"
+      <SortableTable
+        items={products}
+        columns={[
+          "#",
+          "الترتيب",
+          "الصورة",
+          "العنوان",
+          "السعر",
+          "التصنيف",
+          "الإجراءات",
+        ]}
+        onReorder={handleReorder}
+        renderRow={(p, index) => (
+          <>
+            <td className="text-secondary font-bold">{p.order || index + 1}</td>
+            <td className="p-3 text-center">
+              <Image
+                src={p.image_url}
+                alt={p.title}
+                width={60}
+                height={60}
+                className="rounded object-cover mx-auto"
+              />
+            </td>
+            <td className="text-secondary text-lg font-semibold">{p.title}</td>
+            <td className="text-primary font-bold text-lg">{p.price},00</td>
+            <td>
+              <p className="bg-accent text-maintext px-4 py-1 rounded inline-block">
+                {p.categories?.title || "غير مصنف"}
+              </p>
+            </td>
+            <td>
+              <Link
+                href={`/dashboard/products/edit/${p.id}`}
+                className="bg-secondary text-white px-3 py-1 rounded ml-2"
               >
-                <td className="p-3">
-                  <Image
-                    src={p.image_url}
-                    alt={p.title}
-                    width={80}
-                    height={80}
-                    className="object-cover rounded"
-                  />
-                </td>
-                <td className="p-3">{p.title}</td>
-                <td className="p-3">{p.price} ريال</td>
-                <td className="p-3">
-                  <p className="text-secondary bg-accent px-0 py-2 rounded block">
-                    {p.categories?.title || "غير مصنف"}
-                  </p>
-                </td>
-                <td className="p-3 space-x-2">
-                  <Link
-                    href={`/dashboard/products/edit/${p.id}`}
-                    className="bg-primary text-white px-3 py-1 rounded"
-                  >
-                    تعديل
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(p.id)}
-                    className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
-                  >
-                    حذف
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div className="flex justify-center mt-44">
-          <p className=" text-3xl text-primary font-bold">لا يوجد منتجات</p>
-        </div>
-      )}
+                تعديل
+              </Link>
+              <button
+                onClick={() => handleDelete(p.id)}
+                className="bg-destructive text-white px-3 py-1 rounded cursor-pointer ml-2"
+              >
+                حذف
+              </button>
+            </td>
+          </>
+        )}
+      />
     </section>
   );
 }

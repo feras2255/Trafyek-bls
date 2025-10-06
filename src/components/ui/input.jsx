@@ -7,14 +7,17 @@ export default function Input({
   rquired,
 }) {
   return (
-    <input
-      name={name}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      className="text-maintext placeholder:text-secondarytext font-semibold border border-border p-2 w-full rounded outline-none"
-      required={rquired}
-    />
+    <div>
+      <label className="text-primary font-semibold">{placeholder}</label>
+      <input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className="text-secondarytext placeholder:text-border font-semibold border border-border p-2 mt-2 w-full rounded outline-none"
+        required={rquired}
+      />
+    </div>
   );
 }

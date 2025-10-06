@@ -24,7 +24,7 @@ export default function DashboardHeader({ toggleSidebar }) {
       <div className="flex items-center gap-4">
         <button
           onClick={handleLogout}
-          className="bg-card text-white px-4 py-2 rounded cursor-pointer hover:bg-accent transition duration-300"
+          className="bg-input text-maintext px-4 py-2 rounded cursor-pointer hover:bg-accent transition duration-300"
         >
           تسجيل خروج
         </button>
@@ -42,7 +42,7 @@ export default function DashboardHeader({ toggleSidebar }) {
               height={40}
               className="rounded-full"
             />
-            <span className="text-sm font-bold text-secondary mt-4">
+            <span className="text-sm font-bold text-maintext mt-4">
               المستخدم
             </span>
           </div>

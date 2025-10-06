@@ -7,7 +7,6 @@ import Link from "next/link";
 export default function Messages() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     async function fetchMessages() {
       try {
@@ -35,11 +34,11 @@ export default function Messages() {
         <div className="mt-10 grid grid-cols-1 gap-4">
           {messages.map((msg) => (
             <Link key={msg.id} href={`/dashboard/messages/${msg.id}`}>
-              <div className="bg-card rounded-md py-4 shadow-lg grid grid-cols-3">
-                <h1 className="text-2xl text-maintext font-semibold px-4 py-2 ">
+              <div className="bg-card rounded-md py-4 grid grid-cols-3">
+                <h1 className="text-2xl text-secondary font-semibold px-4 py-2 ">
                   {msg.name}
                 </h1>
-                <p className="text-xl text-secondarytext px-4 py-2 ">
+                <p className="text-xl text-secondary font-semibold px-4 py-2 ">
                   {msg.email}
                 </p>
                 <p className="text-secondary text-lg font-bold px-4 py-2">

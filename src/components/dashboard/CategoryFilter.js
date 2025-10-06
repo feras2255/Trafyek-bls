@@ -18,7 +18,7 @@ export default function CategoryFilter({ onChange }) {
   return (
     <select
       onChange={(e) => onChange(e.target.value)}
-      className="text-maintext bg-accent rounded px-3 py-2"
+      className="w-full text-secondarytext bg-card rounded px-3 py-2 outline-none"
     >
       <option value="">كل التصنيفات</option>
       {categories.map((cat) => (

@@ -143,7 +143,12 @@ export default function Settings() {
           setImage={handleImageUpload}
           initialImage={settings.image_url}
         />
-        <Button type="submit" title="تحديث الاعدادات" color="primary" />
+        <Button
+          type="submit"
+          title="تحديث الاعدادات"
+          color="primary"
+          size={"full"}
+        />
       </form>
     </div>
   );

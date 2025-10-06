@@ -36,30 +36,26 @@ export default function MessageDetails() {
     <div className="">
       <MainTitle title=" تفاصيل الرسالة" />
 
-      <div className="bg-card px-6 pt-6 mt-12 rounded-md shadow-lg space-y-4">
-        <p className="text-lg text-secondary">
-          <span className="text-primary font-bold ml-4">الاسم:</span>{" "}
-          {message.name}
+      <div className="bg-card px-6 pt-6 mt-12 rounded-md space-y-4">
+        <p className="text-lg text-secondary font-bold">
+          <span className="text-xl ml-4">الاسم:</span> {message.name}
         </p>
-        <p className="text-lg text-secondary">
-          <span className="text-primary font-bold ml-4">الايميل:</span>{" "}
-          {message.email}
+        <p className="text-lg text-secondary font-bold">
+          <span className="text-xl ml-4">الايميل:</span> {message.email}
         </p>
-        <p className="text-lg text-secondary">
-          <span className="text-primary font-bold ml-4">الجوال:</span>{" "}
-          {message.phone}
+        <p className="text-lg text-secondary font-bold">
+          <span className="text-xl ml-4">الجوال:</span> {message.phone}
         </p>
-        <p className="text-lg text-secondary">
-          <span className="text-primary font-bold ml-4">الرسالة:</span>{" "}
-          {message.message}
+        <p className="text-lg text-secondary font-bold">
+          <span className="text-xl ml-4">الرسالة:</span> {message.message}
         </p>
-        <p className="text-sm text-secondarytext mx-4">
+        <p className="text-md text-secondarytext font-semibold mx-4">
           التاريخ: {new Date(message.created_at).toLocaleDateString("ar-EG")} -{" "}
           {new Date(message.created_at).toLocaleTimeString("ar-EG")}
         </p>
         <div className="flex justify-end pb-3">
           <Button
-            title="⬅ العودة"
+            title="العودة ⬅"
             onClick={() => router.push("/dashboard/messages")}
           />
         </div>

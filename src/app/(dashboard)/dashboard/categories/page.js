@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
 import AddCategory from "@/components/dashboard/AddCategory";
+import SortableTable from "@/components/dashboard/SortableTable";
+import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 export default function Categories() {
@@ -13,124 +14,126 @@ export default function Categories() {
     fetchCategories();
   }, []);
 
+  // fetch categories
   const fetchCategories = async () => {
     const { data, error } = await supabase
       .from("categories")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("order", { ascending: true });
 
-    if (!error) setCategories(data);
+    if (error) toast.error("فشل جلب التصنيفات.");
+    else setCategories(data || []);
   };
 
-  // استخراج المسار الصحيح من URL
+  // update order
+  const handleReorder = async (newCategories) => {
+    setCategories(newCategories);
+
+    try {
+      for (let c of newCategories) {
+        await supabase
+          .from("categories")
+          .update({ order: c.order })
+          .eq("id", c.id);
+      }
+      toast.success("تم تحديث الترتيب بنجاح.");
+    } catch (err) {
+      toast.error("فشل تحديث الترتيب.");
+    }
+  };
+
+  // extract the file path from the URL
   const extractFilePath = (url) => {
     try {
-      // نقسم على "categories/" عشان نجيب الجزء اللي بعد اسم البكيت
       const parts = url.split("categories/");
-      return parts[1]; // مثال: "uploads/1759150822460.png"
+      return parts[1];
     } catch {
       return null;
     }
   };
 
-  // حذف التصنيف + الصورة
+  // delete category
   const handleDelete = async (id, imageUrl) => {
-    // أولاً نحذف الصورة من التخزين
     if (imageUrl) {
       const filePath = extractFilePath(imageUrl);
       if (filePath) {
         const { error: storageError } = await supabase.storage
-          .from("categories") // اسم البكيت
+          .from("categories")
           .remove([filePath]);
 
-        if (storageError) {
+        if (storageError)
           console.error("خطأ في حذف الصورة:", storageError.message);
-        } else {
-          console.log("Storage remove success:", filePath);
-        }
+        else console.log("Storage remove success:", filePath);
       }
     }
 
-    // ثانياً نحذف السجل من الجدول
     const { error } = await supabase.from("categories").delete().eq("id", id);
     if (!error) {
-      setCategories(categories.filter((c) => c.id !== id));
-      toast("تم حذف التصنيف بنجاح.");
+      setCategories((prev) => prev.filter((c) => c.id !== id));
+      toast.success("تم حذف التصنيف بنجاح.");
     } else {
-      toast("فشل حذف التصنيف.");
+      toast.error("فشل حذف التصنيف.");
     }
   };
 
+  // add category or update
   const handleSaved = (category) => {
     if (editingCategory) {
-      // تعديل
-      setCategories(
-        categories.map((c) => (c.id === category.id ? category : c))
+      setCategories((prev) =>
+        prev.map((c) => (c.id === category.id ? category : c))
       );
       setEditingCategory(null);
     } else {
-      // إضافة
-      setCategories([category, ...categories]);
+      setCategories((prev) => [...prev, category]);
     }
   };
 
   return (
-    <div className=" space-y-6">
+    <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-primary text-2xl font-bold">إدارة التصنيفات</h1>
+        <h1 className="text-secondary text-2xl font-bold">إدارة التصنيفات</h1>
         <AddCategory onAdded={handleSaved} />
       </div>
 
-      <table className="w-full bg-card shadow rounded border border-border overflow-hidden mt-6">
-        <thead className="bg-sidebar-primary text-maintext text-center">
-          <tr>
-            <th className="p-3">#</th>
-            <th className="p-3">اسم التصنيف</th>
-            <th className="p-3">صورة التصنيف</th>
-            <th className="p-3">الإجراءات</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map((c, index) => (
-            <tr key={c.id} className="border text-maintext text-center">
-              <td className="p-3">{index + 1}</td>
-              <td className="p-3 font-semibold">{c.title}</td>
-              <td className="p-2 ">
-                <Image
-                  src={c.image_url || "/defult.png"}
-                  alt={c.title}
-                  width={60}
-                  height={60}
-                  className="object-cover rounded-full mx-auto"
-                />
-              </td>
-              <td className="p-3">
-                <div className="flex items-center justify-center gap-2">
-                  <button
-                    onClick={() => setEditingCategory(c)}
-                    className="bg-background text-white px-3 py-1 rounded cursor-pointer"
-                  >
-                    تعديل
-                  </button>
-                  <button
-                    onClick={() => handleDelete(c.id, c.image_url)}
-                    className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
-                  >
-                    حذف
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-          {categories.length === 0 && (
-            <tr>
-              <td colSpan="4" className="text-center p-4 text-gray-500">
-                لا توجد تصنيفات بعد.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <SortableTable
+        items={categories}
+        columns={["#", "الترتيب", "الاسم", "الصورة", "التحكم"]}
+        onReorder={handleReorder}
+        renderRow={(category) => (
+          <>
+            <td className="text-secondary text-lg font-semibold">
+              {category.order}
+            </td>
+            <td className="text-secondary text-lg font-semibold">
+              {category.title}
+            </td>
+            <td className="p-2 text-center">
+              <Image
+                src={category.image_url || "/default.png"}
+                alt={category.title}
+                width={50}
+                height={50}
+                style={{ width: "auto", height: "auto" }}
+                className="rounded-full mx-auto object-cover"
+              />
+            </td>
+            <td className="space-x-2">
+              <button
+                onClick={() => setEditingCategory(category)}
+                className="bg-secondary text-white px-3 py-1 rounded cursor-pointer"
+              >
+                تعديل
+              </button>
+              <button
+                onClick={() => handleDelete(category.id, category.image_url)}
+                className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
+              >
+                حذف
+              </button>
+            </td>
+          </>
+        )}
+      />
 
       {editingCategory && (
         <AddCategory

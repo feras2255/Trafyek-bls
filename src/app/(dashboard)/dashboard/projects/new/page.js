@@ -50,6 +50,17 @@ export default function AddProject() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { data: existingProjects, error: orderError } = await supabase
+      .from("projects")
+      .select("order")
+      .order("order", { ascending: false })
+      .limit(1);
+
+    let nextOrder = 1;
+    if (!orderError && existingProjects.length > 0) {
+      nextOrder = (existingProjects[0].order || 0) + 1;
+    }
+
     const imageUrl = await uploadImage();
 
     const { data, error } = await supabase.from("projects").insert({
@@ -57,6 +68,7 @@ export default function AddProject() {
       description: formData.description,
       project_link: formData.projectLink,
       image_url: imageUrl,
+      order: nextOrder,
     });
 
     if (error) {
@@ -107,7 +119,12 @@ export default function AddProject() {
           onChange={handleChange}
         />
         <FileInput setImage={setImage} />
-        <Button title="اضافة المشروع" type="submit" color="primary" />
+        <Button
+          title="اضافة المشروع"
+          type="submit"
+          color="secondary"
+          size={"full"}
+        />
       </form>
     </div>
   );

@@ -16,7 +16,7 @@ export default function TitleWithBack({ title, onBack, url, textBtn }) {
         type="button"
         onClick={handleBack}
         aria-label="عودة إلى لوحة التحكم"
-        className="inline-flex items-center  bg-card  text-maintext hover:bg-accent px-3 py-2 rounded shadow-sm cursor-pointer"
+        className="inline-flex items-center  bg-sidebar-primary text-maintext hover:bg-secondary px-3 py-2 rounded shadow-sm cursor-pointer transition duration-300"
       >
         <span className="text-md font-semibold">{textBtn}</span>
 

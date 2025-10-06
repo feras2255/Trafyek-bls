@@ -16,7 +16,6 @@ export default function AddCategory({
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // لما يكون تعديل عبّي الحقول
   useEffect(() => {
     if (categoryToEdit) {
       setTitle(categoryToEdit.title || "");
@@ -24,7 +23,6 @@ export default function AddCategory({
     }
   }, [categoryToEdit]);
 
-  // Extract the file path from the public URL
   const extractFilePath = (url) => {
     try {
       const parts = url.split("/storage/v1/object/public/categories/");
@@ -40,9 +38,7 @@ export default function AddCategory({
 
     let imageUrl = categoryToEdit?.image_url || "";
 
-    // رفع صورة جديدة إذا تم اختيارها
     if (image) {
-      // في حالة التعديل نحذف الصورة القديمة
       if (categoryToEdit?.image_url) {
         const oldPath = extractFilePath(categoryToEdit.image_url);
         if (oldPath) {
@@ -64,16 +60,17 @@ export default function AddCategory({
         return;
       }
 
-      const { data } = supabase.storage
+      const { data: publicData } = supabase.storage
         .from("categories")
         .getPublicUrl(filePath);
 
-      imageUrl = data.publicUrl;
+      imageUrl = publicData.publicUrl;
     }
 
     let data, error;
+
     if (categoryToEdit) {
-      // تعديل
+      // update
       ({ data, error } = await supabase
         .from("categories")
         .update({ title, image_url: imageUrl })
@@ -81,15 +78,25 @@ export default function AddCategory({
         .select()
         .single());
     } else {
-      // إضافة
+      // insert
+      const { data: lastCategory } = await supabase
+        .from("categories")
+        .select("order")
+        .order("order", { ascending: false })
+        .limit(1)
+        .single();
+
+      const nextOrder = lastCategory ? lastCategory.order + 1 : 1;
+
       ({ data, error } = await supabase
         .from("categories")
-        .insert([{ title, image_url: imageUrl }])
+        .insert([{ title, image_url: imageUrl, order: nextOrder }])
         .select()
         .single());
     }
 
     setLoading(false);
+
     if (error) {
       toast.error("فشل العملية: " + error.message);
     } else {
@@ -106,7 +113,7 @@ export default function AddCategory({
     <div>
       {!categoryToEdit && (
         <button
-          className="rounded bg-card px-4 py-2 text-white cursor-pointer"
+          className="rounded bg-secondary px-4 py-2 text-maintext cursor-pointer"
           onClick={() => setOpen(true)}
         >
           + إضافة تصنيف
@@ -132,10 +139,14 @@ export default function AddCategory({
           <FileInput setImage={setImage} />
           <button
             type="submit"
-            className="rounded bg-background px-4 py-2 text-white w-full cursor-pointer"
+            className="rounded bg-secondary px-4 py-2 text-white w-full cursor-pointer"
             disabled={loading}
           >
-            {loading ? "جاري الحفظ..." : categoryToEdit ? "تحديث" : "إضافة"}
+            {loading
+              ? "جاري الحفظ..."
+              : categoryToEdit
+              ? "تحديث التصنيف"
+              : "إضافة تصنيف"}
           </button>
         </form>
       </Dialog>
