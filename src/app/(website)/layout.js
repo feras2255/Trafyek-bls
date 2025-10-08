@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 export default function WebsiteLayout({ children }) {
   return (
-    <div className="pt-20">
+    <div className="pt-14">
       <PageLoader />
 
       <Header />

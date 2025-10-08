@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Image from "next/image";
 import { useSiteSettings } from "@/app/context/SiteSettingsContext";
+import Link from "next/link";
 
 export default function Header() {
   const settings = useSiteSettings();
@@ -32,7 +33,10 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 py-2 md:py-3 flex items-center justify-between">
         <Navbar />
-        <div className="relative w-28 h-8 md:w-24 md:h-12 lg:w-32 lg:h-14">
+        <Link
+          href="/"
+          className="relative w-28 h-8 md:w-24 md:h-12 lg:w-32 lg:h-14"
+        >
           <Image
             src={settings.settings.image_url}
             alt="logo"
@@ -40,7 +44,7 @@ export default function Header() {
             className="object-contain"
             priority
           />
-        </div>
+        </Link>
       </div>
     </header>
   );

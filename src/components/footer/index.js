@@ -19,7 +19,7 @@ export default function Footer() {
   const settings = useSiteSettings();
   if (!settings) return null;
   return (
-    <footer className="bg-border text-maintext mt-20">
+    <footer className="bg-border text-maintext ">
       <div className="container mx-auto px-4 py-8">
         <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div>
@@ -36,13 +36,13 @@ export default function Footer() {
           </div>
           {/* quick links */}
           <div className="mt-2">
-            <h3 className="text-2xl font-bold text-primary">روابط سريعة</h3>
+            <h3 className="text-2xl font-bold ">روابط سريعة</h3>
             <ul className="mt-6 grid grid-cols-2 gap-y-3 gap-x-6">
               {links.map((link) => (
                 <li key={link.id}>
                   <Link
                     href={link.href}
-                    className="text-base md:text-md font-semibold text-maintext hover:text-secondary transition-colors duration-300"
+                    className="text-base md:text-md font-semibold text-maintext hover:text-ring transition-colors duration-300"
                   >
                     {link.title}
                   </Link>
@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
           {/* Contact us */}
           <div className="mt-2">
-            <h3 className="text-2xl font-bold text-primary">تواصل معنا</h3>
+            <h3 className="text-2xl font-bold">تواصل معنا</h3>
             <ContactLinks links={settings.settings} />
             <SocialLinks links={settings.settings} />
           </div>
@@ -70,10 +70,9 @@ export default function Footer() {
           </div>
         </div>
         {/* copyright */}
-        <div className="mt-8 pt-8 border-t border-gray-300 flex flex-col md:flex-row gap-y-4 items-center justify-between ">
+        <div className="mt-8 pt-8 border-t border-ring flex flex-col md:flex-row gap-y-4 items-center justify-between ">
           <PaymentIcons />
-          {/* <p>جميع الحقوق محفوظة &copy; {new Date().getFullYear()} ترافيك بلس</p> */}
-          <div className="mt-4 text-center text-sm text-secondarytext">
+          <div className="mt-4 text-center text-sm text-card">
             <p>
               جميع الحقوق محفوظة &copy; {new Date().getFullYear()} ترافيك بلس
             </p>
@@ -83,7 +82,7 @@ export default function Footer() {
                 href="https://your-portfolio-link.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-secondary hover:underline"
+                className="text-ring hover:underline"
               >
                 Abdelrahman
               </a>

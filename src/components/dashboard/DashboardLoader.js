@@ -8,10 +8,9 @@ export default function DashboardRouteLoader() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // يشتغل مع كل تغيير مسار
     setLoading(true);
 
-    const timer = setTimeout(() => setLoading(false), 600); // وقت مؤقت
+    const timer = setTimeout(() => setLoading(false), 600);
     return () => clearTimeout(timer);
   }, [pathname]);
 

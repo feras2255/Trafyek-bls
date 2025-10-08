@@ -18,7 +18,6 @@ export default function Navbar() {
 
   return (
     <nav className="relative">
-      {/* */}
       <ul className="hidden md:flex gap-6 text-maintext text-xl font-bold">
         {links.map((link) => (
           <li key={link.id}>
@@ -36,7 +35,7 @@ export default function Navbar() {
       </button>
 
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-background shadow-lg transform transition-transform duration-300 z-50 ${
+        className={`fixed top-0 right-0 h-full w-64 bg-border shadow-lg transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

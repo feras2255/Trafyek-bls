@@ -1,18 +1,22 @@
-import Banner from "@/components/home/Banner";
+import ConsultationSection from "@/components/home/ConsultationSection";
+import CustomizationSection from "@/components/home/CustomizationSection";
 import Features from "@/components/home/Features";
 import Hero from "@/components/home/hero";
+import Partners from "@/components/home/Partners";
 import ProductsSlider from "@/components/home/ProductsSlider";
-import Servies from "@/components/home/servies";
-import { Button } from "@/components/ui/button";
+import Services from "@/components/home/Services";
+import WhyUs from "@/components/home/WhyUs";
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <Servies />
-      <Banner bannre="/E-store-setup.webp" />
+      <Partners />
+      <Services />
+      <WhyUs />
+      <CustomizationSection />
+      <ConsultationSection />
       <ProductsSlider />
-      <Banner bannre="/Website-services.webp" />
       <Features />
     </main>
   );

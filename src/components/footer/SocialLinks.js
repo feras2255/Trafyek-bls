@@ -1,8 +1,5 @@
-import { X } from "lucide-react";
-import Tiktok from "@/components/icons/Tiktok";
-
-import SnapchatIcon from "@/components/icons/SnapchatIcon";
-import InstagramIcon from "@/components/icons/InstagramIcon";
+import { FaSnapchatGhost, FaTiktok, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function SocialLinks({ links }) {
   return (
@@ -13,7 +10,7 @@ export default function SocialLinks({ links }) {
         rel="noopener noreferrer"
         className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
       >
-        <SnapchatIcon className="size-6 md:size-8" />
+        <FaSnapchatGhost className="text-amber-300 size-4 md:size-5" />
       </a>
 
       <a
@@ -22,25 +19,25 @@ export default function SocialLinks({ links }) {
         rel="noopener noreferrer"
         className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
       >
-        <Tiktok className="size-6 md:size-8" />
+        <FaTiktok className="text-black size-4 md:size-5" />
       </a>
 
       <a
         href={links.instagram}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
+        className="text-destructive px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
       >
-        <InstagramIcon className="size-6 md:size-8" />
+        <FaInstagram className="size-4 md:size-5" />
       </a>
 
       <a
         href={links.x_account}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
+        className="text-black px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
       >
-        <X className="size-6 md:size-8" />
+        <FaXTwitter className="size-4 md:size-5" />
       </a>
     </div>
   );

@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabaseClient";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -74,19 +75,17 @@ export default function Projects() {
 
   if (!projects.length) {
     return (
-      <div className="p-6 flex justify-center">
-        <p className="text-xl text-muted-foreground">لا توجد مشاريع بعد.</p>
+      <div className="p-6 flex items-center justify-center h-screen">
+        <p className="text-md md:text-3xl text-muted-foreground">
+          لا توجد مشاريع بعد.
+        </p>
       </div>
     );
   }
 
   return (
-    <section className="p-6">
+    <section className="py-20">
       <div className="container mx-auto">
-        <h2 className="text-2xl md:text-4xl text-secondary font-bold mb-10">
-          المشاريع
-        </h2>
-
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-6">
           {projects.map((p, idx) => (
             <article
@@ -95,22 +94,25 @@ export default function Projects() {
               data-aos-delay={idx * 80}
               className="bg-card rounded-lg overflow-hidden shadow-md flex flex-col"
             >
-              {p.image_url ? (
-                <div className="h-36 md:h-48 w-full relative overflow-hidden bg-gray-100">
-                  <Image
-                    src={p.image_url}
-                    alt={p.title || "project image"}
-                    fill
-                    // sizes="100vw"
-                    className=" object-cover"
-                  />
+              <Link href={`/projects/${p.id}`}>
+                <div>
+                  {p.image_url ? (
+                    <div className="h-36 md:h-72 w-full relative overflow-hidden bg-gray-100">
+                      <Image
+                        src={p?.image_url}
+                        alt={p.title || "project image"}
+                        fill
+                        // sizes="100vw"
+                        className=" object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-36 md:h-48 w-full bg-gray-100 flex items-center justify-center text-gray-400">
+                      لا توجد صورة
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="h-36 md:h-48 w-full bg-gray-100 flex items-center justify-center text-gray-400">
-                  لا توجد صورة
-                </div>
-              )}
-
+              </Link>
               <div className="px-2 py-3 md:p-4 flex-1 flex flex-col">
                 <h3 className="text-md md:text-2xl font-semibold mb-2  text-primary">
                   {p.title}

@@ -7,7 +7,7 @@ export default function ContactLinks({ links }) {
         href={`https://wa.me/${links.whatsapp}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-x-2 mb-2 bg-background px-2 py-1 rounded-md hover:bg-card transition-colors duration-300 ease-in-out"
+        className="flex items-center gap-x-2 mb-2 bg-accent px-2 py-1 rounded-md hover:bg-card transition-colors duration-300 ease-in-out"
       >
         <MessageCircle size={24} />
         <span>واتساب</span>
@@ -17,7 +17,7 @@ export default function ContactLinks({ links }) {
         href={`tel:${links.phone}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-x-2 mb-2 bg-background px-2 py-1 rounded-md hover:bg-card transition-colors duration-300 ease-in-out"
+        className="flex items-center gap-x-2 mb-2 bg-accent px-2 py-1 rounded-md hover:bg-card transition-colors duration-300 ease-in-out"
       >
         <Phone size={24} />
         <span>جوال</span>
@@ -25,7 +25,7 @@ export default function ContactLinks({ links }) {
 
       <a
         href={`mailto:${links.email}`}
-        className="flex items-center gap-x-2 mb-2 bg-background px-2 py-1 rounded-md hover:bg-card transition-colors duration-300 ease-in-out"
+        className="flex items-center gap-x-2 mb-2 bg-accent px-2 py-1 rounded-md hover:bg-card transition-colors duration-300 ease-in-out"
       >
         <Mail size={24} />
         <span>ايميل</span>
