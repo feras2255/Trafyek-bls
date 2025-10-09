@@ -28,7 +28,7 @@ export default function Navbar() {
 
       {/* menu icon */}
       <button
-        className="md:hidden text-maintext"
+        className="md:hidden text-maintext cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         <Menu size={28} />
