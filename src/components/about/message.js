@@ -2,7 +2,7 @@ export default function Message() {
   return (
     <div data-aos="fade-up">
       <h3 className="text-2xl font-bold text-primary mb-6">رسالتنا</h3>
-      <div className="space-y-6 text-lg text-maintext leading-relaxed">
+      <div className="space-y-6 text-lg text-secondarytext leading-relaxed">
         <p>
           في ترافيك بلس، رسالتنا هي تمكين المتاجر الإلكترونية والمشاريع التجارية
           من تحقيق نمو حقيقي ومستدام عبر أدوات واستراتيجيات تسويق رقمي ذكية

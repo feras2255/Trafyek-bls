@@ -7,6 +7,7 @@ import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
 import FileInput from "@/components/ui/FileInput";
+import RichTextEditor from "@/components/dashboard/rich-text-editor";
 
 export default function NewProduct() {
   const [formData, setFormData] = useState({
@@ -124,6 +125,7 @@ export default function NewProduct() {
           value={formData.description}
           onChange={handleChange}
         />
+        <RichTextEditor value={formData.description} onChange={handleChange} />
 
         <Input
           name="price"

@@ -13,7 +13,7 @@ export default function About() {
         data-aos="fade-up"
       >
         <h2 className="text-3xl font-bold text-primary mb-6">من نحن</h2>
-        <p className="text-lg text-maintext leading-relaxed mb-6">
+        <p className="text-lg text-secondarytext leading-relaxed mb-6">
           ترافيك بلس هي شركة تسويق رقمي متخصصة في تقديم حلول تسويقية مبتكرة
           تساعد المتاجر الإلكترونية والمحلات التجارية على النمو، التوسع، وتحقيق
           نتائج ملموسة.
