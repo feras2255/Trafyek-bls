@@ -6,8 +6,8 @@ import { supabase } from "@/lib/supabaseClient";
 import FileInput from "@/components/ui/FileInput";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import Input from "@/components/ui/input";
-import Textarea from "@/components/ui/textarea";
 import { toast } from "sonner";
+import RichTextEditor from "@/components/dashboard/rich-text-editor";
 
 export default function EditProductPage() {
   const params = useParams();
@@ -25,12 +25,22 @@ export default function EditProductPage() {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleChange = (eOrHtml) => {
+    // if it's input or textarea
+    if (eOrHtml?.target) {
+      const { name, value } = eOrHtml.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+    // if it's RichTextEditor
+    else {
+      setFormData((prev) => ({
+        ...prev,
+        description: eOrHtml,
+      }));
+    }
   };
 
   // fetch product
@@ -139,12 +149,7 @@ export default function EditProductPage() {
           onChange={handleChange}
         />
 
-        <Textarea
-          name="description"
-          placeholder="الوصف"
-          value={formData.description}
-          onChange={handleChange}
-        />
+        <RichTextEditor value={formData.description} onChange={handleChange} />
 
         <Input
           name="price"

@@ -1,12 +1,12 @@
 "use client";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React from "react";
+import React, { useEffect } from "react";
 import MenueBar from "./menue-bar";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 
-export default function RichTextEditor({}) {
+export default function RichTextEditor({ value = "", onChange }) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -26,7 +26,7 @@ export default function RichTextEditor({}) {
       }),
       Highlight,
     ],
-    content: "<p>ابدا بكتابة محتوى </p>",
+    content: value || "<p>ابدا بكتابة محتوى </p>",
     editorProps: {
       attributes: {
         class:
@@ -35,10 +35,17 @@ export default function RichTextEditor({}) {
     },
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      console.log(html);
+
+      onChange(html);
     },
     immediatelyRender: false,
   });
+
+  useEffect(() => {
+    if (editor && value && value !== editor.getHTML()) {
+      editor.commands.setContent(value);
+    }
+  }, [value, editor]);
 
   return (
     <div className="">

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
-export default function About() {
+export default function Privacy() {
   const [page, setPage] = useState(null);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function About() {
         const { data, error } = await supabase
           .from("pages")
           .select("title, content")
-          .eq("slug", "about-us")
+          .eq("slug", "privacy-policy")
           .single();
 
         setPage(data);

@@ -8,12 +8,10 @@ import SocialLinks from "./SocialLinks";
 import { useSiteSettings } from "@/app/context/SiteSettingsContext";
 
 const links = [
-  { id: 1, title: "الرئيسية", href: "/" },
   { id: 2, title: "عن الشركة", href: "/about" },
-  { id: 3, title: "مشاريعنا", href: "/projects" },
-  { id: 4, title: "خدماتنا", href: "/services" },
-  { id: 5, title: "سياسة الخصوصية", href: "/privacy" },
   { id: 6, title: "اتصل بنا", href: "/contact" },
+  { id: 3, title: "سياسة الخصوصية", href: "/privacy-policy" },
+  { id: 1, title: "الشروط والاحكام", href: "/terms-conditions" },
 ];
 export default function Footer() {
   const settings = useSiteSettings();

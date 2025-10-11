@@ -41,13 +41,18 @@ export default function DashboardSidebar({ isOpen }) {
       isDropdown: true,
       subMenu: [
         {
-          label: "عرض الصفحات",
-          href: "/dashboard/pages",
+          label: "من نحن",
+          href: "/dashboard/pages/about-us",
           icon: <Layers size={20} />,
         },
         {
-          label: "إضافة صفحة",
-          href: "/dashboard/pages/add",
+          label: "سياسة الخصوصية",
+          href: "/dashboard/pages/privacy-policy",
+          icon: <PlusCircle size={20} />,
+        },
+        {
+          label: "الشروط والاحكام",
+          href: "/dashboard/pages/terms-conditions",
           icon: <PlusCircle size={20} />,
         },
       ],
@@ -83,7 +88,7 @@ export default function DashboardSidebar({ isOpen }) {
               >
                 <div className="flex items-center gap-3 cursor-pointer">
                   {item.icon}
-                  {isOpen && <span>{item.label}</span>}
+                  {isOpen && <span className="text-xl">{item.label}</span>}
                 </div>
                 {isOpen &&
                   (openPages ? (
@@ -99,7 +104,7 @@ export default function DashboardSidebar({ isOpen }) {
                     <Link
                       key={sub.href}
                       href={sub.href}
-                      className="flex items-center gap-3 px-4 py-1 text-sm text-gray-300 hover:text-white"
+                      className="flex items-center gap-3 px-3 py-1 text-base text-gray-300 hover:text-white"
                     >
                       {sub.icon}
                       {sub.label}
@@ -115,7 +120,7 @@ export default function DashboardSidebar({ isOpen }) {
               className="flex items-center gap-3 px-2 py-2 rounded hover:bg-gray-700 transition"
             >
               {item.icon}
-              {isOpen && <span>{item.label}</span>}
+              {isOpen && <span className="text-xl">{item.label}</span>}
             </Link>
           )
         )}

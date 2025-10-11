@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import Input from "@/components/ui/input";
-import Textarea from "@/components/ui/textarea";
+// import Textarea from "@/components/ui/textarea";
 import Button from "@/components/ui/button";
 import FileInput from "@/components/ui/FileInput";
 import { supabase } from "@/lib/supabaseClient";
 import { toast } from "sonner";
+import RichTextEditor from "@/components/dashboard/rich-text-editor";
 
 export default function EditProject() {
   const router = useRouter();
@@ -21,12 +22,30 @@ export default function EditProject() {
   });
   const [image, setImage] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
+
+  const handleChange = (eOrHtml) => {
+    // if it's input or textarea
+    if (eOrHtml?.target) {
+      const { name, value } = eOrHtml.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+    // if it's RichTextEditor
+    else {
+      setFormData((prev) => ({
+        ...prev,
+        description: eOrHtml,
+      }));
+    }
   };
 
   useEffect(() => {
@@ -120,12 +139,9 @@ export default function EditProject() {
           value={formData.title}
           onChange={handleChange}
         />
-        <Textarea
-          name="description"
-          placeholder="وصف المشروع"
-          value={formData.description}
-          onChange={handleChange}
-        />
+
+        <RichTextEditor value={formData.description} onChange={handleChange} />
+
         <Input
           type="text"
           name="project_link"

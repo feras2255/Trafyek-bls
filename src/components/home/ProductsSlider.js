@@ -7,15 +7,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import Card from "../card";
 import SectionTitle from "./SectionTitle";
+import ProductsCard from "../ui/ProductsCard";
 
 export default function ProductsSlider() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      // ✅ نجلب المنتجات مع بيانات التصنيف المرتبطة
       const { data, error } = await supabase.from("products").select(`
           *,
           categories:category_id (
@@ -59,7 +58,7 @@ export default function ProductsSlider() {
               key={product.id}
               className="relative flex items-center justify-center"
             >
-              <Card
+              <ProductsCard
                 service={product}
                 prams={product.categories?.id || "uncategorized"}
               />

@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
-import Textarea from "@/components/ui/textarea";
 import FileInput from "@/components/ui/FileInput";
 import RichTextEditor from "@/components/dashboard/rich-text-editor";
 
@@ -34,12 +33,22 @@ export default function NewProduct() {
     fetchCategories();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleChange = (eOrHtml) => {
+    // if it's input or textarea
+    if (eOrHtml?.target) {
+      const { name, value } = eOrHtml.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+    // if it's RichTextEditor
+    else {
+      setFormData((prev) => ({
+        ...prev,
+        description: eOrHtml,
+      }));
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -119,13 +128,7 @@ export default function NewProduct() {
           onChange={handleChange}
         />
 
-        <Textarea
-          name="description"
-          placeholder="الوصف"
-          value={formData.description}
-          onChange={handleChange}
-        />
-        <RichTextEditor value={formData.description} onChange={handleChange} />
+        <RichTextEditor onChange={handleChange} />
 
         <Input
           name="price"

@@ -19,7 +19,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
   return (
     <html lang="ar" dir="rtl">
       <body className={`${tajawal.className} `}>

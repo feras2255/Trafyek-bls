@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import Input from "@/components/ui/input";
-import Textarea from "@/components/ui/textarea";
 import { toast } from "sonner";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import FileInput from "@/components/ui/FileInput";
 import Button from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import RichTextEditor from "@/components/dashboard/rich-text-editor";
 
 export default function AddProject() {
   const router = useRouter();
@@ -18,12 +18,22 @@ export default function AddProject() {
   });
   const [image, setImage] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleChange = (eOrHtml) => {
+    // if it's input or textarea
+    if (eOrHtml?.target) {
+      const { name, value } = eOrHtml.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+    // if it's RichTextEditor
+    else {
+      setFormData((prev) => ({
+        ...prev,
+        description: eOrHtml,
+      }));
+    }
   };
 
   // upload image to supabase storage
@@ -105,12 +115,8 @@ export default function AddProject() {
           value={formData.title}
           onChange={handleChange}
         />
-        <Textarea
-          name="description"
-          placeholder="وصف المشروع"
-          value={formData.description}
-          onChange={handleChange}
-        />
+
+        <RichTextEditor onChange={handleChange} />
         <Input
           type="text"
           name="projectLink"
