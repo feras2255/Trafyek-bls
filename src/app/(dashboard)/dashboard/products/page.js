@@ -90,7 +90,9 @@ export default function ProductsDashboard() {
                 className="rounded object-cover mx-auto"
               />
             </td>
-            <td className="text-secondary text-lg font-semibold">{p.title}</td>
+            <td className="truncate max-w-xs text-secondary text-lg font-semibold">
+              {p.title}
+            </td>
             <td className="text-primary font-bold text-lg">{p.price},00</td>
             <td>
               <p className="bg-accent text-maintext px-4 py-1 rounded inline-block">

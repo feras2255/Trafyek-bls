@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Card({ service }) {
+export default function Card({ service, prams }) {
+  console.log(service);
   return (
     <div className="bg-card rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="bg-maintext relative w-full h-36 md:h-48">
@@ -29,8 +30,8 @@ export default function Card({ service }) {
         </p>
 
         <Link
-          href={`/services/${service.slug}`}
-          className=" py-2 px-4 mt-2 text-maintext font-semibold bg-border hover:bg-border text-center rounded-lg transition"
+          href={`/services/${prams}/${service.id}`}
+          className=" py-2 px-4 mt-2 text-maintext font-semibold bg-accent hover:bg-input text-center rounded-lg transition duration-300"
         >
           لطلب الخدمة
         </Link>

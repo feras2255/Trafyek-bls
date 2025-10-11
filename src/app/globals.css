@@ -51,9 +51,9 @@
   --maintext: oklch(97.015% 0.00011 271.152);
   --secondarytext: oklch(27.837% 0.03355 257.693);
   --background: oklch(93.403% 0.00011 271.152);
-  --card: oklch(83.981% 0.00109 12.334);
+  --card: oklch(100% 0.00011 271.152);
   --input: oklch(32.383% 0.08786 260.886);
-  --border: oklch(18.996% 0.05053 260.247);
+  --border: oklch(78.577% 0.00009 271.152);
   --sidebar-primary: oklch(27.837% 0.03355 257.693);
   --sidebar-accent: oklch(37.3% 0.034 259.733);
   --foreground: oklch(0.129 0.042 264.695);
@@ -141,3 +141,8 @@ html {
 body {
   background-color: var(--background);
 }
+
+/* img {
+  height: 60px;
+  width: 100%;
+} */

@@ -28,7 +28,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 py-1 z-40 transition-all duration-300 shadow-md ${
-        scrolled ? "bg-border" : "bg-border"
+        scrolled ? "bg-input" : "bg-input"
       }`}
     >
       <div className="container mx-auto px-4 py-2 md:py-3 flex items-center justify-between">

@@ -71,7 +71,7 @@ export default function SortableTable({
         items={items.map((c) => c.id)}
         strategy={verticalListSortingStrategy}
       >
-        <table className="w-full bg-card shadow rounded overflow-hidden mt-6">
+        <table className="w-full bg-card shadow rounded-lg overflow-hidden mt-6">
           <thead className="bg-sidebar-primary text-maintext text-center border border-border">
             <tr>
               {columns.map((col, i) => (

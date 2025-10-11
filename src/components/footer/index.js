@@ -19,7 +19,7 @@ export default function Footer() {
   const settings = useSiteSettings();
   if (!settings) return null;
   return (
-    <footer className="bg-border text-maintext ">
+    <footer className="bg-input text-maintext ">
       <div className="container mx-auto px-4 py-8">
         <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div>
