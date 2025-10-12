@@ -26,13 +26,19 @@ ChartJS.register(
 export default function VisitorsChart() {
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [range, setRange] = useState(7); // المدة الافتراضية: آخر 7 أيام
+  const [range, setRange] = useState(7);
 
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       try {
-        const res = await fetch(`/api/analytics?days=${range}`);
+        const res = await fetch(
+          `/api/analytics?range=${range === 30 ? "30days" : "7days"}`,
+          {
+            cache: "no-store",
+          }
+        );
+
         const json = await res.json();
 
         if (!json.success || !json.data) {
