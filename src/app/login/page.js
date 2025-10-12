@@ -27,7 +27,7 @@ export default function LoginPage() {
     <div className="flex h-screen justify-center items-center bg-background">
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-md bg-card p-6 mx-4 rounded-lg shadow-lg pb-10"
+        className="w-full max-w-md bg-card p-6 mx-4 border border-border rounded-lg shadow-lg pb-10"
       >
         <h2 className="text-2xl md:text-4xl text-primary font-bold mb-8">
           تسجيل الدخول
@@ -50,7 +50,7 @@ export default function LoginPage() {
 
         <button
           type="submit"
-          className="bg-primary text-white py-2 px-4  w-full rounded cursor-pointer hover:bg-primary/80 transition duration-300"
+          className="bg-primary text-white py-2 px-4  w-full rounded cursor-pointer hover:bg-secondarytext transition duration-300"
         >
           دخول
         </button>

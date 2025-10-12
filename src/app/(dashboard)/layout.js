@@ -1,11 +1,11 @@
 "use client";
-import DashboardHeader from "@/components/dashboard/Header";
 import DashboardSidebar from "@/components/dashboard/Sidebar";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { Toaster } from "@/components/ui/sonner";
 import DashboardLoader from "@/components/dashboard/DashboardLoader";
+import DashboardHeader from "@/components/dashboard/header/Header";
 
 export default function DashboardLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);

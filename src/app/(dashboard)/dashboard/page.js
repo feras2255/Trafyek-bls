@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
 import StatsCards from "@/components/ui/StatsCards";
-import VisitorsChart from "@/components/dashboard/VisitorsChart";
+import Link from "next/link";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -47,10 +47,17 @@ export default function Dashboard() {
 
       <StatsCards stats={stats} />
 
-      {/* latest 5 products */}
-      <div className="p-6">
-        <VisitorsChart />
-      </div>
+      <ul className="bg-card px-6 py-4 rounded-xl shadow-md ">
+        <li className="text-lg text-accent font-bold underline">
+          <Link href="/dashboard/pages/about-us">من نحن</Link>
+        </li>
+        <li className="text-lg text-accent font-bold underline">
+          <Link href="/dashboard/pages/privacy-policy">سياسة الخصوصية</Link>
+        </li>
+        <li className="text-lg text-accent font-bold underline">
+          <Link href="/dashboard/pages/terms-conditions">الشروط والاحكام </Link>
+        </li>
+      </ul>
     </div>
   );
 }
