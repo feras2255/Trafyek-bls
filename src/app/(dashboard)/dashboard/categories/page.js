@@ -1,4 +1,5 @@
 "use client";
+import ConfirmDialog from "@/components/common/ConfirmDialog";
 import AddCategory from "@/components/dashboard/AddCategory";
 import SortableTable from "@/components/dashboard/SortableTable";
 import { supabase } from "@/lib/supabaseClient";
@@ -9,6 +10,8 @@ import { toast } from "sonner";
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const [editingCategory, setEditingCategory] = useState(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
     fetchCategories();
@@ -125,7 +128,11 @@ export default function Categories() {
                 تعديل
               </button>
               <button
-                onClick={() => handleDelete(category.id, category.image_url)}
+                onClick={() => {
+                  setSelectedId(category.id);
+                  setConfirmOpen(true);
+                }}
+                // onClick={() => handleDelete(category.id, category.image_url)}
                 className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
               >
                 حذف
@@ -142,6 +149,23 @@ export default function Categories() {
           onClose={() => setEditingCategory(null)}
         />
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title="تأكيد الحذف"
+        message="هل أنت متأكد من رغبتك في حذف هذا المشروع؟"
+        onClose={() => {
+          setConfirmOpen(false);
+          setSelectedId(null);
+        }}
+        onConfirm={async () => {
+          if (selectedId) {
+            await handleDelete(selectedId);
+            setConfirmOpen(false);
+            setSelectedId(null);
+          }
+        }}
+      />
     </div>
   );
 }

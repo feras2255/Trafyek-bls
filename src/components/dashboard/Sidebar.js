@@ -12,7 +12,9 @@ import {
   FileText,
   ChevronDown,
   ChevronUp,
-  PlusCircle,
+  Info,
+  ShieldCheck,
+  Clipboard,
 } from "lucide-react";
 
 export default function DashboardSidebar({ isOpen }) {
@@ -43,17 +45,17 @@ export default function DashboardSidebar({ isOpen }) {
         {
           label: "من نحن",
           href: "/dashboard/pages/about-us",
-          icon: <Layers size={20} />,
+          icon: <Info size={20} />,
         },
         {
           label: "سياسة الخصوصية",
           href: "/dashboard/pages/privacy-policy",
-          icon: <PlusCircle size={20} />,
+          icon: <ShieldCheck size={20} />,
         },
         {
           label: "الشروط والاحكام",
           href: "/dashboard/pages/terms-conditions",
-          icon: <PlusCircle size={20} />,
+          icon: <Clipboard size={20} />,
         },
       ],
     },

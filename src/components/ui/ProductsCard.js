@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductsCard({ service, prams }) {
-  console.log(service);
   return (
     <div className="bg-card rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="bg-maintext relative w-full h-36 md:h-48">

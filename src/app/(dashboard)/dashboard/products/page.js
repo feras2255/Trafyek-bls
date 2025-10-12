@@ -130,10 +130,13 @@ import { toast } from "sonner";
 import CategoryFilter from "@/components/dashboard/CategoryFilter";
 import SortableTable from "@/components/dashboard/SortableTable";
 import Pagination from "@/components/ui/Pagination";
+import ConfirmDialog from "@/components/common/ConfirmDialog";
 
 export default function ProductsDashboard() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const [page, setPage] = useState(1);
   const pageSize = 10;
   const [total, setTotal] = useState(0);
@@ -249,7 +252,11 @@ export default function ProductsDashboard() {
                 تعديل
               </Link>
               <button
-                onClick={() => handleDelete(p.id)}
+                onClick={() => {
+                  setSelectedId(p.id);
+                  setConfirmOpen(true);
+                }}
+                // onClick={() => handleDelete(p.id)}
                 className="bg-destructive text-white px-3 py-1 rounded cursor-pointer ml-2"
               >
                 حذف
@@ -260,6 +267,23 @@ export default function ProductsDashboard() {
       />
 
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title="تأكيد الحذف"
+        message="هل أنت متأكد من رغبتك في حذف هذا المشروع؟"
+        onClose={() => {
+          setConfirmOpen(false);
+          setSelectedId(null);
+        }}
+        onConfirm={async () => {
+          if (selectedId) {
+            await handleDelete(selectedId);
+            setConfirmOpen(false);
+            setSelectedId(null);
+          }
+        }}
+      />
     </section>
   );
 }

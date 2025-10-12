@@ -6,9 +6,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import SortableTable from "@/components/dashboard/SortableTable";
+import ConfirmDialog from "@/components/common/ConfirmDialog";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
     fetchProjects();
@@ -97,7 +100,10 @@ export default function Projects() {
                 تعديل
               </Link>
               <button
-                onClick={() => handleDelete(project.id)}
+                onClick={() => {
+                  setSelectedId(project.id);
+                  setConfirmOpen(true);
+                }}
                 className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
               >
                 حذف
@@ -105,6 +111,23 @@ export default function Projects() {
             </td>
           </>
         )}
+      />
+
+      <ConfirmDialog
+        open={confirmOpen}
+        title="تأكيد الحذف"
+        message="هل أنت متأكد من رغبتك في حذف هذا المشروع؟"
+        onClose={() => {
+          setConfirmOpen(false);
+          setSelectedId(null);
+        }}
+        onConfirm={async () => {
+          if (selectedId) {
+            await handleDelete(selectedId);
+            setConfirmOpen(false);
+            setSelectedId(null);
+          }
+        }}
       />
     </section>
   );

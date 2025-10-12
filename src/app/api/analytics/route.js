@@ -1,28 +1,32 @@
 import { NextResponse } from "next/server";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
+const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+const privateKey = process.env.GOOGLE_PRIVATE_KEY
+  ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n")
+  : undefined;
+
+if (!clientEmail || !privateKey) {
+  console.warn("⚠️ Missing Google Analytics credentials.");
+}
+
 const analyticsDataClient = new BetaAnalyticsDataClient({
   credentials: {
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    client_email: clientEmail,
+    private_key: privateKey,
   },
 });
 
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const range = searchParams.get("range") || "7days"; // default 7 أيام
+    const range = searchParams.get("range") || "7days";
 
-    let startDate;
-    let endDate = "today";
-
-    if (range === "7days") startDate = "7daysAgo";
-    else if (range === "30days") startDate = "30daysAgo";
-    else startDate = "7daysAgo";
+    const startDate = range === "30days" ? "30daysAgo" : "7daysAgo";
 
     const [response] = await analyticsDataClient.runReport({
       property: `properties/${process.env.GA_PROPERTY_ID}`,
-      dateRanges: [{ startDate, endDate }],
+      dateRanges: [{ startDate, endDate: "today" }],
       dimensions: [{ name: "date" }],
       metrics: [{ name: "activeUsers" }],
     });
