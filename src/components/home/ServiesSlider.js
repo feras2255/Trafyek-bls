@@ -42,16 +42,13 @@ export default function ServicesGrid() {
             data-aos-delay={index * 100}
             className="relative group overflow-hidden rounded-xl shadow-md cursor-pointer"
           >
-            <Link
-              href={`/services/${category.slug}`}
-              className="block relative"
-            >
+            <Link href={`/services/${category.id}`} className="block relative">
               <Image
                 src={category.image_url}
                 alt={category.title}
                 width={400}
                 height={300}
-                className="w-full h-30 sm:h-48 md:h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-28 sm:h-48 md:h-56 object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition duration-500 flex items-center justify-center">
                 <h3 className="text-white text-sm md:text-lg font-semibold text-center px-2">

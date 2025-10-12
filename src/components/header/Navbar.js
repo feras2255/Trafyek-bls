@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 
-export default function Navbar() {
+export default function Navbar({ settings }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
@@ -35,7 +35,7 @@ export default function Navbar() {
       </button>
 
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-border shadow-lg transform transition-transform duration-300 z-50 ${
+        className={`fixed top-0 right-0 h-full w-64 bg-input shadow-lg transform transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -47,7 +47,7 @@ export default function Navbar() {
           <X size={28} />
         </button>
         <div className="flex items-center justify-center mt-10">
-          <Image src="/logow.png" alt="logo" width={300} height={80} />
+          <Image src={settings} alt="logo" width={150} height={80} />
         </div>
 
         <ul className="flex flex-col gap-6 mt-8 px-6 text-maintext text-lg font-semibold">

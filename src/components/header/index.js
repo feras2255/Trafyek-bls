@@ -32,7 +32,7 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4 py-2 md:py-3 flex items-center justify-between">
-        <Navbar />
+        <Navbar settings={settings.settings.image_url} />
         <Link
           href="/"
           className="relative w-28 h-8 md:w-24 md:h-12 lg:w-32 lg:h-14"
