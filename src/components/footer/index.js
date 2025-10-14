@@ -58,7 +58,7 @@ export default function Footer() {
           <div>
             <div className="w-1/2 flex mx-auto md:mt-20 bg-maintext rounded-2xl">
               <Image
-                src="/saudia.png"
+                src="/saudia.webp"
                 alt="logo"
                 width={400}
                 height={80}
@@ -77,10 +77,11 @@ export default function Footer() {
             <p>
               تم التطوير بواسطة{" "}
               <a
-                href="https://your-portfolio-link.com"
+                href="https://wa.me/201208651583"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-ring hover:underline"
+                aria-label="تواصل معنا عبر واتساب"
+                className="text-border underline hover:text-ring/80 transition-colors"
               >
                 Abdelrahman
               </a>

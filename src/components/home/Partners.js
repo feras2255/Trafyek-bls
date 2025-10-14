@@ -3,34 +3,34 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import Image from "next/image";
 
 export default function Partners() {
   const Partnersloogo = [
     {
       id: 1,
-      image_url: "/partners/Sketch.png",
+      image_url: "/partners/Sketch.webp",
     },
     {
       id: 2,
-      image_url: "/partners/figma.png",
+      image_url: "/partners/figma.webp",
     },
     {
       id: 3,
-      image_url: "/partners/WordPress.png",
+      image_url: "/partners/WordPress.webp",
     },
     {
       id: 4,
-      image_url: "/partners/salla.png",
+      image_url: "/partners/salla.webp",
     },
     {
       id: 5,
-      image_url: "/partners/zid.png",
+      image_url: "/partners/zid.webp",
     },
     {
       id: 6,
-      image_url: "/partners/Elementor.png",
+      image_url: "/partners/Elementor.webp",
     },
   ];
   return (

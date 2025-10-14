@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function ConsultationSection() {
   return (
     <section>
-      <div className="container mx-auto px-6 bg-[url('/consult.png')] bg-cover bg-center flex flex-col items-center text-center py-16 rounded-2xl">
+      <div className="container mx-auto px-6 bg-[url('/consult.webp')] bg-cover bg-center flex flex-col items-center text-center py-16 rounded-2xl">
         <h2 className="text-3xl md:text-4xl font-bold text-destructive mb-6 ">
           لم تجد الباقة المناسبة؟
         </h2>

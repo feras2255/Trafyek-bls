@@ -2,12 +2,12 @@ import Image from "next/image";
 
 export default function PaymentIcons() {
   const icons = [
-    { src: "/pay/stc.png", alt: "stc" },
-    { src: "/pay/master.png", alt: "MasterCard" },
-    { src: "/pay/mada.png", alt: "Mada" },
-    { src: "/pay/apple.png", alt: "Apple Pay" },
-    { src: "/pay/tabby.png", alt: "tabby" },
-    { src: "/pay/tamara.png", alt: "tamara" },
+    { src: "/pay/stc.webp", alt: "stc" },
+    { src: "/pay/master.webp", alt: "MasterCard" },
+    { src: "/pay/mada.webp", alt: "Mada" },
+    { src: "/pay/apple.webp", alt: "Apple Pay" },
+    { src: "/pay/tabby.webp", alt: "tabby" },
+    { src: "/pay/tamara.webp", alt: "tamara" },
   ];
 
   return (

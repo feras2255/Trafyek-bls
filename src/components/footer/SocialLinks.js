@@ -8,6 +8,7 @@ export default function SocialLinks({ links }) {
         href={links.snapchat}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="تابعنا على سناب شات"
         className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
       >
         <FaSnapchatGhost className="text-amber-300 size-4 md:size-5" />
@@ -17,6 +18,7 @@ export default function SocialLinks({ links }) {
         href={links.tiktok}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="تابعنا على تيك توك"
         className="text-SecondText px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
       >
         <FaTiktok className="text-black size-4 md:size-5" />
@@ -26,6 +28,7 @@ export default function SocialLinks({ links }) {
         href={links.instagram}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="تابعنا على انستاجرام"
         className="text-destructive px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
       >
         <FaInstagram className="size-4 md:size-5" />
@@ -35,6 +38,7 @@ export default function SocialLinks({ links }) {
         href={links.x_account}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="تابعنا على منصة X"
         className="text-black px-3 py-2 bg-background hover:bg-card rounded-lg transition-colors duration-500 ease-in-out"
       >
         <FaXTwitter className="size-4 md:size-5" />

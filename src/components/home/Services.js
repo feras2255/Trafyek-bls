@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import Image from "next/image";
 
 const skills = [
@@ -36,10 +34,6 @@ const services = [
 ];
 
 export default function ServicesSection() {
-  useEffect(() => {
-    AOS.init({ duration: 800, once: true });
-  }, []);
-
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white text-center">
       <h2 className="text-3xl font-bold text-primary mb-10" data-aos="fade-up">
@@ -85,6 +79,7 @@ export default function ServicesSection() {
               width={80}
               height={80}
               className="mx-auto object-cover"
+              priority
             />
             <div className="text-2xl text-scondary font-semibold mt-2">
               {skill.name}

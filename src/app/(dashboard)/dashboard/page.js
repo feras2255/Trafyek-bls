@@ -12,19 +12,6 @@ export default function Dashboard() {
     projects: 0,
   });
 
-  const [sessions, setSessions] = useState(null);
-
-  useEffect(() => {
-    async function fetchAnalytics() {
-      const res = await fetch("/api/analytics");
-      const data = await res.json();
-      if (data.success) {
-        setSessions(data.data.rows?.[0]?.metricValues?.[0]?.value || 0);
-      }
-    }
-    fetchAnalytics();
-  }, []);
-
   useEffect(() => {
     fetchStats();
   }, []);

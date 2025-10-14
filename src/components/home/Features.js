@@ -1,7 +1,7 @@
 "use client";
 import { MdDashboardCustomize, MdExtension } from "react-icons/md";
 
-import { FaDesktop, FaPlug, FaHeadset } from "react-icons/fa";
+import { FaDesktop, FaHeadset } from "react-icons/fa";
 import SectionTitle from "./SectionTitle";
 
 const features = [

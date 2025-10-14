@@ -4,19 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 export default function ServicesGrid() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: "ease-in-out",
-      once: true,
-    });
-
     const fetchCategories = async () => {
       const { data, error } = await supabase.from("categories").select("*");
       if (!error) setCategories(data);
@@ -45,10 +37,11 @@ export default function ServicesGrid() {
             <Link href={`/services/${category.id}`} className="block relative">
               <Image
                 src={category.image_url}
-                alt={category.title}
+                alt={`صورة لخدمة ${category.title}`}
                 width={400}
                 height={300}
                 className="w-full h-28 sm:h-48 md:h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+                priority
               />
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition duration-500 flex items-center justify-center">
                 <h3 className="text-white text-sm md:text-lg font-semibold text-center px-2">

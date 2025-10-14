@@ -1,19 +1,12 @@
 "use client";
-import { use, useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Hero() {
   const phathname = usePathname();
   const isContact = phathname === "/contact";
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  }, []);
 
   return (
     <section className="relative flex flex-col items-center justify-center text-center py-16 md:pt-28 bg-gradient-to-b from-primary/20 to-background px-6 overflow-hidden">

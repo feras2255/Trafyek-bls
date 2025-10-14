@@ -1,10 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import AOS from "aos";
+
 export default function SectionTitle({ text }) {
-  useEffect(() => {
-    AOS.init({ duration: 1200 });
-  }, []);
   return (
     <div className="flex flex-col items-center mb-10" data-aos="fade-up">
       <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">

@@ -43,10 +43,7 @@ export default function Contact() {
   return (
     <section>
       <Hero />
-      <div
-        id="contact"
-        className="bg-gradient-to-l from-accent/50 to-accent/20 "
-      >
+      <div id="contact" className="">
         <div className="container mx-auto px-4 py-20">
           <div className="flex flex-col md:flex-row gap-10">
             <div className="w-full md:w-7/12">
@@ -83,19 +80,19 @@ export default function Contact() {
                 </div>
               </form>
             </div>
-            <div className="w-full md:w-5/12 bg-accent p-4 rounded-2xl">
+            <div className="w-full md:w-5/12 bg-accent/30 p-4 rounded-2xl">
               <h1 className="text-3xl font-bold text-secondary mb-4 md:mb-8">
                 معلومات التواصل
               </h1>
 
               <div className="text-maintext  mt-4 space-y-4 text-lg">
-                <p className="font-bold bg-input p-4 rounded-lg">
+                <p className="font-bold bg-input/80 p-4 rounded-lg">
                   الرياض المملكة العربية السعودية
                 </p>
-                <p className="font-bold bg-input p-4 rounded-lg">
+                <p className="font-bold bg-input/80 p-4 rounded-lg">
                   {settings?.settings?.phone}
                 </p>
-                <p className="font-bold bg-input p-4 rounded-lg">
+                <p className="font-bold bg-input/80 p-4 rounded-lg">
                   {settings?.settings?.email}
                 </p>
               </div>

@@ -27,10 +27,13 @@ export default function About() {
   if (!page) return <p>الصفحة غير موجودة.</p>;
 
   return (
-    <section className="my-10">
-      <div className="container mx-auto px-4 py-10 text-center lg:text-start">
+    <section className="my-10 md:my-20">
+      <div className="container mx-auto px-4  ">
         <h1 className="text-4xl font-bold mb-4">{page.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: page.content }} />
+        <div
+          className="px-2 space-y-4"
+          dangerouslySetInnerHTML={{ __html: page.content }}
+        />
       </div>
     </section>
   );

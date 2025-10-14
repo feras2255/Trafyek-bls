@@ -1,8 +1,4 @@
 "use client";
-
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import Image from "next/image";
 
 export default function WhyUs() {
@@ -12,10 +8,6 @@ export default function WhyUs() {
     { title: "التواصل والدعم", percent: 99 },
     { title: "خبرة الفريق", percent: 93 },
   ];
-
-  useEffect(() => {
-    AOS.init({ duration: 1200 });
-  }, []);
 
   return (
     <section className="relative bg-background overflow-hidden">

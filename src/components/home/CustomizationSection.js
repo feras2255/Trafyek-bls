@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+
 import Image from "next/image";
 import SectionTitle from "./SectionTitle";
 
@@ -11,23 +10,19 @@ export default function CustomizationSection() {
     {
       title: "خطوط متناسقة ومميزة",
       text: "نختار الخطوط بعناية وفق هويتك البصرية لضمان تجربة بصرية متسقة وراقية.",
-      image: "/fonts.png",
+      image: "/fonts.webp",
     },
     {
       title: "ألوان متناغمة",
       text: "نعتمد لوحة ألوان مخصصة لمجال مشروعك لتعكس شخصيته وتعزز الرسالة المراد إيصالها.",
-      image: "/color.png",
+      image: "/color.webp",
     },
     {
       title: "تصميم ملهم",
       text: "نبتكر تصميمًا عصريًا وجذابًا يعكس رؤية مشروعك ويترك انطباعًا دائمًا.",
-      image: "/dsin.png",
+      image: "/dsin.webp",
     },
   ];
-
-  useEffect(() => {
-    AOS.init({ duration: 1200 });
-  }, []);
 
   return (
     <section className="relative py-20 bg-background overflow-hidden">

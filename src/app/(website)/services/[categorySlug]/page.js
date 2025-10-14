@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import Link from "next/link";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 export default function ServicePage({ params }) {
   const categoryId = params.categorySlug;
@@ -15,8 +13,6 @@ export default function ServicePage({ params }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    AOS.init({ duration: 900, easing: "ease-out", once: true });
-
     const fetchData = async () => {
       setLoading(true);
 
