@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "@/components/ui/input";
 import { toast } from "sonner";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
@@ -11,12 +11,29 @@ import RichTextEditor from "@/components/dashboard/rich-text-editor";
 
 export default function AddProject() {
   const router = useRouter();
+  const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     projectLink: "",
+    category_id: "",
   });
   const [image, setImage] = useState(null);
+
+  // fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const { data, error } = await supabase
+        .from("categories")
+        .select("id, title");
+      if (error) {
+        console.error("Error fetching categories:", error);
+      } else {
+        setCategories(data);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleChange = (eOrHtml) => {
     // if it's input or textarea
@@ -73,11 +90,12 @@ export default function AddProject() {
 
     const imageUrl = await uploadImage();
 
-    const { data, error } = await supabase.from("projects").insert({
+    const { error } = await supabase.from("projects").insert({
       title: formData.title,
       description: formData.description,
       project_link: formData.projectLink,
       image_url: imageUrl,
+      category_id: formData.category_id,
       order: nextOrder,
     });
 
@@ -93,6 +111,7 @@ export default function AddProject() {
       title: "",
       description: "",
       projectLink: "",
+      category_id: "",
     });
     setImage(null);
   };
@@ -124,6 +143,21 @@ export default function AddProject() {
           value={formData.projectLink}
           onChange={handleChange}
         />
+
+        <select
+          name="category_id"
+          value={formData.category_id}
+          onChange={handleChange}
+          className="w-full border rounded-lg p-3"
+        >
+          <option value="">اختر التصنيف</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.title}
+            </option>
+          ))}
+        </select>
+
         <FileInput setImage={setImage} />
         <Button
           title="اضافة المشروع"

@@ -30,6 +30,7 @@ export default function Navbar({ settings }) {
       <button
         className="md:hidden text-maintext cursor-pointer"
         onClick={() => setIsOpen(true)}
+        aria-label="فتح القائمة"
       >
         <Menu size={28} />
       </button>

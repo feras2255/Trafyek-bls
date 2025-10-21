@@ -2,8 +2,10 @@
 import ConfirmDialog from "@/components/common/ConfirmDialog";
 import AddCategory from "@/components/dashboard/AddCategory";
 import SortableTable from "@/components/dashboard/SortableTable";
+import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -92,24 +94,36 @@ export default function Categories() {
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between">
+    <section>
+      {/* <div className="flex items-center justify-between">
         <h1 className="text-secondary text-2xl font-bold">إدارة التصنيفات</h1>
         <AddCategory onAdded={handleSaved} />
-      </div>
+      </div> */}
+
+      <TitleWithBack
+        title="إضافة تصنيف جديد"
+        textBtn="إضافة تصنيف"
+        url="/dashboard/categories/new"
+      />
 
       <SortableTable
         items={categories}
-        columns={["#", "الترتيب", "الاسم", "الصورة", "التحكم"]}
+        columns={["#", "الترتيب", "الاسم", "الوصف", "الصورة", "التحكم"]}
         onReorder={handleReorder}
         renderRow={(category) => (
           <>
             <td className="text-secondary text-lg font-semibold">
               {category.order}
             </td>
-            <td className="text-secondary text-lg font-semibold">
+            <td className="text-secondary text-md font-semibold">
               {category.title}
             </td>
+            <td>
+              <p className="truncate max-w-32 text-md mx-auto text-scondary">
+                {category.description}{" "}
+              </p>
+            </td>
+
             <td className="p-2 text-center">
               <Image
                 src={category.image_url || "/default.png"}
@@ -121,12 +135,12 @@ export default function Categories() {
               />
             </td>
             <td className="space-x-2">
-              <button
-                onClick={() => setEditingCategory(category)}
-                className="bg-secondary text-white px-3 py-1 rounded cursor-pointer"
+              <Link
+                href={`/dashboard/categories/edit/${category.id}`}
+                className="bg-secondary text-white px-3 py-1 rounded ml-2"
               >
                 تعديل
-              </button>
+              </Link>
               <button
                 onClick={() => {
                   setSelectedId(category.id);
@@ -166,6 +180,6 @@ export default function Categories() {
           }
         }}
       />
-    </div>
+    </section>
   );
 }

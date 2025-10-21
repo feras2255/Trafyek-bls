@@ -1,11 +1,13 @@
 "use client";
 import { useSiteSettings } from "@/app/context/SiteSettingsContext";
-import Hero from "@/components/home/hero";
+import Hero from "@/components/home/Hero";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
 import { addMessage } from "@/lib/contact";
 import { useState } from "react";
+import { FaLocationDot, FaPhoneFlip } from "react-icons/fa6";
+import { MdOutlineEmail } from "react-icons/md";
 import { toast } from "sonner";
 
 export default function Contact() {
@@ -42,7 +44,10 @@ export default function Contact() {
   if (!settings) return null;
   return (
     <section>
-      <Hero />
+      <Hero
+        title="سعداء بتواصلك معنا!"
+        description={["فريقنا جاهز للرد عليك في أي وقت"]}
+      />
       <div id="contact" className="">
         <div className="container mx-auto px-4 py-20">
           <div className="flex flex-col md:flex-row gap-10">
@@ -80,20 +85,25 @@ export default function Contact() {
                 </div>
               </form>
             </div>
-            <div className="w-full md:w-5/12 bg-accent/30 p-4 rounded-2xl">
-              <h1 className="text-3xl font-bold text-secondary mb-4 md:mb-8">
+            <div className="w-full md:w-5/12  p-4 rounded-2xl">
+              <h1 className="inline-block text-3xl font-bold text-secondary border-b border-secondary pb-2 mb-4">
                 معلومات التواصل
               </h1>
 
               <div className="text-maintext  mt-4 space-y-4 text-lg">
-                <p className="font-bold bg-input/80 p-4 rounded-lg">
-                  الرياض المملكة العربية السعودية
-                </p>
-                <p className="font-bold bg-input/80 p-4 rounded-lg">
+                <p className="flex items-center gap-3 font-bold bg-input/80 p-4 rounded-lg">
+                  <FaPhoneFlip />
+
                   {settings?.settings?.phone}
                 </p>
-                <p className="font-bold bg-input/80 p-4 rounded-lg">
+                <p className="flex items-center gap-3 font-bold bg-input/80 p-4 rounded-lg">
+                  <MdOutlineEmail />
+
                   {settings?.settings?.email}
+                </p>
+                <p className="flex items-center gap-3 font-bold bg-input/80 p-4 rounded-lg">
+                  <FaLocationDot />
+                  الرياض المملكة العربية السعودية
                 </p>
               </div>
             </div>

@@ -4,10 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
@@ -44,7 +40,6 @@
 }
 
 :root {
-  --radius: 0.625rem;
   --primary: oklch(0% 0 0);
   --secondary: oklch(0.129 0.042 264.695);
   --accent: oklch(38.203% 0.08224 257.529);
@@ -65,7 +60,7 @@
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: oklch(0.554 0.046 257.417);
   --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(62.826% 0.25721 28.495);
+  --destructive: oklch(56.507% 0.22977 29.018);
   --ring: oklch(0.704 0.04 256.788);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);

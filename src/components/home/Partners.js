@@ -10,19 +10,19 @@ export default function Partners() {
   const Partnersloogo = [
     {
       id: 1,
-      image_url: "/partners/Sketch.webp",
+      image_url: "/partners/salla.webp",
     },
     {
       id: 2,
-      image_url: "/partners/figma.webp",
+      image_url: "/partners/hostinger.webp",
     },
     {
       id: 3,
-      image_url: "/partners/WordPress.webp",
+      image_url: "/partners/wordprees.webp",
     },
     {
       id: 4,
-      image_url: "/partners/salla.webp",
+      image_url: "/partners/google.webp",
     },
     {
       id: 5,
@@ -31,6 +31,10 @@ export default function Partners() {
     {
       id: 6,
       image_url: "/partners/Elementor.webp",
+    },
+    {
+      id: 7,
+      image_url: "/partners/figma.webp",
     },
   ];
   return (

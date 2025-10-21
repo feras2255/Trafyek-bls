@@ -13,12 +13,14 @@ export default function AddCategory({
 }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (categoryToEdit) {
       setTitle(categoryToEdit.title || "");
+      setDescription(categoryToEdit.description || "");
       setOpen(true);
     }
   }, [categoryToEdit]);
@@ -73,7 +75,7 @@ export default function AddCategory({
       // update
       ({ data, error } = await supabase
         .from("categories")
-        .update({ title, image_url: imageUrl })
+        .update({ title, description, image_url: imageUrl })
         .eq("id", categoryToEdit.id)
         .select()
         .single());
@@ -135,6 +137,13 @@ export default function AddCategory({
             placeholder="أدخل اسم التصنيف"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+          />
+          <Input
+            type="text"
+            name="description"
+            placeholder="ادخل وصف التصنيف"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
           <FileInput setImage={setImage} />
           <button
