@@ -11,7 +11,7 @@ const skills = [
 
 export default function OurTools() {
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-50 to-white text-center">
+    <section className="pb-16 text-center">
       <div
         className="mt-16 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 px-6"
         data-aos="fade-up"
@@ -21,7 +21,7 @@ export default function OurTools() {
             key={skill.name}
             data-aos="zoom-in"
             data-aos-delay={index * 100}
-            className="bg-background rounded-xl p-6 border hover:shadow-lg transition"
+            className="bg-background rounded-xl p-6 border shadow-lg"
           >
             <div className="text-3xl font-bold text-destructive">
               {skill.value}%

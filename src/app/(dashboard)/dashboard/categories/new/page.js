@@ -21,15 +21,12 @@ export default function NewCategory() {
   const router = useRouter();
 
   const handleChange = (eOrHtml, field) => {
-    // التعامل مع RichTextEditor (الوصف الطويل)
     if (typeof eOrHtml === "string" && field === "long_description") {
       setFormData((prev) => ({
         ...prev,
         long_description: eOrHtml,
       }));
-    }
-    // التعامل مع الإدخالات العادية
-    else if (eOrHtml?.target) {
+    } else if (eOrHtml?.target) {
       const { name, value } = eOrHtml.target;
       setFormData((prev) => ({
         ...prev,
@@ -44,7 +41,7 @@ export default function NewCategory() {
 
     let imageUrl = "";
 
-    // رفع الصورة إلى Supabase Storage
+    // upload image to supabase
     if (image) {
       const fileExt = image.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
@@ -67,7 +64,7 @@ export default function NewCategory() {
       imageUrl = publicUrlData.publicUrl;
     }
 
-    // إدخال التصنيف الجديد
+    // insert data to supabase
     const { error } = await supabase.from("categories").insert([
       {
         title: formData.title,
@@ -130,7 +127,7 @@ export default function NewCategory() {
 
         <Button
           title={loading ? "جارٍ الحفظ..." : "حفظ"}
-          color="secondary"
+          color="fourth"
           type="submit"
           size={"full"}
           disabled={loading}

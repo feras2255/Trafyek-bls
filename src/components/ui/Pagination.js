@@ -4,7 +4,7 @@ export default function Pagination({ page, totalPages, onPageChange }) {
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="bg-secondary text-maintext text-sm md:text-base px-3 py-1 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-fourth text-maintext text-sm md:text-base px-3 py-1 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       >
         السابق
       </button>
@@ -16,7 +16,7 @@ export default function Pagination({ page, totalPages, onPageChange }) {
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="bg-secondary text-maintext text-sm md:text-base px-3 py-1 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-fourth text-maintext text-sm md:text-base px-3 py-1 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       >
         التالي
       </button>

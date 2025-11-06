@@ -60,6 +60,11 @@ export default function DashboardSidebar({ isOpen }) {
       ],
     },
     {
+      label: "الشركاء",
+      href: "/dashboard/partners",
+      icon: <Clipboard size={20} />,
+    },
+    {
       label: "المراسلات",
       href: "/dashboard/messages",
       icon: <Mail size={20} />,

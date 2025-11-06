@@ -11,12 +11,12 @@ export default function TitleWithBack({ title, onBack, url, textBtn }) {
 
   return (
     <div className="flex items-center justify-between mb-8">
-      <h1 className="text-3xl text-secondary font-semibold">{title}</h1>
+      <h1 className="text-3xl text-primary font-semibold">{title}</h1>
       <button
         type="button"
         onClick={handleBack}
         aria-label="عودة إلى لوحة التحكم"
-        className="inline-flex items-center  bg-sidebar-primary text-maintext hover:bg-secondary px-3 py-2 rounded shadow-sm cursor-pointer transition duration-300"
+        className="inline-flex items-center  bg-fourth text-maintext hover:bg-sidebar-primary px-3 py-2 rounded shadow-sm cursor-pointer transition duration-300"
       >
         <span className="text-md font-semibold">{textBtn}</span>
 

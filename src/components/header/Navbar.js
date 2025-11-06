@@ -17,8 +17,8 @@ export default function Navbar({ settings }) {
   ];
 
   return (
-    <nav className="relative">
-      <ul className="hidden md:flex gap-6 text-maintext text-xl font-bold">
+    <nav className="relative order-1 md:order-2">
+      <ul className="hidden md:flex gap-6 text-maintext text-base lg:text-xl font-bold px-4 py-2 border border-border rounded-full">
         {links.map((link) => (
           <li key={link.id}>
             <Link href={link.href}>{link.title}</Link>
@@ -36,13 +36,13 @@ export default function Navbar({ settings }) {
       </button>
 
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-input shadow-lg transform transition-transform duration-300 z-50 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 left-0 h-full w-64 bg-fourth transform transition-transform duration-300 z-50 ${
+          isOpen ? "-translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* close icon */}
         <button
-          className="absolute top-4 left-4 text-maintext"
+          className="absolute top-4 right-4 text-maintext"
           onClick={() => setIsOpen(false)}
         >
           <X size={28} />
@@ -61,7 +61,7 @@ export default function Navbar({ settings }) {
               >
                 {link.title}
               </Link>
-              <div className="mt-2 border-t border-secondary"></div>
+              <div className="mt-2 border-t border-accent"></div>
             </li>
           ))}
         </ul>

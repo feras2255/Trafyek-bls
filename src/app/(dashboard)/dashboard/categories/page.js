@@ -1,6 +1,5 @@
 "use client";
 import ConfirmDialog from "@/components/common/ConfirmDialog";
-import AddCategory from "@/components/dashboard/AddCategory";
 import SortableTable from "@/components/dashboard/SortableTable";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import { supabase } from "@/lib/supabaseClient";
@@ -95,11 +94,6 @@ export default function Categories() {
 
   return (
     <section>
-      {/* <div className="flex items-center justify-between">
-        <h1 className="text-secondary text-2xl font-bold">إدارة التصنيفات</h1>
-        <AddCategory onAdded={handleSaved} />
-      </div> */}
-
       <TitleWithBack
         title="إضافة تصنيف جديد"
         textBtn="إضافة تصنيف"
@@ -112,10 +106,10 @@ export default function Categories() {
         onReorder={handleReorder}
         renderRow={(category) => (
           <>
-            <td className="text-secondary text-lg font-semibold">
+            <td className="text-fourth text-lg font-semibold">
               {category.order}
             </td>
-            <td className="text-secondary text-md font-semibold">
+            <td className="text-fourth text-md font-semibold">
               {category.title}
             </td>
             <td>
@@ -137,7 +131,7 @@ export default function Categories() {
             <td className="space-x-2">
               <Link
                 href={`/dashboard/categories/edit/${category.id}`}
-                className="bg-secondary text-white px-3 py-1 rounded ml-2"
+                className="bg-fourth text-maintext px-3 py-1 rounded ml-2"
               >
                 تعديل
               </Link>
@@ -146,7 +140,6 @@ export default function Categories() {
                   setSelectedId(category.id);
                   setConfirmOpen(true);
                 }}
-                // onClick={() => handleDelete(category.id, category.image_url)}
                 className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
               >
                 حذف
@@ -155,14 +148,6 @@ export default function Categories() {
           </>
         )}
       />
-
-      {editingCategory && (
-        <AddCategory
-          categoryToEdit={editingCategory}
-          onAdded={handleSaved}
-          onClose={() => setEditingCategory(null)}
-        />
-      )}
 
       <ConfirmDialog
         open={confirmOpen}

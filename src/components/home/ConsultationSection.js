@@ -5,8 +5,8 @@ import Link from "next/link";
 export default function ConsultationSection() {
   return (
     <section>
-      <div className="container mx-auto px-6 bg-[url('/consult.webp')] bg-cover bg-center flex flex-col items-center text-center py-16 rounded-2xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-destructive mb-6 ">
+      <div className="container mx-auto px-6 py-16 mt-8 bg-[url('/consult.webp')] bg-cover bg-center flex flex-col items-center text-center  rounded-2xl">
+        <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6 ">
           لم تجد الباقة المناسبة؟
         </h2>
         <p className="text-maintext text-md md:text-lg max-w-2xl mb-8 leading-relaxed">

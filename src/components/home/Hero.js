@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Button from "../ui/button";
 
 export default function Hero({
   preTitle = "جاهزون لتحويل فكرتك إلى واقع!",
@@ -9,17 +10,22 @@ export default function Hero({
   ],
   buttonText = "تواصل معنا الآن",
   buttonLink = "/contact",
-  // isAnchor = false,
-  // className = "",
 }) {
   return (
-    <section
-      className={`relative flex flex-col items-center justify-center text-center py-16 md:pt-28 bg-gradient-to-b from-primary/20 to-background px-6 overflow-hidden `}
-    >
-      <div className="max-w-3xl" data-aos="fade-up">
+    <section className="relative overflow-hidden h-screen bg-black flex flex-col items-center justify-center text-center  px-6">
+      {/* Glow Right */}
+      <div className="absolute bottom-0 right-0 w-[300px] h-[150px] bg-[#8755f0] blur-[180px] rounded-full pointer-events-none"></div>
+
+      {/* Glow Left */}
+      <div className="absolute bottom-0 left-0 w-[300px] h-[150px] bg-[#8755f0] blur-[180px] rounded-full pointer-events-none"></div>
+
+      <div
+        className="max-w-3xl mt-20 space-y-6 md:space-y-0"
+        data-aos="fade-up"
+      >
         {preTitle && (
           <span
-            className="text-sm md:text-lg text-maintext bg-accent px-4 py-2 rounded-full mb-2 inline-block border border-primary"
+            className="text-sm md:text-lg text-maintext bg-accent px-4 py-2 rounded-full inline-block border border-primary"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -29,7 +35,7 @@ export default function Hero({
 
         {title && (
           <h1
-            className="text-3xl md:text-6xl font-extrabold text-primary my-6 leading-snug"
+            className="text-3xl md:text-6xl font-extrabold text-secondary leading-snug"
             data-aos="zoom-in"
             data-aos-delay="200"
           >
@@ -42,7 +48,7 @@ export default function Hero({
             {description.map((desc, idx) => (
               <p
                 key={idx}
-                className="text-base md:text-2xl text-secondarytext mb-2"
+                className="text-base md:text-2xl text-maintext mb-2"
                 data-aos="fade-up"
                 data-aos-delay={300 + idx * 50}
               >
@@ -55,7 +61,7 @@ export default function Hero({
         {buttonText && (
           <Link
             href={buttonLink}
-            className="inline-block bg-primary text-maintext font-semibold px-10 py-4 rounded-full shadow-md hover:shadow-lg hover:bg-primary/90 transition-all mt-4"
+            className="inline-block bg-third text-maintext font-semibold px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:bg-third/90 transition-all duration-500 ease-in-out mt-4"
             data-aos="fade-up"
             data-aos-delay="400"
           >

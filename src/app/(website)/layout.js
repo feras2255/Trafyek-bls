@@ -1,4 +1,4 @@
-import Header from "@/components/header";
+import Header from "@/components/header/Header";
 import Footer from "@/components/footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import PageLoader from "@/components/PageLoader/PageLoader";
@@ -7,7 +7,7 @@ import AOSInitializer from "@/components/common/AOSInitializer";
 
 export default function WebsiteLayout({ children }) {
   return (
-    <div className="pt-14">
+    <div>
       <AOSInitializer />
       <PageLoader />
 
