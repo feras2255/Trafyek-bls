@@ -33,7 +33,7 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4 py-2 md:py-3 flex items-center justify-between">
-        <div className="flex-1 flex items-center gap-0 md:gap-6 lg:gap-24">
+        <div className="flex-1 flex items-center gap-x-0 md:gap-x-20 lg:gap-x-56 ">
           <Link
             href="/"
             className="relative order-2 md:order-1 w-28 h-8 md:w-24 md:h-12 lg:w-32 lg:h-14"
@@ -46,11 +46,12 @@ export default function Header() {
               priority
             />
           </Link>
+
           <Navbar settings={settings.settings.image_url || "/logo.png"} />
         </div>
         <Link
           href={`tel:${settings.settings.phone_number} || "201208651583"`}
-          className="order-3 text-maintext bg-third px-4 py-2 rounded-xl"
+          className="order-3 text-sm md:text-lg text-maintext bg-third px-4 py-2 rounded-lg"
         >
           تواصل معنا
         </Link>
