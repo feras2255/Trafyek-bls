@@ -1,6 +1,5 @@
 import ConsultationSection from "@/components/home/ConsultationSection";
 import CustomizationSection from "@/components/home/CustomizationSection";
-import Features from "@/components/home/Features";
 import Hero from "@/components/home/Hero";
 import Partners from "@/components/home/Partners";
 import WhyUs from "@/components/home/WhyUs";
@@ -23,8 +22,6 @@ export default function Home() {
       <ConsultationSection />
       <Partners />
       <FAQ />
-      {/* <ProductsSlider /> */}
-      {/* <Features /> */}
     </main>
   );
 }

@@ -59,7 +59,7 @@ export default function WhyUs() {
           data-aos-delay="200"
         >
           <Image
-            src="/about.png"
+            src="/about.webp"
             alt="لماذا نحن"
             width={500}
             height={500}

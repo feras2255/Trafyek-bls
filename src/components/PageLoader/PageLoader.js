@@ -1,7 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 export default function DashboardRouteLoader() {
   const [loading, setLoading] = useState(false);
@@ -9,7 +10,6 @@ export default function DashboardRouteLoader() {
 
   useEffect(() => {
     setLoading(true);
-
     const timer = setTimeout(() => setLoading(false), 600);
     return () => clearTimeout(timer);
   }, [pathname]);
@@ -18,7 +18,20 @@ export default function DashboardRouteLoader() {
 
   return (
     <div className="fixed inset-0 bg-background flex items-center justify-center z-50">
-      <Loader2 className="w-10 h-10 text-primary animate-spin" />
+      <div className="relative">
+        <div className="loader-ring text-secondary"></div>
+
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Image
+            src="/lo.png"
+            alt="Loader Logo"
+            width={48}
+            height={48}
+            className="object-contain"
+            priority
+          />
+        </div>
+      </div>
     </div>
   );
 }

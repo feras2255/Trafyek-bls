@@ -61,7 +61,7 @@ export default function Navbar({ settings }) {
               >
                 {link.title}
               </Link>
-              <div className="mt-2 border-t border-accent"></div>
+              <div className="mt-2 border-t border-ring"></div>
             </li>
           ))}
         </ul>
