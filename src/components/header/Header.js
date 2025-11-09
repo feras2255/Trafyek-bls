@@ -59,7 +59,9 @@ export default function Header() {
           <Navbar settings={settings.settings.image_url || "/logo.png"} />
         </div>
         <Link
-          href={`tel:${settings.settings.phone_number} || "201208651583"`}
+          href={`https://wa.me/${
+            settings?.settings?.whatsapp || "201208651583"
+          }`}
           className="order-3 text-sm md:text-lg text-maintext bg-third px-4 py-2 rounded-lg"
         >
           تواصل معنا

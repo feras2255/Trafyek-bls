@@ -1,5 +1,7 @@
+import Button from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function ProjectDetails({ params }) {
   const { id } = params;
@@ -19,27 +21,34 @@ export default async function ProjectDetails({ params }) {
   }
 
   return (
-    <section className="min-h-screen py-20 container mx-auto px-6">
-      <div className="space-y-6">
-        {project.image_url && (
-          <div className="relative w-full h-72 md:h-96 rounded-lg">
+    <section className="py-24 md:py-36">
+      <div className="container mx-auto px-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="w-full h-52 md:h-96 relative">
             <Image
               src={project.image_url}
               alt={project.title}
               fill
-              className="object-contain rounded-lg"
+              className="object-cover rounded-lg mb-6"
             />
           </div>
-        )}
-        <div className="space-y-6 mt-10">
-          <h1 className="text-3xl md:text-5xl font-bold text-primary">
-            {project.title}
-          </h1>
-
-          <div
-            className="prose max-w-none text-secondarytext leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: project.description }}
-          />
+          <div className="space-y-4">
+            <h1 className="text-3xl font-bold">{project.title}</h1>
+            <div
+              className="text-fourth px-3"
+              dangerouslySetInnerHTML={{ __html: project.description }}
+            />
+            {project.project_link && (
+              <Link
+                href={project.project_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-third/80 text-lg md:text-xl font-bold underline hover:text-third px-4 transition-colors duration-300 ease-in-out"
+              >
+                تصفح المشروع
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </section>

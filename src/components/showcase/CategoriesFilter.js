@@ -2,11 +2,12 @@ export default function CategoriesFilter({
   categories,
   selected,
   setSelected,
+  type,
 }) {
   return (
     <div>
       <h2 className="text-3xl font-semibold pb-2 mb-4 border-b border-primary">
-        صفحة الخدمات
+        صفحة {type === "projects" ? "المشاريع" : "المنتجات"}
       </h2>
 
       <div className="flex flex-wrap items-center gap-2 pb-6">

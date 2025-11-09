@@ -1,9 +1,23 @@
 import { supabase } from "@/lib/supabaseClient";
-import ServicesContent from "@/components/services/ServicesContent";
+import Showcase from "@/components/showcase/Showcase";
 
 export default async function Services() {
-  const { data: categories } = await supabase.from("categories").select("*");
-  const { data: products } = await supabase.from("products").select("*");
+  const { data: categories, error } = await supabase
+    .from("categories")
+    .select("*");
+  const { data: products, error: productsError } = await supabase
+    .from("products")
+    .select("*");
 
-  return <ServicesContent categories={categories} products={products} />;
+  if (error || productsError) {
+    return (
+      <section className="py-20">
+        <div className="container mx-auto text-center text-red-500">
+          حدث خطأ أثناء تحميل الخدمات. يرجى المحاولة لاحقًا.
+        </div>
+      </section>
+    );
+  }
+
+  return <Showcase categories={categories} items={products} />;
 }

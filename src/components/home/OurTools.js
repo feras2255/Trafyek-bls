@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SectionTitle from "./SectionTitle";
 
 const skills = [
   { name: "Sketch", value: 95, icon: "/Sketch.webp" },
@@ -12,8 +13,9 @@ const skills = [
 export default function OurTools() {
   return (
     <section className="pb-16 text-center">
+      <SectionTitle text="التقنيات المستخدمة" />
       <div
-        className="mt-16 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 px-6"
+        className="max-w-5xl px-3 md:px-6 mx-auto grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4"
         data-aos="fade-up"
       >
         {skills.map((skill, index) => (
@@ -21,7 +23,7 @@ export default function OurTools() {
             key={skill.name}
             data-aos="zoom-in"
             data-aos-delay={index * 100}
-            className="bg-background rounded-xl p-6 border shadow-lg"
+            className="bg-background rounded-xl py-4 md:p-x-6 border shadow-lg"
           >
             <div className="text-3xl font-bold text-destructive">
               {skill.value}%
@@ -34,7 +36,7 @@ export default function OurTools() {
               className="mx-auto object-cover"
               priority
             />
-            <div className="text-2xl text-scondary font-semibold mt-2">
+            <div className="text-base md:text-2xl text-scondary font-semibold mt-2">
               {skill.name}
             </div>
           </div>

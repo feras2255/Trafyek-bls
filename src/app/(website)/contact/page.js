@@ -12,6 +12,28 @@ import { toast } from "sonner";
 
 export default function Contact() {
   const settings = useSiteSettings();
+  const contactInfo = [
+    {
+      icon: <FaPhoneFlip size={22} />,
+      title: "واتساب",
+      value: settings?.settings?.phone,
+    },
+    {
+      icon: <MdOutlineEmail size={22} />,
+      title: "الايميل",
+      value: settings?.settings?.email,
+    },
+    {
+      icon: <FaPhoneFlip size={22} />,
+      title: "الهاتف",
+      value: settings?.settings?.phone,
+    },
+    {
+      icon: <FaLocationDot size={22} />,
+      title: "العنوان",
+      value: "الرياض، المملكة العربية السعودية",
+    },
+  ];
 
   const [form, setForm] = useState({
     name: "",
@@ -47,6 +69,7 @@ export default function Contact() {
       <Hero
         title="سعداء بتواصلك معنا!"
         description={["فريقنا جاهز للرد عليك في أي وقت"]}
+        buttonLink="#contact"
       />
       <div id="contact" className="">
         <div className="container mx-auto px-4 py-20">
@@ -81,30 +104,32 @@ export default function Contact() {
                   onChange={handleChange}
                 />
                 <div className="flex justify-center">
-                  <Button title={"ارسال"} color={"primary"} size={"full"} />
+                  <Button title={"ارسال"} color={"fourth"} size={"full"} />
                 </div>
               </form>
             </div>
-            <div className="w-full md:w-5/12  p-4 rounded-2xl">
-              <h1 className="inline-block text-3xl font-bold text-secondary border-b border-secondary pb-2 mb-4">
+            <div className="w-full md:w-5/12 p-4 md:mt-10">
+              <h1 className="inline-block text-3xl font-bold text-fourth border-b border-third pb-2 mb-4">
                 معلومات التواصل
               </h1>
 
-              <div className="text-maintext  mt-4 space-y-4 text-lg">
-                <p className="flex items-center gap-3 font-bold bg-input/80 p-4 rounded-lg">
-                  <FaPhoneFlip />
+              <p className="text-primary mb-4 md:mb-8">
+                يسعدنا استقبال استفساراتكم واقتراحاتكم في أي وقت. فريقنا ملتزم
+                بالرد السريع على جميع الرسائل.
+              </p>
 
-                  {settings?.settings?.phone}
-                </p>
-                <p className="flex items-center gap-3 font-bold bg-input/80 p-4 rounded-lg">
-                  <MdOutlineEmail />
-
-                  {settings?.settings?.email}
-                </p>
-                <p className="flex items-center gap-3 font-bold bg-input/80 p-4 rounded-lg">
-                  <FaLocationDot />
-                  الرياض المملكة العربية السعودية
-                </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {contactInfo.map((info, idx) => (
+                  <div key={idx} className="flex items-center gap-4">
+                    <div className="bg-fourth/90 p-3 rounded-lg text-maintext">
+                      {info.icon}
+                    </div>
+                    <div className="flex flex-col">
+                      <h4 className="text-fourth font-bold">{info.title}</h4>
+                      <p className="text-primary font-semibold">{info.value}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
