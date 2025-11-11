@@ -8,12 +8,14 @@ import ServicesSection from "@/components/home/ServicesSection";
 import PricingToggle from "@/components/home/PricingToggle";
 import FAQ from "@/components/home/FAQ";
 import MarqueeSlider from "@/components/home/MarqueeSlider";
+import ProjectsSlider from "@/components/home/ProjectsSlider";
 
 export default function Home() {
   return (
     <main>
       <Hero />
       <MarqueeSlider />
+      <ProjectsSlider />
       <ServicesSection />
       <OurTools />
       <WhyUs />
