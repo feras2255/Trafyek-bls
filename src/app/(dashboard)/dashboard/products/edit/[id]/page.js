@@ -178,7 +178,7 @@ export default function EditProductPage() {
         <div>
           <button
             type="submit"
-            className="bg-secondary text-white w-full px-4 py-2 rounded cursor-pointer"
+            className="bg-fourth text-white w-full px-4 py-2 rounded cursor-pointer"
             disabled={loading}
           >
             {loading ? "جاري الحفظ..." : "حفظ التغييرات"}

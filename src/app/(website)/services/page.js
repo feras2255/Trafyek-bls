@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { supabase } from "@/lib/supabaseClient";
 import Showcase from "@/components/showcase/Showcase";
 

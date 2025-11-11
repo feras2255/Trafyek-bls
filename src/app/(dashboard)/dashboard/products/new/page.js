@@ -154,7 +154,7 @@ export default function NewProduct() {
 
         <FileInput setImage={setImage} />
 
-        <Button title="حفظ" color="secondary" type="submit" size={"full"} />
+        <Button title="حفظ" color="fourth" type="submit" size={"full"} />
       </form>
     </div>
   );

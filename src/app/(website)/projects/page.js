@@ -1,14 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
+export const revalidate = 0;
+
 import { supabase } from "@/lib/supabaseClient";
 import Showcase from "@/components/showcase/Showcase";
 
 export default async function Projects() {
-  // const { data: projects, error } = await supabase
-  //   .from("projects")
-  //   .select("id, title, description, project_link, image_url")
-  //   .order("id", { ascending: false });
-
   const { data: categories, error } = await supabase
     .from("categories")
     .select("*");

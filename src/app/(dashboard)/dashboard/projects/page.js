@@ -95,7 +95,7 @@ export default function Projects() {
             <td className="p-3 text-center space-x-2">
               <Link
                 href={`/dashboard/projects/edit/${project.id}`}
-                className="bg-accent text-white px-3 py-1 rounded"
+                className="bg-fourth text-white px-3 py-1 rounded"
               >
                 تعديل
               </Link>

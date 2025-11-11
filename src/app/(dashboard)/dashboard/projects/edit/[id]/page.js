@@ -178,7 +178,7 @@ export default function EditProject() {
         <Button
           type="submit"
           title="تحديث المشروع"
-          color="secondary"
+          color="fourth"
           size={"full"}
         />
       </form>

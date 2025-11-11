@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import SectionTitle from "./SectionTitle";
@@ -30,7 +32,7 @@ export default async function Partners() {
               alt={`partner${partner.id}`}
               width={200}
               height={200}
-              className=" object-contain"
+              className=" object-cover rounded-xl"
               priority
             />
           </div>

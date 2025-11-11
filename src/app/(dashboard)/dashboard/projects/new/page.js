@@ -162,7 +162,7 @@ export default function AddProject() {
         <Button
           title="اضافة المشروع"
           type="submit"
-          color="secondary"
+          color="fourth"
           size={"full"}
         />
       </form>

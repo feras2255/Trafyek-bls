@@ -25,7 +25,7 @@ export default function MessageDetails() {
   if (!message) {
     return;
     <div className="">
-      <p className="text-lg text-secondary text-center py-10">
+      <p className="text-lg text-fourth text-center py-10">
         جاري تحميل الرسالة...
       </p>
       ;
@@ -33,23 +33,23 @@ export default function MessageDetails() {
   }
 
   return (
-    <div className="">
+    <div>
       <MainTitle title=" تفاصيل الرسالة" />
 
       <div className="bg-card px-6 pt-6 mt-12 rounded-md space-y-4">
-        <p className="text-lg text-secondary font-bold">
+        <p className="text-lg text-fourth font-bold">
           <span className="text-xl ml-4">الاسم:</span> {message.name}
         </p>
-        <p className="text-lg text-secondary font-bold">
+        <p className="text-lg text-fourth font-bold">
           <span className="text-xl ml-4">الايميل:</span> {message.email}
         </p>
-        <p className="text-lg text-secondary font-bold">
+        <p className="text-lg text-fourth font-bold">
           <span className="text-xl ml-4">الجوال:</span> {message.phone}
         </p>
-        <p className="text-lg text-secondary font-bold">
+        <p className="text-lg text-fourth font-bold">
           <span className="text-xl ml-4">الرسالة:</span> {message.message}
         </p>
-        <p className="text-md text-secondarytext font-semibold mx-4">
+        <p className="text-md text-fourthtext font-semibold mx-4">
           التاريخ: {new Date(message.created_at).toLocaleDateString("ar-EG")} -{" "}
           {new Date(message.created_at).toLocaleTimeString("ar-EG")}
         </p>

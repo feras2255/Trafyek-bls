@@ -223,7 +223,7 @@ export default function ProductsDashboard() {
         onReorder={handleReorder}
         renderRow={(p, index) => (
           <>
-            <td className="text-secondary font-bold">
+            <td className="text-primary font-bold">
               {p.order || index + 1 + (page - 1) * pageSize}
             </td>
             <td className="p-3 text-center">
@@ -235,19 +235,19 @@ export default function ProductsDashboard() {
                 className="rounded object-cover mx-auto"
               />
             </td>
-            <td className="truncate max-w-xs text-secondary text-lg font-semibold">
+            <td className="truncate max-w-xs text-fourth text-lg font-semibold">
               {p.title}
             </td>
             <td className="text-primary font-bold text-lg">{p.price},00</td>
             <td>
-              <p className="bg-accent text-maintext px-4 py-1 rounded inline-block">
+              <p className="bg-third text-maintext px-4 py-1 rounded inline-block">
                 {p.categories?.title || "غير مصنف"}
               </p>
             </td>
             <td>
               <Link
                 href={`/dashboard/products/edit/${p.id}`}
-                className="bg-secondary text-white px-3 py-1 rounded ml-2"
+                className="bg-fourth text-maintext px-3 py-1 rounded ml-2"
               >
                 تعديل
               </Link>
@@ -256,7 +256,6 @@ export default function ProductsDashboard() {
                   setSelectedId(p.id);
                   setConfirmOpen(true);
                 }}
-                // onClick={() => handleDelete(p.id)}
                 className="bg-destructive text-white px-3 py-1 rounded cursor-pointer ml-2"
               >
                 حذف

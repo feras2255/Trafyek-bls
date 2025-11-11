@@ -1,4 +1,4 @@
-import Button from "@/components/ui/button";
+export const revalidate = 0;
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import Link from "next/link";

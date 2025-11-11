@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import Button from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
