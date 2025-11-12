@@ -119,6 +119,7 @@ export default function PricingToggle() {
         <button
           className="relative w-16 h-8 bg-gray-600 rounded-full p-1 flex items-center cursor-pointer"
           onClick={() => setType(type === "website" ? "store" : "website")}
+          aria-label="تغيير الباقة"
         >
           <span
             className={`w-6 h-6 rounded-full bg-purple-400 transition-all ${
