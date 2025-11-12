@@ -16,6 +16,7 @@ export default function CategoriesFilter({
           className={`text-[9px] md:text-base px-4 py-2 rounded-full border transition cursor-pointer ${
             selected === "all" ? "bg-accent text-maintext" : "bg-transparent"
           }`}
+          aria-label="الكل"
         >
           الكل
         </button>
@@ -27,6 +28,7 @@ export default function CategoriesFilter({
             className={`text-[9px] md:text-base px-3 py-2 font-bold rounded-full border transition cursor-pointer ${
               selected === cat.id ? "bg-accent text-maintext" : "bg-transparent"
             }`}
+            aria-label={cat.title}
           >
             {cat.title}
           </button>
