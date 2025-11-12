@@ -44,6 +44,7 @@ export default function Navbar({ settings }) {
         <button
           className="absolute top-4 right-4 text-maintext"
           onClick={() => setIsOpen(false)}
+          aria-label="اغلاق القائمة"
         >
           <X size={28} />
         </button>
