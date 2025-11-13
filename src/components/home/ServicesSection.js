@@ -20,7 +20,7 @@ export default async function ServicesSection() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-10">
         {categories.map((category, index) => (
-          <Link href={`/services/${category.id} `} key={category.id}>
+          <Link href={`/services`} key={category.id}>
             <div
               data-aos="zoom-in"
               data-aos-delay={index * 100}

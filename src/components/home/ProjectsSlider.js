@@ -60,7 +60,7 @@ export default function ProjectsSlider() {
             key={project.id}
             className="flex items-center justify-center"
           >
-            <div className="w-fit mx-auto px-2 py-1  flex items-center justify-center rounded-lg mb-8">
+            <div className="w-fit mx-auto md:px-1 py-1  flex items-center justify-center rounded-lg">
               <Image
                 src={project.image_url}
                 alt="project"
