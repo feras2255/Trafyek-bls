@@ -37,6 +37,19 @@
     "experience": "سنوات خبرة"
   },
 
+  "services": {
+    "all": "الكل",
+    "page_title": "صفحة",
+    "products": "الخدمات",
+    "projects": "المشاريع"
+  },
+
+  "projects": {
+    "all": "الكل",
+    "page_title": "صفحة",
+    "projects": "المشاريع"
+  },
+
   "why_us": {
     "title": "لماذا تضع ثقتك في ترافيك؟",
     "item1": "خبرة تتجاوز التوقعات",

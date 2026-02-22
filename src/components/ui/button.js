@@ -15,7 +15,7 @@ export default function Button({
   const colorClasses = {
     primary: "bg-primary text-white hover:bg-primary/90",
     secondary: "bg-secondary text-black hover:bg-secondary/90",
-    fourth: "bg-fourth text-maintext hover:bg-fourth/90",
+    accent: "bg-accent text-text hover:bg-accent/90",
     Link: "bg-transparent text-fourth underline",
   };
 

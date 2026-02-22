@@ -1,136 +1,113 @@
-"use client";
-import { useSiteSettings } from "@/app/context/SiteSettingsContext";
-import Hero from "@/components/home/Hero";
-import Button from "@/components/ui/button";
-import Input from "@/components/ui/input";
-import Textarea from "@/components/ui/textarea";
-import { addMessage } from "@/lib/contact";
-import { useState } from "react";
-import { FaLocationDot, FaPhoneFlip } from "react-icons/fa6";
+import { siteSettings } from "@/lib/siteSettings";
+import { FaLocationDot, FaPhoneFlip, FaWhatsapp } from "react-icons/fa6";
 import { MdOutlineEmail } from "react-icons/md";
-import { toast } from "sonner";
+import ContactForm from "./_Component/ContactForm";
+import PageHero from "@/components/ui/PageHero";
+import Link from "next/link";
 
-export default function Contact() {
-  const settings = useSiteSettings();
+export default async function ContactPage() {
+  const settings = await siteSettings();
+  if (!settings) return null;
+
   const contactInfo = [
     {
-      icon: <FaPhoneFlip size={22} />,
+      icon: <FaWhatsapp size={22} />,
       title: "واتساب",
-      value: settings?.settings?.phone,
+      value: settings.phone,
+      color: "hover:text-green-500",
+      link: `https://wa.me/${settings.phone}`,
     },
     {
       icon: <MdOutlineEmail size={22} />,
-      title: "الايميل",
-      value: settings?.settings?.email,
+      title: "البريد الإلكتروني",
+      value: settings.email,
+      color: "hover:text-blue-500",
+      link: `mailto:${settings.email}`,
     },
     {
       icon: <FaPhoneFlip size={22} />,
       title: "الهاتف",
-      value: settings?.settings?.phone,
+      value: settings.phone,
+      color: "hover:text-primary",
+      link: `tel:${settings.phone}`,
     },
     {
       icon: <FaLocationDot size={22} />,
-      title: "العنوان",
+      title: "المقر الرئيسي",
       value: "الرياض، المملكة العربية السعودية",
+      color: "hover:text-red-500",
+      link: "#",
     },
   ];
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const breadcrumbData = [{ label: "اتصل بنا" }];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await addMessage(form);
-      toast.success("تم ارسال الرسالة بنجاح");
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-      });
-    } catch (err) {
-      toast.error("فشل ارسال الرسالة");
-    }
-  };
-
-  if (!settings) return null;
   return (
     <section>
-      <Hero
-        title="سعداء بتواصلك معنا!"
-        description={["فريقنا جاهز للرد عليك في أي وقت"]}
-        buttonLink="#contact"
+      <PageHero
+        title="لنبني شيئاً مذهلاً معاً!"
+        description="سواء كان لديك مشروع جديد أو مجرد استفسار، فريق ترافيك جاهز لتحويل أفكارك إلى واقع رقمي ملموس."
+        breadcrumb={breadcrumbData}
+        bgImage="/co-hero.png"
       />
-      <div id="contact" className="">
-        <div className="container mx-auto px-4 py-20">
-          <div className="flex flex-col md:flex-row gap-10">
-            <div className="w-full md:w-7/12">
-              <form onSubmit={handleSubmit} action="" className="space-y-4">
-                <Input
-                  name={"name"}
-                  type={"text"}
-                  placeholder="الاسم"
-                  value={form.name}
-                  onChange={handleChange}
-                />
-                <Input
-                  name={"email"}
-                  type={"email"}
-                  placeholder="الايميل"
-                  value={form.email}
-                  onChange={handleChange}
-                />
-                <Input
-                  name={"phone"}
-                  type={"number"}
-                  placeholder="الجوال"
-                  value={form.phone}
-                  onChange={handleChange}
-                />
-                <Textarea
-                  name={"message"}
-                  placeholder="الرسالة"
-                  value={form.message}
-                  onChange={handleChange}
-                />
-                <div className="flex justify-center">
-                  <Button title={"ارسال"} color={"fourth"} size={"full"} />
-                </div>
-              </form>
-            </div>
-            <div className="w-full md:w-5/12 p-4 md:mt-10">
-              <h1 className="inline-block text-3xl font-bold text-fourth border-b border-third pb-2 mb-4">
-                معلومات التواصل
-              </h1>
 
-              <p className="text-primary mb-4 md:mb-8">
-                يسعدنا استقبال استفساراتكم واقتراحاتكم في أي وقت. فريقنا ملتزم
-                بالرد السريع على جميع الرسائل.
-              </p>
+      <div id="contact" className="relative">
+        <div className="container mx-auto px-4 sm:px-6 py-12 lg:py-24">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+            <div className="w-full lg:w-5/12 order-1 space-y-8 lg:space-y-12">
+              <div className="text-center lg:text-right" data-aos="fade-up">
+                <h3 className="text-2xl lg:text-3xl font-black text-slate-900 mb-4">
+                  معلومات التواصل
+                </h3>
+                <p className="text-slate-600 leading-relaxed text-base lg:text-lg">
+                  يسعدنا استقبال استفساراتكم. فريقنا المبدع متواجد دائماً لتقديم
+                  الدعم الفني والاستشارات الرقمية.
+                </p>
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-6">
                 {contactInfo.map((info, idx) => (
-                  <div key={idx} className="flex items-center gap-4">
-                    <div className="bg-fourth/90 p-3 rounded-lg text-maintext">
+                  <Link
+                    href={info.link}
+                    key={idx}
+                    className="group flex items-center gap-4 lg:gap-6 p-2 lg:py-4 lg:px-8 rounded-xl bg-primary/10 lg:bg-transparent transition-all duration-300 active:scale-95 lg:hover:bg-white lg:hover:shadow-xl border border-transparent lg:hover:border-gray-100"
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 lg:w-14 lg:h-14 bg-accent text-text rounded-xl lg:rounded-2xl flex items-center justify-center transition-transform group-hover:rotate-6 shadow-md">
                       {info.icon}
                     </div>
                     <div className="flex flex-col">
-                      <h4 className="text-fourth font-bold">{info.title}</h4>
-                      <p className="text-primary font-semibold">{info.value}</p>
+                      <span className="text-[10px] lg:text-xs font-bold text-primary uppercase tracking-widest">
+                        {info.title}
+                      </span>
+                      <p className="text-slate-900 font-black text-sm lg:text-lg break-all">
+                        {info.value}
+                      </p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
+
+              <div className="hidden sm:block p-6 bg-primary/5 rounded-2xl border border-primary/10 text-center lg:text-right">
+                <h4 className="font-bold text-slate-900 mb-1">ساعات العمل</h4>
+                <p className="text-subtext text-sm">
+                  الأحد - الخميس: 9:00 ص - 6:00 م
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="w-full lg:w-7/12 order-2 lg:order-1 md:p-12  "
+              data-aos="fade-up"
+            >
+              <div className="mb-8 px-3 text-center ">
+                <h2 className="text-2xl lg:text-3xl font-black text-accent mb-2">
+                  أرسل لنا رسالة
+                </h2>
+                <p className="text-subtext text-sm lg:text-base">
+                  سنقوم بالرد عليك خلال أقل من 24 ساعة عمل.
+                </p>
+              </div>
+              <ContactForm />
             </div>
           </div>
         </div>

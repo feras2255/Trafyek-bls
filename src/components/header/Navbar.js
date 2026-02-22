@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { use, useState } from "react";
+import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";

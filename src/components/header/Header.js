@@ -1,10 +1,8 @@
 import { siteSettings } from "@/lib/siteSettings";
 import Navbar from "./Navbar";
-import { getLocale } from "next-intl/server";
 
 export default async function Header() {
   const settings = await siteSettings();
-  const locale = await getLocale();
 
   if (!settings) return null;
   return (

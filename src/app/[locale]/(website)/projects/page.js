@@ -2,54 +2,68 @@ export const revalidate = 0;
 
 import { supabase } from "@/lib/supabaseClient";
 import Showcase from "@/components/showcase/Showcase";
+import PageHero from "@/components/ui/PageHero";
+import { getLocale } from "next-intl/server";
 
 export default async function Projects() {
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
+  // جلب التصنيفات والمشاريع
   const { data: categories, error } = await supabase
     .from("categories")
     .select("*");
+
   const { data: projects, error: projectsError } = await supabase
     .from("projects")
     .select("*");
 
-  if (error) {
-    console.error("خطأ أثناء جلب المشاريع:", error);
+  if (error || projectsError) {
+    console.error("خطأ أثناء جلب المشاريع:", error || projectsError);
     return (
       <section className="py-20">
-        <div className="container mx-auto text-center text-red-500">
-          حدث خطأ أثناء تحميل المشاريع. يرجى المحاولة لاحقًا.
+        <div className="container mx-auto text-center text-red-500 font-bold">
+          {isAr
+            ? "حدث خطأ أثناء تحميل المشاريع. يرجى المحاولة لاحقًا."
+            : "An error occurred while loading projects. Please try again later."}
         </div>
       </section>
     );
   }
 
+  // ترجمة البيانات بناءً على اللغة المختارة
+  const localizedCategories = categories.map((cat) => ({
+    ...cat,
+    title: isAr ? cat.title_ar : cat.title_en,
+  }));
+
+  const localizedProjects = projects.map((proj) => ({
+    ...proj,
+    title: isAr ? proj.title_ar : proj.title_en,
+    description: isAr ? proj.description_ar : proj.description_en,
+  }));
+
   return (
-    <section className="">
-      <div className="relative overflow-hidden py-24 bg-black flex flex-col items-center justify-center px-6">
-        <div className="absolute bottom-0 right-0 w-[300px] h-[150px] bg-[#8755f0] blur-[180px] rounded-full pointer-events-none"></div>
+    <main>
+      {/* استخدام PageHero الموحد بدلاً من القسم اليدوي */}
+      <PageHero
+        title={isAr ? "معرض أعمالنا" : "Our Portfolio"}
+        description={
+          isAr
+            ? "نُحوِّل الأفكار إلى إنجازات واقعية. نقدم حلولًا مبتكرة تعكس جودة عملنا واحترافيتنا في تحقيق رؤية عملائنا."
+            : "We turn ideas into reality. Providing innovative solutions that reflect our quality and professionalism in achieving our clients' vision."
+        }
+        breadcrumb={[{ label: isAr ? "المشاريع" : "Projects" }]}
+        bgImage="/co-hero.png"
+      />
 
-        <div className="absolute bottom-0 left-0 w-[300px] h-[150px] bg-[#8755f0] blur-[180px] rounded-full pointer-events-none"></div>
-
-        <div className="container mx-auto mt-20 space-y-6" data-aos="fade-up">
-          <h1
-            className="text-2xl md:text-6xl font-extrabold text-secondary leading-snug"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            نُحوِّل الأفكار إلى إنجازات واقعية
-          </h1>
-
-          <p
-            className="text-base md:text-2xl text-maintext mb-2 text-justify"
-            data-aos="fade-up"
-            data-aos-delay={300}
-          >
-            نقدم حلولًا مبتكرة مصممة بدقة لتلائم احتياجك. هنا نعرض مجموعـة من
-            المشاريع التي نفخر بتنفيذها، والتي تعكس جودة عملنا واحترافيتنا في
-            تحقيق رؤية عملائنا على أرض الواقع.{" "}
-          </p>
-        </div>
+      <div className="py-10">
+        <Showcase
+          categories={localizedCategories}
+          items={localizedProjects}
+          type="projects"
+        />
       </div>
-      <Showcase categories={categories} items={projects} />;
-    </section>
+    </main>
   );
 }
