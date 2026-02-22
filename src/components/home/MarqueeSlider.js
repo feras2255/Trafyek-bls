@@ -10,7 +10,7 @@ export default function MarqueeSlider() {
   const Partnersloogo = [
     {
       id: 1,
-      image_url: "/partners/salla.webp",
+      image_url: "/partners/salaa-l.webp",
     },
     {
       id: 2,
@@ -22,24 +22,21 @@ export default function MarqueeSlider() {
     },
     {
       id: 4,
-      image_url: "/partners/google.webp",
+      image_url: "/partners/google-l.webp",
     },
     {
       id: 5,
-      image_url: "/partners/zid.webp",
+      image_url: "/partners/zid-l.webp",
     },
-    {
-      id: 6,
-      image_url: "/partners/Elementor.webp",
-    },
+
     {
       id: 7,
       image_url: "/partners/figma.webp",
     },
   ];
   return (
-    <section className="w-full overflow-hidden bg-gradient-to-t from-background via-fourth/30 to-primary/60 pb-1 pt-14">
-      <div className="max-w-4xl mx-auto px-6">
+    <section className="w-full overflow-hidden bg-secondary pb-1 pt-14">
+      <div className="container mx-auto px-4 lg:px-6">
         <Swiper
           modules={[Autoplay]}
           spaceBetween={10}

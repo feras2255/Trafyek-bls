@@ -1,25 +1,43 @@
 "use client";
-import { useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
-import { useRouter } from "next/navigation";
-import Input from "@/components/ui/input";
 
-export default function LoginPage() {
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Input } from "@components/form-filed";
+
+export default function SigninPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const router = useRouter();
+  const [error, setError] = (useState < string) | (null > null);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      setError("البريد الإلكتروني او كلمة المرور غير صحيحة");
-    } else {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "حدث خطأ ما");
+        setLoading(false);
+        return;
+      }
+
+      // تسجيل الدخول ناجح
       router.push("/dashboard");
+    } catch (err) {
+      setError("حدث خطأ في الاتصال بالخادم");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -32,6 +50,7 @@ export default function LoginPage() {
         <h2 className="text-2xl md:text-4xl text-primary font-bold mb-8">
           تسجيل الدخول
         </h2>
+
         <div className="pb-4 space-y-4">
           <Input
             type="email"
@@ -50,10 +69,12 @@ export default function LoginPage() {
 
         <button
           type="submit"
-          className="bg-primary text-white py-2 px-4  w-full rounded cursor-pointer hover:bg-secondarytext transition duration-300"
+          disabled={loading}
+          className="bg-primary text-white py-2 px-4 w-full rounded cursor-pointer hover:bg-secondarytext transition duration-300 disabled:opacity-50"
         >
-          دخول
+          {loading ? "جاري الدخول..." : "دخول"}
         </button>
+
         {error && (
           <p className="text-sm md:text-base mt-2 text-red-500">{error}</p>
         )}

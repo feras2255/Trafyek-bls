@@ -8,10 +8,9 @@ import {
   getSiteSettings,
   updateSiteSettings,
   uploadImage,
-} from "@/lib/siteSettings";
+} from "@/lib/getSiteSettings";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import Image from "next/image";
 
 export default function Settings() {
   const [settings, setSettings] = useState({

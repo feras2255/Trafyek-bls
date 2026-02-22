@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 
 export default function PageContent() {
-  const { slug } = useParams(); // يلتقط slug من المسار
+  const { slug } = useParams();
   const [page, setPage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

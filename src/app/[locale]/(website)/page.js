@@ -9,12 +9,20 @@ import PricingToggle from "@/components/home/PricingToggle";
 import FAQ from "@/components/home/FAQ";
 import MarqueeSlider from "@/components/home/MarqueeSlider";
 import ProjectsSlider from "@/components/home/ProjectsSlider";
+import AboutSection from "@/components/home/AboutSection";
+import StatsSection from "@/components/home/StatsSection";
 
 export default function Home() {
   return (
-    <main>
+    <main className="mt-20 space-y-10">
       <Hero />
       <MarqueeSlider />
+      <AboutSection />
+      <ServicesSection />
+      <Partners />
+      <StatsSection />
+      <WhyUs />
+      {/* 
       <ProjectsSlider />
       <ServicesSection />
       <OurTools />
@@ -22,8 +30,8 @@ export default function Home() {
       <CustomizationSection />
       <PricingToggle />
       <ConsultationSection />
-      <Partners />
-      <FAQ />
+    
+      <FAQ /> */}
     </main>
   );
 }

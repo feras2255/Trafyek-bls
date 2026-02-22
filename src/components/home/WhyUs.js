@@ -1,70 +1,77 @@
 "use client";
-import Image from "next/image";
+import { useTranslations, useLocale } from "next-intl";
+import { FiAward, FiShield, FiHeadphones, FiCheckCircle } from "react-icons/fi";
 
 export default function WhyUs() {
+  const t = useTranslations("why_us");
+  const locale = useLocale();
+  const isRtl = locale === "ar";
+
   const items = [
-    { title: "الخبرة في المجال", percent: 95 },
-    { title: "السرعة والأمان", percent: 90 },
-    { title: "التواصل والدعم", percent: 99 },
-    { title: "خبرة الفريق", percent: 93 },
+    { title: t("item1"), desc: t("item1_desc"), icon: <FiAward />, delay: 100 },
+    {
+      title: t("item2"),
+      desc: t("item2_desc"),
+      icon: <FiShield />,
+      delay: 200,
+    },
+    {
+      title: t("item3"),
+      desc: t("item3_desc"),
+      icon: <FiHeadphones />,
+      delay: 300,
+    },
+    {
+      title: t("item4"),
+      desc: t("item4_desc"),
+      icon: <FiCheckCircle />,
+      delay: 400,
+    },
   ];
 
   return (
-    <section className="relative bg-background overflow-hidden">
-      <div className="absolute bottom-0  left-0 w-full h-1/2 bg-gradient-to-t from-secondary/20 to-transparent z-0"></div>
-
-      <div className="relative max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10 items-center z-10">
-        <div data-aos="fade-right" className="order-1 md:order-2 py-6 z-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-10 text-center md:text-right">
-            لماذا نحن؟
+    <section
+      className="relative py-24 bg-white overflow-hidden"
+      dir={isRtl ? "rtl" : "ltr"}
+    >
+      <div className="container mx-auto px-6 relative z-10">
+        {/* رأس القسم الممركز */}
+        <div className="text-center max-w-3xl mx-auto mb-20" data-aos="fade-up">
+          <span className="text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4 block">
+            {isRtl ? "لماذا نحن" : "Why Us"}
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black text-accent leading-tight mb-6">
+            {t("title")}
           </h2>
-
-          <div className="space-y-6">
-            {items.map((item, index) => (
-              <div key={index} data-aos="fade-up" data-aos-delay={index * 150}>
-                <div className="flex justify-between mb-2 text-sm font-medium text-foreground">
-                  <span>{item.title}</span>
-                  <span>{item.percent}%</span>
-                </div>
-
-                <div className="w-full bg-muted h-5 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-secondary rounded-full"
-                    style={{
-                      width: "0%",
-                      animation: `fillBar-${index} 1.5s ease forwards`,
-                      animationDelay: `${index * 0.3}s`,
-                    }}
-                  ></div>
-
-                  <style jsx>{`
-                    @keyframes fillBar-${index} {
-                      from {
-                        width: 0%;
-                      }
-                      to {
-                        width: ${item.percent}%;
-                      }
-                    }
-                  `}</style>
-                </div>
-              </div>
-            ))}
-          </div>
+          <div className="w-20 h-1.5 bg-primary rounded-full mx-auto"></div>
         </div>
 
-        <div
-          className="flex justify-center order-2 md:order-1"
-          data-aos="fade-left"
-          data-aos-delay="200"
-        >
-          <Image
-            src="/about.webp"
-            alt="لماذا نحن"
-            width={500}
-            height={500}
-            className="relative z-10 -mb-20 md:-mb-20 object-contain"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {items.map((item, index) => (
+            <div
+              key={index}
+              data-aos="fade-up"
+              data-aos-delay={item.delay}
+              className="bg-secondary group relative flex flex-col items-center text-center rounded-xl p-4 transition-all duration-300"
+            >
+              {/* الأيقونة */}
+              <div className="w-16 h-16 bg-slate-50 text-primary rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:bg-primary group-hover:text-white group-hover:rotate-6 transition-all duration-500 shadow-sm">
+                {item.icon}
+              </div>
+
+              {/* المحتوى */}
+              <h3 className="text-xl font-bold text-accent mb-4 group-hover:text-primary transition-colors">
+                {item.title}
+              </h3>
+
+              <p className="text-subtext leading-relaxed text-sm md:text-base">
+                {item.desc}
+              </p>
+
+              {/* لمسة ديكورية تظهر عند الحوم */}
+              <div className="absolute -bottom-4 w-0 h-1 bg-primary/20 rounded-full group-hover:w-12 transition-all duration-500"></div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

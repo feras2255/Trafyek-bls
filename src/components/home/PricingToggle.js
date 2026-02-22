@@ -1,5 +1,5 @@
 "use client";
-import { Check } from "lucide-react";
+import { FiCheck } from "react-icons/fi";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -141,7 +141,7 @@ export default function PricingToggle() {
         {plans.map((plan, i) => {
           const message = `مرحباً، أريد الاستفسار عن باقة: ${plan.title} بسعر ${plan.price} ريال`;
           const whatsappLink = `https://wa.me/966530446151?text=${encodeURIComponent(
-            message
+            message,
           )}`;
 
           return (
@@ -173,7 +173,7 @@ export default function PricingToggle() {
               <ul className="text-sm text-gray-300 space-y-3">
                 {plan.features.map((f, index) => (
                   <li key={index} className="flex gap-2">
-                    <Check size={18} className="text-purple-400" />
+                    <FiCheck size={18} className="text-purple-400" />
                     {f}
                   </li>
                 ))}

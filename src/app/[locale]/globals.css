@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --background: #faf9f6;
+  --background-2: #f7f3ed;
+  --card: #f1f7fc;
+  --primary: #c0864b;
+  /* --primary: #d4a373; */
+  --secondary: #f1e3d3;
+  --third: #f7f3ed;
+  --accent: #012f68;
+  --maintext: #000000;
+  --text: #ffffff;
+  --subtext: #4a5565;
+  --border: #cccccc;
+  --hover: #8b4513;
+  --sucsses: #00a63e;
+  --worning: #c2410c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-2: var(--background-2);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-third: var(--third);
+  --color-accent: var(--accent);
+  --color-maintext: var(--maintext);
+  --color-text: var(--text);
+  --color-subtext: var(--subtext);
+  --color-border: var(--border);
+  --color-hover: var(--hover);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--maintext);
+}
+
+.loader-ring {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border-left: 4px solid currentColor;
+  border-right: 4px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

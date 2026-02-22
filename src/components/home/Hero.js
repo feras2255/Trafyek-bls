@@ -1,72 +1,95 @@
+import { supabase } from "@/lib/supabaseClient";
 import Link from "next/link";
+import Image from "next/image";
+import { getLocale } from "next-intl/server";
 
-export default function Hero({
-  preTitle = "جاهزون لتحويل فكرتك إلى واقع!",
-  title = "نبدع في تصميم موقع يعبّر عنك!",
-  description = [
-    "لديك فكرة أو مشروع وتبحث عن واجهة احترافية تبرز هويتك؟",
-    "تصميم وتطوير مواقع ومتاجر إلكترونية بأعلى جودة واحترافية.",
-  ],
-  buttonText = "تواصل معنا الآن",
-  buttonLink = "/contact",
-}) {
+export default async function Hero() {
+  const locale = await getLocale();
+  const isRtl = locale === "ar";
+  const { data, error } = await supabase.from("hero").select("*").single();
+
+  if (error || !data) {
+    console.error("Supabase Error:", error);
+    return null;
+  }
+
+  const content = {
+    preTitle: isRtl ? data.preTitle_ar : data.preTitle_en,
+    title: isRtl ? data.title_ar : data.title_en,
+    description: isRtl ? data.description_ar : data.description_en,
+    button: isRtl ? data.button_ar : data.button_en,
+    btn_url: data.btn_url,
+    image_url: data.image_url,
+  };
+
   return (
-    <section className="relative overflow-hidden h-screen bg-black flex flex-col items-center justify-center text-center  px-6">
-      {/* Glow Right */}
-      <div className="absolute bottom-0 right-0 w-[300px] h-[150px] bg-[#8755f0] blur-[180px] rounded-full pointer-events-none"></div>
+    <section className="h-full lg:h-[calc(100vh-120px)] flex items-center bg-gradient-to-b from-background to-transparent px-6 pt-6 lg:pt-10 overflow-hidden">
+      <div className="container mx-auto flex flex-col lg:flex-row gap-8 items-center">
+        <div className="w-full lg:w-7/12 space-y-4 order-2 md:order-1">
+          {content.preTitle && (
+            <span
+              className="text-xs md:text-base text-maintext  px-4 font-semibold"
+              data-aos="fade-left"
+            >
+              {content.preTitle}
+            </span>
+          )}
 
-      {/* Glow Left */}
-      <div className="absolute bottom-0 left-0 w-[300px] h-[150px] bg-[#8755f0] blur-[180px] rounded-full pointer-events-none"></div>
+          {content.title && (
+            <h1
+              className="text-2xl lg:text-6xl font-semibold text-accent leading-normal "
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              {content.title}
+            </h1>
+          )}
 
-      <div
-        className="max-w-3xl mt-20 space-y-6 md:space-y-0"
-        data-aos="fade-up"
-      >
-        {preTitle && (
-          <span
-            className="text-sm md:text-lg text-maintext bg-accent px-4 py-2 rounded-full inline-block border border-primary"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            {preTitle}
-          </span>
-        )}
+          {content.description && (
+            <p
+              className="text-sm md:text-base lg:text-xl text-subtext leading-relaxed "
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              {content.description}
+            </p>
+          )}
 
-        {title && (
-          <h1
-            className="text-3xl md:text-6xl font-extrabold text-secondary leading-snug"
-            data-aos="zoom-in"
-            data-aos-delay="200"
-          >
-            {title}
-          </h1>
-        )}
-
-        {description && description.length > 0 && (
-          <div>
-            {description.map((desc, idx) => (
-              <p
-                key={idx}
-                className="text-base md:text-2xl text-maintext mb-2"
-                data-aos="fade-up"
-                data-aos-delay={300 + idx * 50}
+          {content.button && (
+            <div data-aos="fade-up" data-aos-delay="300" className="pt-4">
+              <Link
+                href={content.btn_url || "#"}
+                className="inline-block items-center justify-center bg-primary text-text font-semibold px-6 py-3 rounded-xl hover:-translate-y-1.5 transition-all duration-300"
               >
-                {desc}
-              </p>
-            ))}
-          </div>
-        )}
+                {content.button}
+              </Link>
+            </div>
+          )}
+        </div>
 
-        {buttonText && (
-          <Link
-            href={buttonLink}
-            className="inline-block bg-third text-maintext font-semibold px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:bg-third/90 transition-all duration-500 ease-in-out mt-4"
-            data-aos="fade-up"
-            data-aos-delay="400"
-          >
-            {buttonText}
-          </Link>
-        )}
+        <div
+          className="relative w-full lg:w-5/12 group order-1 md:order-2"
+          data-aos="zoom-in-right"
+          data-aos-delay="400"
+        >
+          {content.image_url ? (
+            <div className="relative w-full  mx-auto">
+              <div className="relative h-40 md:h-60 w-full overflow-hidden rounded-xl ">
+                <Image
+                  src={content.image_url}
+                  alt={content.title || "Hero Image"}
+                  fill
+                  priority
+                  className="object-contain transition-transform duration-700 "
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="w-full aspect-square bg-gray-100 rounded-[2rem] flex items-center justify-center border-2 border-dashed border-gray-300">
+              <span className="text-gray-400">في انتظار الصورة...</span>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
