@@ -36,6 +36,12 @@
     "clients": "Happy Clients",
     "experience": "Years of Experience"
   },
+  "services": {
+    "all": "All",
+    "page_title": "Page",
+    "products": "Services",
+    "projects": "Projects"
+  },
 
   "dashboard": {
     "dash": "Dashboard",
