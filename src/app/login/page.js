@@ -8,7 +8,7 @@ export default function SigninPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = (useState < string) | (null > null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
