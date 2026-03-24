@@ -8,7 +8,9 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
-export default function Categories() {
+export default function Categories({ params }) {
+  const { locale } = params;
+  const localePath = locale === "ar" ? "ar" : "en";
   const [categories, setCategories] = useState([]);
   const [editingCategory, setEditingCategory] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -84,7 +86,7 @@ export default function Categories() {
   const handleSaved = (category) => {
     if (editingCategory) {
       setCategories((prev) =>
-        prev.map((c) => (c.id === category.id ? category : c))
+        prev.map((c) => (c.id === category.id ? category : c)),
       );
       setEditingCategory(null);
     } else {
@@ -106,14 +108,14 @@ export default function Categories() {
         onReorder={handleReorder}
         renderRow={(category) => (
           <>
-            <td className="text-fourth text-lg font-semibold">
+            <td className="text-maintext text-lg font-semibold">
               {category.order}
             </td>
-            <td className="text-fourth text-md font-semibold">
-              {category.title}
+            <td className="text-maintext text-md font-semibold">
+              {localePath === "ar" ? category.ar_title : category.title}
             </td>
             <td>
-              <p className="truncate max-w-32 text-md mx-auto text-scondary">
+              <p className="truncate max-w-32 text-md mx-auto text-maintext">
                 {category.description}{" "}
               </p>
             </td>

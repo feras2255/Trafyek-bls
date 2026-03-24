@@ -13,13 +13,13 @@ export default function PaymentIcons() {
   return (
     <div className="flex gap-2 mg:gap-4 items-center">
       {icons.map((icon, index) => (
-        <div key={index} className="p-1 rounded-md md:rounded-lg">
+        <div key={index} className="p-1 rounded-md">
           <Image
             src={icon.src}
             alt={icon.alt}
             width={70}
             height={30}
-            className="object-contain"
+            className="object-contain rounded-md"
           />
         </div>
       ))}

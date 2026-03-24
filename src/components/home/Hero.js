@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabaseClient";
 import Link from "next/link";
 import Image from "next/image";
 import { getLocale } from "next-intl/server";
+import Button from "../ui/button";
 
 export default async function Hero() {
   const locale = await getLocale();
@@ -23,21 +24,27 @@ export default async function Hero() {
   };
 
   return (
-    <section className="h-full lg:h-[calc(100vh-120px)] flex items-center bg-gradient-to-b from-background to-transparent px-6 pt-6 lg:pt-10 overflow-hidden">
-      <div className="container mx-auto flex flex-col lg:flex-row gap-8 items-center">
-        <div className="w-full lg:w-7/12 space-y-4 order-2 md:order-1">
+    <section className="relative min-h-[80vh] lg:h-[calc(100vh-120px)] flex items-center bg-background overflow-hidden px-6">
+      <div className="absolute top-0 right-0 w-[500px] h-full bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="container mx-auto flex flex-col lg:flex-row gap-12 items-center relative z-10">
+        {/* Content */}
+        <div
+          className={`w-full lg:w-7/12 space-y-6 order-2 lg:order-1 text-center ${isRtl ? "lg:text-right" : "lg:text-left"} `}
+        >
           {content.preTitle && (
-            <span
-              className="text-xs md:text-base text-maintext  px-4 font-semibold"
-              data-aos="fade-left"
+            <div
+              className="inline-flex items-center gap-2 bg-secondary/30 text-primary border border-primary/10 px-4 py-1.5 rounded-full text-sm md:text-base font-bold"
+              data-aos="fade-down"
             >
+              <span className="w-2 h-2 bg-orange rounded-full animate-pulse" />
               {content.preTitle}
-            </span>
+            </div>
           )}
 
           {content.title && (
             <h1
-              className="text-2xl lg:text-6xl font-semibold text-accent leading-normal "
+              className="text-2xl md:text-5xl lg:text-6xl font-black text-accent leading-tight lg:leading-snug"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -47,7 +54,7 @@ export default async function Hero() {
 
           {content.description && (
             <p
-              className="text-sm md:text-base lg:text-xl text-subtext leading-relaxed "
+              className="text-sm md:text-base lg:text-xl text-subtext leading-relaxed max-w-2xl lg:ml-0 lg:mr-0 mx-auto"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -56,37 +63,48 @@ export default async function Hero() {
           )}
 
           {content.button && (
-            <div data-aos="fade-up" data-aos-delay="300" className="pt-4">
-              <Link
+            <div
+              data-aos="fade-up"
+              data-aos-delay="300"
+              className="pt-6 flex flex-col md:flex-row gap-3 justify-center "
+            >
+              <Button
+                title={content.button}
+                color="primary"
                 href={content.btn_url || "#"}
-                className="inline-block items-center justify-center bg-primary text-text font-semibold px-6 py-3 rounded-xl hover:-translate-y-1.5 transition-all duration-300"
+              />
+              <button
+                download="resume.pdf"
+                className="group relative inline-flex items-center justify-center bg-primary text-text font-bold px-8 py-4 rounded-lg shadow-lg shadow-primary/20 hover:bg-hover hover:-translate-y-1 transition-all duration-300 cursor-pointer"
               >
-                {content.button}
-              </Link>
+                {isRtl ? "ملف اعمالنا" : "Our Work"}
+              </button>
             </div>
           )}
         </div>
 
+        {/* Image */}
         <div
-          className="relative w-full lg:w-5/12 group order-1 md:order-2"
-          data-aos="zoom-in-right"
+          className="relative w-full lg:w-5/12 order-1 lg:order-2"
+          data-aos="zoom-in"
           data-aos-delay="400"
         >
           {content.image_url ? (
-            <div className="relative w-full  mx-auto">
-              <div className="relative h-40 md:h-60 w-full overflow-hidden rounded-xl ">
+            <div className="relative w-full max-w-[500px] mx-auto group">
+              <div className="relative w-full h-64 lg:h-100 overflow-hidden rounded-[2.5rem] border-8 border-white">
                 <Image
-                  src={content.image_url}
+                  // {content.image_url}
+                  src="/hero.png"
                   alt={content.title || "Hero Image"}
                   fill
                   priority
-                  className="object-contain transition-transform duration-700 "
+                  className="object-contain transition-transform duration-1000 group-hover:scale-105"
                 />
               </div>
             </div>
           ) : (
-            <div className="w-full aspect-square bg-gray-100 rounded-[2rem] flex items-center justify-center border-2 border-dashed border-gray-300">
-              <span className="text-gray-400">في انتظار الصورة...</span>
+            <div className="w-full aspect-square bg-secondary/20 rounded-[2.5rem] flex items-center justify-center border-2 border-dashed border-primary/30 text-primary/40 italic">
+              Smart Solutions
             </div>
           )}
         </div>

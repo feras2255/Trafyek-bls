@@ -1,63 +1,116 @@
+"use client";
 import Link from "next/link";
-import { useLocale } from "next-intl";
-import { FiChevronLeft, FiChevronRight, FiHome } from "react-icons/fi";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiHome,
+  FiMessageCircle,
+  FiArrowDown,
+} from "react-icons/fi";
 
-export default function PageHero({ title, description, breadcrumb, bgImage }) {
-  const locale = useLocale();
-  const isRtl = locale === "ar";
+export default function PageHero({
+  title,
+  description,
+  breadcrumbData = [],
+  isAr = true,
+  showButtons = false,
+  scrollToId = "content",
+}) {
+  // functions scroll to dwon
+  const handleScroll = () => {
+    const element = document.getElementById(scrollToId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <section
-      className="relative h-[calc(100vh-60px)] py-32 bg-slate-900 overflow-hidden"
-      dir={isRtl ? "rtl" : "ltr"}
-    >
-      {bgImage && (
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 hover:scale-105"
-          style={{ backgroundImage: `url(${bgImage})` }}
-        >
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
-        </div>
-      )}
+    <section className="relative w-full h-[calc(100vh-64px)] min-h-[600px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-accent to-slate-900 text-white">
+      {/* Background Circles */}
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+        <div className="absolute -top-20 -right-20 size-[500px] bg-primary rounded-full blur-[150px]" />
+        <div className="absolute -bottom-20 -left-20 size-[500px] bg-primary rounded-full blur-[150px]" />
+      </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          <nav className="flex items-center gap-2 mb-10 text-sm font-bold text-white/70 bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-full">
+      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+        {/* Breadcrumb */}
+        {breadcrumbData.length > 0 && (
+          <nav className="flex items-center gap-2 mb-8 text-sm font-bold text-white/60 bg-white/5 backdrop-blur-xl px-6 py-3 rounded-full border border-white/10 animate-fade-in-up">
             <Link
               href="/"
               className="hover:text-primary transition-colors flex items-center gap-1"
             >
               <FiHome className="text-base" />
+              <span className="hidden md:inline-block">
+                {isAr ? "الرئيسية" : "Home"}
+              </span>
             </Link>
-            {breadcrumb &&
-              breadcrumb.map((item, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  {isRtl ? (
-                    <FiChevronLeft className="text-xs" />
-                  ) : (
-                    <FiChevronRight className="text-xs" />
-                  )}
-                  <span
-                    className={
-                      item.href ? "hover:text-white" : "text-white font-black"
-                    }
+
+            {breadcrumbData.map((item, index) => (
+              <div key={index} className="flex items-center gap-2">
+                {isAr ? (
+                  <FiChevronLeft className="text-xs opacity-50" />
+                ) : (
+                  <FiChevronRight className="text-xs opacity-50" />
+                )}
+                {item.href ? (
+                  <Link
+                    href={item.href}
+                    className="hover:text-text transition-colors"
                   >
                     {item.label}
-                  </span>
-                </div>
-              ))}
+                  </Link>
+                ) : (
+                  <span className="text-text font-black">{item.label}</span>
+                )}
+              </div>
+            ))}
           </nav>
+        )}
 
-          <h1 className="text-2xl lg:text-7xl font-semibold text-text mb-5 tracking-tighter leading-tight">
+        {/* main title */}
+        <h1 className="text-4xl md:text-7xl font-black mb-6 tracking-tight leading-tight animate-fade-in-up">
+          <span className="bg-linear-to-r from-primary via-white to-primary bg-clip-text text-transparent">
             {title}
-          </h1>
+          </span>
+        </h1>
 
-          {description && (
-            <p className="text-sm md:text-xl text-secondary leading-relaxed max-w-3xl font-medium">
-              {description}
-            </p>
-          )}
-        </div>
+        {/* description */}
+        {description && (
+          <p className="text-lg md:text-xl font-medium text-slate-300 leading-relaxed max-w-3xl mx-auto animate-fade-in-up animation-delay-300">
+            {description}
+          </p>
+        )}
+
+        {/* buttons */}
+        {showButtons && (
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4 animate-fade-in-up animation-delay-500">
+            {/* contact button */}
+            <Link
+              href="https://wa.me/966530446151"
+              className="group flex items-center gap-2 bg-primary hover:bg-white text-white hover:text-primary px-8 py-4 rounded-full font-black text-lg transition-all duration-300 shadow-xl shadow-primary/20"
+            >
+              <FiMessageCircle className="text-xl group-hover:rotate-12 transition-transform" />
+              {isAr ? "تواصل معنا" : "Contact Us"}
+            </Link>
+
+            {/* down button */}
+            <button
+              onClick={handleScroll}
+              className="group flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/10 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 cursor-pointer"
+            >
+              {isAr ? "اكتشف المزيد" : "Explore More"}
+              <FiArrowDown className="text-xl group-hover:translate-y-1 transition-transform" />
+            </button>
+          </div>
+        )}
+
+        {/* down arrow */}
+        {!showButtons && (
+          <div className="absolute bottom-10 animate-bounce opacity-30">
+            <div className="w-0.5 h-10 bg-linear-to-b from-primary to-transparent"></div>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -8,7 +8,7 @@ export default function AboutSection() {
   const isRtl = locale === "ar";
 
   return (
-    <section className="py-20 overflow-hidden" dir={isRtl ? "rtl" : "ltr"}>
+    <section className="overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
           <div
@@ -25,7 +25,6 @@ export default function AboutSection() {
               />
             </div>
 
-            {/* بطاقة إحصائيات عائمة - تم تعديل تموضعها لتناسب عكس الجهات */}
             <div
               className={`absolute bottom-10 ${isRtl ? "-left-10" : "-right-10"} z-20 bg-primary p-6 rounded-3xl shadow-xl text-white hidden md:block`}
               data-aos="zoom-in"
@@ -46,13 +45,13 @@ export default function AboutSection() {
             data-aos={isRtl ? "fade-left" : "fade-right"}
           >
             <div className="space-y-4">
-              <span className="inline-block px-4 py-2 text-primary rounded-full text-sm font-bold tracking-widest uppercase">
+              <span className="inline-block px-6 py-2 bg-primary/15 border border-subtext/30 text-brand-orange text-sm font-bold rounded-full uppercase">
                 {t("badge")}
               </span>
-              <h2 className="text-3xl md:text-4xl font-black text-accent leading-tight">
+              <h2 className="text-2xl md:text-4xl font-black text-accent leading-tight">
                 {t("title")}
               </h2>
-              <p className="text-lg text-subtext leading-relaxed">
+              <p className="text-sm md:text-base text-subtext leading-relaxed">
                 {t("description")}
               </p>
             </div>

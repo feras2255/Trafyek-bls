@@ -2,50 +2,23 @@
 import Link from "next/link";
 
 export default function Button({
-  title,
+  title = "تواصل معنا",
   color = "primary",
-  type = "button",
-  onClick,
-  size = "md",
-  ariaLabel,
   href,
 }) {
-  const accessibleLabel = title || ariaLabel || "زر";
-
   const colorClasses = {
-    primary: "bg-primary text-white hover:bg-primary/90",
+    primary: "bg-primary text-text hover:bg-primary/90",
     secondary: "bg-secondary text-black hover:bg-secondary/90",
     accent: "bg-accent text-text hover:bg-accent/90",
-    Link: "bg-transparent text-fourth underline",
   };
 
-  const sizeClasses = {
-    sm: "px-3 py-1 text-sm",
-    md: "px-6 py-2 text-base",
-    lg: "px-8 py-2 text-lg",
-    full: "w-full px-6 py-2 text-base",
-  };
-
-  const classes = `rounded cursor-pointer transition duration-300 ${colorClasses[color]} ${sizeClasses[size]}`;
+  const classes = `group relative inline-flex items-center justify-center font-bold px-8 py-4 rounded-lg shadow-lg shadow-primary/20 hover:bg-hover hover:-translate-y-1 transition-all duration-300 ${colorClasses[color]} `;
 
   // link element
-  if (href) {
-    return (
-      <Link href={href} aria-label={accessibleLabel} className={classes}>
-        {title}
-      </Link>
-    );
-  }
 
-  // button element
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      aria-label={accessibleLabel}
-      className={classes}
-    >
+    <Link href={href} aria-label={title} className={classes}>
       {title}
-    </button>
+    </Link>
   );
 }

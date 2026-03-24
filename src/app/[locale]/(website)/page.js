@@ -11,6 +11,7 @@ import MarqueeSlider from "@/components/home/MarqueeSlider";
 import ProjectsSlider from "@/components/home/ProjectsSlider";
 import AboutSection from "@/components/home/AboutSection";
 import StatsSection from "@/components/home/StatsSection";
+import ServiceRequest from "@/components/ui/ServiceRequest";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <AboutSection />
       <ServicesSection />
       <Partners />
+      <ServiceRequest />
       <StatsSection />
       <WhyUs />
       {/* 
@@ -30,8 +32,8 @@ export default function Home() {
       <CustomizationSection />
       <PricingToggle />
       <ConsultationSection />
-    
-      <FAQ /> */}
+    */}
+      <FAQ />
     </main>
   );
 }

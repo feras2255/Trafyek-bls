@@ -1,15 +1,14 @@
-export const revalidate = 0;
-
 import { supabase } from "@/lib/supabaseClient";
 import Showcase from "@/components/showcase/Showcase";
 import PageHero from "@/components/ui/PageHero";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function Services() {
+  const t = await getTranslations("services");
   const locale = await getLocale();
   const isAr = locale === "ar";
 
-  // جلب التصنيفات والمنتجات
+  // get services and categories
   const { data: categories, error } = await supabase
     .from("categories")
     .select("*");
@@ -41,20 +40,20 @@ export default async function Services() {
     description: isAr ? prod.description_ar : prod.description_en,
   }));
 
+  const breadcrumb = [{ label: isAr ? "الخدمات" : "Services", href: null }];
+
   return (
     <main>
       <PageHero
-        title={isAr ? "خدماتنا الرقمية" : "Our Digital Services"}
-        description={
-          isAr
-            ? "نقدم حلولاً متكاملة تجمع بين التصميم الإبداعي والبرمجة الاحترافية لتنمية أعمالك."
-            : "We provide integrated solutions that combine creative design and professional programming to grow your business."
-        }
-        breadcrumb={[{ label: isAr ? "الخدمات" : "Services" }]}
-        bgImage="/serv-hero.png"
+        title={t("title")}
+        description={t("description")}
+        breadcrumbData={breadcrumb}
+        isAr={isAr}
+        showButtons={true}
+        scrollToId="projects-grid"
       />
 
-      <div className="py-10">
+      <div id="projects-grid" className="py-10">
         <Showcase
           categories={localizedCategories}
           items={localizedProducts}

@@ -16,7 +16,8 @@ export default function Navbar({ settings }) {
     { id: "nav-1", title: t("home"), href: "/" },
     { id: "nav-2", title: t("about"), href: "/about" },
     { id: "nav-3", title: t("services"), href: "/services" },
-    { id: "nav-4", title: t("projects"), href: "/projects" },
+    { id: "nav-4", title: t("ourwork"), href: "/ourwork" },
+    { id: "nav-4", title: t("blog"), href: "/blog" },
     { id: "nav-5", title: t("contact"), href: "/contact" },
   ];
 

@@ -8,7 +8,7 @@ export default function Showcase({ categories, items }) {
   const [selected, setSelected] = useState("all");
   const pathname = usePathname();
 
-  const type = pathname.includes("projects") ? "projects" : "services";
+  const type = pathname.includes("ourwork") ? "projects" : "services";
 
   const filteredItems =
     selected === "all"

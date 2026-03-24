@@ -7,8 +7,8 @@ import Image from "next/image";
 export default async function ServiceDetails({ params }) {
   const { id } = params;
 
-  const { data: product, error } = await supabase
-    .from("products")
+  const { data: services, error } = await supabase
+    .from("services")
     .select("*")
     .eq("id", id)
     .single();
@@ -22,7 +22,7 @@ export default async function ServiceDetails({ params }) {
     );
   }
 
-  if (!product) {
+  if (!services) {
     return (
       <div className="text-center py-20 text-gray-500">
         هذا المنتج غير موجود.
@@ -35,19 +35,19 @@ export default async function ServiceDetails({ params }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="w-full h-96 md:h-full relative">
           <Image
-            src={product.image_url}
-            alt={product.title}
+            src={services.image_url}
+            alt={services.title}
             fill
             className="object-cover rounded-lg mb-6"
           />
         </div>
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold">{product.title}</h1>
+          <h1 className="text-3xl font-bold">{services.title}</h1>
           <div
             className="text-fourth px-3"
-            dangerouslySetInnerHTML={{ __html: product.description }}
+            dangerouslySetInnerHTML={{ __html: services.description }}
           />
-          <p className="text-xl font-bold">السعر: {product.price} رس</p>
+          <p className="text-xl font-bold">السعر: {services.price} رس</p>
           <div className="flex gap-4 mt-6">
             <Button
               title="اطلب الان"

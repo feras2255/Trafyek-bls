@@ -3,7 +3,8 @@
     "home": "Home",
     "about": "About us",
     "services": "Services",
-    "projects": "Projects",
+    "ourwork": "Our work",
+    "blog": "Blog",
     "contact": "Contact us",
     "quickLinks": "Quick Links",
     "privacy": "Privacy Policy",
@@ -33,14 +34,48 @@
     "badge": "Digital Success Journey",
     "title": "Achievements We Pride In",
     "projects": "Successful Projects",
-    "clients": "Happy Clients",
+    "clients": "Partner in Success",
     "experience": "Years of Experience"
   },
   "services": {
+    "title": "Our Digital Solutions",
+    "description": "We provide a comprehensive range of technical and marketing services tailored to grow your business and enhance your digital presence.",
     "all": "All",
     "page_title": "Page",
     "products": "Services",
     "projects": "Projects"
+  },
+
+  "ourwork": {
+    "title": "Our Work",
+    "description": "We provide a comprehensive range of technical and marketing services tailored to grow your business and enhance your digital presence."
+  },
+
+  "why_us": {
+    "title": "Why Put Your Trust in Traffic?",
+    "item1": "Expertise Beyond Expectations",
+    "item1_desc": "We possess deep technical skills that turn complex digital challenges into growth opportunities.",
+    "item2": "Secure & High Performance",
+    "item2_desc": "Lightning-fast speed combined with integrated security to ensure your digital stability.",
+    "item3": "Proactive Technical Support",
+    "item3_desc": "Our team is with you around the clock to ensure your business continuity without interruptions.",
+    "item4": "Specialized Creative Thinking",
+    "item4_desc": "A dedicated team of creators and engineers working for one goal: your market leadership."
+  },
+
+  "faq": {
+    "title": "Common Questions",
+    "badge": "Have Questions?",
+    "q1": "I need a website, where do I start?",
+    "a1": "Great start! Contact us and we'll analyze your idea to suggest the best platform, whether it's Salla/Zid or a custom Next.js site.",
+    "q2": "Does the price include hosting and domain?",
+    "a2": "Yes! In our premium packages, we cover domain registration and high-speed cloud hosting for the first year for free.",
+    "q3": "Can I request changes after delivery?",
+    "a3": "Absolutely! We believe in long-term partnership. We provide a support period to ensure stability and implement necessary adjustments.",
+    "q4": "How long does a project take?",
+    "a4": "We combine speed with quality. Most stores and landing pages take between 7 to 14 business days to launch.",
+    "q5": "Are the websites SEO-friendly?",
+    "a5": "Definitely! All our sites are built with the latest performance and SEO standards to ensure top rankings."
   },
 
   "dashboard": {
@@ -63,6 +98,8 @@
     "description_en": "Description (English)",
     "highlight_ar": "Your highlight in Arabic",
     "highlight_en": "Your highlight in English",
+    "email": "Email",
+    "password": "Password",
     "btn_ar": "Button name in Arabic",
     "btn_en": "Button name in English",
     "project_link": "Page link",

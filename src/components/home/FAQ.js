@@ -1,86 +1,137 @@
 "use client";
 import { useState } from "react";
-import SectionTitle from "./SectionTitle";
+import { useTranslations, useLocale } from "next-intl";
+import { FiPlus, FiMinus, FiHelpCircle, FiPhoneCall } from "react-icons/fi";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function FAQ() {
+  const t = useTranslations("faq");
+  const locale = useLocale();
+  const isRtl = locale === "ar";
+  const [openIndex, setOpenIndex] = useState(0); // اجعل السؤال الأول مفتوح افتراضياً
+
   const faqs = [
-    {
-      question: "أحتاج موقع أو متجر إلكتروني، من أين أبدأ؟",
-      answer:
-        "تفكير ممتاز! يدل على فهمك لـ أهمية تواجدك الرقمي. اطلب خدمة تصميم المواقع الإلكترونية",
-    },
-    {
-      question: "هل يشمل السعر الاستضافة والنطاق؟",
-      answer: "نعم، في بعض الباقات نقدم استضافة ونطاق مجاناً للسنة الأولى.",
-    },
-    {
-      question: "هل يمكنني طلب تعديلات بعد التسليم؟",
-      answer:
-        "نعم، نقدم فترة دعم فني تختلف حسب الباقة ويمكنك خلالها طلب التعديلات المناسبة.",
-    },
-    {
-      question: "هل يمكنني تحديث الموقع بعد التسليم؟",
-      answer:
-        "نعم، نقدم فترة دعم فني تختلف حسب الباقة ويمكنك خلالها طلب التعديلات المناسبة.",
-    },
-    {
-      question: "كم سيستغرق تصميم موقعي الإلكتروني؟",
-      answer:
-        "أقل مما تتوقع، لكن لا تتعجل! استغرقت معظم المواقع الإلكترونية التي أنجزناها سابقًا – من التخطيط إلى الإطلاق- 1-2 أسابيع.",
-    },
+    { question: t("q1"), answer: t("a1") },
+    { question: t("q2"), answer: t("a2") },
+    { question: t("q3"), answer: t("a3") },
+    { question: t("q4"), answer: t("a4") },
+    { question: t("q5"), answer: t("a5") },
   ];
 
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const toggle = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
-    <section className="py-16 mx-auto">
-      <SectionTitle text="الاسئلة الشائعة" />
-      <div className="container mx-auto px-3 ">
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="w-full md:w-7/12 space-y-4">
+    <section
+      className="pb-24 bg-background overflow-hidden"
+      dir={isRtl ? "rtl" : "ltr"}
+    >
+      <div className="container mx-auto px-6">
+        {/* Header */}
+        <div className="mb-16 flex flex-col items-center text-center space-y-4">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-black uppercase tracking-widest">
+            <FiHelpCircle /> {t("badge")}
+          </div>
+          <h2 className="text-4xl md:text-6xl font-black text-accent">
+            {t("title")}
+          </h2>
+          <div className="w-24 h-1.5 bg-primary/20 rounded-full relative overflow-hidden">
+            <div className="absolute inset-0 bg-primary w-1/2 rounded-full" />
+          </div>
+        </div>
+
+        <div className="flex flex-col lg:flex-row items-start gap-16">
+          {/* FAQ Accordion */}
+          <div className="w-full lg:w-7/12 space-y-5">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="rounded-xl p-4 border border-secondarytext transition-all duration-300"
+                className={`group border rounded-3xl transition-all duration-500 overflow-hidden ${
+                  openIndex === index
+                    ? "bg-text border-primary/30 shadow-xl shadow-primary/5"
+                    : "bg-transparent border-border hover:border-primary/20"
+                }`}
               >
-                <div
-                  onClick={() => toggle(index)}
-                  className="w-full text-sm md:text-lg text-fourth font-semibold flex justify-between items-center cursor-pointer"
+                <button
+                  onClick={() =>
+                    setOpenIndex(openIndex === index ? null : index)
+                  }
+                  className="w-full p-6 md:p-8 flex justify-between items-center text-right transition-all cursor-pointer"
                 >
-                  <span>{faq.question}</span>
-                  <div className="flex items-center justify-center pb-1 bg-fourth size-7 text-2xl rounded-full text-secondary">
-                    {openIndex === index ? "-" : "+"}
+                  <span
+                    className={`text-base md:text-xl font-black transition-colors ${
+                      openIndex === index ? "text-primary" : "text-accent"
+                    }`}
+                  >
+                    {faq.question}
+                  </span>
+
+                  <div
+                    className={`flex items-center justify-center shrink-0 w-10 h-10 rounded-full transition-all duration-500 ${
+                      openIndex === index
+                        ? "bg-primary text-text rotate-180"
+                        : "bg-secondary/20 text-primary"
+                    }`}
+                  >
+                    {openIndex === index ? (
+                      <FiMinus size={20} />
+                    ) : (
+                      <FiPlus size={20} />
+                    )}
                   </div>
-                </div>
+                </button>
 
                 <div
-                  className={`transition-all duration-500 overflow-hidden ${
+                  className={`transition-all duration-500 ease-in-out ${
                     openIndex === index
-                      ? "max-h-40 opacity-100 mt-3"
+                      ? "max-h-[300px] opacity-100"
                       : "max-h-0 opacity-0"
                   }`}
                 >
-                  <p className="text-secondarytext text-sm leading-relaxed">
-                    {faq.answer}
-                  </p>
+                  <div className="px-6 md:px-8 pb-8 pt-0">
+                    <p className="text-subtext text-sm md:text-lg leading-relaxed font-medium border-t border-border pt-6">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="hidden md:block w-full md:w-5/12">
-            <Image
-              src="/faq.png"
-              alt="faq"
-              width={300}
-              height={300}
-              className="object-cover"
-            />
+          {/* Visual Side */}
+          <div className="w-full lg:w-5/12 sticky top-24 flex flex-col gap-6">
+            {/* Image Box */}
+            <div className="relative w-full h-64 md:h-[370px] rounded-3xl overflow-hidden group border-4 border-white shadow-2xl shadow-primary/5">
+              <div className="absolute inset-0 bg-primary/10 group-hover:bg-primary/5 transition-colors duration-500 z-10" />
+              <Image
+                src="/fq.png"
+                alt="Support"
+                fill
+                className="object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
+              />
+            </div>
+
+            {/* Call to Action Badge - Now Below the Image */}
+            <div className="bg-text border border-border p-8 rounded-3xl z-20 shadow-2xl shadow-primary/5 transition-all hover:border-primary/20 group">
+              <div className="flex items-center gap-4 mb-5">
+                <div className="bg-primary/10 text-primary p-4 rounded-xl text-3xl transition-all group-hover:bg-primary group-hover:text-white group-hover:rotate-6">
+                  <FiPhoneCall />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-accent font-black text-base md:text-2xl">
+                    تحتاج إجابة فورية؟
+                  </p>
+                  <p className="text-subtext text-xs md:text-base font-medium">
+                    نحن متاحون 24/7 لمساعدتك تقنياً
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                href="https://wa.me/966530446151"
+                className="flex items-center justify-center w-full bg-secondary text-primary font-black py-4 rounded-2xl text-lg uppercase tracking-tighter hover:bg-primary hover:text-white transition-all shadow-sm"
+              >
+                تواصل معنا الآن
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Textarea from "@/components/ui/textarea";
 import { addMessage } from "@/lib/contact";
@@ -62,7 +61,12 @@ export default function ContactForm() {
       />
 
       <div className="flex justify-center">
-        <Button title="ارسال" color="accent" size="full" />
+        <button
+          type="submit"
+          className="w-full py-4 bg-primary text-white font-black rounded-2xl shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+        >
+          إرسال الرسالة الآن
+        </button>
       </div>
     </form>
   );

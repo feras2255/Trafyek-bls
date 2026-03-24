@@ -2,21 +2,30 @@
 @import "tw-animate-css";
 
 :root {
-  --background: #faf9f6;
-  --background-2: #f7f3ed;
-  --card: #f1f7fc;
-  --primary: #c0864b;
-  /* --primary: #d4a373; */
-  --secondary: #f1e3d3;
-  --third: #f7f3ed;
-  --accent: #031e3f;
-  --maintext: #000000;
+  /* background */
+  --background: #ffffff;
+  --background-2: #f8f5ff;
+  --card: #ffffff;
+
+  /* (Primary) */
+  --primary: #7b3f98;
+  --secondary: #e9d5ff;
+  --third: #c9c5cf;
+
+  /* (Accent) */
+  --accent: #003066;
+  --brand-orange: #f7941d;
+
+  /* Text */
+  --maintext: #1a1a1a;
   --text: #ffffff;
-  --subtext: #4a5565;
-  --border: #cccccc;
-  --hover: #8b4513;
-  --sucsses: #00a63e;
-  --worning: #c2410c;
+  --subtext: #64748b;
+
+  /* Border and Hover */
+  --border: #e2e8f0;
+  --hover: #9e58c7;
+  --sucsses: #10b981;
+  --worning: #f59e0b;
 }
 
 @theme inline {
@@ -27,11 +36,14 @@
   --color-secondary: var(--secondary);
   --color-third: var(--third);
   --color-accent: var(--accent);
+  --color-brand-orange: var(--brand-orange);
   --color-maintext: var(--maintext);
   --color-text: var(--text);
   --color-subtext: var(--subtext);
   --color-border: var(--border);
   --color-hover: var(--hover);
+  --color-sucsses: var(--sucsses);
+  --color-worning: var(--worning);
 }
 
 html {
@@ -41,14 +53,23 @@ html {
 body {
   background-color: var(--background);
   color: var(--maintext);
+  /* تحسين وضوح الخط العربي */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* تخصيص الـ Selection (التحديد) ليكون بلون الخزامى */
+::selection {
+  background-color: var(--secondary);
+  color: var(--primary);
 }
 
 .loader-ring {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border-left: 4px solid currentColor;
-  border-right: 4px solid currentColor;
+  border-left: 4px solid var(--primary);
+  border-right: 4px solid var(--accent);
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   animation: spin 1s linear infinite;

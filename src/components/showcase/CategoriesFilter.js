@@ -10,18 +10,20 @@ export default function CategoriesFilter({
   const t = useTranslations("services");
 
   return (
-    <div className="w-full">
-      <h2 className="text-2xl md:text-3xl font-bold pb-3 mb-6 border-b border-primary/20">
-        {t("page_title")} {type === "projects" ? t("projects") : t("products")}
+    <div className="w-full mb-16">
+      <h2 className="text-2xl md:text-5xl font-black text-center pb-3 mb-3 md:mb-8 tracking-tight">
+        <span className="bg-linear-to-r from-primary to-maintext bg-clip-text text-transparent">
+          {type === "projects" ? t("ourwork") : t("servic")}
+        </span>
       </h2>
 
       <div className="relative">
-        <div className="flex flex-nowrap items-center gap-3 pb-6 overflow-x-auto no-scrollbar scroll-smooth">
+        <div className="bg-secondary w-fit mx-auto flex flex-wrap items-center justify-center gap-3 py-2 md:px-6 rounded-xl md:rounded-full overflow-x-auto">
           <button
             onClick={() => setSelected("all")}
-            className={`whitespace-nowrap text-xs md:text-base px-6 py-2.5 rounded-lg border border-border transition-all duration-300 cursor-pointer flex-shrink-0 ${
+            className={`whitespace-nowrap text-xs md:text-base px-3 md:px-6 py-2.5 rounded-lg transition-all duration-300 cursor-pointer flex-shrink-0 ${
               selected === "all"
-                ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
+                ? "bg-linear-to-r from-primary to-hover text-text border-primary shadow-md shadow-primary/20"
                 : "bg-transparent text-maintext hover:border-primary/50"
             }`}
           >
@@ -32,9 +34,9 @@ export default function CategoriesFilter({
             <button
               key={cat.id}
               onClick={() => setSelected(cat.id)}
-              className={`whitespace-nowrap text-xs md:text-base px-5 py-2.5 font-semibold rounded-lg border border-border transition-all duration-300 cursor-pointer flex-shrink-0 ${
+              className={`text-[10px] md:text-sm px-2 md:px-5 py-2.5 font-semibold rounded-lg  transition-all duration-300 cursor-pointer flex-shrink-0 ${
                 selected === cat.id
-                  ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
+                  ? "bg-linear-to-r from-primary to-hover text-text border-primary shadow-md shadow-primary/20"
                   : "bg-transparent text-maintext hover:border-primary/50"
               }`}
             >
