@@ -3,7 +3,7 @@ import Showcase from "@/components/showcase/Showcase";
 import { getLocale, getTranslations } from "next-intl/server";
 import PageHero from "@/components/ui/PageHero";
 
-export default async function Projects() {
+export default async function OurWork() {
   const t = await getTranslations("ourwork");
   const locale = await getLocale();
   const isAr = locale === "ar";
@@ -52,11 +52,12 @@ export default async function Projects() {
       />
 
       {/* View Our Work */}
-      <div className="py-20 bg-white">
+      <div className="py-25">
         <Showcase
           categories={localizedCategories}
           items={localizedProjects}
           type="projects"
+          isAr={isAr}
         />
       </div>
     </main>

@@ -32,10 +32,10 @@ export default function PageHero({
         <div className="absolute -bottom-20 -left-20 size-[500px] bg-primary rounded-full blur-[150px]" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+      <div className="container mx-auto px-4 md:px-4 relative z-10 flex flex-col items-center text-center">
         {/* Breadcrumb */}
         {breadcrumbData.length > 0 && (
-          <nav className="flex items-center gap-2 mb-8 text-sm font-bold text-white/60 bg-white/5 backdrop-blur-xl px-6 py-3 rounded-full border border-white/10 animate-fade-in-up">
+          <nav className="flex items-center gap-2 mb-8 text-sm font-semibold text-white/60 bg-white/5 backdrop-blur-xl px-6 py-3 rounded-full border border-white/10 animate-fade-in-up">
             <Link
               href="/"
               className="hover:text-primary transition-colors flex items-center gap-1"
@@ -61,7 +61,9 @@ export default function PageHero({
                     {item.label}
                   </Link>
                 ) : (
-                  <span className="text-text font-black">{item.label}</span>
+                  <span className="text-[8px] text-text font-black">
+                    {item.label}
+                  </span>
                 )}
               </div>
             ))}
@@ -88,7 +90,7 @@ export default function PageHero({
             {/* contact button */}
             <Link
               href="https://wa.me/966530446151"
-              className="group flex items-center gap-2 bg-primary hover:bg-white text-white hover:text-primary px-8 py-4 rounded-full font-black text-lg transition-all duration-300 shadow-xl shadow-primary/20"
+              className="group flex items-center justify-center gap-2 w-full md:w-auto bg-primary hover:bg-white text-white hover:text-primary px-8 py-4 rounded-full font-black text-lg transition-all duration-300 shadow-xl shadow-primary/20"
             >
               <FiMessageCircle className="text-xl group-hover:rotate-12 transition-transform" />
               {isAr ? "تواصل معنا" : "Contact Us"}
@@ -97,7 +99,7 @@ export default function PageHero({
             {/* down button */}
             <button
               onClick={handleScroll}
-              className="group flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/10 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 cursor-pointer"
+              className="group flex items-center justify-center gap-2 w-full md:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/10 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 cursor-pointer"
             >
               {isAr ? "اكتشف المزيد" : "Explore More"}
               <FiArrowDown className="text-xl group-hover:translate-y-1 transition-transform" />

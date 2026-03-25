@@ -27,12 +27,12 @@ export default function FloatingContact() {
           href={`https://wa.me/${phoneNumber}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-end gap-3 group"
+          className="flex items-center justify-end gap-3 group relative" // أضفنا relative هنا
         >
-          <span className="bg-text text-accent px-3 py-2 rounded-xl shadow-lg text-xs md:text-sm font-black opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-border">
+          {/* <span className="absolute right-16 bg-primary text-text px-3 py-2 rounded-xl shadow-lg text-xs md:text-sm font-black opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-border pointer-events-none">
             واتساب
-          </span>
-          <div className="size-14 bg-[#25D366] text-text rounded-[1.2rem] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform">
+          </span> */}
+          <div className="size-14 bg-[#25D366] text-text rounded-[1.2rem] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform shrink-0">
             <FaWhatsapp size={30} />
           </div>
         </a>
@@ -42,9 +42,9 @@ export default function FloatingContact() {
           href={`tel:+${phoneNumber}`}
           className="flex items-center justify-end gap-3 group"
         >
-          <span className="bg-text text-accent px-3 py-2 rounded-xl shadow-lg text-xs md:text-sm font-black opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-border">
+          {/* <span className="bg-primary text-text px-3 py-2 rounded-xl shadow-lg text-xs md:text-sm font-black opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-border">
             اتصال هاتفي
-          </span>
+          </span> */}
           <div className="size-14 bg-primary text-text rounded-[1.2rem] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform border border-white/20">
             <FaPhoneAlt size={24} />
           </div>

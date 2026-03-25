@@ -2,13 +2,9 @@
 import { useState } from "react";
 import CategoriesFilter from "./CategoriesFilter";
 import ShowcaseList from "./ShowcaseList";
-import { usePathname } from "next/navigation";
 
-export default function Showcase({ categories, items }) {
+export default function Showcase({ categories, items, type, isAr }) {
   const [selected, setSelected] = useState("all");
-  const pathname = usePathname();
-
-  const type = pathname.includes("ourwork") ? "projects" : "services";
 
   const filteredItems =
     selected === "all"
@@ -24,7 +20,7 @@ export default function Showcase({ categories, items }) {
         type={type}
       />
 
-      <ShowcaseList items={filteredItems} type={type} />
+      <ShowcaseList items={filteredItems} type={type} isAr={isAr} />
     </section>
   );
 }
