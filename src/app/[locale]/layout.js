@@ -38,7 +38,7 @@ export const metadata = {
     siteName: "ترافيك بلس",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/favicon.png",
         width: 1200,
         height: 630,
       },
@@ -53,7 +53,7 @@ export const metadata = {
   },
   icons: {
     icon: "/favicon.png",
-    apple: "/apple-touch-icon.png",
+    apple: "/favicon.png",
   },
 };
 

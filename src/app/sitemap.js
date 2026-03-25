@@ -29,7 +29,7 @@ export default async function sitemap() {
   const [{ data: projects }, { data: blogs }, { data: categories }] =
     await Promise.all([
       supabase.from("projects").select("id, created_at"),
-      supabase.from("blogs").select("id, created_at"), // افترضت أن اسم الجدول blogs
+      supabase.from("blogs").select("id, created_at"),
       supabase.from("categories").select("id, created_at"),
     ]);
 
@@ -55,7 +55,7 @@ export default async function sitemap() {
 
   // (Services)
   const serviceRoutes = locales.flatMap((locale) =>
-    (services || []).map((s) => ({
+    (categories || []).map((s) => ({
       url: `${baseUrl}/${locale}/services/${s.id}`,
       lastModified: s.created_at ? new Date(s.created_at) : new Date(),
       priority: 0.7,
