@@ -24,7 +24,7 @@ export default async function Hero() {
   };
 
   return (
-    <section className="relative min-h-[80vh] lg:h-[calc(100vh-120px)] flex items-center bg-background overflow-hidden px-6">
+    <section className="relative min-h-[80vh] lg:h-[calc(100vh-120px)] flex items-center bg-background overflow-hidden pt-5 px-6">
       <div className="absolute top-0 right-0 w-[500px] h-full bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto flex flex-col lg:flex-row gap-12 items-center relative z-10">
@@ -73,12 +73,15 @@ export default async function Hero() {
                 color="primary"
                 href={content.btn_url || "#"}
               />
-              <button
-                download="resume.pdf"
+              <Link
+                // download="/trafyekbls.pdf"
+                href="/trafyekbls.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group relative inline-flex items-center justify-center bg-primary text-text font-bold px-8 py-4 rounded-lg shadow-lg shadow-primary/20 hover:bg-hover hover:-translate-y-1 transition-all duration-300 cursor-pointer"
               >
                 {isRtl ? "ملف اعمالنا" : "Our Work"}
-              </button>
+              </Link>
             </div>
           )}
         </div>
@@ -91,7 +94,7 @@ export default async function Hero() {
         >
           {content.image_url ? (
             <div className="relative w-full max-w-[500px] mx-auto group">
-              <div className="relative w-full h-64 lg:h-100 overflow-hidden rounded-[2.5rem] border-8 border-white">
+              <div className="relative w-full h-64 lg:h-100 overflow-hidden rounded-[2.5rem] md:border-8 md:border-white">
                 <Image
                   // {content.image_url}
                   src="/hero.png"

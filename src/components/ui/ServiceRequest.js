@@ -6,7 +6,7 @@ export default function ServiceRequest() {
   const phoneNumber = "966530446151";
 
   return (
-    <section className="relative overflow-hidden py-32 px-6 bg-[#fafafa]">
+    <section className="relative overflow-hidden py-32 px-4 lg:px-6 bg-[#fafafa]">
       {/* Dynamic Brand Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] right-[-5%] w-[40rem] h-[40rem] bg-primary/10 blur-[150px] rounded-full animate-pulse" />

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import Button from "../ui/button";
+import ButtonSubmit from "../ui/ButtonSubmit";
 
 export default function ConfirmDialog({
   open,
@@ -35,14 +35,16 @@ export default function ConfirmDialog({
         </p>
 
         <div className="flex justify-center gap-3">
-          <Button
+          <ButtonSubmit
+            text="اغلاق"
             type="submit"
             title="اغلاق"
             color="secondary"
             onClick={onClose}
           />
 
-          <Button
+          <ButtonSubmit
+            text="حذف"
             type="submit"
             title="حذف"
             color="destructive"

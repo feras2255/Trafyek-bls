@@ -34,7 +34,7 @@ export default function StatsSection() {
       {/* Background abstract element */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-secondary/5 blur-[100px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 lg:px-6 relative z-10">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-24" data-aos="fade-up">
           <span className="text-primary font-black tracking-[0.25em] uppercase text-sm mb-4 block">

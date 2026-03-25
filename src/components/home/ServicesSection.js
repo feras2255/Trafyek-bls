@@ -28,7 +28,7 @@ export default async function ServicesSection() {
         className={`absolute top-0 ${isRtl ? "left-0" : "right-0"} w-96 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none`}
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 lg:px-6 relative z-10">
         {/* Section Header */}
         <div
           className="mb-16 flex flex-col lg:flex-row items-center md:items-start justify-between gap-8"

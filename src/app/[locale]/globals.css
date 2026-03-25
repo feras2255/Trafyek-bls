@@ -19,13 +19,13 @@
   /* Text */
   --maintext: #1a1a1a;
   --text: #ffffff;
-  --subtext: #64748b;
+  --subtext: #888a8d;
 
   /* Border and Hover */
-  --border: #e2e8f0;
+  --border: #ced3da;
   --hover: #9e58c7;
   --sucsses: #10b981;
-  --worning: #f59e0b;
+  --worning: #ef4444;
 }
 
 @theme inline {

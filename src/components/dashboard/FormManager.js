@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import Input from "@/components/ui/input";
-import Textarea from "@/components/ui/textarea";
-import Button from "@/components/ui/button";
+import ButtonSubmit from "@/components/ui/ButtonSubmit";
 import FileInput from "@/components/ui/FileInput";
+import RichTextEditor from "@/components/dashboard/rich-text-editor";
 import { supabase } from "@/lib/supabaseClient";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
+import Textarea from "../ui/textarea";
 
 export default function FormManager({
   type,
@@ -15,146 +16,161 @@ export default function FormManager({
   id = null,
   fields = [],
 }) {
+  const t = useTranslations("dashboard");
   const router = useRouter();
-
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
 
-  // get data by id
   useEffect(() => {
     if (mode === "edit" && id) {
       const fetchData = async () => {
         const { data, error } = await supabase
-          .from(type === "product" ? "products" : "projects")
+          .from(type)
           .select("*")
           .eq("id", id)
           .single();
 
-        if (error) {
-          console.error(error);
-          toast("فشل في جلب البيانات.");
-        } else {
-          setFormData(data);
-        }
+        if (error) toast.error("فشل في جلب البيانات.");
+        else setFormData(data);
       };
       fetchData();
     }
   }, [mode, id, type]);
 
-  // رفع الصورة
+  // upload image
   const uploadImage = async (image) => {
     if (!image || typeof image === "string") return image;
-
     const fileName = `${Date.now()}_${image.name}`;
     const { error } = await supabase.storage.from(type).upload(fileName, image);
-
     if (error) {
-      console.error(error);
-      toast("فشل رفع الصورة.");
+      toast.error("فشل رفع الصورة.");
       return null;
     }
-
     const { data } = supabase.storage.from(type).getPublicUrl(fileName);
     return data.publicUrl;
   };
 
-  // عند الحفظ
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     let payload = { ...formData };
 
-    if (formData.image) {
-      const uploadedUrl = await uploadImage(formData.image);
-      payload.image_url = uploadedUrl;
+    // upload image
+    if (formData.image_file) {
+      const uploadedUrl = await uploadImage(formData.image_file);
+      if (uploadedUrl) payload.image_url = uploadedUrl;
+      delete payload.image_file;
     }
 
     try {
       if (mode === "add") {
-        const { error } = await supabase
-          .from(type === "product" ? "products" : "projects")
-          .insert([payload]);
-
+        const { error } = await supabase.from(type).insert([payload]);
         if (error) throw error;
-        toast("تمت الإضافة بنجاح.");
-      }
-
-      if (mode === "edit" && id) {
+        toast.success("تمت الإضافة بنجاح.");
+      } else {
         const { error } = await supabase
-          .from(type === "product" ? "products" : "projects")
+          .from(type)
           .update(payload)
           .eq("id", id);
-
         if (error) throw error;
-        toast("تم التحديث بنجاح.");
+        toast.success("تم التحديث بنجاح.");
       }
-
-      router.push(`/dashboard/${type}s`);
+      router.push(`/dashboard/${type}`);
     } catch (err) {
-      console.error(err);
-      toast("حدث خطأ أثناء الحفظ.");
+      toast.error("حدث خطأ أثناء الحفظ.");
     } finally {
       setLoading(false);
     }
   };
 
+  const handleFieldChange = (name, value) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-card p-6 rounded-lg space-y-4 mt-4"
-    >
-      {fields.includes("title") && (
-        <Input
-          type="text"
-          placeholder="العنوان"
-          value={formData.title || ""}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-        />
+    <form onSubmit={handleSubmit} className="p-6 space-y-6 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-6">
+        {fields.includes("title") && (
+          <>
+            <Input
+              placeholder={t("title_ar")}
+              value={formData.title_ar || ""}
+              onChange={(e) => handleFieldChange("title_ar", e.target.value)}
+              required
+            />
+            <Input
+              placeholder={t("title_en")}
+              value={formData.title_en || ""}
+              onChange={(e) => handleFieldChange("title_en", e.target.value)}
+              required
+            />
+          </>
+        )}
+        {fields.includes("description") && (
+          <>
+            <Textarea
+              placeholder={t("description_ar")}
+              value={formData.description_ar || ""}
+              onChange={(e) =>
+                handleFieldChange("description_ar", e.target.value)
+              }
+            />
+            <Textarea
+              placeholder={t("description_en")}
+              value={formData.description_en || ""}
+              onChange={(e) =>
+                handleFieldChange("description_en", e.target.value)
+              }
+            />
+          </>
+        )}
+      </div>
+
+      {/* description long */}
+      {fields.includes("long_description") && (
+        <div className="space-y-8">
+          <div>
+            <label className="block mb-2 font-bold text-maintext">
+              {t("long_description_ar")}
+            </label>
+            <RichTextEditor
+              value={formData.long_description_ar || ""}
+              onChange={(val) => handleFieldChange("long_description_ar", val)}
+            />
+          </div>
+          <div>
+            <label className="block mb-2 font-bold text-maintext">
+              {t("long_description_en")}
+            </label>
+            <RichTextEditor
+              value={formData.long_description_en || ""}
+              onChange={(val) => handleFieldChange("long_description_en", val)}
+            />
+          </div>
+        </div>
       )}
 
-      {fields.includes("description") && (
-        <Textarea
-          placeholder="الوصف"
-          value={formData.description || ""}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-        />
-      )}
-
-      {fields.includes("price") && (
-        <Input
-          type="number"
-          placeholder="السعر"
-          value={formData.price || ""}
-          onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-        />
-      )}
-
-      {fields.includes("projectLink") && (
-        <Input
-          type="text"
-          placeholder="رابط المشروع"
-          value={formData.project_link || ""}
-          onChange={(e) =>
-            setFormData({ ...formData, project_link: e.target.value })
-          }
-        />
-      )}
-
+      {/* image */}
       {fields.includes("image") && (
-        <FileInput
-          setImage={(file) => setFormData({ ...formData, image: file })}
-          initialImage={formData.image_url || ""}
-        />
+        <div className="pt-4">
+          <label className="block mb-2 text-sm font-bold text-maintext">
+            صورة التصنيف
+          </label>
+          <FileInput
+            setImage={(file) => handleFieldChange("image_file", file)}
+            initialImage={formData.image_url}
+          />
+        </div>
       )}
 
-      <Button
+      <button
         type="submit"
-        title={loading ? "جاري الحفظ..." : mode === "edit" ? "تحديث" : "إضافة"}
-        color="primary"
-      />
+        disabled={loading}
+        className="bg-primary text-text text-xl font-bold py-4 w-full rounded-lg cursor-pointer"
+      >
+        {mode === "edit" ? "تحديث البيانات" : "إضافة التصنيف"}
+      </button>
     </form>
   );
 }

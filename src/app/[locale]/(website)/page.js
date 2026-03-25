@@ -15,7 +15,7 @@ import ServiceRequest from "@/components/ui/ServiceRequest";
 
 export default function Home() {
   return (
-    <main className="mt-20 space-y-10">
+    <main className="mt-16 space-y-10">
       <Hero />
       <MarqueeSlider />
       <AboutSection />

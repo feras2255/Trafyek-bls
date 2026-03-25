@@ -9,7 +9,7 @@ export default function AboutSection() {
 
   return (
     <section className="overflow-hidden">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 lg:px-6">
         <div className="flex flex-col lg:flex-row-reverse items-center gap-16">
           <div
             className="lg:w-1/2 relative"

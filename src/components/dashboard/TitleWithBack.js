@@ -1,4 +1,3 @@
-import React from "react";
 import { useRouter } from "next/navigation";
 
 export default function TitleWithBack({ title, onBack, url, textBtn }) {
@@ -10,13 +9,13 @@ export default function TitleWithBack({ title, onBack, url, textBtn }) {
   };
 
   return (
-    <div className="flex items-center justify-between mb-8">
+    <div className="flex items-center justify-between mb-8 border-b border-border pb-4">
       <h1 className="text-3xl text-primary font-semibold">{title}</h1>
       <button
         type="button"
         onClick={handleBack}
         aria-label="عودة إلى لوحة التحكم"
-        className="inline-flex items-center  bg-fourth text-maintext hover:bg-sidebar-primary px-3 py-2 rounded shadow-sm cursor-pointer transition duration-300"
+        className="inline-flex items-center  bg-primary text-text hover:bg-hover px-3 py-2 rounded shadow-sm cursor-pointer transition duration-300"
       >
         <span className="text-md font-semibold">{textBtn}</span>
 

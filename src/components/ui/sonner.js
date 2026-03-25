@@ -8,8 +8,8 @@ const Toaster = ({ ...props }) => {
       theme="light"
       className="toaster group"
       style={{
-        "--normal-bg": "var(--secondary)",
-        "--normal-text": "var(--background)",
+        "--normal-bg": "var(--primary)",
+        "--normal-text": "var(--text)",
         "--normal-border": "var(--border)",
       }}
       {...props}

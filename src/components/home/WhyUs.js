@@ -42,7 +42,7 @@ export default function WhyUs() {
         className={`absolute bottom-0 ${isRtl ? "left-0" : "right-0"} w-96 h-96 bg-secondary/10 blur-[150px] rounded-full pointer-events-none`}
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 lg:px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-24" data-aos="fade-up">
           <div className="flex items-center justify-center gap-3 mb-4">

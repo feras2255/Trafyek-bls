@@ -11,7 +11,7 @@ export default async function Partners() {
     return <p>حدث خطأ أثناء جلب الخدمات.</p>;
   }
   return (
-    <section className="container mx-auto px-4 ">
+    <section className="container mx-auto px-4 lg:px-6">
       <SectionTitle
         text="شركاء النجاح"
         desc="بعض الشركات التي نفتخر بوصفهم أصدقاءً وشركاء في نمو الأعمال"

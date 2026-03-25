@@ -9,7 +9,7 @@ export default function FAQ() {
   const t = useTranslations("faq");
   const locale = useLocale();
   const isRtl = locale === "ar";
-  const [openIndex, setOpenIndex] = useState(0); // اجعل السؤال الأول مفتوح افتراضياً
+  const [openIndex, setOpenIndex] = useState("null");
 
   const faqs = [
     { question: t("q1"), answer: t("a1") },
@@ -24,7 +24,7 @@ export default function FAQ() {
       className="pb-24 bg-background overflow-hidden"
       dir={isRtl ? "rtl" : "ltr"}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-16 flex flex-col items-center text-center space-y-4">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-black uppercase tracking-widest">
@@ -44,7 +44,7 @@ export default function FAQ() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className={`group border rounded-3xl transition-all duration-500 overflow-hidden ${
+                className={`group border rounded-2xl transition-all duration-500 overflow-hidden ${
                   openIndex === index
                     ? "bg-text border-primary/30 shadow-xl shadow-primary/5"
                     : "bg-transparent border-border hover:border-primary/20"
@@ -54,10 +54,10 @@ export default function FAQ() {
                   onClick={() =>
                     setOpenIndex(openIndex === index ? null : index)
                   }
-                  className="w-full p-6 md:p-8 flex justify-between items-center text-right transition-all cursor-pointer"
+                  className="w-full py-4 px-2 md:p-8 flex justify-between items-center text-right transition-all cursor-pointer"
                 >
                   <span
-                    className={`text-base md:text-xl font-black transition-colors ${
+                    className={`text-sm md:text-xl font-black transition-colors ${
                       openIndex === index ? "text-primary" : "text-accent"
                     }`}
                   >

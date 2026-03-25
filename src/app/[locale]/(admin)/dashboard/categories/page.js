@@ -5,12 +5,14 @@ import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
-export default function Categories({ params }) {
-  const { locale } = params;
-  const localePath = locale === "ar" ? "ar" : "en";
+export default function Categories() {
+  const params = useParams();
+  const locale = params.locale;
+
   const [categories, setCategories] = useState([]);
   const [editingCategory, setEditingCategory] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -112,18 +114,20 @@ export default function Categories({ params }) {
               {category.order}
             </td>
             <td className="text-maintext text-md font-semibold">
-              {localePath === "ar" ? category.ar_title : category.title}
+              {locale === "ar" ? category.title_ar : category.title_en}
             </td>
             <td>
               <p className="truncate max-w-32 text-md mx-auto text-maintext">
-                {category.description}{" "}
+                {locale === "ar"
+                  ? category.description_ar
+                  : category.description_en}
               </p>
             </td>
 
             <td className="p-2 text-center">
               <Image
                 src={category.image_url || "/default.png"}
-                alt={category.title}
+                alt={category.title_ar || category.title_en}
                 width={50}
                 height={50}
                 style={{ width: "auto", height: "auto" }}
@@ -133,7 +137,7 @@ export default function Categories({ params }) {
             <td className="space-x-2">
               <Link
                 href={`/dashboard/categories/edit/${category.id}`}
-                className="bg-fourth text-maintext px-3 py-1 rounded ml-2"
+                className="bg-accent text-text px-3 py-1 rounded ml-2"
               >
                 تعديل
               </Link>
@@ -142,7 +146,7 @@ export default function Categories({ params }) {
                   setSelectedId(category.id);
                   setConfirmOpen(true);
                 }}
-                className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
+                className="bg-worning text-text px-3 py-1 rounded cursor-pointer"
               >
                 حذف
               </button>
