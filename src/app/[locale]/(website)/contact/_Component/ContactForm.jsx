@@ -5,8 +5,11 @@ import Textarea from "@/components/ui/textarea";
 import { addMessage } from "@/lib/contact";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 export default function ContactForm() {
+  const t = useTranslations("contact.form");
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -23,10 +26,10 @@ export default function ContactForm() {
     e.preventDefault();
     try {
       await addMessage(form);
-      toast.success("تم ارسال الرسالة بنجاح");
+      toast.success(t("success_msg"));
       setForm({ name: "", email: "", phone: "", message: "" });
     } catch {
-      toast.error("فشل ارسال الرسالة");
+      toast.error(t("error_msg"));
     }
   };
 
@@ -35,29 +38,33 @@ export default function ContactForm() {
       <Input
         name="name"
         type="text"
-        placeholder="الاسم"
+        placeholder={t("placeholder_name")}
         value={form.name}
         onChange={handleChange}
+        required
       />
       <Input
         name="email"
         type="email"
-        placeholder="الايميل"
+        placeholder={t("placeholder_email")}
         value={form.email}
         onChange={handleChange}
+        required
       />
       <Input
         name="phone"
-        type="number"
-        placeholder="الجوال"
+        type="text"
+        placeholder={t("placeholder_phone")}
         value={form.phone}
         onChange={handleChange}
+        required
       />
       <Textarea
         name="message"
-        placeholder="الرسالة"
+        placeholder={t("placeholder_message")}
         value={form.message}
         onChange={handleChange}
+        required
       />
 
       <div className="flex justify-center">
@@ -65,7 +72,7 @@ export default function ContactForm() {
           type="submit"
           className="w-full py-4 bg-primary text-white font-black rounded-2xl shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
         >
-          إرسال الرسالة الآن
+          {t("submit_button")}
         </button>
       </div>
     </form>

@@ -46,7 +46,7 @@ export default async function OurWork() {
     <main className="">
       <PageHero
         title={t("title")}
-        description={t("decription")}
+        description={t("description")}
         breadcrumbData={breadcrumb}
         isAr={isAr}
       />
@@ -56,7 +56,7 @@ export default async function OurWork() {
         <Showcase
           categories={localizedCategories}
           items={localizedProjects}
-          type="projects"
+          type="ourwork"
           isAr={isAr}
         />
       </div>

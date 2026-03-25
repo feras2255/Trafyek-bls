@@ -1,8 +1,9 @@
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { FaWhatsapp, FaPhoneAlt, FaCode, FaChartLine } from "react-icons/fa";
+import { FaWhatsapp, FaPhoneAlt, FaChartLine } from "react-icons/fa";
 
-export default function ServiceRequest() {
-  // Agency Global Contact
+export default async function ServiceRequest() {
+  const t = await getTranslations("serviceRequest");
   const phoneNumber = "966530446151";
 
   return (
@@ -22,43 +23,54 @@ export default function ServiceRequest() {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
             <span className="text-accent font-black text-xs md:text-sm tracking-wide uppercase">
-              نستقبل طلبات المشاريع الجديدة الآن
+              {t("statusBadge")}
             </span>
           </div>
 
           {/* Main Hero Text */}
           <div className="space-y-6 max-w-5xl">
             <h2 className="text-5xl md:text-8xl font-black text-accent leading-tight tracking-tight">
-              لا تبحث عن <span className="text-primary italic">مجرد مبرمج</span>
-              ،
-              <br />
-              ابحث عن{" "}
-              <span className="relative inline-block">
-                شريك لنموك
-                <svg
-                  className="absolute -bottom-3 left-0 w-full"
-                  viewBox="0 0 338 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3 9C118.5 3 226.5 3 335 9"
-                    stroke="#7B3F98"
-                    strokeWidth="6"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
+              {t.rich("heroTitle", {
+                br: () => <br />,
+                primary: (chunks) => (
+                  <span className="text-primary italic inline-block mx-1">
+                    {chunks}
+                  </span>
+                ),
+                underlined: (chunks) => (
+                  <span className="relative inline-block">
+                    {chunks}
+                    <svg
+                      className="absolute -bottom-2 md:-bottom-4 left-0 w-full"
+                      viewBox="0 0 338 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="none"
+                    >
+                      <path
+                        d="M3 9C118.5 3 226.5 3 335 9"
+                        stroke="#7B3F98"
+                        strokeWidth="6"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                ),
+              })}
             </h2>
+
             <p className="text-subtext text-xl md:text-3xl max-w-3xl mx-auto font-medium leading-relaxed">
-              نطور حلولاً رقمية ذكية تضاعف مبيعات متجرك على{" "}
-              <span className="text-accent font-black">سلة وزد</span> وتمنحك
-              حضوراً تقنياً لا يُنسى.
+              {t.rich("description", {
+                accent: (chunks) => (
+                  <span className="text-accent font-black">{chunks}</span>
+                ),
+              })}
             </p>
+
             <div className="inline-flex items-center gap-3 bg-secondary/10 px-6 py-3 rounded-2xl text-primary">
               <FaChartLine className="text-2xl" />
               <span className="font-black text-lg md:text-2xl">
-                خطة عمل تقنية مخصصة
+                {t("planText")}
               </span>
             </div>
           </div>
@@ -66,11 +78,11 @@ export default function ServiceRequest() {
           {/* Conversion Area */}
           <div className="flex flex-col md:flex-row items-center gap-6 w-full justify-center pt-6">
             <Link
-              href={`https://wa.me/${phoneNumber}?text=أرغب%20في%20بدء%20استشارة%20مجانية%20مع%20ترافيك`}
+              href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(t("whatsappMessage"))}`}
               target="_blank"
               className="flex items-center justify-center gap-4 w-full md:w-[350px] bg-primary text-white px-10 py-6 rounded-[2.5rem] shadow-2xl hover:bg-accent transition-all duration-500 font-black text-2xl group"
             >
-              <span>ابدأ مشروعك الآن</span>
+              <span>{t("ctaStart")}</span>
               <FaWhatsapp className="text-3xl group-hover:rotate-12 transition-transform" />
             </Link>
 
@@ -78,15 +90,15 @@ export default function ServiceRequest() {
               href={`tel:+${phoneNumber}`}
               className="flex items-center justify-center gap-4 w-full md:w-[300px] bg-transparent text-accent border-2 border-accent/20 px-10 py-6 rounded-[2.5rem] hover:bg-white hover:border-primary transition-all duration-500 font-black text-2xl"
             >
-              <span>تحدث إلينا</span>
+              <span>{t("ctaCall")}</span>
               <FaPhoneAlt size={22} />
             </Link>
           </div>
 
-          {/* Social Proof / Trust Line */}
+          {/* Social Proof */}
           <div className="pt-6">
             <p className="text-subtext/60 font-black text-sm uppercase tracking-[0.3em]">
-              خيار المتاجر الطموحة في المملكة العربية السعودية
+              {t("socialProof")}
             </p>
           </div>
         </div>

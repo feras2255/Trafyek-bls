@@ -5,7 +5,7 @@ export default function ShowcaseList({ items, type, isAr }) {
   if (!items || items.length === 0) {
     return (
       <div className="text-center py-16 text-gray-500 text-lg">
-        لا توجد {type === "projects" ? "مشاريع" : "منتجات"} في هذا التصنيف
+        لا توجد {type === "ourwork" ? "مشاريع" : "منتجات"} في هذا التصنيف
         حالياً.
       </div>
     );
@@ -14,13 +14,13 @@ export default function ShowcaseList({ items, type, isAr }) {
   return (
     <div
       className={`grid gap-y-8 md:gap-6 mt-8 ${
-        type === "projects"
+        type === "ourwork"
           ? "grid-cols-1 md:grid-cols-3"
           : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       }`}
     >
       {items.map((item) =>
-        type === "projects" ? (
+        type === "ourwork" ? (
           <ProjectCard key={item.id} item={item} isAr={isAr} />
         ) : (
           <ServicesCard key={item.id} item={item} />

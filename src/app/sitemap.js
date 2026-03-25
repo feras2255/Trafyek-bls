@@ -1,66 +1,66 @@
-// app/sitemap.js
 import { supabase } from "@/lib/supabaseClient";
 
 export default async function sitemap() {
   const baseUrl = "https://www.trafyekbls.com";
+  const locales = ["ar", "en"];
 
-  // الصفحات الثابتة
-  const staticRoutes = [
-    { path: "", name: "الرئيسية" },
-    { path: "/about", name: "عن الشركة" },
-    { path: "/services", name: "خدماتنا" },
-    { path: "/projects", name: "مشاريعنا" },
-    { path: "/contact", name: "اتصل بنا" },
-    { path: "/terms-conditions", name: "الشروط والأحكام" },
-    { path: "/privacy-policy", name: "سياسة الخصوصية" },
-  ].map((page) => ({
-    url: `${baseUrl}${page.path}`,
-    lastModified: new Date(),
-  }));
-
-  // جلب البيانات الديناميكية من Supabase
-  const [
-    { data: projects },
-    { data: products },
-    { data: categories },
-    { data: services },
-  ] = await Promise.all([
-    supabase.from("projects").select("id, created_at"),
-    supabase.from("products").select("id, created_at"),
-    supabase.from("categories").select("id, created_at"),
-    supabase.from("services").select("id, created_at"),
-  ]);
-
-  // الروابط الديناميكية
-  const projectRoutes =
-    projects?.map((p) => ({
-      url: `${baseUrl}/projects/${p.id}`,
-      lastModified: p.created_at ? new Date(p.created_at) : new Date(),
-    })) ?? [];
-
-  const productRoutes =
-    products?.map((p) => ({
-      url: `${baseUrl}/products/${p.id}`,
-      lastModified: p.created_at ? new Date(p.created_at) : new Date(),
-    })) ?? [];
-
-  const categoryRoutes =
-    categories?.map((c) => ({
-      url: `${baseUrl}/categories/${c.id}`,
-      lastModified: c.created_at ? new Date(c.created_at) : new Date(),
-    })) ?? [];
-
-  const serviceRoutes =
-    services?.map((s) => ({
-      url: `${baseUrl}/services/${s.id}`,
-      lastModified: s.created_at ? new Date(s.created_at) : new Date(),
-    })) ?? [];
-
-  return [
-    ...staticRoutes,
-    ...projectRoutes,
-    ...productRoutes,
-    ...categoryRoutes,
-    ...serviceRoutes,
+  // static routes
+  const staticPages = [
+    "",
+    "/about",
+    "/services",
+    "/ourwork",
+    "/blog",
+    "/contact",
+    "/terms-conditions",
+    "/privacy-policy",
   ];
+
+  const staticRoutes = locales.flatMap((locale) =>
+    staticPages.map((path) => ({
+      url: `${baseUrl}/${locale}${path}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: path === "" ? 1 : 0.8,
+    })),
+  );
+
+  // get data from Supabase
+  const [{ data: projects }, { data: blogs }, { data: categories }] =
+    await Promise.all([
+      supabase.from("projects").select("id, created_at"),
+      supabase.from("blogs").select("id, created_at"), // افترضت أن اسم الجدول blogs
+      supabase.from("categories").select("id, created_at"),
+    ]);
+
+  // Links (Our Work, Blog, Services)
+
+  // (Our Work)
+  const projectRoutes = locales.flatMap((locale) =>
+    (projects || []).map((p) => ({
+      url: `${baseUrl}/${locale}/ourwork/${p.id}`,
+      lastModified: p.created_at ? new Date(p.created_at) : new Date(),
+      priority: 0.7,
+    })),
+  );
+
+  // (Blog)
+  const blogRoutes = locales.flatMap((locale) =>
+    (blogs || []).map((b) => ({
+      url: `${baseUrl}/${locale}/blog/${b.id}`,
+      lastModified: b.created_at ? new Date(b.created_at) : new Date(),
+      priority: 0.6,
+    })),
+  );
+
+  // (Services)
+  const serviceRoutes = locales.flatMap((locale) =>
+    (services || []).map((s) => ({
+      url: `${baseUrl}/${locale}/services/${s.id}`,
+      lastModified: s.created_at ? new Date(s.created_at) : new Date(),
+      priority: 0.7,
+    })),
+  );
+
+  return [...staticRoutes, ...projectRoutes, ...blogRoutes, ...serviceRoutes];
 }

@@ -1,8 +1,10 @@
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import SectionTitle from "./SectionTitle";
+import { getTranslations } from "next-intl/server";
 
 export default async function Partners() {
+  const t = await getTranslations("partners");
   const { data: partners, error } = await supabase
     .from("partners")
     .select("*")
@@ -12,10 +14,7 @@ export default async function Partners() {
   }
   return (
     <section className="container mx-auto px-4 lg:px-6">
-      <SectionTitle
-        text="شركاء النجاح"
-        desc="بعض الشركات التي نفتخر بوصفهم أصدقاءً وشركاء في نمو الأعمال"
-      />
+      <SectionTitle text={t("title")} desc={t("description")} />
 
       <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-x-5 md:gap-y-12">
         {partners.map((partner, index) => (

@@ -23,6 +23,7 @@
     "badge": "Who We Are",
     "title": "Traffic.. Your Strategic Partner for Digital Growth",
     "description": "At Traffic, we don't just build websites; we create integrated digital experiences. We are a specialized agency in digital marketing, design, and development of high-performance e-commerce stores and websites using the latest global technologies. We aim to fuel our clients' ambitions through smart software solutions and marketing strategies that ensure top search engine rankings and increased sales.",
+    "experience": "Years of Experience",
     "features": {
       "marketing": "Results-Driven Digital Marketing",
       "web": "Fast & Responsive Web Development",
@@ -49,7 +50,25 @@
 
   "ourwork": {
     "title": "Our Work",
-    "description": "We provide a comprehensive range of technical and marketing services tailored to grow your business and enhance your digital presence."
+    "description": "We provide a comprehensive range of technical and marketing services tailored to grow your business and enhance your digital presence.",
+    "all": "All",
+    "ourwork": "Browse our work by category"
+  },
+
+  "partners": {
+    "title": "Partners in Success",
+    "description": "Companies we are proud to call friends and partners in business growth"
+  },
+
+  "serviceRequest": {
+    "statusBadge": "We are accepting new project requests now",
+    "heroTitle": "Don't look for <primary>just a developer</primary> ,  look for <underlined>a growth partner</underlined>",
+    "description": "We develop smart digital solutions that double your store sales on <accent>Salla and Zid</accent> and grant you an unforgettable tech presence.",
+    "planText": "Customized technical business plan",
+    "ctaStart": "Start your project",
+    "ctaCall": "Talk to us",
+    "socialProof": "The choice of ambitious stores in Saudi Arabia",
+    "whatsappMessage": "I would like to start a free consultation with Traffic"
   },
 
   "why_us": {
@@ -76,7 +95,48 @@
     "q4": "How long does a project take?",
     "a4": "We combine speed with quality. Most stores and landing pages take between 7 to 14 business days to launch.",
     "q5": "Are the websites SEO-friendly?",
-    "a5": "Definitely! All our sites are built with the latest performance and SEO standards to ensure top rankings."
+    "a5": "Definitely! All our sites are built with the latest performance and SEO standards to ensure top rankings.",
+    "ctaBadge": {
+      "question": "Need an instant answer?",
+      "availability": "We are available 24/7 for technical support",
+      "button": "Contact Us Now"
+    }
+  },
+
+  "contact": {
+    "hero": {
+      "title": "Let's Build Something Amazing Together!",
+      "description": "Whether you have a new project or just an inquiry, the Traffic team is ready to turn your ideas into a tangible digital reality."
+    },
+    "form": {
+      "placeholder_name": "Full Name",
+      "placeholder_email": "Email Address",
+      "placeholder_phone": "Phone Number",
+      "placeholder_message": "Type your message here...",
+      "submit_button": "Send Message Now",
+      "success_msg": "Message sent successfully!",
+      "error_msg": "Failed to send message, please try again",
+      "badge": "Contact Us",
+      "title_part1": "Send us a ",
+      "title_highlight": "Message",
+      "description": "Our technical team will review your request and respond to you in less than 24 hours."
+    },
+    "info": {
+      "title": "Direct Contact Channels",
+      "description": "We are always happy to hear your ideas, you can contact us via the method that suits you best.",
+      "whatsapp": "Direct WhatsApp",
+      "email": "Official Email",
+      "customer_service": "Customer Service",
+      "location": "Headquarters",
+      "address": "Riyadh, Saudi Arabia"
+    },
+    "working_hours": {
+      "title": "Official Working Hours",
+      "days": "Sunday - Thursday: ",
+      "time": "9:00 AM - 6:00 PM",
+      "note": "We are available to respond to WhatsApp messages throughout the week"
+    },
+    "breadcrumb": "Contact Us"
   },
 
   "dashboard": {

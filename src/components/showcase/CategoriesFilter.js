@@ -7,13 +7,13 @@ export default function CategoriesFilter({
   setSelected,
   type,
 }) {
-  const t = useTranslations("services");
+  const t = useTranslations("ourwork");
 
   return (
     <div className="w-full mb-16">
       <h2 className="text-2xl md:text-5xl font-black text-center pb-3 mb-3 md:mb-8 tracking-tight">
         <span className="bg-linear-to-r from-primary to-maintext bg-clip-text text-transparent">
-          {type === "projects" ? t("ourwork") : t("servic")}
+          {type === "ourwork" ? t("ourwork") : t("servic")}
         </span>
       </h2>
 

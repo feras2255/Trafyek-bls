@@ -115,12 +115,14 @@ export default function FAQ() {
                 <div className="bg-primary/10 text-primary p-4 rounded-xl text-3xl transition-all group-hover:bg-primary group-hover:text-white group-hover:rotate-6">
                   <FiPhoneCall />
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-1 text-start">
+                  {" "}
+                  {/* أضفنا text-start لضمان المحاذاة مع اتجاه اللغة */}
                   <p className="text-accent font-black text-base md:text-2xl">
-                    تحتاج إجابة فورية؟
+                    {t("ctaBadge.question")}
                   </p>
                   <p className="text-subtext text-xs md:text-base font-medium">
-                    نحن متاحون 24/7 لمساعدتك تقنياً
+                    {t("ctaBadge.availability")}
                   </p>
                 </div>
               </div>
@@ -129,7 +131,7 @@ export default function FAQ() {
                 href="https://wa.me/966530446151"
                 className="flex items-center justify-center w-full bg-secondary text-primary font-black py-4 rounded-2xl text-lg uppercase tracking-tighter hover:bg-primary hover:text-white transition-all shadow-sm"
               >
-                تواصل معنا الآن
+                {t("ctaBadge.button")}
               </Link>
             </div>
           </div>

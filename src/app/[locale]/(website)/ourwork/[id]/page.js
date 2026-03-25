@@ -37,7 +37,9 @@ export default async function ProjectDetails({ params }) {
 
   // get project details
   const title = isAr ? project.title_ar : project.title_en || project.title;
-  const description = isAr ? project.description_ar : project.description_en;
+  const description = isAr
+    ? project.description_ar
+    : project.description_en || "";
   const categoryName = project.categories
     ? isAr
       ? project.categories.title_ar
@@ -106,7 +108,7 @@ export default async function ProjectDetails({ params }) {
                     href={project.project_link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-3 bg-accent text-white px-8 py-5 rounded-2xl font-black text-lg shadow-xl shadow-accent/20 hover:bg-primary hover:text-accent transition-all duration-300 group w-full md:w-auto"
+                    className="inline-flex items-center justify-center gap-3 bg-accent text-white px-8 py-5 rounded-2xl font-black text-lg shadow-xl shadow-accent/20 hover:bg-primary  transition-all duration-300 group w-full md:w-auto"
                   >
                     {isAr ? "زيارة الموقع المباشر" : "Visit Live Website"}
                     <FiExternalLink className="group-hover:rotate-12 transition-transform" />
@@ -137,7 +139,7 @@ export default async function ProjectDetails({ params }) {
       {/* 3. Bottom Navigation */}
       <footer className="container mx-auto px-4 py-12 border-t border-gray-100">
         <Link
-          href="/projects"
+          href="/ourwork"
           className="flex items-center gap-3 text-subtext hover:text-primary font-bold transition-colors group"
         >
           {isAr ? "العودة إلى معرض الأعمال" : "Back to Portfolio"}

@@ -73,7 +73,7 @@ export default function Navbar({ settings }) {
 
       {/* mobile menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-2xl transform transition-transform duration-300 z-50 overflow-auto ${
+        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 z-50 overflow-auto ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

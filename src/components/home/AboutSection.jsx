@@ -33,7 +33,7 @@ export default function AboutSection() {
               <div className="flex items-center gap-4">
                 <span className="text-4xl font-black">10+</span>
                 <p className="text-sm leading-tight opacity-90">
-                  {t("stats.experience")}
+                  {t("experience")}
                   <br /> 2024 - 2025
                 </p>
               </div>

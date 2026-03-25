@@ -12,7 +12,7 @@ export default function PageHero({
   title,
   description,
   breadcrumbData = [],
-  isAr = true,
+  isAr,
   showButtons = false,
   scrollToId = "content",
 }) {
