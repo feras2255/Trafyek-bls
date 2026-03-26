@@ -159,6 +159,8 @@
     "description_en": "Description (English)",
     "long_description_ar": "Detailed Description (Arabic)",
     "long_description_en": "Detailed Description (English)",
+    "category_ar": "Category in Arabic",
+    "category_en": "Category in English",
     "highlight_ar": "Your highlight in Arabic",
     "highlight_en": "Your highlight in English",
     "email": "Email",

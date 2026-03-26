@@ -50,7 +50,7 @@ export default function DashboardSidebar({ isOpen }) {
     },
     {
       label: t("blog"),
-      href: "/dashboard/blog",
+      href: "/dashboard/blogs",
       icon: <HiOutlineDocumentText size={iconSize} />,
     },
     {

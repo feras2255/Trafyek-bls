@@ -19,7 +19,7 @@ export default function LanguageSwitcher({ isDashboard = false }) {
     return (
       <button
         onClick={() => switchLanguage(nextLocale)}
-        className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-card hover:text-maintext transition cursor-pointer"
+        className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-accent hover:text-text transition cursor-pointer"
       >
         <FaGlobe className="w-4 h-4" />
 
