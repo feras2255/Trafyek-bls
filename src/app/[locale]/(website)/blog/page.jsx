@@ -2,7 +2,6 @@ import PageHero from "@/components/ui/PageHero";
 import { getLocale } from "next-intl/server";
 import Link from "next/link";
 import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
 import { FiArrowUpLeft, FiClock, FiTag } from "react-icons/fi";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -18,7 +17,7 @@ export default async function Blog() {
 
   const breadcrumb = [{ label: isAr ? "المدونة" : "Blog", href: null }];
 
-  // دالة لتنسيق التاريخ بناءً على اللغة
+  // function to format date
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString(isAr ? "ar-EG" : "en-US", {
       year: "numeric",
@@ -37,6 +36,7 @@ export default async function Blog() {
             : "Technical and marketing articles to help you grow your digital business."
         }
         breadcrumbData={breadcrumb}
+        isAr={isAr}
         showButtons
       />
 
@@ -44,7 +44,7 @@ export default async function Blog() {
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {blogs?.map((post) => {
-            // استخراج البيانات بناءً على اللغة الحالية
+            // get title, description, and category
             const title = isAr ? post.title_ar : post.title_en;
             const description = isAr
               ? post.description_ar
@@ -54,20 +54,20 @@ export default async function Blog() {
             return (
               <article
                 key={post.id}
-                className="group bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-2"
+                className="group bg-card rounded-2xl border border-border overflow-hidden hover:shadow-3xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-2"
                 dir={isAr ? "rtl" : "ltr"}
               >
                 {/* Image Container */}
                 <div className="relative h-64 overflow-hidden">
                   <div className="absolute inset-0 bg-accent/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
                   <Image
-                    src={post.image_url || "/he.png"} // استخدام image_url من قاعدة البيانات
+                    src={post.image_url || "/he.png"}
                     alt={title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <span
-                    className={`absolute top-6 ${isAr ? "right-6" : "left-6"} z-20 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-black text-accent flex items-center gap-2`}
+                    className={`absolute top-6 ${isAr ? "right-6" : "left-6"} z-20 bg-card/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-black text-accent flex items-center gap-2`}
                   >
                     <FiTag className="text-primary" /> {category}
                   </span>

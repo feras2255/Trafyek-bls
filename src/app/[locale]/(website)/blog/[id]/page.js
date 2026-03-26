@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }) {
   return (
     <article className="min-h-screen">
       {/* Header / Hero Section */}
-      <header className="relative h-[80vh] md:h-[90vh] w-full">
+      <header className="relative h-[70vh] md:h-[90vh] w-full">
         <Image
           src={post.image_url || "/he.png"}
           alt={title}
@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }) {
                 </span>
               </div>
 
-              <h1 className="text-3xl md:text-6xl font-black text-white leading-tight">
+              <h1 className="text-2xl md:text-6xl font-black text-white leading-tight">
                 {title}
               </h1>
 
@@ -94,16 +94,16 @@ export default async function BlogPostPage({ params }) {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 lg:`px-6 relative z-20">
-        <div className="bg-card rounded-[3rem] py-8 px-2 md:p-16 shadow-2xl shadow-black/5 border border-slate-50">
+        <div className="py-8 px-2 md:p-16 shadow-2xl shadow-black/5 border border-slate-50">
           <div className="flex justify-between items-center mb-8">
             <div className="flex items-center gap-3">
-              <span className="bg-primary text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+              <span className="bg-accent text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                 {category}
               </span>
-              <span className="bg-primary text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+              <span className="bg-accent text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                 {isAr ? "مقالات" : "Blogs"}
               </span>
-              <span className="bg-primary text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+              <span className="bg-accent text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                 {isAr ? "ترافيك بلس" : "Traffic Blog"}
               </span>
             </div>
