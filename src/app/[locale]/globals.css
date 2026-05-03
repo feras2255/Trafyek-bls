@@ -53,12 +53,10 @@ html {
 body {
   background-color: var(--background);
   color: var(--maintext);
-  /* تحسين وضوح الخط العربي */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* تخصيص الـ Selection (التحديد) ليكون بلون الخزامى */
 ::selection {
   background-color: var(--secondary);
   color: var(--primary);
@@ -79,4 +77,34 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.ql-container {
+  height: 400px !important;
+  overflow: hidden;
+}
+
+.ql-editor {
+  height: 100%;
+  overflow-y: auto;
+  font-size: 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ql-editor[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+.ql-editor[dir="rtl"] ol,
+.ql-editor[dir="rtl"] ul {
+  padding-right: 1.5em;
+  padding-left: 0;
+}
+
+.ql-editor[dir="rtl"].ql-blank::before {
+  right: 15px;
+  left: auto;
+  text-align: right;
 }

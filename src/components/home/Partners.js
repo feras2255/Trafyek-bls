@@ -28,6 +28,7 @@ export default async function Partners() {
               src={partner.image_url}
               alt={`partner${partner.id}`}
               fill
+              sizes="120px"
               className=" object-cover rounded-lg"
               priority
             />

@@ -100,6 +100,7 @@ export default async function Hero() {
                   src="/hero.png"
                   alt={content.title || "Hero Image"}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                   priority
                   className="object-contain transition-transform duration-1000 group-hover:scale-105"
                 />

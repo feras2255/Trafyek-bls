@@ -1,66 +1,105 @@
-import { supabase } from "@/lib/supabaseClient";
+import { supabaseAdmin } from "@/lib/supabaseAdmin";
+
+export const revalidate = 3600;
 
 export default async function sitemap() {
   const baseUrl = "https://www.trafyekbls.com";
   const locales = ["ar", "en"];
 
-  // static routes
+  // Static routes
   const staticPages = [
-    "",
-    "/about",
-    "/services",
-    "/ourwork",
-    "/blog",
-    "/contact",
-    "/terms-conditions",
-    "/privacy-policy",
+    { path: "", priority: 1 },
+    { path: "/about-us", priority: 0.8 },
+    { path: "/services", priority: 0.8 },
+    { path: "/ourwork", priority: 0.8 },
+    { path: "/blog", priority: 0.8 },
+    { path: "/contact", priority: 0.8 },
   ];
 
   const staticRoutes = locales.flatMap((locale) =>
-    staticPages.map((path) => ({
+    staticPages.map(({ path, priority }) => ({
       url: `${baseUrl}/${locale}${path}`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: path === "" ? 1 : 0.8,
+      priority,
     })),
   );
 
-  // get data from Supabase
-  const [{ data: projects }, { data: blogs }, { data: categories }] =
-    await Promise.all([
-      supabase.from("projects").select("id, created_at"),
-      supabase.from("blogs").select("id, created_at"),
-      supabase.from("categories").select("id, created_at"),
-    ]);
+  // الصفحات التي لها مسار ثابت ولا نريد تكرارها من DB
+  const excludedSlugs = ["about-us"];
 
-  // Links (Our Work, Blog, Services)
+  const [
+    { data: projects },
+    { data: blogs },
+    { data: categories },
+    { data: pages },
+  ] = await Promise.all([
+    supabaseAdmin.from("projects").select("id, updated_at, created_at"),
+    supabaseAdmin.from("blogs").select("id, updated_at, created_at"),
+    supabaseAdmin.from("categories").select("id, updated_at, created_at"),
+    supabaseAdmin.from("pages").select("slug, updated_at, created_at"),
+  ]);
 
-  // (Our Work)
   const projectRoutes = locales.flatMap((locale) =>
     (projects || []).map((p) => ({
       url: `${baseUrl}/${locale}/ourwork/${p.id}`,
-      lastModified: p.created_at ? new Date(p.created_at) : new Date(),
+      lastModified: p.updated_at
+        ? new Date(p.updated_at)
+        : p.created_at
+          ? new Date(p.created_at)
+          : new Date(),
+      changeFrequency: "monthly",
       priority: 0.7,
     })),
   );
 
-  // (Blog)
   const blogRoutes = locales.flatMap((locale) =>
     (blogs || []).map((b) => ({
       url: `${baseUrl}/${locale}/blog/${b.id}`,
-      lastModified: b.created_at ? new Date(b.created_at) : new Date(),
+      lastModified: b.updated_at
+        ? new Date(b.updated_at)
+        : b.created_at
+          ? new Date(b.created_at)
+          : new Date(),
+      changeFrequency: "weekly",
       priority: 0.6,
     })),
   );
 
-  // (Services)
   const serviceRoutes = locales.flatMap((locale) =>
     (categories || []).map((s) => ({
       url: `${baseUrl}/${locale}/services/${s.id}`,
-      lastModified: s.created_at ? new Date(s.created_at) : new Date(),
+      lastModified: s.updated_at
+        ? new Date(s.updated_at)
+        : s.created_at
+          ? new Date(s.created_at)
+          : new Date(),
+      changeFrequency: "monthly",
       priority: 0.7,
     })),
   );
 
-  return [...staticRoutes, ...projectRoutes, ...blogRoutes, ...serviceRoutes];
+  // ✅ Pages - ديناميكي من DB مع استثناء الصفحات الثابتة
+  const pageRoutes = locales.flatMap((locale) =>
+    (pages || [])
+      .filter((p) => p.slug && !excludedSlugs.includes(p.slug))
+      .map((p) => ({
+        url: `${baseUrl}/${locale}/${p.slug}`,
+        lastModified: p.updated_at
+          ? new Date(p.updated_at)
+          : p.created_at
+            ? new Date(p.created_at)
+            : new Date(),
+        changeFrequency: "monthly",
+        priority: 0.5,
+      })),
+  );
+
+  return [
+    ...staticRoutes,
+    ...projectRoutes,
+    ...blogRoutes,
+    ...serviceRoutes,
+    ...pageRoutes,
+  ];
 }

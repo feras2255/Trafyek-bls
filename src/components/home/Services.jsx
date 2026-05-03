@@ -66,8 +66,7 @@ export default async function Services({ isHomePage = false }) {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {categories.map((category, index) => (
-            <Link
-              href={`/services/${category.id}`}
+            <div
               key={category.id}
               className="group block h-full"
               data-aos="fade-up"
@@ -80,7 +79,7 @@ export default async function Services({ isHomePage = false }) {
                     {category.image_url ? (
                       <Image
                         src={category.image_url}
-                        alt=""
+                        alt={category.title_ar || category.title_en}
                         width={35}
                         height={35}
                         className="w-9 h-9 object-contain transition-all"
@@ -123,7 +122,7 @@ export default async function Services({ isHomePage = false }) {
                   </div>
                 </Link>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

@@ -1,11 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { siteSettings } from "@/lib/siteSettings";
 import SocialLinks from "./SocialLinks";
 import PaymentIcons from "./PaymentIcons";
 import ContactButtons from "./ContactButtons";
+import { IoIosArrowBack } from "react-icons/io";
 
 export default async function Footer() {
   const t = await getTranslations("infoSite");
@@ -16,45 +15,44 @@ export default async function Footer() {
   if (!settings) return null;
 
   const quickLinks = [
-    { id: 2, title: t("about") || "عن الشركة", href: "/about" },
+    { id: 2, title: t("about") || "عن الشركة", href: "/about-us" },
     { id: 6, title: t("services") || "خدماتنا", href: "/services" },
-    { id: 3, title: t("privacy") || "سياسة الخصوصية", href: "/privacy-policy" },
+    {
+      id: 3,
+      title: t("privacy") || "سياسة الخصوصية",
+      href: "/pages/privacy-policy",
+    },
     {
       id: 1,
       title: t("terms") || "الشروط والأحكام",
-      href: "/terms-conditions",
+      href: "/pages/terms-conditions",
     },
   ];
 
   return (
-    <footer
-      className="w-full bg-maintext text-text border-t border-white/5"
-      dir={isRtl ? "rtl" : "ltr"}
-    >
+    <footer className="w-full bg-maintext text-text border-t border-white/5">
       <div className="pt-20 pb-10">
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
             {/* Column 1: Brand Strategy (Takes more space) */}
-            <div className="lg:col-span-5 space-y-8 text-right">
+            <div className="lg:col-span-5 space-y-8">
               <div className="space-y-4">
                 <h2 className="text-2xl md:text-3xl font-black text-white flex items-center gap-2">
                   <span className="w-8 h-8 bg-primary rounded-lg inline-block"></span>
                   {t("siteName") || "ترافيك بلس"}
                 </h2>
-                <p className="text-third text-lg leading-relaxed max-w-md">
+                <p className="text-third text-base leading-relaxed max-w-md">
                   {isRtl
                     ? settings.description_ar
                     : settings.description_en || settings.description}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4">
-                <ContactButtons settings={settings} locale={locale} />
-              </div>
+              <SocialLinks links={settings} />
             </div>
 
             {/* Column 2: Quick Navigation */}
-            <div className="lg:col-span-3 space-y-6">
+            <div className="lg:col-span-3 space-y-4">
               <h3 className="text-lg font-bold uppercase tracking-widest border-b border-primary/20 pb-2 inline-block">
                 {t("quickLinks") || "روابط سريعة"}
               </h3>
@@ -63,8 +61,9 @@ export default async function Footer() {
                   <li key={link.id}>
                     <Link
                       href={link.href}
-                      className="text-third hover:text-primary hover:translate-x-[-8px] transition-all duration-300 inline-block font-medium"
+                      className="text-third hover:text-brand-orange hover:translate-x-[-8px] transition-all duration-300 font-medium flex items-center gap-x-2"
                     >
+                      <IoIosArrowBack />
                       {link.title}
                     </Link>
                   </li>
@@ -73,13 +72,13 @@ export default async function Footer() {
             </div>
 
             {/* Column 3: Trust & Social */}
-            <div className="lg:col-span-4 space-y-8">
+            <div className="lg:col-span-4 space-y-4">
               <div className="space-y-6">
                 <h3 className="text-lg font-bold uppercase tracking-widest border-b border-primary/20 pb-2 inline-block">
                   {isRtl ? "تواصل معنا" : "Connect"}
                 </h3>
                 <div className="flex justify-start">
-                  <SocialLinks links={settings} />
+                  <ContactButtons settings={settings} locale={locale} />
                 </div>
               </div>
 

@@ -9,6 +9,7 @@ export default function ContactButtons({ settings, locale }) {
       icon: FaWhatsapp,
       labelAr: "واتساب",
       labelEn: "WhatsApp",
+      value: settings?.whatsapp,
     },
     {
       id: "phone",
@@ -16,42 +17,44 @@ export default function ContactButtons({ settings, locale }) {
       icon: FaPhone,
       labelAr: "جوال",
       labelEn: "Call",
+      value: settings?.phone,
     },
     {
       id: "email",
       href: `mailto:${settings?.email}`,
       icon: FaEnvelope,
-      labelAr: "بريد",
+      labelAr: "بريد إلكتروني",
       labelEn: "Email",
+      value: settings?.email,
     },
   ];
 
   return (
-    <div className="flex flex-wrap gap-4 text-sm mt-2">
-      {contactMethods.map((method) => {
-        const value =
-          settings?.[
-            method.id === "phone"
-              ? "phone"
-              : method.id === "whatsapp"
-                ? "whatsapp"
-                : "email"
-          ];
-        if (!value) return null;
+    <div className="lg:col-span-3 space-y-4">
+      <ul className="flex flex-col gap-4">
+        {contactMethods.map((method) => {
+          if (!method.value) return null;
+          const Icon = method.icon;
 
-        const Icon = method.icon;
+          return (
+            <li key={method.id}>
+              <Link
+                href={method.href}
+                className="text-third hover:text-brand-orange flex items-center gap-2 hover:translate-x-[-8px] transition-all duration-300 font-medium group"
+              >
+                <Icon className="text:text hover:text-brand-orange group-hover:scale-110 transition-transform" />
 
-        return (
-          <Link
-            key={method.id}
-            href={method.href}
-            className="flex items-center gap-1 border border-border rounded-md py-1 px-3 hover:text-border/50 hover:border-border/50 transition duration-300"
-          >
-            <Icon />
-            {locale === "ar" ? method.labelAr : method.labelEn}
-          </Link>
-        );
-      })}
+                <span className="flex gap-2">
+                  <span>
+                    {locale === "ar" ? method.labelAr : method.labelEn}:
+                  </span>
+                  <span dir="ltr">{method.value}</span>
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

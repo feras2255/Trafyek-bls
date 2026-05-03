@@ -20,18 +20,15 @@ export default function MarqueeSlider() {
   return (
     <section className="w-full overflow-hidden bg-background py-8 border-y border-border shadow-inner">
       <div className="container mx-auto relative px-0">
-        {" "}
-        {/* إزالة padding الـ container لضمان سلاسة التلاشي */}
-        {/* تحسين طبقات التلاشي (Fading Edges) لتناسب جميع الاتجاهات */}
         <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
         <Swiper
           modules={[Autoplay]}
-          spaceBetween={20} // مسافة كافية بين العناصر
-          slidesPerView={"auto"} // يجعل العرض مرن حسب طول النص
+          spaceBetween={20}
+          slidesPerView={"auto"}
           loop={true}
-          speed={5000} // سرعة الحركة (كلما زاد الرقم كانت أهدأ وأوضح)
-          allowTouchMove={false} // لمنع التقطع عند اللمس
+          speed={5000}
+          allowTouchMove={false}
           autoplay={{
             delay: 0,
             disableOnInteraction: false,
@@ -41,7 +38,7 @@ export default function MarqueeSlider() {
           {PartnersText.map((partner) => (
             <SwiperSlide
               key={partner.id}
-              style={{ width: "auto" }} // ضروري جداً مع slidesPerView="auto"
+              style={{ width: "auto" }}
               className="flex items-center justify-center py-2"
             >
               <div className="px-8 py-4 flex items-center justify-center rounded-2xl bg-secondary/10 hover:bg-secondary/20 border border-primary/10 transition-all duration-300">
@@ -54,7 +51,6 @@ export default function MarqueeSlider() {
         </Swiper>
       </div>
 
-      {/* إضافة CSS بسيط لضمان حركة خطية (Linear) بدون تقطيع */}
       <style jsx global>{`
         .marquee-swiper .swiper-wrapper {
           transition-timing-function: linear !important;

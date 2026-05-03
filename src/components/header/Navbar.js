@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import Image from "next/image";
@@ -14,10 +14,10 @@ export default function Navbar({ settings }) {
 
   const links = [
     { id: "nav-1", title: t("home"), href: "/" },
-    { id: "nav-2", title: t("about"), href: "/about" },
+    { id: "nav-2", title: t("about"), href: "/about-us" },
     { id: "nav-3", title: t("services"), href: "/services" },
     { id: "nav-4", title: t("ourwork"), href: "/ourwork" },
-    { id: "nav-5", title: t("blog"), href: "/blog" },
+    { id: "nav-5", title: t("blogs"), href: "/blog" },
     { id: "nav-6", title: t("contact"), href: "/contact" },
   ];
 
@@ -29,8 +29,10 @@ export default function Navbar({ settings }) {
             src={settings?.image_url || "/t-logo.webp"}
             alt="logo"
             fill
+            sizes="120px"
             className="object-contain"
             priority
+            loading="eager"
           />
         </Link>
 
@@ -90,6 +92,7 @@ export default function Navbar({ settings }) {
               src={settings?.image_url || "/t-logo.webp"}
               alt="logo"
               fill
+              sizes="120px"
               className="object-contain"
             />
           </div>

@@ -17,9 +17,9 @@ export default function PaymentIcons() {
           <Image
             src={icon.src}
             alt={icon.alt}
-            width={70}
+            width={50}
             height={30}
-            className="object-contain rounded-md"
+            className="object-contain rounded-md h-auto w-auto"
           />
         </div>
       ))}

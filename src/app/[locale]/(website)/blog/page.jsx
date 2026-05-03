@@ -5,11 +5,48 @@ import Image from "next/image";
 import { FiArrowUpLeft, FiClock, FiTag } from "react-icons/fi";
 import { supabase } from "@/lib/supabaseClient";
 
+export async function generateMetadata() {
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
+  const title = isAr
+    ? "المدونة | ترافيك بلس - مقالات في البرمجة والتسويق"
+    : "Blog | Traffic Plus - Tech & Marketing Articles";
+
+  const description = isAr
+    ? "استكشف أحدث المقالات التقنية حول تطوير المواقع باستخدام Next.js، وحلول التسويق الرقمي وتطوير المتاجر الإلكترونية في السعودية."
+    : "Explore the latest technical articles on web development using Next.js, digital marketing solutions, and e-commerce development in Saudi Arabia.";
+
+  return {
+    title: title,
+    description: description,
+    alternates: {
+      canonical: `https://www.trafyekbls.com/${locale}/blog`,
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: `https://www.trafyekbls.com/${locale}/blog`,
+      siteName: "ترافيك بلس - Traffic Plus",
+      images: [
+        {
+          url: "/logo.png",
+          width: 1200,
+          height: 630,
+          alt: isAr ? "مدونة ترافيك بلس" : "Traffic Plus Blog",
+        },
+      ],
+      locale: isAr ? "ar_SA" : "en_US",
+      type: "website",
+    },
+  };
+}
+
 export default async function Blog() {
   const locale = await getLocale();
   const isAr = locale === "ar";
 
-  // جلب البيانات من Supabase
+  // fetch data from Supabase
   const { data: blogs, error } = await supabase
     .from("blogs")
     .select("*")
@@ -28,6 +65,35 @@ export default async function Blog() {
 
   return (
     <section className="pb-24 bg-[#fcfcfd]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            name: isAr ? "مدونة ترافيك بلس" : "Traffic Plus Blog",
+            description: isAr
+              ? "مقالات تقنية وتسويقية متخصصة لمساعدتك في تنمية أعمالك الرقمية."
+              : "Technical and marketing articles to help you grow your digital business.",
+            url: `https://www.trafyekbls.com/${locale}/blog`,
+            publisher: {
+              "@type": "Organization",
+              name: "ترافيك بلس",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://www.trafyekbls.com/favicon.png",
+              },
+            },
+            blogPost: blogs?.map((post) => ({
+              "@type": "BlogPosting",
+              headline: isAr ? post.title_ar : post.title_en,
+              image: post.image_url,
+              datePublished: post.created_at,
+              url: `https://www.trafyekbls.com/${locale}/blog/${post.id}`,
+            })),
+          }),
+        }}
+      />
       <PageHero
         title={isAr ? "مدونة ترافيك بلس" : "Traffic Plus Blog"}
         description={
@@ -64,6 +130,7 @@ export default async function Blog() {
                     src={post.image_url || "/he.png"}
                     alt={title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <span

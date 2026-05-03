@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { useTranslations } from "next-intl";
 import Input from "@/components/ui/input";
 import FileInput from "@/components/ui/FileInput";
-import RichTextEditor from "@/components/dashboard/rich-text-editor";
+import Editor from "@/components/dashboard/Editor";
 
 export default function BlogForm({ initialData = null, isAr }) {
   const t = useTranslations("dashboard");
@@ -114,18 +114,22 @@ export default function BlogForm({ initialData = null, isAr }) {
         <h4 className="block text-lg font-bold mb-4 text-maintext">
           {t("description_ar")}
         </h4>
-        <RichTextEditor
-          value={formData.description_ar || ""}
+
+        <Editor
+          data={formData.description_ar}
           onChange={(content) => handleFieldChange("description_ar", content)}
+          isAr={true}
         />
       </div>
       <div>
         <h4 className="block text-lg font-bold mb-4 text-maintext">
           {t("description_en")}
         </h4>
-        <RichTextEditor
-          value={formData.description_en || ""}
+
+        <Editor
+          data={formData.description_en}
           onChange={(content) => handleFieldChange("description_en", content)}
+          isAr={false}
         />
       </div>
 

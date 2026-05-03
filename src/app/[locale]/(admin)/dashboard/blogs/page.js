@@ -22,6 +22,13 @@ export default async function BlogsPage() {
     );
   }
 
+  const getPreviewText = (html, length = 120) => {
+    if (!html) return "";
+
+    const text = html.replace(/<[^>]*>/g, ""); // إزالة HTML
+    return text.length > length ? text.slice(0, length) + "..." : text;
+  };
+
   return (
     <div className="p-6 min-h-screen bg-gray-50/50" dir={isAr ? "rtl" : "ltr"}>
       {/* Header Section */}
@@ -49,7 +56,7 @@ export default async function BlogsPage() {
         {blogs?.map((blog) => (
           <div
             key={blog.id}
-            className="group bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100 flex flex-col"
+            className="group bg-secondary/50 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-secondary/80 flex flex-col"
           >
             {/* Blog Image Container */}
             <div className="relative h-52 bg-gray-100 overflow-hidden">
@@ -86,22 +93,30 @@ export default async function BlogsPage() {
             {/* Content Section */}
             <div className="p-5 flex flex-col flex-grow">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-accent/10 px-2.5 py-1 rounded-lg">
                   {isAr ? blog.category_ar : blog.category_en}
                 </span>
-                <span className="text-[11px] text-gray-400">
+                <span className="text-[11px] text-subtext">
                   {new Date(blog.created_at).toLocaleDateString(
                     isAr ? "ar-EG" : "en-US",
                   )}
                 </span>
               </div>
 
-              <h2 className="text-lg font-bold text-gray-800 line-clamp-1 mb-2">
+              <h2 className="text-xl font-bold text-accent line-clamp-1 mb-2">
                 {isAr ? blog.title_ar : blog.title_en}
               </h2>
 
-              <p className="text-gray-500 text-sm line-clamp-2 leading-relaxed mb-4 flex-grow">
-                {isAr ? blog.description_ar : blog.description_en}
+              <p
+                className="text-subtext text-sm leading-relaxed line-clamp-3"
+                style={{
+                  direction: isAr ? "rtl" : "ltr",
+                  textAlign: isAr ? "right" : "left",
+                }}
+              >
+                {getPreviewText(
+                  isAr ? blog.description_ar : blog.description_en,
+                )}
               </p>
 
               {/* Actions */}

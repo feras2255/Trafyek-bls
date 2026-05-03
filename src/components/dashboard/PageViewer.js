@@ -4,21 +4,23 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import Input from "../ui/input";
-import RichTextEditor from "./rich-text-editor";
 import Button from "../ui/button";
 import MainTitle from "./MainTitle";
 import { toast } from "sonner";
+import Editor from "./Editor";
 
 export default function PageViewer() {
   const { slug } = useParams();
   const [page, setPage] = useState(null);
   const [formData, setFormData] = useState({
-    title: "",
-    content: "",
+    title_ar: "",
+    title_en: "",
+    content_ar: "",
+    content_en: "",
   });
 
-  const handleChange = (eOrHtml) => {
-    // if it's input or textarea
+  const handleChange = (eOrHtml, lang) => {
+    // Input fields
     if (eOrHtml?.target) {
       const { name, value } = eOrHtml.target;
       setFormData((prev) => ({
@@ -26,11 +28,11 @@ export default function PageViewer() {
         [name]: value,
       }));
     }
-    // if it's RichTextEditor
+    // Rich text editor
     else {
       setFormData((prev) => ({
         ...prev,
-        content: eOrHtml,
+        [lang]: eOrHtml,
       }));
     }
   };
@@ -39,26 +41,26 @@ export default function PageViewer() {
     async function fetchPage() {
       if (!slug) return;
 
-      try {
-        const { data, error } = await supabase
-          .from("pages")
-          .select("title, content")
-          .eq("slug", slug)
-          .single();
+      const { data, error } = await supabase
+        .from("pages")
+        .select("*")
+        .eq("slug", slug)
+        .single();
 
-        if (error) throw error;
-        setPage(data);
-        if (data) {
-          setFormData({
-            title: data.title,
-            content: data.content,
-          });
-        }
-      } catch (err) {
-        console.error(err);
-
+      if (error) {
+        console.error(error);
         setPage(null);
+        return;
       }
+
+      setPage(data);
+
+      setFormData({
+        title_ar: data.title_ar || "",
+        title_en: data.title_en || "",
+        content_ar: data.content_ar || "",
+        content_en: data.content_en || "",
+      });
     }
 
     fetchPage();
@@ -66,45 +68,84 @@ export default function PageViewer() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const { error } = await supabase
-        .from("pages")
-        .update({
-          title: formData.title,
-          content: formData.content,
-          updated_at: new Date(),
-        })
-        .eq("slug", slug);
 
-      if (error) throw error;
-      toast("تم حفظ الصفحة بنجاح ");
-    } catch (err) {
-      console.error(err);
-      toast("حدث خطأ أثناء الحفظ ");
+    const { error } = await supabase
+      .from("pages")
+      .update({
+        title_ar: formData.title_ar,
+        title_en: formData.title_en,
+        content_ar: formData.content_ar,
+        content_en: formData.content_en,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("slug", slug);
+
+    if (error) {
+      console.error(error);
+      toast.error("حدث خطأ أثناء الحفظ");
+      return;
     }
+
+    toast.success("تم حفظ الصفحة بنجاح");
   };
 
   if (!page) return <p>الصفحة غير موجودة.</p>;
 
   const slugTitles = {
     "about-us": "من نحن",
-    "privacy-policy": "سياسة الاستخدام والخصوصية",
+    "privacy-policy": "سياسة الخصوصية",
     "terms-conditions": "الشروط والأحكام",
   };
+
   return (
     <div className="container mx-auto">
-      <MainTitle title={slugTitles[slug] || formData.title} />
-      <div className="rounded-lg my-8 bg-card p-6">
-        <form className="space-y-4" onSubmit={handleSubmit}>
+      <MainTitle title={slugTitles[slug] || page.title_ar} />
+
+      <div className="rounded-lg my-8 bg-card p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Arabic Title */}
           <Input
             type="text"
-            placeholder="عنوان الصفحة"
-            name="title"
-            value={formData.title}
+            placeholder="العنوان بالعربية"
+            name="title_ar"
+            value={formData.title_ar}
             onChange={handleChange}
           />
-          <RichTextEditor value={formData.content} onChange={handleChange} />
-          <Button type="submit" title="حفظ" color="primary" />
+
+          {/* English Title */}
+          <Input
+            type="text"
+            placeholder="English Title"
+            name="title_en"
+            value={formData.title_en}
+            onChange={handleChange}
+          />
+
+          {/* Arabic Content */}
+          <div>
+            <h3 className="mb-2 font-bold">المحتوى بالعربية</h3>
+            <Editor
+              data={formData.content_ar}
+              onChange={(val) => handleChange(val, "content_ar")}
+              isAr={true}
+            />
+          </div>
+
+          {/* English Content */}
+          <div>
+            <h3 className="mb-2 font-bold">English Content</h3>
+            <Editor
+              data={formData.content_en}
+              onChange={(val) => handleChange(val, "content_en")}
+              isAr={false}
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-primary text-white px-10 py-3 rounded-xl font-black text-lg hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/20 cursor-pointer"
+          >
+            حفظ التغييرات
+          </button>
         </form>
       </div>
     </div>

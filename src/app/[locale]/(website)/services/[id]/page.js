@@ -4,9 +4,40 @@ import Button from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
 import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { FiCheckCircle, FiInfo, FiTag } from "react-icons/fi";
+import { FiInfo } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
 
+export async function generateStaticParams() {
+  const { data: services } = await supabase.from("categories").select("id");
+
+  return (
+    services?.map((service) => ({
+      id: service.id.toString(),
+    })) || []
+  );
+}
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const { data: service } = await supabase
+    .from("categories")
+    .select("title_ar, title_en, description_ar, description_en, image_url")
+    .eq("id", id)
+    .single();
+
+  if (!service) return { title: "Service Not Found" };
+
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
+  return {
+    title: isAr ? service.title_ar : service.title_en,
+    description: isAr ? service.description_ar : service.description_en,
+    openGraph: {
+      images: [service.image_url],
+    },
+  };
+}
 export default async function ServiceDetails({ params }) {
   const { id } = await params;
   const t = await getTranslations("services");
@@ -44,6 +75,25 @@ export default async function ServiceDetails({ params }) {
 
   return (
     <main className="min-h-screen bg-[#fcfcfc]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: title,
+            description: description,
+            provider: {
+              "@type": "LocalBusiness",
+              name: "ترافيك بلس",
+              url: "https://www.trafyekbls.com/ar",
+              logo: "/t-logo.webp",
+            },
+            areaServed: "SA",
+            serviceType: title,
+          }),
+        }}
+      />
       <PageHero
         title={title}
         description={t("desc_hero")}
@@ -57,12 +107,12 @@ export default async function ServiceDetails({ params }) {
         <div className="container mx-auto px-4">
           <div className="bg-card py-6 rounded-4xl shadow-xl shadow-black/5 overflow-hidden border border-gray-100">
             <div className="flex flex-col md:flex-row items-center">
-              {/* الصورة مع تأثير */}
               <div className="relative w-full md:w-5/12 h-56 lg:h-90 overflow-hidden group">
                 <Image
                   src={service.image_url}
                   alt={title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   priority
                 />

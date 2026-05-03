@@ -6,6 +6,48 @@ import PageHero from "@/components/ui/PageHero";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 
+export async function generateMetadata() {
+  const t = await getTranslations("contact");
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
+  const title = isAr
+    ? "اتصل بنا | ترافيك بلس - حلول تقنية متكاملة"
+    : "Contact Us | Traffic Plus - Integrated Tech Solutions";
+
+  const description = isAr
+    ? "تواصل مع فريق ترافيك بلس في السعودية للبدء في مشروعك الرقمي القادم. نحن هنا للإجابة على استفساراتك حول البرمجة والتسويق الرقمي."
+    : "Contact Traffic Plus team in Saudi Arabia to start your next digital project. We are here to answer your questions about programming and digital marketing.";
+
+  return {
+    title: title,
+    description: description,
+    alternates: {
+      canonical: `https://www.trafyekbls.com/${locale}/contact`,
+    },
+    openGraph: {
+      title: title,
+      description: description,
+      url: `https://www.trafyekbls.com/${locale}/contact`,
+      siteName: "ترافيك بلس",
+      images: [
+        {
+          url: "/favicon.png",
+          width: 800,
+          height: 600,
+        },
+      ],
+      locale: isAr ? "ar_SA" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+    },
+  };
+}
+
 export default async function ContactPage() {
   const t = await getTranslations("contact");
   const locale = await getLocale();
@@ -51,6 +93,30 @@ export default async function ContactPage() {
 
   return (
     <section className="bg-[#fcfcfd]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            name: isAr ? "اتصل بنا - ترافيك بلس" : "Contact Us - Traffic Plus",
+            description: "اتصل بنا | ترافيك بلس - حلول تقنية متكاملة",
+            mainEntity: {
+              "@type": "Organization",
+              name: "ترافيك بلس",
+              telephone: settings.phone,
+              email: settings.email,
+              areaServed: "SA",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: settings.phone,
+                contactType: "customer service",
+                availableLanguage: ["Arabic", "English"],
+              },
+            },
+          }),
+        }}
+      />
       <PageHero
         title={t("hero.title")}
         description={t("hero.description")}

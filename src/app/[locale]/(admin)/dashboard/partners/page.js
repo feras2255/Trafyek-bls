@@ -55,7 +55,7 @@ export default function PartnersList() {
         supabase
           .from("partners")
           .update({ order: index + 1 })
-          .eq("id", partner.id)
+          .eq("id", partner.id),
       );
       await Promise.all(updates);
       toast.success("تم تحديث ترتيب الشركاء");
@@ -107,6 +107,7 @@ export default function PartnersList() {
                   src={partner.image_url || "/default.png"}
                   alt="صورة الشريك"
                   fill
+                  sizes="100%"
                   className="object-contain rounded-full"
                 />
               </div>
