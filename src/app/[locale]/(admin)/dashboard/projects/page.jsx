@@ -95,6 +95,7 @@ export default function Projects() {
             <td className="p-3 text-center space-x-2">
               <Link
                 href={`/dashboard/projects/edit/${project.id}`}
+                aria-label="تعديل"
                 className="bg-fourth text-white px-3 py-1 rounded"
               >
                 تعديل
@@ -104,6 +105,7 @@ export default function Projects() {
                   setSelectedId(project.id);
                   setConfirmOpen(true);
                 }}
+                aria-label="حذف"
                 className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
               >
                 حذف

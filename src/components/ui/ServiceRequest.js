@@ -80,6 +80,7 @@ export default async function ServiceRequest() {
             <Link
               href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(t("whatsappMessage"))}`}
               target="_blank"
+              aria-label="تواصل معنا"
               className="flex items-center justify-center gap-4 w-full md:w-[350px] bg-primary text-white px-10 py-6 rounded-[2.5rem] shadow-2xl hover:bg-accent transition-all duration-500 font-black text-2xl group"
             >
               <span>{t("ctaStart")}</span>
@@ -88,6 +89,7 @@ export default async function ServiceRequest() {
 
             <Link
               href={`tel:+${phoneNumber}`}
+              aria-label="اتصل بنا"
               className="flex items-center justify-center gap-4 w-full md:w-[300px] bg-transparent text-accent border-2 border-accent/20 px-10 py-6 rounded-[2.5rem] hover:bg-white hover:border-primary transition-all duration-500 font-black text-2xl"
             >
               <span>{t("ctaCall")}</span>

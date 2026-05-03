@@ -285,6 +285,9 @@ export default async function About() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
                 <Link
                   href="https://wa.me/966530446151"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={isAr ? "ابداء رحلتك الآن" : "Start Your Journey"}
                   className="group relative w-full md:w-auto px-12 py-5 bg-primary text-text font-black text-xl rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
                 >
                   <span className="relative z-10">
@@ -297,6 +300,7 @@ export default async function About() {
                   href="https://wa.me/966530446151"
                   target="_blank"
                   rel="noreferrer"
+                  aria-label={isAr ? "استشارة مجانية" : "Free Consultation"}
                   className="flex items-center gap-3 w-full md:w-auto px-10 py-5 bg-white/5 border border-white/10 text-white font-bold text-lg rounded-2xl hover:bg-white/10 transition-all"
                 >
                   <FaWhatsapp className="text-[#25D366] size-7" />

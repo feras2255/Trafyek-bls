@@ -107,6 +107,7 @@ export default function DashboardSidebar({ isOpen }) {
             <div key={item.label} className="space-y-1">
               <button
                 onClick={() => setOpenPages((prev) => !prev)}
+                aria-label={item.label}
                 className="flex w-full items-center justify-between px-3 py-3 rounded-xl hover:bg-gray-800 transition-all group"
               >
                 <div className="flex items-center gap-3 cursor-pointer">
@@ -131,6 +132,7 @@ export default function DashboardSidebar({ isOpen }) {
                     <Link
                       key={sub.href}
                       href={sub.href}
+                      aria-label={sub.label}
                       className="flex items-center gap-3 px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all"
                     >
                       {sub.icon}
@@ -144,6 +146,7 @@ export default function DashboardSidebar({ isOpen }) {
             <Link
               key={item.href}
               href={item.href}
+              aria-label={item.label}
               className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-gray-800 group transition-all"
             >
               <span className="text-gray-400 group-hover:text-primary transition-colors">

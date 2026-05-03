@@ -27,6 +27,7 @@ export default function DeleteButton({ id, isAr }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
+        aria-label={isAr ? "حذف" : "Delete"}
         className="flex-1 text-sm font-medium py-2 rounded-lg text-text bg-worning hover:bg-worning/90 transition-colors cursor-pointer"
       >
         {isAr ? "حذف" : "Delete"}
@@ -49,12 +50,14 @@ export default function DeleteButton({ id, isAr }) {
             <button
               onClick={handleDelete}
               disabled={loading}
+              aria-label={isAr ? "نعم، احذف" : "Yes, Delete"}
               className="bg-worning text-text px-6 py-2 rounded-lg hover:bg-worning/90 transition disabled:opacity-50 cursor-pointer"
             >
               {loading ? "..." : isAr ? "نعم، احذف" : "Yes, Delete"}
             </button>
             <button
               onClick={() => setIsOpen(false)}
+              aria-label={isAr ? "اغلاق" : "Cancel"}
               className="bg-accent text-text px-6 py-2 rounded-lg hover:bg-accent/90 transition cursor-pointer"
             >
               {isAr ? "إلغاء" : "Cancel"}

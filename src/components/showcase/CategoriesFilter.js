@@ -21,6 +21,7 @@ export default function CategoriesFilter({
         <div className="bg-secondary w-fit mx-auto flex flex-wrap items-center justify-center gap-3 py-2 md:px-6 rounded-xl md:rounded-full overflow-x-auto">
           <button
             onClick={() => setSelected("all")}
+            aria-label="الكل"
             className={`whitespace-nowrap text-xs md:text-base px-3 md:px-6 py-2.5 rounded-lg transition-all duration-300 cursor-pointer flex-shrink-0 ${
               selected === "all"
                 ? "bg-linear-to-r from-primary to-hover text-text border-primary shadow-md shadow-primary/20"
@@ -34,6 +35,7 @@ export default function CategoriesFilter({
             <button
               key={cat.id}
               onClick={() => setSelected(cat.id)}
+              aria-label={cat.title}
               className={`text-[10px] md:text-sm px-2 md:px-5 py-2.5 font-semibold rounded-lg  transition-all duration-300 cursor-pointer flex-shrink-0 ${
                 selected === cat.id
                   ? "bg-linear-to-r from-primary to-hover text-text border-primary shadow-md shadow-primary/20"

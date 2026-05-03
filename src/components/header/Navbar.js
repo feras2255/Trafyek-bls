@@ -17,14 +17,18 @@ export default function Navbar({ settings }) {
     { id: "nav-2", title: t("about"), href: "/about-us" },
     { id: "nav-3", title: t("services"), href: "/services" },
     { id: "nav-4", title: t("ourwork"), href: "/ourwork" },
-    { id: "nav-5", title: t("blogs"), href: "/blog" },
+    { id: "nav-5", title: t("blog"), href: "/blogs" },
     { id: "nav-6", title: t("contact"), href: "/contact" },
   ];
 
   return (
     <nav className="w-full">
       <div className="flex items-center justify-between w-full">
-        <Link href="/" className="relative w-24 h-10 lg:w-32 lg:h-12">
+        <Link
+          href="/"
+          aria-label="شعار"
+          className="relative w-24 h-10 lg:w-32 lg:h-12"
+        >
           <Image
             src={settings?.image_url || "/t-logo.webp"}
             alt="logo"
@@ -42,6 +46,7 @@ export default function Navbar({ settings }) {
             <li key={link.id}>
               <Link
                 href={link.href}
+                aria-label={link.title}
                 className="text-maintext text-sm lg:text-xl font-bold hover:text-accent transition-colors"
               >
                 {link.title}
@@ -56,6 +61,7 @@ export default function Navbar({ settings }) {
             <LanguageSwitcher isDashboard={false} />
             <Link
               href={`https://wa.me/${settings?.whatsapp || ""}`}
+              aria-label="واتساب"
               className="text-sm md:text-base bg-primary text-text px-5 py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all"
             >
               {t("contact")}
@@ -82,6 +88,7 @@ export default function Navbar({ settings }) {
         <button
           className="absolute top-5 left-5 text-maintext"
           onClick={() => setIsOpen(false)}
+          aria-label="اغلاق القائمة"
         >
           <FiX size={28} />
         </button>
@@ -100,7 +107,11 @@ export default function Navbar({ settings }) {
           <ul className="flex flex-col gap-y-5 text-maintext text-xl font-bold">
             {links.map((link) => (
               <li key={link.id} className="border-b border-border pb-2">
-                <Link href={link.href} onClick={() => setIsOpen(false)}>
+                <Link
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  aria-label={link.title}
+                >
                   {link.title}
                 </Link>
               </li>
@@ -112,6 +123,7 @@ export default function Navbar({ settings }) {
 
             <Link
               href={`https://wa.me/${settings?.whatsapp || ""}`}
+              aria-label="واتساب"
               className="text-center bg-primary text-text py-3 rounded-lg font-semibold"
             >
               {t("contact")}

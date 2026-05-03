@@ -35,6 +35,7 @@ export default function ProjectsSlider() {
         </h2>
         <Link
           href="/projects"
+          aria-label="عرض الكل"
           className="text-sm md:text-base font-semibold text-third underline"
         >
           عرض الكل

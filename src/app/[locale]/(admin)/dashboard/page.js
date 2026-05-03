@@ -88,7 +88,12 @@ export default function Dashboard() {
           </h2>
           <div className="grid grid-cols-1 gap-4">
             {menuItems.map((item, idx) => (
-              <Link key={idx} href={item.href} className="group">
+              <Link
+                key={idx}
+                href={item.href}
+                aria-label={item.title}
+                className="group"
+              >
                 <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between hover:border-blue-200 hover:shadow-md transition-all">
                   <div className="flex items-center gap-5">
                     <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-xl text-slate-600 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">

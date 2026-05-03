@@ -92,7 +92,7 @@ export default function AddPartner({ onAdded, partnerToEdit = null, onClose }) {
       toast.error("فشل العملية: " + error.message);
     } else {
       toast.success(
-        partnerToEdit ? "تم تحديث الشريك ✅" : "تم إضافة الشريك ✅"
+        partnerToEdit ? "تم تحديث الشريك ✅" : "تم إضافة الشريك ✅",
       );
       setImage(null);
       setOpen(false);
@@ -122,14 +122,15 @@ export default function AddPartner({ onAdded, partnerToEdit = null, onClose }) {
 
         <button
           type="submit"
+          aria-label={partnerToEdit ? "تحديث الشريك" : "إضافة شريك"}
           className="rounded bg-secondary px-4 py-2 text-white w-full cursor-pointer"
           disabled={loading}
         >
           {loading
             ? "جاري الحفظ..."
             : partnerToEdit
-            ? "تحديث الشريك"
-            : "إضافة شريك"}
+              ? "تحديث الشريك"
+              : "إضافة شريك"}
         </button>
       </form>
     </Dialog>

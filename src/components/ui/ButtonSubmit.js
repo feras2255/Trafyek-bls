@@ -29,6 +29,8 @@ export default function ButtonSubmit({
       type={type}
       onClick={onClick}
       disabled={disabled || loading}
+      aria-busy={loading}
+      aria-label="ارسال بيانات"
       className={`
         relative inline-flex items-center justify-center gap-2 
         px-6 py-3 rounded-lg font-black text-sm md:text-base
@@ -39,15 +41,12 @@ export default function ButtonSubmit({
       `}
       {...props}
     >
-      {/* حالة التحميل (Spinner) */}
       {loading && (
         <AiOutlineLoading3Quarters className="animate-spin size-4 text-inherit" />
       )}
 
-      {/* الأيقونة (إذا وجدت ولم نكن في حالة تحميل) */}
       {!loading && Icon && <Icon className="size-5" />}
 
-      {/* النص */}
       <span className={loading ? "opacity-70" : ""}>
         {loading ? "جاري المعالجة..." : text}
       </span>

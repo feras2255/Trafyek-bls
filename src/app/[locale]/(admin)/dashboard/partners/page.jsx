@@ -85,6 +85,7 @@ export default function PartnersList() {
         <button
           type="button"
           onClick={() => setAddOpen(true)}
+          aria-label="اضافة شريك"
           className="inline-flex items-center bg-fourth text-maintext hover:bg-sidebar-primary px-3 py-2 rounded shadow-sm cursor-pointer transition duration-300"
         >
           <span className="text-md font-semibold">إضافة شريك</span>
@@ -116,6 +117,7 @@ export default function PartnersList() {
             <td className="space-x-2 text-center">
               <button
                 onClick={() => setEditingPartner(partner)}
+                aria-label="تعديل"
                 className="bg-fourth text-maintext px-3 py-1 rounded ml-2 cursor-pointer"
               >
                 تعديل
@@ -126,6 +128,7 @@ export default function PartnersList() {
                   setSelectedId(partner.id);
                   setConfirmOpen(true);
                 }}
+                aria-label="حذف"
                 className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
               >
                 حذف

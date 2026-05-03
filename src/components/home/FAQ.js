@@ -54,6 +54,7 @@ export default function FAQ() {
                   onClick={() =>
                     setOpenIndex(openIndex === index ? null : index)
                   }
+                  aria-label="السؤال"
                   className="w-full py-4 px-2 md:p-8 flex justify-between items-center text-right transition-all cursor-pointer"
                 >
                   <span
@@ -130,6 +131,7 @@ export default function FAQ() {
 
               <Link
                 href="https://wa.me/966530446151"
+                aria-label="واتساب"
                 className="flex items-center justify-center w-full bg-secondary text-primary font-black py-4 rounded-2xl text-lg uppercase tracking-tighter hover:bg-primary hover:text-white transition-all shadow-sm"
               >
                 {t("ctaBadge.button")}

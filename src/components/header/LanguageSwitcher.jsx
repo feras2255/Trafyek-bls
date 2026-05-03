@@ -19,6 +19,7 @@ export default function LanguageSwitcher({ isDashboard = false }) {
     return (
       <button
         onClick={() => switchLanguage(nextLocale)}
+        aria-label="تغيير اللغة"
         className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-accent hover:text-text transition cursor-pointer"
       >
         <FaGlobe className="w-4 h-4" />
@@ -32,6 +33,7 @@ export default function LanguageSwitcher({ isDashboard = false }) {
     <button
       className="transition-base bg-card border border-primary text-primary font-semibold py-2 px-4 outline-none rounded-md flex items-center justify-center cursor-pointer"
       onClick={() => switchLanguage(nextLocale)}
+      aria-label="تغيير اللغة"
     >
       {locale === "ar" ? "English" : "Arabic"}
     </button>

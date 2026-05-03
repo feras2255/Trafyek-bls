@@ -30,6 +30,7 @@ export default function ProductsCard({ service, prams }) {
 
         <Link
           href={`/services/${prams}/${service.id}`}
+          aria-label="الخدمة"
           className=" py-2 px-4 mt-2 text-maintext font-semibold bg-accent hover:bg-input text-center rounded-lg transition duration-300"
         >
           لطلب الخدمة

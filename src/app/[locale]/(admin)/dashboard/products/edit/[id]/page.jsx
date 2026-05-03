@@ -178,6 +178,7 @@ export default function EditProductPage() {
         <div>
           <button
             type="submit"
+            aria-label="حفظ التغييرات"
             className="bg-fourth text-white w-full px-4 py-2 rounded cursor-pointer"
             disabled={loading}
           >

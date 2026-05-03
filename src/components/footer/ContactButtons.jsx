@@ -40,6 +40,7 @@ export default function ContactButtons({ settings, locale }) {
             <li key={method.id}>
               <Link
                 href={method.href}
+                aria-label="زر الاتصال"
                 className="text-third hover:text-brand-orange flex items-center gap-2 hover:translate-x-[-8px] transition-all duration-300 font-medium group"
               >
                 <Icon className="text:text hover:text-brand-orange group-hover:scale-110 transition-transform" />

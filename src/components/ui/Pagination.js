@@ -3,6 +3,7 @@ export default function Pagination({ page, totalPages, onPageChange }) {
     <div className="flex justify-center items-center gap-4 mt-6">
       <button
         onClick={() => onPageChange(page - 1)}
+        aria-label="السابق"
         disabled={page === 1}
         className="bg-fourth text-maintext text-sm md:text-base px-3 py-1 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       >
@@ -15,6 +16,7 @@ export default function Pagination({ page, totalPages, onPageChange }) {
 
       <button
         onClick={() => onPageChange(page + 1)}
+        aria-label="التالي"
         disabled={page === totalPages}
         className="bg-fourth text-maintext text-sm md:text-base px-3 py-1 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       >

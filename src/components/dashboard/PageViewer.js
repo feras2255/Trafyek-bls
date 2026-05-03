@@ -142,6 +142,7 @@ export default function PageViewer() {
           </div>
           <button
             type="submit"
+            aria-label="حفظ التغييرات"
             className="bg-primary text-white px-10 py-3 rounded-xl font-black text-lg hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/20 cursor-pointer"
           >
             حفظ التغييرات

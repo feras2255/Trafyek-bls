@@ -161,6 +161,7 @@ export default async function Blog() {
                   <div className="pt-4">
                     <Link
                       href={`/${locale}/blog/${post.id}`}
+                      title={isAr ? "اقراء المزيد" : "Read More"}
                       className="inline-flex items-center gap-2 text-accent font-black text-sm group/btn"
                     >
                       {isAr ? "اقرأ المزيد" : "Read More"}

@@ -164,6 +164,7 @@ export default function PricingToggle() {
                 <Link
                   href={whatsappLink}
                   target="_blank"
+                  aria-label="اختر الباقة المناسبة"
                   className="bg-accent transition px-6 py-2 rounded-xl"
                 >
                   اختر الباقة المناسبة

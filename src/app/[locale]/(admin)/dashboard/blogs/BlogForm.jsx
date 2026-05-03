@@ -141,6 +141,7 @@ export default function BlogForm({ initialData = null, isAr }) {
       <button
         type="submit"
         disabled={loading}
+        aria-label="حفظ المقال"
         className="w-full bg-primary text-white py-4 rounded-xl hover:bg-hover transition-all font-bold shadow-lg shadow-primary/20 active:scale-[0.98] cursor-pointer"
       >
         {loading

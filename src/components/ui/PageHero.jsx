@@ -38,6 +38,7 @@ export default function PageHero({
           <nav className="flex items-center gap-2 mb-8 text-sm font-semibold text-white/60 bg-white/5 backdrop-blur-xl px-6 py-3 rounded-full border border-white/10 animate-fade-in-up">
             <Link
               href="/"
+              aria-label="الرئيسية"
               className="hover:text-primary transition-colors flex items-center gap-1"
             >
               <FiHome className="text-base" />
@@ -56,6 +57,7 @@ export default function PageHero({
                 {item.href ? (
                   <Link
                     href={item.href}
+                    aria-label={item.label}
                     className="hover:text-text transition-colors"
                   >
                     {item.label}
@@ -90,6 +92,7 @@ export default function PageHero({
             {/* contact button */}
             <Link
               href="https://wa.me/966530446151"
+              aria-label="تواصل معنا"
               className="group flex items-center justify-center gap-2 w-full md:w-auto bg-primary hover:bg-white text-white hover:text-primary px-8 py-4 rounded-full font-black text-lg transition-all duration-300 shadow-xl shadow-primary/20"
             >
               <FiMessageCircle className="text-xl group-hover:rotate-12 transition-transform" />
@@ -99,6 +102,7 @@ export default function PageHero({
             {/* down button */}
             <button
               onClick={handleScroll}
+              aria-label="اكتشف المزيد"
               className="group flex items-center justify-center gap-2 w-full md:w-auto bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/10 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 cursor-pointer"
             >
               {isAr ? "اكتشف المزيد" : "Explore More"}

@@ -168,6 +168,7 @@ export default async function ContactPage() {
                 <Link
                   href={info.link}
                   key={idx}
+                  aria-label={info.title}
                   className="group flex items-center gap-6 py-6 px-3 md:p-6 rounded-[2.5rem] transition-all duration-500 bg-white border border-slate-100 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
                 >
                   <div

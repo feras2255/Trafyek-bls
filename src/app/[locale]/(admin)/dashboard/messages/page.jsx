@@ -33,7 +33,11 @@ export default function Messages() {
       ) : (
         <div className="mt-10 grid grid-cols-1 gap-4">
           {messages.map((msg) => (
-            <Link key={msg.id} href={`/dashboard/messages/${msg.id}`}>
+            <Link
+              key={msg.id}
+              href={`/dashboard/messages/${msg.id}`}
+              aria-label="الذهاب الي رساله معينه"
+            >
               <div className="bg-card rounded-md py-4 grid grid-cols-3">
                 <h1 className="text-2xl text-secondarytext font-semibold px-4 py-2 ">
                   {msg.name}

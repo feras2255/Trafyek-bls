@@ -45,6 +45,7 @@ export default async function BlogsPage() {
         </div>
         <Link
           href="blogs/new"
+          title={isAr ? "إضافة مقال جديد" : "Add New Blog"}
           className="bg-primary text-white px-6 py-2.5 rounded-xl flex items-center gap-2"
         >
           <span>+</span> {isAr ? "إضافة مقال جديد" : "Add New Blog"}
@@ -123,6 +124,7 @@ export default async function BlogsPage() {
               <div className="flex items-center gap-3 pt-4 border-t border-gray-50">
                 <Link
                   href={`blogs/${blog.id}/edit`}
+                  aria-label="زر تعديل"
                   className="flex-1 text-center text-sm font-medium py-2 rounded-lg text-text bg-accent hover:bg-accent/90 transition-colors"
                 >
                   {isAr ? "تعديل" : "Edit"}

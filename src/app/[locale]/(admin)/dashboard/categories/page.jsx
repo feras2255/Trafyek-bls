@@ -137,6 +137,7 @@ export default function Categories() {
             <td className="space-x-2">
               <Link
                 href={`/dashboard/categories/edit/${category.id}`}
+                aria-label="تعديل"
                 className="bg-accent text-text px-3 py-1 rounded ml-2"
               >
                 تعديل
@@ -146,6 +147,7 @@ export default function Categories() {
                   setSelectedId(category.id);
                   setConfirmOpen(true);
                 }}
+                aria-label="حذف"
                 className="bg-worning text-text px-3 py-1 rounded cursor-pointer"
               >
                 حذف

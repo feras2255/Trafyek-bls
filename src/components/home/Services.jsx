@@ -55,6 +55,7 @@ export default async function Services({ isHomePage = false }) {
 
             <Link
               href="/services"
+              aria-label="عرض جميع الخدمات"
               className="group flex items-center justify-center w-fit gap-3 bg-primary/5 text-primary border-2 border-primary/20 hover:border-primary hover:bg-primary hover:text-text py-3 px-8 rounded-xl font-bold transition-all duration-300 shadow-sm"
             >
               {t("view-all")}
@@ -111,6 +112,7 @@ export default async function Services({ isHomePage = false }) {
                 </div>
                 <Link
                   href={`/services/${category.id}`}
+                  aria-label="عرض التفاصيل"
                   className="mt-8 pt-8 border-t border-border flex items-center justify-between"
                 >
                   <span className="text-primary font-black text-sm uppercase tracking-wider">

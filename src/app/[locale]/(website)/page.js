@@ -1,12 +1,8 @@
-import ConsultationSection from "@/components/home/ConsultationSection";
 import Hero from "@/components/home/Hero";
 import Partners from "@/components/home/Partners";
 import WhyUs from "@/components/home/WhyUs";
-import OurTools from "@/components/home/OurTools";
-import PricingToggle from "@/components/home/PricingToggle";
 import FAQ from "@/components/home/FAQ";
 import MarqueeSlider from "@/components/home/MarqueeSlider";
-import ProjectsSlider from "@/components/home/ProjectsSlider";
 import AboutSection from "@/components/home/AboutSection";
 import StatsSection from "@/components/home/StatsSection";
 import ServiceRequest from "@/components/ui/ServiceRequest";
@@ -23,15 +19,7 @@ export default function Home() {
       <ServiceRequest />
       <StatsSection />
       <WhyUs />
-      {/* 
-      <ProjectsSlider />
-      <ServicesSection />
-      <OurTools />
-      <WhyUs />
-      <CustomizationSection />
-      <PricingToggle />
-      <ConsultationSection />
-    */}
+
       <FAQ />
     </main>
   );

@@ -78,6 +78,7 @@ export default async function Hero() {
                 href="/trafyekbls.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={isRtl ? "ملف اعمالنا" : "Our Work"}
                 className="group relative inline-flex items-center justify-center bg-primary text-text font-bold px-8 py-4 rounded-lg shadow-lg shadow-primary/20 hover:bg-hover hover:-translate-y-1 transition-all duration-300 cursor-pointer"
               >
                 {isRtl ? "ملف اعمالنا" : "Our Work"}

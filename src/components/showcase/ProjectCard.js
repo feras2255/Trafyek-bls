@@ -55,6 +55,7 @@ export default function ProjectCard({ item, isAr }) {
             <Link
               href={`/ourwork/${item.id}`}
               // stopPropagation
+              aria-label="عرض التفاصيل"
               onClick={(e) => e.stopPropagation()}
               className="size-12 md:size-14 bg-white text-accent rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-2xl hover:-translate-y-2 active:scale-90"
               title={isAr ? "عرض التفاصيل" : "View Details"}

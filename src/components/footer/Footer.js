@@ -61,6 +61,7 @@ export default async function Footer() {
                   <li key={link.id}>
                     <Link
                       href={link.href}
+                      aria-label={link.title}
                       className="text-third hover:text-brand-orange hover:translate-x-[-8px] transition-all duration-300 font-medium flex items-center gap-x-2"
                     >
                       <IoIosArrowBack />
@@ -81,18 +82,6 @@ export default async function Footer() {
                   <ContactButtons settings={settings} locale={locale} />
                 </div>
               </div>
-
-              {/* <div className="space-y-4 pt-4">
-                <div className="bg-white backdrop-blur-sm p-4 rounded-2xl border border-white/10 inline-block group hover:bg-white transition-all duration-500">
-                  <Image
-                    src="/saudia.webp"
-                    alt="Saudi Business Center"
-                    width={180}
-                    height={40}
-                    className="grayscale group-hover:grayscale-0 transition-all"
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
 

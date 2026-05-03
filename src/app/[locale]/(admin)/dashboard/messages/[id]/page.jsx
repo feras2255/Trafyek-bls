@@ -57,6 +57,7 @@ export default function MessageDetails() {
           <Button
             title="العودة ⬅"
             onClick={() => router.push("/dashboard/messages")}
+            aria-label="العودة"
           />
         </div>
       </div>

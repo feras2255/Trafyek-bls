@@ -13,6 +13,7 @@ export default function Dialog({ open, onClose, title, children }) {
           </h2>
           <button
             onClick={onClose}
+            aria-label="اغلاق"
             className="ml-3 rounded-md px-3 py-1 text-secondary hover:bg-accent transition duration-300 cursor-pointer"
           >
             ✕

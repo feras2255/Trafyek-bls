@@ -167,6 +167,7 @@ export default function FormManager({
       <button
         type="submit"
         disabled={loading}
+        aria-label={mode === "edit" ? "تحديث البيانات" : "إضافة التصنيف"}
         className="bg-primary text-text text-xl font-bold py-4 w-full rounded-lg cursor-pointer"
       >
         {mode === "edit" ? "تحديث البيانات" : "إضافة التصنيف"}

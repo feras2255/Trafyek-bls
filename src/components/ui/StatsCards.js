@@ -42,6 +42,7 @@ export default function StatsCards({ stats }) {
           </p>
           <Link
             href={card.link}
+            aria-label={card.title}
             className="py-2 px-4 text-blue-600 flex justify-end underline "
           >
             عرض الكل

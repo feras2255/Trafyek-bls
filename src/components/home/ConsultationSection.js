@@ -16,6 +16,7 @@ export default function ConsultationSection() {
         </p>
         <Link
           href="/contact"
+          aria-label="تواصل معنا"
           className="bg-accent text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all"
         >
           تواصل معنا الآن

@@ -109,6 +109,7 @@ export default function SigninPage() {
 
         <button
           type="submit"
+          aria-label="دخول"
           disabled={loading}
           className="bg-secondary text-maintext py-2 px-4 w-full rounded cursor-pointer hover:bg-secondarytext transition duration-300 disabled:opacity-50"
         >

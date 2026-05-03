@@ -51,6 +51,7 @@ export default function UserMenu() {
         >
           <Link
             href="/"
+            aria-label="زيارة الموقع"
             className="block px-4 py-2 text-sm text-maintext hover:bg-accent hover:text-text transition"
             onClick={() => setOpen(false)}
           >
@@ -58,6 +59,7 @@ export default function UserMenu() {
           </Link>
           <Link
             href="/dashboard/settings"
+            aria-label="الإعدادات"
             className="block px-4 py-2 text-sm text-maintext hover:bg-accent hover:text-text transition"
             onClick={() => setOpen(false)}
           >
@@ -66,6 +68,7 @@ export default function UserMenu() {
           <LanguageSwitcher isDashboard />
           <button
             onClick={handleLogout}
+            aria-label="تسجيل الخروج"
             className="block w-full text-start px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-pointer"
           >
             🚪 تسجيل الخروج

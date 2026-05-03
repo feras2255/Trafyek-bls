@@ -70,6 +70,7 @@ export default function ContactForm() {
       <div className="flex justify-center">
         <button
           type="submit"
+          aria-label={t("submit_button")}
           className="w-full py-4 bg-primary text-white font-black rounded-2xl shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
         >
           {t("submit_button")}

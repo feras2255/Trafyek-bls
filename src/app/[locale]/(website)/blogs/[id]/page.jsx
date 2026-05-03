@@ -147,6 +147,7 @@ export default async function BlogPostPage({ params }) {
             <div className="max-w-4xl space-y-6">
               <Link
                 href={`/${locale}/blog`}
+                aria-label={isAr ? "العودة للمدونة" : "Back to Blog"}
                 className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm mb-4"
               >
                 {isAr ? <FiChevronRight /> : <FiChevronLeft />}
@@ -233,6 +234,9 @@ export default async function BlogPostPage({ params }) {
 
               <Link
                 href={`/${locale}`}
+                aria-label={
+                  isAr ? "زيارة الموقع الرئيسي" : "Visit Main Website"
+                }
                 className="group flex items-center gap-3 text-primary font-black text-sm hover:gap-4 transition-all"
               >
                 {isAr ? "زيارة الموقع الرئيسي" : "Visit Main Website"}
@@ -246,6 +250,7 @@ export default async function BlogPostPage({ params }) {
 
             <Link
               href={`/${locale}/blog`}
+              aria-label={isAr ? "مقالات أخرى" : "More Articles"}
               className="bg-accent text-text px-8 py-3 rounded-lg font-bold hover:bg-accent/90 transition-all shadow-lg shadow-accent/10"
             >
               {isAr ? "مقالات أخرى" : "More Articles"}

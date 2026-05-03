@@ -32,6 +32,7 @@ export default function ServicesCard({ item }) {
 
         <Link
           href={`/services/${item.id}`}
+          aria-label="اطلب الآن"
           className="bg-primary hover:bg-primary/90 text-base md:text-lg text-text font-semibold w-full md:w-2/3 text-center py-1 flex items-center justify-center  rounded transition"
         >
           اطلب الآن

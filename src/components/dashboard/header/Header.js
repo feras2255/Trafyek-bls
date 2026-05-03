@@ -13,7 +13,10 @@ export default function DashboardHeader({ toggleSidebar }) {
         <h1 className="text-xl font-bold text-maintext">لوحة التحكم</h1>
       </div>
       <div className="flex items-center gap-4">
-        <button className="relative p-2 rounded-full hover:bg-accent transition duration-300 cursor-pointer">
+        <button
+          aria-label="الاشعارات"
+          className="relative p-2 rounded-full hover:bg-accent transition duration-300 cursor-pointer"
+        >
           <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           🔔
         </button>
