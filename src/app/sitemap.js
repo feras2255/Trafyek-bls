@@ -1,7 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
-
-export const revalidate = 3600;
-
+export const dynamic = "force-dynamic";
 export default async function sitemap() {
   const baseUrl = "https://www.trafyekbls.com";
   const locales = ["ar", "en"];
@@ -48,7 +46,7 @@ export default async function sitemap() {
         : p.created_at
           ? new Date(p.created_at)
           : new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "daily",
       priority: 0.7,
     })),
   );
@@ -61,7 +59,7 @@ export default async function sitemap() {
         : b.created_at
           ? new Date(b.created_at)
           : new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "daily",
       priority: 0.6,
     })),
   );
@@ -74,7 +72,7 @@ export default async function sitemap() {
         : s.created_at
           ? new Date(s.created_at)
           : new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "daily",
       priority: 0.7,
     })),
   );
