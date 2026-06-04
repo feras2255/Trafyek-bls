@@ -14,73 +14,92 @@ const cairo = Cairo({
 // meta data
 export const metadata = {
   metadataBase: new URL("https://www.trafyekbls.com"),
+
   title: {
-    default: "ترافيك بلس | حلول البرمجة والتسويق الرقمي المتكاملة",
+    default: "ترافيك بلس | تصميم المواقع والمتاجر الإلكترونية والتسويق الرقمي",
     template: "%s | ترافيك بلس",
   },
+
   description:
-    "ترافيك بلس شريكك التقني لتصميم وبرمجة المواقع الإلكترونية والمتاجر (سلة وزد) بأحدث التقنيات Next.js و Tailwind. حلول تسويقية تضمن لك النمو في السوق السعودي.",
+    "ترافيك بلس شركة متخصصة في تصميم وبرمجة المواقع والمتاجر الإلكترونية وتحسين الظهور في خرائط جوجل وإدارة الحملات الإعلانية وتحسين محركات البحث SEO للشركات والمتاجر في السعودية.",
+
   keywords: [
     "ترافيك بلس",
-    "إنشاء متاجر سلة",
-    "تصميم متجر زد",
+    "تصميم مواقع",
+    "برمجة مواقع",
+    "تصميم متجر إلكتروني",
+    "إنشاء متجر سلة",
+    "إنشاء متجر زد",
+    "تطوير المتاجر الإلكترونية",
+    "تحسين محركات البحث",
+    "SEO",
+    "السيو المحلي",
+    "خرائط جوجل",
+    "Google Maps SEO",
+    "إضافة نشاط تجاري على جوجل",
+    "توثيق نشاط تجاري",
     "تصدر نتائج خرائط جوجل",
-    "تصدر نتائج البحث في خرائط جوجل",
-    "إعلانات جوجل ماب",
-    "حل مشكلة تعليق حساب جوجل ماب",
-    "إضافة نشاط تجاري على جوجل ماب",
-    "توثيق خرائط جوجل ماب",
-    "توثيق نشاط تجاري جوجل ماب",
-    "إعلانات جوجل ماب للشركات",
-    "إدارة حملات جوجل ادز",
-    "شركة تسويق في الرياض",
-    "وكالة تسويق رقمي جدة",
-    "تحسين سيو المتاجر",
-    "شركة برمجة Next.js",
-    "برمجة مواقع في السعودية",
-    "تطوير متاجر الكترونية بالرياض",
-    "تهيئة محركات البحث SEO السعودية",
-    "برمجة لوحات تحكم Supabase",
-    "تصميم متجر سلة احترافي",
-    "شركة تصميم مواقع الكترونية",
-    "شركة تطوير أنظمة برمجية بالسعودية",
-    "تصميم واجهات UI UX للمواقع",
-    "افضل شركة تصميم متاجر الكترونية في السعودية",
+    "حل مشكلة تعليق نشاط جوجل",
+    "إدارة حملات جوجل أدز",
+    "التسويق الرقمي",
+    "شركة تسويق رقمي",
+    "شركة برمجة في السعودية",
+    "Next.js",
+    "Supabase",
   ],
+
   alternates: {
     canonical: "https://www.trafyekbls.com/ar",
+    languages: {
+      ar: "https://www.trafyekbls.com/ar",
+      en: "https://www.trafyekbls.com/en",
+    },
   },
+
   openGraph: {
-    title: "ترافيك بلس | تصميم مواقع ومتاجر احترافية وحلول تسويقية",
+    title: "ترافيك بلس | تصميم المواقع والمتاجر الإلكترونية والتسويق الرقمي",
+
     description:
-      "شريكك التقني لتصميم المتاجر الإلكترونية وتصدر نتائج بحث جوجل ماب. حلول متطورة باستخدام Next.js و Supabase.",
+      "حلول متكاملة لتطوير المواقع والمتاجر الإلكترونية وتحسين الظهور في خرائط جوجل وإدارة الحملات الإعلانية.",
+
     url: "https://www.trafyekbls.com/ar",
-    siteName: "ترافيك بلس - Traffic Plus",
+
+    siteName: "Traffic Plus",
+
     images: [
       {
-        url: "/favicon.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "وكالة ترافيك بلس للحلول الرقمية",
+        alt: "Traffic Plus Digital Solutions",
       },
     ],
+
     locale: "ar_SA",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "ترافيك بلس | تطوير متاجر وتسويق رقمي",
+
+    title: "ترافيك بلس | تصميم المواقع والمتاجر الإلكترونية والتسويق الرقمي",
+
     description:
-      "نساعدك في تصدر نتائج بحث جوجل وإنشاء متجرك الإلكتروني بأحدث التقنيات.",
-    images: "/favicon.png",
+      "نساعد الشركات والمتاجر على النمو عبر المواقع الاحترافية والسيو وخرائط جوجل.",
+
+    images: ["/og-image.jpg"],
   },
+
   icons: {
     icon: "/favicon.png",
+    shortcut: "/favicon.png",
     apple: "/favicon.png",
   },
+
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -98,10 +117,10 @@ export default async function RootLayout({ children, params }) {
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
+      <GoogleTagManager gtmId="GTM-K46W3W6N" />
       <body
         className={`${cairo.className} bg-white text-slate-900 selection:bg-purple-100 selection:text-purple-900`}
       >
-        <GoogleTagManager gtmId="GTM-K46W3W6N" />
         <NextIntlClientProvider messages={messages}>
           <AOSProvider>
             <main className="min-h-screen">{children}</main>
