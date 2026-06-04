@@ -55,7 +55,7 @@ export default async function sitemap() {
 
   const blogRoutes = locales.flatMap((locale) =>
     (blogs || []).map((b) => ({
-      url: `${baseUrl}/${locale}/blog/${b.id}`,
+      url: `${baseUrl}/${locale}/blogs/${b.id}`,
       lastModified: b.updated_at
         ? new Date(b.updated_at)
         : b.created_at
