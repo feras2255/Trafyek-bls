@@ -33,8 +33,8 @@ export default async function sitemap() {
     { data: pages },
   ] = await Promise.all([
     supabaseAdmin.from("projects").select("id, updated_at, created_at"),
-    supabaseAdmin.from("blogs").select("id, updated_at, created_at"),
-    supabaseAdmin.from("categories").select("id, updated_at, created_at"),
+    supabaseAdmin.from("blogs").select("id, created_at"),
+    supabaseAdmin.from("categories").select("id, created_at"),
     supabaseAdmin.from("pages").select("slug, updated_at, created_at"),
   ]);
 
@@ -54,11 +54,7 @@ export default async function sitemap() {
   const blogRoutes = locales.flatMap((locale) =>
     (blogs || []).map((b) => ({
       url: `${baseUrl}/${locale}/blogs/${b.id}`,
-      lastModified: b.updated_at
-        ? new Date(b.updated_at)
-        : b.created_at
-          ? new Date(b.created_at)
-          : new Date(),
+      lastModified: b.created_at ? new Date(b.created_at) : new Date(),
       changeFrequency: "daily",
       priority: 0.6,
     })),
@@ -67,17 +63,13 @@ export default async function sitemap() {
   const serviceRoutes = locales.flatMap((locale) =>
     (categories || []).map((s) => ({
       url: `${baseUrl}/${locale}/services/${s.id}`,
-      lastModified: s.updated_at
-        ? new Date(s.updated_at)
-        : s.created_at
-          ? new Date(s.created_at)
-          : new Date(),
+      lastModified: s.created_at ? new Date(s.created_at) : new Date(),
       changeFrequency: "daily",
       priority: 0.7,
     })),
   );
 
-  // ✅ Pages - ديناميكي من DB مع استثناء الصفحات الثابتة
+  //  Pages
   const pageRoutes = locales.flatMap((locale) =>
     (pages || [])
       .filter((p) => p.slug && !excludedSlugs.includes(p.slug))
@@ -94,11 +86,6 @@ export default async function sitemap() {
   );
 
   return [
-    {
-      url: `${baseUrl}/test-sitemap-page`,
-      lastModified: new Date(),
-      priority: 1,
-    },
     ...staticRoutes,
     ...projectRoutes,
     ...blogRoutes,
