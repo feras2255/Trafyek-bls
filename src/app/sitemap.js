@@ -94,6 +94,11 @@ export default async function sitemap() {
   );
 
   return [
+    {
+      url: `${baseUrl}/test-sitemap-page`,
+      lastModified: new Date(),
+      priority: 1,
+    },
     ...staticRoutes,
     ...projectRoutes,
     ...blogRoutes,

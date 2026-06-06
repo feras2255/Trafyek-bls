@@ -7,8 +7,11 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import SortableTable from "@/components/dashboard/SortableTable";
 import ConfirmDialog from "@/components/common/ConfirmDialog";
+import { useLocale } from "next-intl";
 
 export default function Projects() {
+  const locale = useLocale();
+  const isAr = locale === "ar";
   const [projects, setProjects] = useState([]);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
@@ -78,25 +81,30 @@ export default function Projects() {
             <td className="p-3">
               <Image
                 src={project.image_url || "/default.png"}
-                alt={project.title}
+                alt={project.title_ar || project.title_en}
                 width={80}
                 height={80}
                 className="object-cover rounded mx-auto"
               />
             </td>
-            <td className="text-scondary text-lg font-semibold">
-              {project.title}
+            <td className="text-maintext text-lg font-semibold">
+              {isAr ? project.title_ar : project.title_en}
             </td>
             <td>
-              <p className="truncate max-w-xs text-sm mx-auto text-scondary">
-                {project.description}
+              <p className="truncate max-w-xs text-sm mx-auto text-maintext">
+                {(isAr
+                  ? project.description_ar
+                  : project.description_en || project.description_ar || ""
+                )
+                  .replace(/<[^>]*>/g, "")
+                  .substring(0, 120)}
               </p>
             </td>
             <td className="p-3 text-center space-x-2">
               <Link
                 href={`/dashboard/projects/edit/${project.id}`}
                 aria-label="تعديل"
-                className="bg-fourth text-white px-3 py-1 rounded"
+                className="bg-fourth text-accent px-3 py-1 rounded"
               >
                 تعديل
               </Link>
@@ -106,7 +114,7 @@ export default function Projects() {
                   setConfirmOpen(true);
                 }}
                 aria-label="حذف"
-                className="bg-destructive text-white px-3 py-1 rounded cursor-pointer"
+                className="bg-destructive text-worning px-3 py-1 rounded cursor-pointer"
               >
                 حذف
               </button>

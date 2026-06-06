@@ -1,6 +1,8 @@
 import { supabase } from "@/lib/supabaseClient";
 import { getLocale } from "next-intl/server";
 import Image from "next/image";
+import PageHero from "@/components/ui/PageHero";
+
 import {
   FiClock,
   FiTag,
@@ -9,8 +11,8 @@ import {
   FiChevronLeft,
 } from "react-icons/fi";
 import Link from "next/link";
+import ArticleShare from "@/components/ui/ArticleShare";
 
-// توليد الميتا داتا ديناميكياً بناءً على بيانات المقال
 export async function generateMetadata({ params }) {
   const { id } = await params;
   const locale = await getLocale();
@@ -97,6 +99,19 @@ export default async function BlogPostPage({ params }) {
     },
   );
 
+  const breadcrumb = [
+    {
+      label: isAr ? "المدونة" : "Blog",
+      href: `/${locale}/blog`,
+    },
+    {
+      label: isAr ? "قراءة المقال" : "Read Post",
+      href: null,
+    },
+  ];
+
+  const excerpt = content?.replace(/<[^>]*>?/gm, "")?.substring(0, 220) || "";
+
   return (
     <article className="min-h-screen">
       <script
@@ -131,131 +146,68 @@ export default async function BlogPostPage({ params }) {
         }}
       />
       {/* Header / Hero Section */}
-      <header className="relative h-[70vh] md:h-[90vh] w-full">
-        <Image
-          src={post.image_url || "/he.png"}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" />
+      <PageHero
+        title={isAr ? "مدونة ترافيك بلس" : "Traffic Plus Blog"}
+        description={
+          isAr
+            ? "مقالات تقنية وتسويقية متخصصة."
+            : "Technical and marketing articles."
+        }
+        breadcrumbData={breadcrumb}
+        isAr={isAr}
+      />
 
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-6">
-            <div className="max-w-4xl space-y-6">
-              <Link
-                href={`/${locale}/blog`}
-                aria-label={isAr ? "العودة للمدونة" : "Back to Blog"}
-                className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm mb-4"
-              >
-                {isAr ? <FiChevronRight /> : <FiChevronLeft />}
-                {isAr ? "العودة للمدونة" : "Back to Blog"}
-              </Link>
-
-              <div className="flex items-center gap-3">
-                <span className="bg-primary text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                  {category}
-                </span>
+      {/* Main Content */}
+      <div className="container mx-auto -mt-10">
+        <div className=" px-3 md:px-16 ">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              <div className="relative w-72 h-48">
+                <Image
+                  src={post.image_url || "/he.png"}
+                  alt={title}
+                  fill
+                  priority
+                  className="object-contain rounded-lg"
+                />
               </div>
 
-              <h1 className="text-2xl md:text-6xl font-black text-white leading-tight">
-                {title}
-              </h1>
-
-              <div className="flex items-center gap-6 text-white/90 font-medium">
-                <span className="flex items-center gap-2">
-                  <FiCalendar className="text-primary" /> {date}
+              <div className="flex items-center gap-2 mb-6">
+                <span className="flex gap-2 bg-primary text-white px-2 py-2 rounded-lg text-[10px] md:text-sm font-bold">
+                  <FiTag />
+                  <span className="ms-2">{category}</span>
                 </span>
-                <span className="flex items-center gap-2">
-                  <FiClock className="text-primary" />
+
+                <span className="flex gap-2 bg-primary text-white px-2 py-2 rounded-lg text-[10px] md:text-sm font-bold">
+                  <FiCalendar />
+                  {date}
+                </span>
+
+                <span className="flex gap-2 bg-primary text-white px-2 py-2 rounded-lg text-[10px] md:text-sm font-bold">
+                  <FiClock />
                   {isAr ? "قراءة ٥ دقائق" : "5 min read"}
                 </span>
               </div>
             </div>
-          </div>
-        </div>
-      </header>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 lg:`px-6 relative z-20">
-        <div className="py-8 px-2 md:p-16 shadow-2xl shadow-black/5 border border-slate-50">
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-3">
-              <span className="bg-accent text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                {category}
-              </span>
-              <span className="bg-accent text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                {isAr ? "مقالات" : "Blogs"}
-              </span>
-              <span className="bg-accent text-text px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                {isAr ? "ترافيك بلس" : "Traffic Blog"}
-              </span>
-            </div>
+            <h1 className="mt-4 text-base md:text-3xl font-black text-accent leading-tight mb-6">
+              {title}
+            </h1>
           </div>
+
           {/* Rich Text Content */}
-          <div
-            className="prose prose-sm md:prose-xl max-w-none prose-slate prose-headings:font-black prose-headings:text-accent prose-p:leading-relaxed prose-img:rounded-3xl rtl:text-right"
-            style={{
-              direction: isAr ? "rtl" : "ltr",
-              textAlign: isAr ? "right" : "left",
-            }}
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
-
+          <div className="prose prose-lg prose-primary max-w-none">
+            <div
+              className="text-t-second leading-[2.2] text-base md:text-lg whitespace-pre-wrap font-medium"
+              style={{
+                direction: isAr ? "rtl" : "ltr",
+                textAlign: isAr ? "right" : "left",
+              }}
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
+          </div>
           {/* Footer of the article */}
-          <footer className="mt-16 pt-8 border-t border-slate-100 flex flex-wrap items-center justify-between gap-6">
-            <div className="flex flex-col md:flex-row md:items-center gap-6 py-6 px-0 md:px-6 bg-slate-50/50 rounded-3xl border border-slate-100">
-              <div className="flex items-center gap-4">
-                <div className="size-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center shadow-sm overflow-hidden p-2">
-                  <Image
-                    src="/favicon.png"
-                    alt="ترافيك بلس"
-                    width={40}
-                    height={40}
-                    className="object-contain"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <h4 className="font-black text-accent text-lg">
-                    {isAr ? "الناشر: ترافيك بلس" : "Publisher: Traffic Plus"}
-                  </h4>
-                  <p className="text-slate-500 text-sm font-bold">
-                    {isAr
-                      ? "وكالة رقمية متخصصة في ابتكار الحلول التقنية"
-                      : "Digital agency specializing in innovative tech solutions"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="h-px md:h-10 w-full md:w-px bg-slate-200" />
-
-              <Link
-                href={`/${locale}`}
-                aria-label={
-                  isAr ? "زيارة الموقع الرئيسي" : "Visit Main Website"
-                }
-                className="group flex items-center gap-3 text-primary font-black text-sm hover:gap-4 transition-all"
-              >
-                {isAr ? "زيارة الموقع الرئيسي" : "Visit Main Website"}
-                <span
-                  className={`size-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all ${isAr ? "rotate-0" : "rotate-180"}`}
-                >
-                  {isAr ? <FiChevronLeft /> : <FiChevronRight />}
-                </span>
-              </Link>
-            </div>
-
-            <Link
-              href={`/${locale}/blog`}
-              aria-label={isAr ? "مقالات أخرى" : "More Articles"}
-              className="bg-accent text-text px-8 py-3 rounded-lg font-bold hover:bg-accent/90 transition-all shadow-lg shadow-accent/10"
-            >
-              {isAr ? "مقالات أخرى" : "More Articles"}
-            </Link>
-          </footer>
+          <ArticleShare title={title} slug={id} />
         </div>
       </div>
     </article>
