@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import Input from "@/components/ui/input";
-// import Textarea from "@/components/ui/textarea";
-import Button from "@/components/ui/button";
 import FileInput from "@/components/ui/FileInput";
 import { supabase } from "@/lib/supabaseClient";
 import { toast } from "sonner";
@@ -243,13 +241,12 @@ export default function EditProject() {
           setImage={setImage}
           initialImage={formData?.image_url ?? null}
         />
-        <Button
+        <button
           type="submit"
-          title="تحديث المشروع"
-          href="/dashboard/projects"
-          color="fourth"
-          size={"full"}
-        />
+          className="w-full bg-primary text-text py-3 rounded-lg font-bold hover:opacity-90 transition-all cursor-pointer"
+        >
+          إضافة المشروع
+        </button>
       </form>
     </div>
   );

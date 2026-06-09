@@ -4,7 +4,6 @@ import Input from "@/components/ui/input";
 import { toast } from "sonner";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import FileInput from "@/components/ui/FileInput";
-import Button from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import RichTextEditor from "@/components/dashboard/rich-text-editor";
@@ -233,7 +232,7 @@ export default function AddProject() {
         <FileInput setImage={setImage} />
         <button
           type="submit"
-          className="w-full bg-primary text-white py-3 rounded-lg font-bold hover:opacity-90 transition-all"
+          className="w-full bg-primary text-text py-3 rounded-lg font-bold hover:opacity-90 transition-all cursor-pointer"
         >
           إضافة المشروع
         </button>
