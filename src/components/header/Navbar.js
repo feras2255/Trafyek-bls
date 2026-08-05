@@ -119,7 +119,7 @@ export default function Navbar({ settings }) {
           </ul>
 
           <div className="mt-6 flex flex-col gap-y-4">
-            <LanguageSwitcher isDashboard={false} />
+            {/* <LanguageSwitcher isDashboard={false} /> */}
 
             <Link
               href={`https://wa.me/${settings?.whatsapp || ""}`}

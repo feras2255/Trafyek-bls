@@ -14,12 +14,12 @@ export default function ProjectCard({ item, isAr }) {
 
   return (
     <div
-      className="group relative overflow-hidden rounded-2xl md:rounded-3xl shadow-black/5  cursor-pointer"
+      className="group relative overflow-hidden rounded-xl md:rounded-3xl shadow-black/5  cursor-pointer"
       onClick={handleTouch}
       onMouseLeave={() => setShowOverlay(false)}
     >
       {/* project image */}
-      <div className="relative w-full h-44 md:h-60">
+      <div className="relative w-full h-32 md:h-60">
         <Image
           src={item.image_url}
           alt={item.title}

@@ -41,7 +41,6 @@
 // }
 
 "use client";
-
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { FaGlobe } from "react-icons/fa";
@@ -54,7 +53,6 @@ const languages = [
   { code: "es", name: "Español" },
   { code: "it", name: "Italiano" },
   { code: "tr", name: "Türkçe" },
-  // { code: "ru", name: "Русский" },
 ];
 
 export default function LanguageSwitcher({ isDashboard = false }) {
@@ -83,8 +81,6 @@ export default function LanguageSwitcher({ isDashboard = false }) {
             }`}
           >
             <span>{lang.name}</span>
-
-            {/* {locale === lang.code && <span className="text-xs">✓</span>} */}
           </button>
         ))}
       </div>
@@ -92,11 +88,11 @@ export default function LanguageSwitcher({ isDashboard = false }) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative inline-block">
       <select
         value={locale}
         onChange={(e) => switchLanguage(e.target.value)}
-        className="w-fit appearance-none bg-card border border-primary/40 rounded-md py-1.5 pl-6 pr-4 text-primary text-xs md:text-sm font-semibold cursor-pointer outline-none"
+        className="w-auto bg-card border border-primary/40 rounded-md py-1.5 pl-8 pr-3 text-primary text-xs md:text-sm font-semibold cursor-pointer outline-none inline-block"
       >
         {languages.map((lang) => (
           <option key={lang.code} value={lang.code}>
@@ -105,7 +101,7 @@ export default function LanguageSwitcher({ isDashboard = false }) {
         ))}
       </select>
 
-      <FaGlobe className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-primary" />
+      <FaGlobe className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-primary text-xs" />
     </div>
   );
 }

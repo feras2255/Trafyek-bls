@@ -32,7 +32,7 @@ export default async function Hero() {
       <div className="container mx-auto flex flex-col lg:flex-row gap-12 items-center relative z-10 my-auto">
         {/* القسم الأيمن: النصوص والأزرار */}
         <div
-          className={`w-full lg:w-7/12 space-y-6 order-2 lg:order-1 text-center ${
+          className={`w-full lg:w-7/12 space-y-6 text-center ${
             isRtl ? "lg:text-right" : "lg:text-left"
           }`}
         >
@@ -50,7 +50,7 @@ export default async function Hero() {
           {/* العنوان الرئيسي */}
           {content.title && (
             <h1
-              className="text-3xl md:text-5xl lg:text-6xl font-black text-accent leading-tight lg:leading-[1.2]"
+              className="text-2xl md:text-5xl lg:text-6xl font-black text-accent leading-tight lg:leading-[1.2]"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -118,9 +118,9 @@ export default async function Hero() {
           </div>
         </div>
 
-        {/* القسم الأيسر: الصورة والشارات المتداخلة */}
+        {/* image */}
         <div
-          className="relative w-full lg:w-5/12 order-1 lg:order-2 flex justify-center"
+          className="relative w-full lg:w-5/12 flex justify-center"
           data-aos="zoom-in"
           data-aos-delay="400"
         >
@@ -133,7 +133,6 @@ export default async function Hero() {
               </span>
             </div>
 
-            {/* الإطار الرئيسي للصورة */}
             <div className="relative w-full h-[280px] sm:h-[340px] bg-white rounded-[2rem] border-2 border-dashed border-gray-300 p-3 shadow-lg flex items-center justify-center overflow-hidden">
               <Image
                 // src={content.image_url || "/hero.png"}

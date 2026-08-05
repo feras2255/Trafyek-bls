@@ -14,9 +14,9 @@ export default function ShowcaseList({ items, type, isAr }) {
 
   return (
     <div
-      className={`grid gap-6 mt-8 ${
+      className={`grid gap-2 mt-8 ${
         type === "ourwork"
-          ? "grid-cols-1 md:grid-cols-3"
+          ? "grid-cols-2 md:grid-cols-3"
           : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       }`}
     >

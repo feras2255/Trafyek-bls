@@ -10,7 +10,7 @@ export default function FeaturedProjects({ items, type, isAr }) {
         <div className={`space-y-3 text-right w-full md:w-auto`}>
           <div className="inline-flex items-center gap-3">
             <span className="w-8 h-1 bg-[#5E3286] rounded-full"></span>
-            <h2 className="bg-[#2B5299] text-white text-2xl md:text-3xl font-black px-4 py-2 rounded-xl shadow-md inline-block">
+            <h2 className="text-primary text-xl md:text-3xl font-black  inline-block">
               {isAr ? "سابقة أعمالنا" : "Featured Projects"}
             </h2>
           </div>
@@ -23,7 +23,7 @@ export default function FeaturedProjects({ items, type, isAr }) {
 
         <Link
           href="/ourwork"
-          className="bg-[#5E3286] hover:bg-[#4a266b] text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all duration-300 flex items-center gap-2 text-sm whitespace-nowrap"
+          className="bg-[#5E3286] mx-auto md:mx-0 hover:bg-[#4a266b] text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all duration-300 flex items-center gap-2 text-sm whitespace-nowrap"
         >
           <span>{isAr ? "شاهد كل المشاريع ←" : "View All Projects →"}</span>
         </Link>

@@ -86,7 +86,7 @@ export default function AiGeoSection({ isAr = true }) {
 
   return (
     <section className="container mx-auto px-4 py-16">
-      <div className="relative bg-[#F9F7FC] rounded-[2.5rem] p-8 md:p-12 lg:p-16 border border-[#ECE5F5] overflow-hidden shadow-sm">
+      <div className="relative bg-[#F9F7FC] rounded-3xl py-8 px-3 md:p-12 lg:p-16 border border-[#ECE5F5] overflow-hidden shadow-sm">
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-200/40 blur-[100px] rounded-full pointer-events-none" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
@@ -129,7 +129,6 @@ export default function AiGeoSection({ isAr = true }) {
               </Link>
             </div>
           </div>
-          {/* القسم الأيمن: البطاقات الأربع (شبكة 2x2) */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 ">
             {features.map((item) => (
               <div
