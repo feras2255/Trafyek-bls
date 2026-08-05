@@ -1,0 +1,330 @@
+{
+  "infoSite": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "services": "Dienstleistungen",
+    "ourwork": "Unsere Arbeiten",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "quickLinks": "Quick-Links",
+    "privacy": "Datenschutz-Bestimmungen",
+    "terms": "Allgemeine Geschäftsbedingungen",
+    "siteName": "Trafik Bls",
+    "copyright": "Alle Rechte vorbehalten"
+  },
+  "home": {
+    "services": "Dienstleistungen",
+    "d-services": "Wir bieten innovative digitale Lösungen, die Ihnen helfen, Ihr Unternehmen zu vergrößern und Ihre digitale Präsenz zu stärken.",
+    "view-details": "Details anzeigen",
+    "view-all": "Alle anzeigen"
+  },
+
+  "about": {
+    "badge": "Wer wir sind",
+    "title": "Traffic... Ihr strategischer Partner für digitales Wachstum",
+    "description": "Bei Traffic bauen wir nicht nur Websites; wir schaffen integrierte digitale Erlebnisse. Wir sind eine spezialisierte Agentur für digitales Marketing, Design sowie die Entwicklung von leistungsstarken E-Commerce-Shops und Websites unter Nutzung der neuesten globalen Technologien. Unser Ziel ist es, die Ambitionen unserer Kunden durch intelligente Softwarelösungen und Marketingstrategien voranzutreiben, die Spitzenplatzierungen in Suchmaschinen und höhere Umsätze garantieren.",
+    "experience": "Jahre Erfahrung",
+    "features": {
+      "marketing": "Ergebnisorientiertes digitales Marketing",
+      "web": "Schnelle & responsive Webentwicklung",
+      "ecommerce": "E-Commerce-Design mit hoher Konversionsrate"
+    }
+  },
+
+  "stats": {
+    "badge": "Digitale Erfolgsreise",
+    "title": "Erfolge, auf die wir stolz sind",
+    "projects": "Erfolgreiche Projekte",
+    "clients": "Erfolgs-Partner",
+    "experience": "Jahre Erfahrung"
+  },
+  "services": {
+    "title": "Unsere digitalen Lösungen",
+    "description": "Wir bieten ein umfassendes Spektrum an technischen und Marketing-Dienstleistungen, die darauf zugeschnitten sind, Ihr Geschäft auszubauen und Ihre digitale Präsenz zu optimieren.",
+    "desc_hero": "Wir stärken Ihr Unternehmen mit der Kraft, die es braucht, um in einem wettbewerbsintensiven Markt zu wachsen – durch strategische Dienstleistungen mit Fokus auf echte und nachhaltige Ergebnisse.",
+    "all": "Alle",
+    "page_title": "Seite",
+    "products": "Dienstleistungen",
+    "projects": "Projekte"
+  },
+
+  "ourwork": {
+    "title": "Unsere Arbeiten",
+    "description": "Wir bieten ein umfassendes Spektrum an technischen und Marketing-Dienstleistungen, die darauf zugeschnitten sind, Ihr Geschäft auszubauen und Ihre digitale Präsenz zu optimieren.",
+    "all": "Alle",
+    "ourwork": "Durchsuchen Sie unsere Arbeiten nach Kategorie"
+  },
+
+  "partners": {
+    "title": "Partner des Erfolgs",
+    "description": "Unternehmen, die wir stolz als Freunde und Partner unseres Unternehmenswachstums bezeichnen"
+  },
+
+  "serviceRequest": {
+    "statusBadge": "Wir nehmen derzeit neue Projektanfragen entgegen",
+    "heroTitle": "Suchen Sie nicht nach <primary>einem einfachen Entwickler</primary>, suchen Sie nach <underlined>einem Wachstumspartner</underlined>",
+    "description": "Wir entwickeln intelligente digitale Lösungen, die Ihre Shop-Verkäufe auf <accent>Salla und Zid</accent> verdoppeln und Ihnen eine unvergessliche technologische Präsenz verschaffen.",
+    "planText": "Maßgeschneiderter technischer Geschäftsplan",
+    "ctaStart": "Projekt starten",
+    "ctaCall": "Sprechen Sie mit uns",
+    "socialProof": "Die Wahl ehrgeiziger Online-Shops in Saudi-Arabien",
+    "whatsappMessage": "Ich möchte eine kostenlose Beratung mit Traffic starten"
+  },
+
+  "why_us": {
+    "title": "Warum Sie Traffic vertrauen können?",
+    "item1": "Expertise über den Erwartungen",
+    "item1_desc": "Wir verfügen über tiefgreifende technische Fähigkeiten, die komplexe digitale Herausforderungen in Wachstumschancen verwandeln.",
+    "item2": "Sicher & Leistungsstark",
+    "item2_desc": "Blitzschnelle Geschwindigkeit kombiniert mit integrierter Sicherheit, um Ihre digitale Stabilität zu gewährleisten.",
+    "item3": "Proaktiver technischer Support",
+    "item3_desc": "Unser Team ist rund um die Uhr für Sie da, um Ihre Geschäftskontinuität ohne Unterbrechungen zu sichern.",
+    "item4": "Spezialisiertes kreatives Denken",
+    "item4_desc": "Ein engagiertes Team aus Entwicklern und Ingenieuren arbeitet für ein einziges Ziel: Ihre Marktführerschaft."
+  },
+
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "badge": "Haben Sie Fragen?",
+    "q1": "Ich brauche eine Website, wo fange ich an?",
+    "a1": "Toller Start! Kontaktieren Sie uns und wir analysieren Ihre Idee, um die beste Plattform vorzuschlagen – egal ob Salla/Zid oder eine maßgeschneiderte Next.js-Website.",
+    "q2": "Enthält der Preis Hosting und Domain?",
+    "a2": "Ja! In unseren Premium-Paketen decken wir die Domain-Registrierung und schnelles Cloud-Hosting für das erste Jahr kostenlos ab.",
+    "q3": "Kann ich nach der Lieferung Änderungen anfordern?",
+    "a3": "Absolut! Wir glauben an langfristige Partnerschaften. Wir bieten einen Support-Zeitraum, um Stabilität zu gewährleisten und notwendige Anpassungen umzusetzen.",
+    "q4": "Wie lange dauert ein Projekt?",
+    "a4": "Wir verbinden Schnelligkeit mit Qualität. Die meisten Shops und Landingpages gehen innerhalb von 7 bis 14 Werktagen online.",
+    "q5": "Sind die Websites SEO-freundlich?",
+    "a5": "Definitiv! Alle unsere Websites werden nach den neuesten Leistungs- und SEO-Standards gebaut, um Top-Rankings zu gewährleisten.",
+    "ctaBadge": {
+      "question": "Benötigen Sie eine sofortige Antwort?",
+      "availability": "Wir sind rund um die Uhr für technischen Support erreichbar",
+      "button": "Jetzt kontaktieren"
+    }
+  },
+
+  "contact": {
+    "hero": {
+      "title": "Lassen Sie uns gemeinsam etwas Großartiges erschaffen!",
+      "description": "Egal ob Sie ein neues Projekt planen oder nur eine Frage haben – das Traffic-Team ist bereit, Ihre Ideen in die digitale Realität umzusetzen."
+    },
+    "form": {
+      "placeholder_name": "Vollständiger Name",
+      "placeholder_email": "E-Mail-Adresse",
+      "placeholder_phone": "Telefonnummer",
+      "placeholder_message": "Geben Sie Ihre Nachricht hier ein...",
+      "submit_button": "Nachricht jetzt senden",
+      "success_msg": "Nachricht erfolgreich gesendet!",
+      "error_msg": "Senden der Nachricht fehlgeschlagen, bitte versuchen Sie es erneut",
+      "badge": "Kontaktieren Sie uns",
+      "title_part1": "Senden Sie uns eine ",
+      "title_highlight": "Nachricht",
+      "description": "Unser technisches Team wird Ihre Anfrage prüfen und Ihnen in weniger als 24 Stunden antworten."
+    },
+    "info": {
+      "title": "Direkte Kontaktkanäle",
+      "description": "Wir freuen uns immer, von Ihren Ideen zu hören. Kontaktieren Sie uns über die Methode, die Ihnen am besten passt.",
+      "whatsapp": "Direkt über WhatsApp",
+      "email": "Offizielle E-Mail",
+      "customer_service": "Kundenservice",
+      "location": "Hauptsitz",
+      "address": "Riad, Saudi-Arabien"
+    },
+    "working_hours": {
+      "title": "Offizielle Arbeitszeiten",
+      "days": "Sonntag - Donnerstag: ",
+      "time": "09:00 - 18:00 Uhr",
+      "note": "Wir stehen Ihnen die ganze Woche über zur Beantwortung von WhatsApp-Nachrichten zur Verfügung"
+    },
+    "breadcrumb": "Kontakt"
+  },
+
+  "dashboard": {
+    "dash": "Dashboard",
+    "site": "Website besuchen",
+    "order": "Reihenfolge",
+    "title": "Titel",
+    "image": "Bild",
+    "Description": "Beschreibung",
+    "actions": "Aktionen",
+    "features": "Funktionen",
+    "table-features": "Systemfunktionen",
+    "categories": "Kategorien",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "cancel": "Abbrechen",
+    "title_ar": "Titel (Arabisch)",
+    "title_en": "Titel (Englisch)",
+    "description_ar": "Beschreibung (Arabisch)",
+    "description_en": "Beschreibung (Englisch)",
+    "long_description_ar": "Detaillierte Beschreibung (Arabisch)",
+    "long_description_en": "Detaillierte Beschreibung (Englisch)",
+    "category_ar": "Kategorie auf Arabisch",
+    "category_en": "Kategorie auf Englisch",
+    "highlight_ar": "Ihre Hervorhebung auf Arabisch",
+    "highlight_en": "Ihre Hervorhebung auf Englisch",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "btn_ar": "Button-Name auf Arabisch",
+    "btn_en": "Button-Name auf Englisch",
+    "project_link": "Seitenlink",
+    "custom_path": "Benutzerdefinierter Pfad",
+    "boolean_type": "Ja/Nein",
+    "custom_text": "Benutzerdefinierter Text",
+    "subscribe": "Jetzt abonnieren",
+    "sr": "SAR",
+    "monthly": "Monatlich",
+    "month": "Monatlich",
+    "yearly": "Jährlich",
+    "year": "Jährlich",
+    "discount": "Sonderrabatt",
+    "popular": "Das beliebteste Paket",
+    "over": "bereitgestellt",
+    "plan-year": "Bei jährlicher Abrechnung",
+    "table": "Detaillierte Vergleichstabelle",
+    "t-features": "Funktionen",
+    "save": "Speichern",
+    "saving": "Speichern...",
+    "edit_data": "Daten bearbeiten",
+    "back": "Zurück",
+    "fetch_error": "Fehler beim Laden der Daten",
+    "add_error": "Hinzufügen fehlgeschlagen",
+    "update_order_success": "Reihenfolge erfolgreich aktualisiert",
+    "update_order_error": "Fehler beim Aktualisieren der Reihenfolge",
+    "delete_success": "Erfolgreich gelöscht",
+    "delete_error": "Löschen fehlgeschlagen",
+    "confirm_delete_title": "Löschen bestätigen",
+    "confirm_delete_message": "Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?",
+    "add_success": "Erfolgreich hinzugefügt",
+    "update_success": "Erfolgreich aktualisiert",
+
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "home": "Startseite",
+      "categories": "Kategorien",
+      "products": "Produkte",
+      "projects": "Projekte",
+      "blog": "Blog",
+      "pages": "Seiten",
+      "about": "Über uns",
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "partners": "Partner",
+      "messages": "Nachrichten",
+      "settings": "Einstellungen"
+    },
+
+    "category": {
+      "categories": "Kategorien",
+      "add_category": "Kategorie hinzufügen",
+
+      "confirm_delete_title": "Löschen bestätigen",
+      "confirm_delete_message": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten?",
+      "fetch_categories_error": "Fehler beim Laden der Kategorien",
+      "update_order_success": "Reihenfolge erfolgreich aktualisiert",
+      "update_order_error": "Fehler beim Aktualisieren der Reihenfolge",
+      "delete_error": "Fehler beim Löschen",
+      "delete_success": "Kategorie erfolgreich gelöscht",
+      "edit_category": "Kategorie bearbeiten",
+
+      "update_category": "Kategorie aktualisieren",
+      "add_success": "Kategorie hinzugefügt ✅",
+      "update_success": "Kategorie aktualisiert ✅",
+      "operation_failed": "Vorgang fehlgeschlagen",
+      "upload_error": "Upload fehlgeschlagen"
+    },
+
+    "partner": {
+      "partners": "Partner",
+      "add": "Partner hinzufügen",
+      "  update": "Partner aktualisieren",
+      "fetch_error": "Fehler beim Laden der Partner",
+      "update_order_success": "Partner-Reihenfolge aktualisiert",
+      "update_order_error": "Fehler beim Aktualisieren der Reihenfolge",
+      "delete_success": "Partner erfolgreich gelöscht",
+      "delete_error": "Fehler beim Löschen des Partners",
+      "confirm_delete_title": "Löschen bestätigen",
+      "confirm_delete_message": "Sind Sie sicher, dass Sie diesen Partner löschen möchten?",
+      "edit": "Partner bearbeiten",
+      "add_success": "Partner erfolgreich hinzugefügt ✅",
+      "update_success": "Partner erfolgreich aktualisiert ✅",
+      "upload_error": "Fehler beim Hochladen des Bildes",
+      "operation_failed": "Vorgang fehlgeschlagen"
+    },
+
+    "feature": {
+      "features": "Funktionen",
+      "add": "Funktion hinzufügen",
+      "update": "Aktualisieren",
+      "fetch_features_error": "Fehler beim Laden der Funktionen",
+      "update_order_success": "Funktions-Reihenfolge aktualisiert",
+      "update_order_error": "Fehler beim Aktualisieren der Reihenfolge",
+      "delete_success": "Funktion erfolgreich gelöscht",
+      "delete_error": "Fehler beim Löschen der Funktion",
+      "confirm_delete_title": "Löschen bestätigen",
+      "confirm_delete_message": "Sind Sie sicher, dass Sie diese Funktion löschen möchten?"
+    },
+
+    "salesFeature": {
+      "features": "Verkaufsfunktionen",
+      "add_feature": "Funktion hinzufügen",
+      "edit_feature": "Funktion bearbeiten",
+      "delete_feature": "Funktion löschen",
+      "fetch_features_error": "Fehler beim Laden der Funktionen",
+      "update_order_success": "Funktions-Reihenfolge aktualisiert",
+      "update_order_error": "Fehler beim Aktualisieren der Reihenfolge",
+      "delete_success": "Funktion erfolgreich gelöscht",
+      "delete_error": "Fehler beim Löschen der Funktion",
+      "confirm_delete_title": "Löschen bestätigen",
+      "confirm_delete_message": "Sind Sie sicher, dass Sie diese Funktion löschen möchten?",
+      "add_success": "Funktion erfolgreich hinzugefügt",
+      "update_success": "Funktion erfolgreich aktualisiert"
+    },
+    "imageSlider": {
+      "add": "Folie hinzufügen",
+      "update": "Folie aktualisieren"
+    }
+  },
+
+  "site": {
+    "website": "Website besuchen",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "loading": "Laden...",
+    "contact": "Kontakt",
+    "contact_info": "Wir freuen uns, von Ihnen zu hören. Dies sind die offiziellen Kontaktdaten der Website.",
+    "btn": "System-Demo anfordern",
+    "more": "Mehr entdecken",
+    "cta": {
+      "titlePart1": "Entdecken Sie die Box-Integration,",
+      "titlePart2": " um Ihren Shop einfach zu verwalten",
+      "description": "Alles, was Sie benötigen, um Ihr Unternehmen effizient und professionell zu führen – mit fortschrittlichen Tools zur Umsatzsteigerung und Arbeitsorganisation.",
+      "button": "System-Demo anfordern"
+    }
+  },
+  "footer": {
+    "settings": "Website-Informationen",
+    "description_ar": "Beschreibung (Arabisch)",
+    "description_en": "Beschreibung (Englisch)",
+    "phone": "Telefonnummer",
+    "whatsapp": "WhatsApp",
+    "email": "E-Mail",
+    "tax_number": "Steuernummer",
+    "google_play_url": "Google Play URL",
+    "app_store_url": "App Store URL",
+    "instagram": "Instagram",
+    "x": "X-Konto",
+    "tiktok": "TikTok",
+    "snapchat": "Snapchat",
+    "logo": "Website-Logo",
+    "payment_methods": "Zahlungsmethoden",
+    "links": "Wichtige Links",
+    "privacy": "Datenschutz-Bestimmungen",
+    "return-policy": "Umtausch und Rückgabe",
+    "shipping": "Bestellung und Versand",
+    "contact": "Kontakt",
+    "pricing": "Preise",
+    "copyright": "Alle Rechte vorbehalten",
+    "name": "Takamul Box"
+  }
+}

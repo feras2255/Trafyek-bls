@@ -10,6 +10,8 @@ import Services from "@/components/home/Services";
 import { getLocale } from "next-intl/server";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import TestimonialsSlider from "@/components/home/TestimonialsSlider";
+import AiGeoSection from "@/components/ui/AiGeoSection";
 
 export default async function Home() {
   const locale = await getLocale();
@@ -29,13 +31,16 @@ export default async function Home() {
   return (
     <main className="mt-16 space-y-10">
       <Hero />
-      <MarqueeSlider />
+
+      {/* <MarqueeSlider /> */}
       <AboutSection />
-      <Services isHomePage={true} />
       <FeaturedProjects items={localizedProjects} type="ourwork" isAr={isAr} />
+      <AiGeoSection />
+      <Services isHomePage={true} />
       <Partners />
       <ServiceRequest />
       <StatsSection />
+      <TestimonialsSlider />
       <WhyUs />
 
       <FAQ />

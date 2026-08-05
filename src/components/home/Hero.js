@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getLocale } from "next-intl/server";
 import Button from "../ui/button";
+import EvaluationBanner from "@/components/home/EvaluationBanner";
 
 export default async function Hero() {
   const locale = await getLocale();
@@ -24,27 +25,32 @@ export default async function Hero() {
   };
 
   return (
-    <section className="relative min-h-[80vh] lg:h-[calc(100vh-120px)] flex items-center bg-background overflow-hidden pt-5 px-6">
-      <div className="absolute top-0 right-0 w-[500px] h-full bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
+    <section className="relative min-h-[85vh]  flex flex-col justify-between bg-background overflow-hidden pt-8 px-6">
+      {/* خلفية جمالية مضيئة */}
+      <div className="absolute top-0 right-0 w-[500px] h-full bg-primary/10 blur-[140px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        {/* Content */}
+      <div className="container mx-auto flex flex-col lg:flex-row gap-12 items-center relative z-10 my-auto">
+        {/* القسم الأيمن: النصوص والأزرار */}
         <div
-          className={`w-full lg:w-7/12 space-y-6 order-2 lg:order-1 text-center ${isRtl ? "lg:text-right" : "lg:text-left"} `}
+          className={`w-full lg:w-7/12 space-y-6 order-2 lg:order-1 text-center ${
+            isRtl ? "lg:text-right" : "lg:text-left"
+          }`}
         >
+          {/* شارة التقييم العلوية */}
           {content.preTitle && (
             <div
-              className="inline-flex items-center gap-2 bg-secondary/30 text-primary border border-primary/10 px-4 py-1.5 rounded-full text-sm md:text-base font-bold"
+              className="inline-flex items-center gap-2 bg-secondary/40 text-primary border border-primary/10 px-4 py-1.5 rounded-full text-sm md:text-base font-bold"
               data-aos="fade-down"
             >
-              <span className="w-2 h-2 bg-orange rounded-full animate-pulse" />
+              <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
               {content.preTitle}
             </div>
           )}
 
+          {/* العنوان الرئيسي */}
           {content.title && (
             <h1
-              className="text-2xl md:text-5xl lg:text-6xl font-black text-accent leading-tight lg:leading-snug"
+              className="text-3xl md:text-5xl lg:text-6xl font-black text-accent leading-tight lg:leading-[1.2]"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -52,9 +58,10 @@ export default async function Hero() {
             </h1>
           )}
 
+          {/* الوصف */}
           {content.description && (
             <p
-              className="text-sm md:text-base lg:text-xl text-subtext leading-relaxed max-w-2xl lg:ml-0 lg:mr-0 mx-auto"
+              className="text-sm md:text-base lg:text-lg text-subtext leading-relaxed max-w-2xl lg:mx-0 mx-auto"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -62,11 +69,12 @@ export default async function Hero() {
             </p>
           )}
 
+          {/* الأزرار */}
           {content.button && (
             <div
               data-aos="fade-up"
               data-aos-delay="300"
-              className="pt-6 flex flex-col md:flex-row gap-3 justify-center "
+              className="pt-2 flex flex-col sm:flex-row gap-3 items-center justify-center lg:justify-start"
             >
               <Button
                 title={content.button}
@@ -74,46 +82,84 @@ export default async function Hero() {
                 href={content.btn_url || "#"}
               />
               <Link
-                // download="/trafyekbls.pdf"
                 href="/trafyekbls.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={isRtl ? "ملف اعمالنا" : "Our Work"}
-                className="group relative inline-flex items-center justify-center bg-primary text-text font-bold px-8 py-4 rounded-lg shadow-lg shadow-primary/20 hover:bg-hover hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                aria-label={isRtl ? "شاهد سابقة أعمالنا" : "Our Work"}
+                className="group relative inline-flex items-center justify-center bg-white border border-gray-200 text-gray-800 font-bold px-8 py-3.5 rounded-xl shadow-sm hover:bg-gray-50 transition-all duration-300 cursor-pointer"
               >
-                {isRtl ? "ملف اعمالنا" : "Our Work"}
+                {isRtl ? "شاهد سابقة أعمالنا" : "Our Work"}
               </Link>
             </div>
           )}
+
+          {/* صور العملاء وتقييمهم أسفل الأزرار */}
+          <div
+            className="flex items-center gap-3 pt-3 justify-center lg:justify-start"
+            data-aos="fade-up"
+            data-aos-delay="350"
+          >
+            <div className="flex -space-x-2 overflow-hidden rtl:space-x-reverse">
+              <div className="h-9 w-9 rounded-full ring-2 ring-white bg-purple-900 text-white flex items-center justify-center text-xs font-bold">
+                أ.ق
+              </div>
+              <div className=" h-9 w-9 rounded-full ring-2 ring-white bg-blue-900 text-white flex items-center justify-center text-xs font-bold">
+                خ.ع
+              </div>
+              <div className=" h-9 w-9 rounded-full ring-2 ring-white bg-amber-500 text-white flex items-center justify-center text-xs font-bold">
+                س.د
+              </div>
+            </div>
+            <span className="text-xs md:text-sm font-semibold text-gray-600">
+              {isRtl
+                ? "+220 عميل وثقوا بنا حتى الآن"
+                : "+220 clients trusted us"}
+            </span>
+          </div>
         </div>
 
-        {/* Image */}
+        {/* القسم الأيسر: الصورة والشارات المتداخلة */}
         <div
-          className="relative w-full lg:w-5/12 order-1 lg:order-2"
+          className="relative w-full lg:w-5/12 order-1 lg:order-2 flex justify-center"
           data-aos="zoom-in"
           data-aos-delay="400"
         >
-          {content.image_url ? (
-            <div className="relative w-full max-w-[500px] mx-auto group">
-              <div className="relative w-full h-64 lg:h-100 overflow-hidden rounded-[2.5rem] md:border-8 md:border-white">
-                <Image
-                  // {content.image_url}
-                  src="/hero.png"
-                  alt={content.title || "Hero Image"}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                  priority
-                  className="object-contain transition-transform duration-1000 group-hover:scale-105"
-                />
+          <div className="relative w-full max-w-[480px]">
+            {/* بطاقة التقييم العلوية اليسرى */}
+            <div className="absolute -top-6 -left-4 md:-left-8 z-20 bg-white shadow-xl rounded-2xl px-4 py-2.5 flex items-center gap-2 border border-gray-100">
+              <div className="flex text-amber-400 text-sm">★★★★★</div>
+              <span className="text-xs font-bold text-gray-800">
+                4.9/5 تقييم العملاء
+              </span>
+            </div>
+
+            {/* الإطار الرئيسي للصورة */}
+            <div className="relative w-full h-[280px] sm:h-[340px] bg-white rounded-[2rem] border-2 border-dashed border-gray-300 p-3 shadow-lg flex items-center justify-center overflow-hidden">
+              <Image
+                // src={content.image_url || "/hero.png"}
+                src="/hero.png"
+                alt={content.title || "Hero Image"}
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                priority
+                className="object-contain p-4"
+              />
+            </div>
+
+            {/* بطاقة الإحصائيات السفلية اليمنى */}
+            <div className="absolute -bottom-5 -right-2 md:-right-6 z-20 bg-white shadow-xl rounded-2xl p-3.5 flex items-center gap-3 border border-gray-100 min-w-[170px]">
+              <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white font-bold shadow-md">
+                ★
+              </div>
+              <div>
+                <h4 className="text-sm font-black text-gray-900">+250 مشروع</h4>
+                <p className="text-[11px] text-gray-500">تم تسليمه بنجاح</p>
               </div>
             </div>
-          ) : (
-            <div className="w-full aspect-square bg-secondary/20 rounded-[2.5rem] flex items-center justify-center border-2 border-dashed border-primary/30 text-primary/40 italic">
-              Smart Solutions
-            </div>
-          )}
+          </div>
         </div>
       </div>
+      <EvaluationBanner />
     </section>
   );
 }

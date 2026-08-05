@@ -1,6 +1,7 @@
 import PageHero from "@/components/ui/PageHero";
 import { getLocale, getTranslations } from "next-intl/server";
 import Services from "@/components/home/Services";
+import Link from "next/link";
 
 export async function generateMetadata() {
   const locale = await getLocale();
@@ -51,7 +52,7 @@ export default async function ServicesPage() {
         <Services />
       </div>
 
-      <section className="bg-primary/20 mb-6 py-12">
+      {/* <section className="bg-primary/20 mb-6 py-12">
         <div className="container mx-auto px-4 md:px-8">
           <div className="prose prose-lg max-w-none" dir={isAr ? "rtl" : "ltr"}>
             <h2 className="text-xl md:text-4xl font-bold text-accent mb-6">
@@ -89,6 +90,34 @@ export default async function ServicesPage() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section> */}
+
+      <section className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto bg-[#F9F7FC] border border-[#ECE5F5] rounded-[2.5rem] p-8 md:p-12 text-center shadow-sm">
+          {/* العنوان الرئيسي */}
+          <h3 className="text-2xl md:text-3xl font-black text-[#1E293B] mb-3">
+            {isAr
+              ? "لست متأكداً من الخدمة المناسبة لك؟"
+              : "Not sure which service is right for you?"}
+          </h3>
+
+          <p className="text-sm md:text-base text-gray-500 mb-8">
+            {isAr
+              ? "تواصل معنا وسنساعدك على اختيار الحل الأنسب لعملك."
+              : "Contact us and we'll help you choose the best solution for your business."}
+          </p>
+
+          <div>
+            <Link
+              href="https://wa.me/966530446151"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-purple-900/10 transition-all duration-300 text-sm md:text-base"
+            >
+              {isAr ? "استشارة مجانية" : "Free Consultation"}
+            </Link>
           </div>
         </div>
       </section>

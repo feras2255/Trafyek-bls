@@ -1,0 +1,330 @@
+{
+  "infoSite": {
+    "home": "Anasayfa",
+    "about": "Hakkımızda",
+    "services": "Hizmetler",
+    "ourwork": "Çalışmalarımız",
+    "blog": "Blog",
+    "contact": "İletişim",
+    "quickLinks": "Hızlı Bağlantılar",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Şartlar ve Koşullar",
+    "siteName": "Trafik Bls",
+    "copyright": "Tüm hakları saklıdır"
+  },
+  "home": {
+    "services": "Hizmetler",
+    "d-services": "İşinizi büyütmenize ve dijital varlığınızı güçlendirmenize yardımcı olmak için yenilikçi dijital çözümler sunuyoruz.",
+    "view-details": "Detayları Gör",
+    "view-all": "Tümünü Gör"
+  },
+
+  "about": {
+    "badge": "Biz Kimiz",
+    "title": "Traffic... Dijital Büyüme İçin Stratejik Ortağınız",
+    "description": "Traffic'te sadece web siteleri inşa etmiyoruz; entegre dijital deneyimler oluşturuyoruz. En son küresel teknolojileri kullanarak yüksek performanslı e-ticaret mağazaları ve web siteleri tasarlayan ve geliştiren, ayrıca dijital pazarlama alanında uzmanlaşmış bir ajansız. Müşterilerimizin hedeflerini, üst sıralarda yer alma ve artan satışlar sağlayan akıllı yazılım çözümleri ve pazarlama stratejileriyle desteklemeyi amaçlıyoruz.",
+    "experience": "Yıllık Deneyim",
+    "features": {
+      "marketing": "Sonuç Odaklı Dijital Pazarlama",
+      "web": "Hızlı & Duyarlı Web Geliştirme",
+      "ecommerce": "Yüksek Dönüşümlü E-Ticaret Tasarımı"
+    }
+  },
+
+  "stats": {
+    "badge": "Dijital Başarı Yolculuğu",
+    "title": "Gurur Duyduğumuz Başarılar",
+    "projects": "Başarılı Projeler",
+    "clients": "Başarı Ortakları",
+    "experience": "Yıllık Deneyim"
+  },
+  "services": {
+    "title": "Dijital Çözümlerimiz",
+    "description": "İşinizi büyütmek ve dijital varlığınızı geliştirmek için özel olarak tasarlanmış kapsamlı teknik ve pazarlama hizmetleri sunuyoruz.",
+    "desc_hero": "Gerçek ve sürdürülebilir sonuçlar sunmaya odaklanan stratejik hizmetlerle, rekabetçi bir pazarda büyümeniz için işinize ihtiyaç duyduğu gücü sağlıyoruz.",
+    "all": "Tümü",
+    "page_title": "Sayfa",
+    "products": "Hizmetler",
+    "projects": "Projeler"
+  },
+
+  "ourwork": {
+    "title": "Çalışmalarımız",
+    "description": "İşinizi büyütmek ve dijital varlığınızı geliştirmek için özel olarak tasarlanmış kapsamlı teknik ve pazarlama hizmetleri sunuyoruz.",
+    "all": "Tümü",
+    "ourwork": "Çalışmalarımıza kategoriye göre göz atın"
+  },
+
+  "partners": {
+    "title": "Başarı Ortakları",
+    "description": "Dostlarımız ve iş büyümesindeki ortaklarımız olarak adlandırmaktan gurur duyduğumuz şirketler"
+  },
+
+  "serviceRequest": {
+    "statusBadge": "Şu anda yeni proje taleplerini kabul ediyoruz",
+    "heroTitle": "<primary>Sadece bir yazılımcı</primary> aramayın, <underlined>bir büyüme ortağı</underlined> arayın",
+    "description": "<accent>Salla ve Zid</accent> üzerindeki mağaza satışlarınızı ikiye katlayan ve size unutulmaz bir teknolojik varlık kazandıran akıllı dijital çözümler geliştiriyoruz.",
+    "planText": "Özelleştirilmiş teknik iş planı",
+    "ctaStart": "Projenizi başlatın",
+    "ctaCall": "Bizimle konuşun",
+    "socialProof": "Suudi Arabistan'daki iddialı mağazaların tercihi",
+    "whatsappMessage": "Traffic ile ücretsiz bir danışmanlık başlatmak istiyorum"
+  },
+
+  "why_us": {
+    "title": "Neden Traffic'e Güvenmelisiniz?",
+    "item1": "Beklentilerin Ötesinde Uzmanlık",
+    "item1_desc": "Karmaşık dijital zorlukları büyüme fırsatlarına dönüştüren derin teknik becerilere sahibiz.",
+    "item2": "Güvenli & Yüksek Performanslı",
+    "item2_desc": "Dijital istikrarınızı sağlamak için entegre güvenlik ile birleştirilmiş yıldırım hızında performans.",
+    "item3": "Proaktif Teknik Destek",
+    "item3_desc": "İşinizin kesintisiz devam etmesini sağlamak için ekibimiz günün her saati yanınızda.",
+    "item4": "Uzmanlaşmış Yaratıcı Düşünce",
+    "item4_desc": "Tek bir hedef için çalışan yetenekli tasarımcı ve mühendislerden oluşan özel bir ekip: Pazar liderliğiniz."
+  },
+
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "badge": "Sorularınız mı Var?",
+    "q1": "Bir web sitesine ihtiyacım var, nereden başlamalıyım?",
+    "a1": "Harika bir başlangıç! Bizimle iletişime geçin; fikrinizi analiz edip Salla/Zid veya özel bir Next.js sitesi olsun, en iyi platformu önerelim.",
+    "q2": "Fiyata hosting ve alan adı dahil mi?",
+    "a2": "Evet! Premium paketlerimizde ilk yıl için alan adı kaydını ve yüksek hızlı bulut sunucuyu ücretsiz karşılıyoruz.",
+    "q3": "Teslimattan sonra değişiklik talep edebilir miyim?",
+    "a3": "Kesinlikle! Uzun vadeli ortaklığa inanıyoruz. İstikrarı sağlamak ve gerekli düzenlemeleri yapmak için bir destek süresi sağlıyoruz.",
+    "q4": "Bir proje ne kadar sürer?",
+    "a4": "Hız ve kaliteyi birleştiriyoruz. Çoğu mağaza ve karşılama sayfası (landing page) 7 ila 14 iş günü içinde yayına girer.",
+    "q5": "Web siteleri SEO uyumlu mu?",
+    "a5": "Kesinlikle! Tüm sitelerimiz, üst sıralarda yer almanızı sağlamak için en son performans ve SEO standartlarıyla oluşturulmuştur.",
+    "ctaBadge": {
+      "question": "Anında cevaba mı ihtiyacınız var?",
+      "availability": "Teknik destek için 7/24 hizmetinizdeyiz",
+      "button": "Hemen İletişime Geçin"
+    }
+  },
+
+  "contact": {
+    "hero": {
+      "title": "Birlikte Harika Bir Şey İnşa Edelim!",
+      "description": "İster yeni bir projeniz olsun ister sadece bir sorunuz, Traffic ekibi fikirlerinizi somut bir dijital gerçekliğe dönüştürmeye hazır."
+    },
+    "form": {
+      "placeholder_name": "Ad Soyad",
+      "placeholder_email": "E-posta Adresi",
+      "placeholder_phone": "Telefon Numarası",
+      "placeholder_message": "Mesajınızı buraya yazın...",
+      "submit_button": "Mesajı Şimdi Gönder",
+      "success_msg": "Mesaj başarıyla gönderildi!",
+      "error_msg": "Mesaj gönderilemedi, lütfen tekrar deneyin",
+      "badge": "Bizimle İletişime Geçin",
+      "title_part1": "Bize bir ",
+      "title_highlight": "Mesaj Gönderin",
+      "description": "Teknik ekibimiz talebinizi inceleyecek ve 24 saatten kısa sürede size dönüş yapacaktır."
+    },
+    "info": {
+      "title": "Doğrudan İletişim Kanalları",
+      "description": "Fikirlerinizi duymaktan her zaman mutluluk duyarız, bize size en uygun yöntemle ulaşabilirsiniz.",
+      "whatsapp": "Doğrudan WhatsApp",
+      "email": "Resmi E-posta",
+      "customer_service": "Müşteri Hizmetleri",
+      "location": "Genel Merkez",
+      "address": "Riyad, Suudi Arabistan"
+    },
+    "working_hours": {
+      "title": "Resmi Çalışma Saatleri",
+      "days": "Pazar - Perşembe: ",
+      "time": "09:00 - 18:00",
+      "note": "Hafta boyunca WhatsApp mesajlarına yanıt vermek için hizmetinizdeyiz"
+    },
+    "breadcrumb": "İletişim"
+  },
+
+  "dashboard": {
+    "dash": "Kontrol Paneli",
+    "site": "Siteyi Ziyaret Et",
+    "order": "Sıra",
+    "title": "Başlık",
+    "image": "Görsel",
+    "Description": "Açıklama",
+    "actions": "İşlemler",
+    "features": "Özellikler",
+    "table-features": "Sistem Özellikleri",
+    "categories": "Kategoriler",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "cancel": "İptal",
+    "title_ar": "Başlık (Arapça)",
+    "title_en": "Başlık (İngilizce)",
+    "description_ar": "Açıklama (Arapça)",
+    "description_en": "Açıklama (İngilizce)",
+    "long_description_ar": "Detaylı Açıklama (Arapça)",
+    "long_description_en": "Detaylı Açıklama (İngilizce)",
+    "category_ar": "Arapça Kategori",
+    "category_en": "İngilizce Kategori",
+    "highlight_ar": "Arapça Öne Çıkan Bilgi",
+    "highlight_en": "İngilizce Öne Çıkan Bilgi",
+    "email": "E-posta",
+    "password": "Şifre",
+    "btn_ar": "Arapça Buton Adı",
+    "btn_en": "İngilizce Buton Adı",
+    "project_link": "Sayfa Bağlantısı",
+    "custom_path": "Özel Yol",
+    "boolean_type": "Evet/Hayır",
+    "custom_text": "Özel Metin",
+    "subscribe": "Şimdi Abone Ol",
+    "sr": "SAR",
+    "monthly": "Aylık",
+    "month": "Aylık",
+    "yearly": "Yıllık",
+    "year": "Yıllık",
+    "discount": "Özel İndirim",
+    "popular": "En Çok Tercih Edilen Paket",
+    "over": "sağlanan",
+    "plan-year": "Yıllık faturalandırmayı seçtiğinizde",
+    "table": "Detaylı Karşılaştırma Tablosu",
+    "t-features": "Özellikler",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor...",
+    "edit_data": "Verileri Düzenle",
+    "back": "Geri",
+    "fetch_error": "Veriler alınamadı",
+    "add_error": "Ekleme başarısız",
+    "update_order_success": "Sıralama başarıyla güncellendi",
+    "update_order_error": "Sıralama güncellenemedi",
+    "delete_success": "Başarıyla silindi",
+    "delete_error": "Silme başarısız",
+    "confirm_delete_title": "Silmeyi Onayla",
+    "confirm_delete_message": "Bu öğeyi silmek istediğinizden emin misiniz?",
+    "add_success": "Başarıyla eklendi",
+    "update_success": "Başarıyla güncellendi",
+
+    "sidebar": {
+      "dashboard": "Kontrol Paneli",
+      "home": "Anasayfa",
+      "categories": "Kategoriler",
+      "products": "Ürünler",
+      "projects": "Projeler",
+      "blog": "Blog",
+      "pages": "Sayfalar",
+      "about": "Hakkımızda",
+      "privacy": "Gizlilik Politikası",
+      "terms": "Şartlar ve Koşullar",
+      "partners": "Ortaklar",
+      "messages": "Mesajlar",
+      "settings": "Ayarlar"
+    },
+
+    "category": {
+      "categories": "Kategoriler",
+      "add_category": "Kategori Ekle",
+
+      "confirm_delete_title": "Silmeyi Onayla",
+      "confirm_delete_message": "Bu kategoriyi silmek istediğinizden emin misiniz?",
+      "fetch_categories_error": "Kategoriler alınamadı",
+      "update_order_success": "Sıralama başarıyla güncellendi",
+      "update_order_error": "Sıralama güncellenirken hata oluştu",
+      "delete_error": "Silme başarısız",
+      "delete_success": "Kategori başarıyla silindi",
+      "edit_category": "Kategoriyi Düzenle",
+
+      "update_category": "Kategoriyi Güncelle",
+      "add_success": "Kategori eklendi ✅",
+      "update_success": "Kategori güncellendi ✅",
+      "operation_failed": "İşlem başarısız oldu",
+      "upload_error": "Yükleme başarısız oldu"
+    },
+
+    "partner": {
+      "partners": "Ortaklar",
+      "add": "Ortak Ekle",
+      "  update": "Ortayı Güncelle",
+      "fetch_error": "Ortaklar alınamadı",
+      "update_order_success": "Ortak sıralaması güncellendi",
+      "update_order_error": "Sıralama güncellenemedi",
+      "delete_success": "Ortak başarıyla silindi",
+      "delete_error": "Ortak silinemedi",
+      "confirm_delete_title": "Silmeyi Onayla",
+      "confirm_delete_message": "Bu ortağı silmek istediğinizden emin misiniz?",
+      "edit": "Ortayı Düzenle",
+      "add_success": "Ortak başarıyla eklendi ✅",
+      "update_success": "Ortak başarıyla güncellendi ✅",
+      "upload_error": "Görsel yüklenemedi",
+      "operation_failed": "İşlem başarısız oldu"
+    },
+
+    "feature": {
+      "features": "Özellikler",
+      "add": "Özellik Ekle",
+      "update": "Güncelle",
+      "fetch_features_error": "Özellikler alınamadı",
+      "update_order_success": "Özellik sıralaması güncellendi",
+      "update_order_error": "Sıralama güncellenemedi",
+      "delete_success": "Özellik başarıyla silindi",
+      "delete_error": "Özellik silinemedi",
+      "confirm_delete_title": "Silmeyi Onayla",
+      "confirm_delete_message": "Bu özelliği silmek istediğinizden emin misiniz?"
+    },
+
+    "salesFeature": {
+      "features": "Satış Özellikleri",
+      "add_feature": "Özellik Ekle",
+      "edit_feature": "Özelliği Düzenle",
+      "delete_feature": "Özelliği Sil",
+      "fetch_features_error": "Özellikler alınamadı",
+      "update_order_success": "Özellik sıralaması güncellendi",
+      "update_order_error": "Sıralama güncellenemedi",
+      "delete_success": "Özellik başarıyla silindi",
+      "delete_error": "Özellik silinemedi",
+      "confirm_delete_title": "Silmeyi Onayla",
+      "confirm_delete_message": "Bu özelliği silmek istediğinizden emin misiniz?",
+      "add_success": "Özellik başarıyla eklendi",
+      "update_success": "Özellik başarıyla güncellendi"
+    },
+    "imageSlider": {
+      "add": "Slayt Ekle",
+      "update": "Slaydı Güncelle"
+    }
+  },
+
+  "site": {
+    "website": "Siteyi Ziyaret Et",
+    "settings": "Ayarlar",
+    "logout": "Çıkış Yap",
+    "loading": "Yükleniyor...",
+    "contact": "İletişim",
+    "contact_info": "Sizden haber almaktan mutluluk duyarız. Bu sitenin resmi iletişim bilgisidir.",
+    "btn": "Sistem Demosu İste",
+    "more": "Daha Fazlasını Keşfet",
+    "cta": {
+      "titlePart1": "Mağazanızı kolayca yönetmek için",
+      "titlePart2": " Box Entegrasyonunu Keşfedin",
+      "description": "Satışları artırmak ve işi kolayca organize etmek için gelişmiş araçlarla, işinizi verimli ve profesyonel bir şekilde yürütmek için ihtiyacınız olan her şey.",
+      "button": "Sistem Demosu İste"
+    }
+  },
+  "footer": {
+    "settings": "Site Bilgileri",
+    "description_ar": "Açıklama (Arapça)",
+    "description_en": "Açıklama (İngilizce)",
+    "phone": "Telefon Numarası",
+    "whatsapp": "WhatsApp",
+    "email": "E-posta",
+    "tax_number": "Vergi Kimlik Numarası",
+    "google_play_url": "Google Play URL",
+    "app_store_url": "App Store URL",
+    "instagram": "Instagram",
+    "x": "X Hesabı",
+    "tiktok": "TikTok",
+    "snapchat": "Snapchat",
+    "logo": "Web Sitesi Logosu",
+    "payment_methods": "Ödeme Yöntemleri",
+    "links": "Önemli Bağlantılar",
+    "privacy": "Gizlilik Politikası",
+    "return-policy": "Değişim ve İade",
+    "shipping": "Sipariş ve Teslimat",
+    "contact": "İletişim",
+    "pricing": "Fiyatlandırma",
+    "copyright": "Tüm hakları saklıdır",
+    "name": "Takamul Box"
+  }
+}

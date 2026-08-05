@@ -5,15 +5,16 @@ export default function ShowcaseList({ items, type, isAr }) {
   if (!items || items.length === 0) {
     return (
       <div className="text-center py-16 text-gray-500 text-lg">
-        لا توجد {type === "ourwork" ? "مشاريع" : "منتجات"} في هذا التصنيف
-        حالياً.
+        {isAr
+          ? `لا توجد ${type === "ourwork" ? "مشاريع" : "منتجات"} في هذا التصنيف حالياً.`
+          : `No ${type === "ourwork" ? "projects" : "products"} available in this category.`}
       </div>
     );
   }
 
   return (
     <div
-      className={`grid gap-y-8 md:gap-6 mt-8 ${
+      className={`grid gap-6 mt-8 ${
         type === "ourwork"
           ? "grid-cols-1 md:grid-cols-3"
           : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"

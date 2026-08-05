@@ -1,19 +1,33 @@
 import ShowcaseList from "@/components/showcase/ShowcaseList";
-import SectionTitle from "./SectionTitle";
+import Link from "next/link";
 
 export default function FeaturedProjects({ items, type, isAr }) {
   if (!items?.length) return null;
 
   return (
-    <section className="container mx-auto px-4">
-      <SectionTitle
-        text={isAr ? "أعمالنا المميزة" : "Featured Projects"}
-        desc={
-          isAr
-            ? "استكشف مجموعة من أبرز المشاريع التي نفذناها لعملائنا، والتي تعكس خبرتنا وجودة خدماتنا في مختلف المجالات."
-            : "Explore a selection of our most outstanding projects that showcase our expertise, creativity, and commitment to delivering high-quality solutions."
-        }
-      />
+    <section className="container mx-auto px-4 py-12">
+      <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
+        <div className={`space-y-3 text-right w-full md:w-auto`}>
+          <div className="inline-flex items-center gap-3">
+            <span className="w-8 h-1 bg-[#5E3286] rounded-full"></span>
+            <h2 className="bg-[#2B5299] text-white text-2xl md:text-3xl font-black px-4 py-2 rounded-xl shadow-md inline-block">
+              {isAr ? "سابقة أعمالنا" : "Featured Projects"}
+            </h2>
+          </div>
+          <p className="text-gray-600 text-sm md:text-base max-w-xl">
+            {isAr
+              ? "لا نطلب منك أن تصدّقنا — شاهد النتائج التي حققناها لعملاء حقيقيين."
+              : "Explore a selection of our most outstanding projects that showcase our expertise and high-quality solutions."}
+          </p>
+        </div>
+
+        <Link
+          href="/ourwork"
+          className="bg-[#5E3286] hover:bg-[#4a266b] text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all duration-300 flex items-center gap-2 text-sm whitespace-nowrap"
+        >
+          <span>{isAr ? "شاهد كل المشاريع ←" : "View All Projects →"}</span>
+        </Link>
+      </div>
 
       <ShowcaseList items={items} type={type} isAr={isAr} />
     </section>

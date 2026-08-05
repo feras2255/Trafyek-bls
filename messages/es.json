@@ -1,0 +1,330 @@
+{
+  "infoSite": {
+    "home": "Inicio",
+    "about": "Sobre nosotros",
+    "services": "Servicios",
+    "ourwork": "Nuestro trabajo",
+    "blog": "Blog",
+    "contact": "Contáctanos",
+    "quickLinks": "Enlaces rápidos",
+    "privacy": "Política de privacidad",
+    "terms": "Términos y condiciones",
+    "siteName": "Trafik Bls",
+    "copyright": "Todos los derechos reservados"
+  },
+  "home": {
+    "services": "Servicios",
+    "d-services": "Ofrecemos soluciones digitales innovadoras para ayudarte a hacer crecer tu negocio y mejorar tu presencia digital.",
+    "view-details": "Ver detalles",
+    "view-all": "Ver todo"
+  },
+
+  "about": {
+    "badge": "Quiénes somos",
+    "title": "Traffic... Tu socio estratégico para el crecimiento digital",
+    "description": "En Traffic, no solo creamos sitios web; creamos experiencias digitales integradas. Somos una agencia especializada en marketing digital, diseño y desarrollo de tiendas de comercio electrónico y sitios web de alto rendimiento utilizando las últimas tecnologías globales. Nuestro objetivo es impulsar las ambiciones de nuestros clientes mediante soluciones de software inteligentes y estrategias de marketing que garanticen los primeros puestos en los motores de búsqueda y el aumento de las ventas.",
+    "experience": "Años de experiencia",
+    "features": {
+      "marketing": "Marketing digital orientado a resultados",
+      "web": "Desarrollo web rápido y adaptable",
+      "ecommerce": "Diseño de comercio electrónico de alta conversión"
+    }
+  },
+
+  "stats": {
+    "badge": "Trayectoria de éxito digital",
+    "title": "Logros de los que nos sentimos orgullosos",
+    "projects": "Proyectos exitosos",
+    "clients": "Socios en el éxito",
+    "experience": "Años de experiencia"
+  },
+  "services": {
+    "title": "Nuestras soluciones digitales",
+    "description": "Ofrecemos una gama integral de servicios técnicos y de marketing diseñados para hacer crecer tu negocio y mejorar tu presencia digital.",
+    "desc_hero": "Empoderamos a tu empresa con la fuerza que necesita para crecer en un mercado competitivo, a través de servicios estratégicos enfocados en entregar resultados reales y sostenibles.",
+    "all": "Todos",
+    "page_title": "Página",
+    "products": "Servicios",
+    "projects": "Proyectos"
+  },
+
+  "ourwork": {
+    "title": "Nuestro trabajo",
+    "description": "Ofrecemos una gama integral de servicios técnicos y de marketing diseñados para hacer crecer tu negocio y mejorar tu presencia digital.",
+    "all": "Todos",
+    "ourwork": "Explora nuestro trabajo por categoría"
+  },
+
+  "partners": {
+    "title": "Socios en el éxito",
+    "description": "Empresas a las que nos enorgullece llamar amigas y socias en el crecimiento empresarial"
+  },
+
+  "serviceRequest": {
+    "statusBadge": "Actualmente estamos aceptando nuevas solicitudes de proyectos",
+    "heroTitle": "No busques <primary>un simple desarrollador</primary> , busca <underlined>un socio de crecimiento</underlined>",
+    "description": "Desarrollamos soluciones digitales inteligentes que duplican las ventas de tu tienda en <accent>Salla y Zid</accent> y te otorgan una presencia tecnológica inolvidable.",
+    "planText": "Plan de negocio técnico personalizado",
+    "ctaStart": "Iniciar tu proyecto",
+    "ctaCall": "Habla con nosotros",
+    "socialProof": "La elección de las tiendas ambiciosas en Arabia Saudita",
+    "whatsappMessage": "Me gustaría iniciar una consulta gratuita con Traffic"
+  },
+
+  "why_us": {
+    "title": "¿Por qué confiar en Traffic?",
+    "item1": "Experiencia más allá de las expectativas",
+    "item1_desc": "Poseemos profundas habilidades técnicas que transforman desafíos digitales complejos en oportunidades de crecimiento.",
+    "item2": "Seguro y de alto rendimiento",
+    "item2_desc": "Velocidad ultrarrápida combinada con seguridad integrada para garantizar tu estabilidad digital.",
+    "item3": "Soporte técnico proactivo",
+    "item3_desc": "Nuestro equipo está a tu lado las 24 horas del día para garantizar la continuidad de tu negocio sin interrupciones.",
+    "item4": "Pensamiento creativo especializado",
+    "item4_desc": "Un equipo dedicado de creadores e ingenieros trabajando por un solo objetivo: tu liderazgo en el mercado."
+  },
+
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "badge": "¿Tienes preguntas?",
+    "q1": "Necesito un sitio web, ¿por dónde empiezo?",
+    "a1": "¡Excelente comienzo! Contáctanos y analizaremos tu idea para sugerir la mejor plataforma, ya sea Salla/Zid o un sitio personalizado con Next.js.",
+    "q2": "¿El precio incluye alojamiento y dominio?",
+    "a2": "¡Sí! En nuestros paquetes premium, cubrimos el registro del dominio y el alojamiento en la nube de alta velocidad durante el primer año de forma gratuita.",
+    "q3": "¿Puedo solicitar cambios después de la entrega?",
+    "a3": "¡Absolutamente! Creemos en las relaciones comerciales a largo plazo. Ofrecemos un período de soporte para garantizar la estabilidad e implementar los ajustes necesarios.",
+    "q4": "¿Cuánto tiempo toma un proyecto?",
+    "a4": "Combinamos velocidad y calidad. La mayoría de las tiendas y páginas de aterrizaje tardan entre 7 y 14 días hábiles en lanzarse.",
+    "q5": "¿Los sitios web son optimizados para SEO?",
+    "a5": "¡Definitivamente! Todos nuestros sitios se construyen con los últimos estándares de rendimiento y SEO para garantizar los mejores posicionamientos.",
+    "ctaBadge": {
+      "question": "¿Necesitas una respuesta instantánea?",
+      "availability": "Estamos disponibles 24/7 para soporte técnico",
+      "button": "Contáctanos ahora"
+    }
+  },
+
+  "contact": {
+    "hero": {
+      "title": "¡Construyamos algo increíble juntos!",
+      "description": "Ya sea que tengas un nuevo proyecto o simplemente una consulta, el equipo de Traffic está listo para transformar tus ideas en una realidad digital tangible."
+    },
+    "form": {
+      "placeholder_name": "Nombre completo",
+      "placeholder_email": "Correo electrónico",
+      "placeholder_phone": "Número de teléfono",
+      "placeholder_message": "Escribe tu mensaje aquí...",
+      "submit_button": "Enviar mensaje ahora",
+      "success_msg": "¡Mensaje enviado con éxito!",
+      "error_msg": "Error al enviar el mensaje, por favor inténtalo de nuevo",
+      "badge": "Contáctanos",
+      "title_part1": "Envíanos un ",
+      "title_highlight": "Mensaje",
+      "description": "Nuestro equipo técnico revisará tu solicitud y te responderá en menos de 24 horas."
+    },
+    "info": {
+      "title": "Canales de contacto directo",
+      "description": "Siempre nos alegra escuchar tus ideas, puedes contactarnos a través del método que mejor te convenga.",
+      "whatsapp": "WhatsApp directo",
+      "email": "Correo oficial",
+      "customer_service": "Atención al cliente",
+      "location": "Sede principal",
+      "address": "Riad, Arabia Saudita"
+    },
+    "working_hours": {
+      "title": "Horario de atención oficial",
+      "days": "Domingo - Jueves: ",
+      "time": "9:00 AM - 6:00 PM",
+      "note": "Estamos disponibles para responder mensajes de WhatsApp durante toda la semana"
+    },
+    "breadcrumb": "Contáctanos"
+  },
+
+  "dashboard": {
+    "dash": "Panel de control",
+    "site": "Visitar sitio",
+    "order": "Orden",
+    "title": "Título",
+    "image": "Imagen",
+    "Description": "Descripción",
+    "actions": "Acciones",
+    "features": "Características",
+    "table-features": "Características del sistema",
+    "categories": "Categorías",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "title_ar": "Título (Árabe)",
+    "title_en": "Título (Inglés)",
+    "description_ar": "Descripción (Árabe)",
+    "description_en": "Descripción (Inglés)",
+    "long_description_ar": "Descripción detallada (Árabe)",
+    "long_description_en": "Descripción detallada (Inglés)",
+    "category_ar": "Categoría en árabe",
+    "category_en": "Categoría en inglés",
+    "highlight_ar": "Elemento destacado en árabe",
+    "highlight_en": "Elemento destacado en inglés",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "btn_ar": "Nombre del botón en árabe",
+    "btn_en": "Nombre del botón en inglés",
+    "project_link": "Enlace de la página",
+    "custom_path": "Ruta personalizada",
+    "boolean_type": "Sí/No",
+    "custom_text": "Texto personalizado",
+    "subscribe": "Suscribirse ahora",
+    "sr": "SAR",
+    "monthly": "Mensual",
+    "month": "Mensual",
+    "yearly": "Anual",
+    "year": "Anual",
+    "discount": "Descuento especial",
+    "popular": "El paquete más solicitado",
+    "over": "proporcionado",
+    "plan-year": "Al elegir la facturación anual",
+    "table": "Tabla comparativa detallada",
+    "t-features": "Características",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "edit_data": "Editar datos",
+    "back": "Volver",
+    "fetch_error": "Error al obtener los datos",
+    "add_error": "Error al agregar",
+    "update_order_success": "Orden actualizado con éxito",
+    "update_order_error": "Error al actualizar el orden",
+    "delete_success": "Eliminado con éxito",
+    "delete_error": "Error al eliminar",
+    "confirm_delete_title": "Confirmar eliminación",
+    "confirm_delete_message": "¿Estás seguro de que deseas eliminar este elemento?",
+    "add_success": "Agregado con éxito",
+    "update_success": "Actualizado con éxito",
+
+    "sidebar": {
+      "dashboard": "Panel de control",
+      "home": "Inicio",
+      "categories": "Categorías",
+      "products": "Productos",
+      "projects": "Proyectos",
+      "blog": "Blog",
+      "pages": "Páginas",
+      "about": "Sobre nosotros",
+      "privacy": "Política de privacidad",
+      "terms": "Términos y condiciones",
+      "partners": "Socios",
+      "messages": "Mensajes",
+      "settings": "Configuración"
+    },
+
+    "category": {
+      "categories": "Categorías",
+      "add_category": "Agregar categoría",
+
+      "confirm_delete_title": "Confirmar eliminación",
+      "confirm_delete_message": "¿Estás seguro de que deseas eliminar esta categoría?",
+      "fetch_categories_error": "Error al obtener las categorías",
+      "update_order_success": "Orden actualizado con éxito",
+      "update_order_error": "Error al actualizar el orden",
+      "delete_error": "Error al eliminar",
+      "delete_success": "Categoría eliminada con éxito",
+      "edit_category": "Editar categoría",
+
+      "update_category": "Actualizar categoría",
+      "add_success": "Categoría agregada ✅",
+      "update_success": "Categoría actualizada ✅",
+      "operation_failed": "La operación falló",
+      "upload_error": "Error en la carga"
+    },
+
+    "partner": {
+      "partners": "Socios",
+      "add": "Agregar socio",
+      "  update": "Actualizar socio",
+      "fetch_error": "Error al obtener los socios",
+      "update_order_success": "Orden de socios actualizado",
+      "update_order_error": "Error al actualizar el orden",
+      "delete_success": "Socio eliminado con éxito",
+      "delete_error": "Error al eliminar el socio",
+      "confirm_delete_title": "Confirmar eliminación",
+      "confirm_delete_message": "¿Estás seguro de que deseas eliminar este socio?",
+      "edit": "Editar socio",
+      "add_success": "Socio agregado con éxito ✅",
+      "update_success": "Socio actualizado con éxito ✅",
+      "upload_error": "Error al cargar la imagen",
+      "operation_failed": "La operación falló"
+    },
+
+    "feature": {
+      "features": "Características",
+      "add": "Agregar característica",
+      "update": "Actualizar",
+      "fetch_features_error": "Error al obtener las características",
+      "update_order_success": "Orden de características actualizado",
+      "update_order_error": "Error al actualizar el orden",
+      "delete_success": "Característica eliminada con éxito",
+      "delete_error": "Error al eliminar la característica",
+      "confirm_delete_title": "Confirmar eliminación",
+      "confirm_delete_message": "¿Estás seguro de que deseas eliminar esta característica?"
+    },
+
+    "salesFeature": {
+      "features": "Características de venta",
+      "add_feature": "Agregar característica",
+      "edit_feature": "Editar característica",
+      "delete_feature": "Eliminar característica",
+      "fetch_features_error": "Error al obtener las características",
+      "update_order_success": "Orden de características actualizado",
+      "update_order_error": "Error al actualizar el orden",
+      "delete_success": "Característica eliminada con éxito",
+      "delete_error": "Error al eliminar la característica",
+      "confirm_delete_title": "Confirmar eliminación",
+      "confirm_delete_message": "¿Estás seguro de que deseas eliminar esta característica?",
+      "add_success": "Característica agregada con éxito",
+      "update_success": "Característica actualizada con éxito"
+    },
+    "imageSlider": {
+      "add": "Agregar diapositiva",
+      "update": "Actualizar diapositiva"
+    }
+  },
+
+  "site": {
+    "website": "Visitar sitio",
+    "settings": "Configuración",
+    "logout": "Cerrar sesión",
+    "loading": "Cargando...",
+    "contact": "Contacto",
+    "contact_info": "Nos alegra saber de ti. Esta es la información de contacto oficial del sitio.",
+    "btn": "Solicitar demo del sistema",
+    "more": "Descubrir más",
+    "cta": {
+      "titlePart1": "Descubre la integración con Box",
+      "titlePart2": " para gestionar tu tienda fácilmente",
+      "description": "Todo lo que necesitas para operar tu negocio de manera eficiente y profesional, con herramientas avanzadas para aumentar las ventas y organizar el trabajo fácilmente.",
+      "button": "Solicitar demo del sistema"
+    }
+  },
+  "footer": {
+    "settings": "Información del sitio",
+    "description_ar": "Descripción (Árabe)",
+    "description_en": "Descripción (Inglés)",
+    "phone": "Número de teléfono",
+    "whatsapp": "WhatsApp",
+    "email": "Correo electrónico",
+    "tax_number": "Número de identificación fiscal",
+    "google_play_url": "URL de Google Play",
+    "app_store_url": "URL de App Store",
+    "instagram": "Instagram",
+    "x": "Cuenta de X",
+    "tiktok": "TikTok",
+    "snapchat": "Snapchat",
+    "logo": "Logo del sitio web",
+    "payment_methods": "Métodos de pago",
+    "links": "Enlaces importantes",
+    "privacy": "Política de privacidad",
+    "return-policy": "Cambios y devoluciones",
+    "shipping": "Pedidos y envíos",
+    "contact": "Contacto",
+    "pricing": "Precios",
+    "copyright": "Todos los derechos reservados",
+    "name": "Takamul Box"
+  }
+}
