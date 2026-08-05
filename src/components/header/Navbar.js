@@ -57,12 +57,12 @@ export default function Navbar({ settings }) {
 
         {/* contact links */}
         <div className="flex items-center gap-x-4">
-          <div className="hidden md:flex gap-x-4">
+          <div className="flex gap-x-4">
             <LanguageSwitcher isDashboard={false} />
             <Link
               href={`https://wa.me/${settings?.whatsapp || ""}`}
               aria-label="واتساب"
-              className="text-sm md:text-base bg-primary text-text px-5 py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all"
+              className="hidden md:flex items-center text-sm md:text-base bg-primary text-text px-5 py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all"
             >
               {t("contact")}
             </Link>
