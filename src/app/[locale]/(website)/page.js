@@ -2,7 +2,6 @@ import Hero from "@/components/home/Hero";
 import Partners from "@/components/home/Partners";
 import WhyUs from "@/components/home/WhyUs";
 import FAQ from "@/components/home/FAQ";
-import MarqueeSlider from "@/components/home/MarqueeSlider";
 import AboutSection from "@/components/home/AboutSection";
 import StatsSection from "@/components/home/StatsSection";
 import ServiceRequest from "@/components/ui/ServiceRequest";

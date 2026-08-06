@@ -113,8 +113,8 @@ export const metadata = {
 export default async function RootLayout({ children, params }) {
   const { locale } = await params;
   const messages = await getMessages();
-  const dir = locale === "ar" ? "rtl" : "ltr";
-
+  // const dir = locale === "ar" ? "rtl" : "ltr";
+  const dir = locale === "ar" || locale === "ur" ? "rtl" : "ltr";
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <GoogleTagManager gtmId="GTM-K46W3W6N" />

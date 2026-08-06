@@ -19,6 +19,23 @@
     "view-all": "View All"
   },
 
+  "hero": {
+    "preTitle": "Your ambition needs a smart digital path",
+    "title": "Leading Your Business to the Forefront.",
+    "description": "At Traffic, we transcend traditional design boundaries to build digital platforms and smart stores that transform visitors into partners in success. We integrate art with data to create an undeniable presence.",
+    "button": "Contact us now",
+    "ourWork": "Our Work",
+    "trustedBy": "+220 clients trusted us",
+    "rating": "4.9/5 Client Rating",
+    "projectsCount": "+250 Projects",
+    "delivered": "Successfully Delivered"
+  },
+  "evaluationBanner": {
+    "title": "Get a free audit of your current website within 24 hours",
+    "description": "We reveal the weaknesses costing you customers — with zero commitment.",
+    "button": "Request Your Audit Now"
+  },
+
   "about": {
     "badge": "Who We Are",
     "title": "Traffic.. Your Strategic Partner for Digital Growth",
@@ -37,6 +54,32 @@
     "projects": "Successful Projects",
     "clients": "Partner in Success",
     "experience": "Years of Experience"
+  },
+
+  "aiGeoSection": {
+    "badge": "New - Artificial Intelligence",
+    "titleMain": "Connecting your business to AI &",
+    "titleHighlight": "Improving GEO Engine Answers",
+    "description": "Google isn't alone anymore — your customers ask ChatGPT, Gemini, and Claude AI. We optimize your brand to show up directly inside AI-generated answers.",
+    "button": "Optimize Your Site for AI",
+    "features": {
+      "chatbot": {
+        "title": "AI Assistant (Chatbot)",
+        "desc": "Responds to your clients and automatically collects orders."
+      },
+      "geo": {
+        "title": "GEO Optimization",
+        "desc": "Structured content and framework cited by AI engines."
+      },
+      "schema": {
+        "title": "Structured Data (Schema)",
+        "desc": "For top AI answer placement and precise activity understanding."
+      },
+      "automation": {
+        "title": "Marketing Automation",
+        "desc": "AI-powered content generation and marketing campaigns."
+      }
+    }
   },
   "services": {
     "title": "Our Digital Solutions",
@@ -61,16 +104,72 @@
   },
 
   "serviceRequest": {
-    "statusBadge": "We are accepting new project requests now",
-    "heroTitle": "Don't look for <primary>just a developer</primary> ,  look for <underlined>a growth partner</underlined>",
-    "description": "We develop smart digital solutions that double your store sales on <accent>Salla and Zid</accent> and grant you an unforgettable tech presence.",
-    "planText": "Customized technical business plan",
-    "ctaStart": "Start your project",
-    "ctaCall": "Talk to us",
-    "socialProof": "The choice of ambitious stores in Saudi Arabia",
-    "whatsappMessage": "I would like to start a free consultation with Traffic"
+    "statusBadge": "For Enterprise & Corporations",
+    "title": "Enterprise-Grade Security & Reliability",
+    "description": "Manage large corporate projects with clear security and compliance standards — full ownership, protection, and integration with your systems.",
+    "ctaBook": "Book a Meeting",
+    "ctaQuote": "Request a Quote",
+    "whatsappMsg": "Hello, I would like to inquire about the Enterprise package",
+    "features": {
+      "nda": {
+        "title": "Non-Disclosure Agreement (NDA)",
+        "desc": "Full protection for your data and ideas before starting."
+      },
+      "codeOwnership": {
+        "title": "Full Source Code Ownership",
+        "desc": "The project is 100% yours with complete source code handover."
+      },
+      "backupSsl": {
+        "title": "Automated Backups & SSL",
+        "desc": "Secure hosting, periodic backups, and SSL encryption certificates."
+      },
+      "integration": {
+        "title": "System Integration",
+        "desc": "Seamless connection with ERPs, payment gateways, and internal systems."
+      },
+      "scalability": {
+        "title": "High Scalability",
+        "desc": "A modern tech stack (Next.js) built to scale with your future growth."
+      },
+      "slaSupport": {
+        "title": "SLA & Dedicated Support",
+        "desc": "Ongoing technical support with defined response times post-launch."
+      }
+    }
   },
 
+  "testimonialsSlider": {
+    "badge": "Testimonials",
+    "title": "What Our Clients Say",
+    "fallbackImageText": "Client",
+    "items": {
+      "item1": {
+        "name": "Sarah Al-Dossary",
+        "role": "CEO · Lamsa Clinics",
+        "comment": "Full commitment to deadlines and tangible results with ongoing post-launch support. True success partners."
+      },
+      "item2": {
+        "name": "Khaled Al-Otaibi",
+        "role": "Marketing Director · Al-Otaibi Contracting Group",
+        "comment": "Our site became the top result for our prospective clients in Riyadh. Professional and well-structured engagement."
+      },
+      "item3": {
+        "name": "Arwa Al-Qahtani",
+        "role": "Founder & CEO · Arwa Store",
+        "comment": "We doubled our sales within just 3 months of launching the new store. The team understood our business goals precisely."
+      },
+      "item4": {
+        "name": "Eng. Faisal Al-Shammari",
+        "role": "Project Manager · Smart Tech Co.",
+        "comment": "High level of professionalism in building software architecture. Response speed and quality exceeded expectations."
+      },
+      "item5": {
+        "name": "Mona Al-Ghamdi",
+        "role": "COO · EdTech Platform",
+        "comment": "The UX design was stunning and seamless. Student engagement rates increased significantly."
+      }
+    }
+  },
   "why_us": {
     "title": "Why Put Your Trust in Traffic?",
     "item1": "Expertise Beyond Expectations",
@@ -103,6 +202,70 @@
     }
   },
 
+  "aboutPage": {
+    "metaTitle": "About Us | Traffic Plus - Programming & Digital Marketing",
+    "metaDescription": "Discover Traffic Plus, your tech and marketing partner in store design and digital campaign management.",
+    "ogTitle": "About Us | Traffic Plus",
+    "ogDescription": "Our story and success in providing innovative digital solutions.",
+    "teamAlt": "Traffic Plus Team",
+    "pageNotFound": "Page not found.",
+    "breadcrumb": "About Us",
+    "heroTitle": "About Us",
+    "heroDescription": "Discover Traffic Plus's journey in shaping the digital future with tech and marketing solutions beyond expectations.",
+    "badge": "Our Story & Success",
+    "title": "Our Story & Success.. Who We Are?",
+    "storyP1": "Traffic Plus is a digital marketing company specializing in innovative marketing solutions that help e-commerce stores and retail businesses grow, expand, and deliver tangible results.",
+    "storyHighlight": "We don't sell promises... We deliver results!",
+    "storyP2": "With a creative team and deep marketing expertise in the Saudi and Gulf markets, we offer integrated services including ad campaign management, SEO, content design, and social media management — all driven by smart plans built on an exact understanding of the market. At Traffic Plus, we work as true partners in your success.",
+    "visualTag": "Innovation Hub",
+    "visualQuote": "Building the future.. with creative code",
+    "stats": {
+      "projects": "Successful Projects",
+      "partners": "Success Partners",
+      "experience": "Years of Experience",
+      "satisfaction": "Client Satisfaction"
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "At Traffic Plus, we aim to be the premier marketing partner for online stores and commercial projects across the Arab world by offering innovative digital marketing solutions focusing on real growth. Our vision is to empower brands to achieve digital leadership in the Gulf through smart software solutions that go beyond imagination."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "Empower online stores and businesses to achieve real, sustainable growth through smart, customized digital marketing strategies and tools. We don't just promote... We drive growth!"
+    },
+    "whyUs": {
+      "title": "Why Traffic Plus?",
+      "subtitle": "Because we don't work with a 'copy-paste' mindset... We work with strategy and genuine care for your project!",
+      "point1Title": "We Focus on Results... Not Flattery",
+      "point1Desc": "Our core goal is to increase your sales, boost engagement, and expand your customer base.",
+      "point2Title": "Tailored Solutions for Every Business",
+      "point2Desc": "No one-size-fits-all... Every store and brand gets a customized strategy.",
+      "point3Title": "Creative & Expert Team",
+      "point3Desc": "A diverse team of marketers, designers, and analysts working towards one goal: your success.",
+      "point4Title": "All-in-One Integrated Services",
+      "point4Desc": "From Google & Meta ads to SEO and web development.. all delivered with speed and high quality.",
+      "point5Title": "Communication, Support & Transparency",
+      "point5Desc": "We are with you step-by-step with total transparency so you know you're in safe hands."
+    },
+    "features": {
+      "title": "Our Competitive Advantages",
+      "f1Title": "Gulf Market Expertise",
+      "f1Desc": "Specialized experience in Saudi & Gulf client needs.",
+      "f2Title": "High Performance",
+      "f2Desc": "Next.js-powered websites with lightning-fast speed.",
+      "f3Title": "Distinctive UI/UX Design",
+      "f3Desc": "Interfaces designed to maximize conversion rates.",
+      "f4Title": "Human Technical Support",
+      "f4Desc": "Direct access to technical engineers 24/7."
+    },
+    "cta": {
+      "titlePart1": "Ready to turn your digital vision into ",
+      "titleHighlight": "reality?",
+      "description": "Join our elite list of success partners and let us build you a platform that combines luxury and performance.",
+      "startBtn": "Start Your Journey",
+      "consultBtn": "Free Consultation"
+    }
+  },
   "contact": {
     "hero": {
       "title": "Let's Build Something Amazing Together!",

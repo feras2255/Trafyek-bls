@@ -3,39 +3,57 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import Image from "next/image";
+import { useTranslations, useLocale } from "next-intl";
+import { FaUserCircle } from "react-icons/fa";
 
-// استيراد أنماط Swiper الأساسية
 import "swiper/css";
 import "swiper/css/pagination";
 
-export default function TestimonialsSlider({ testimonials = [], isAr = true }) {
+export default function TestimonialsSlider({ testimonials = [] }) {
+  const t = useTranslations("testimonialsSlider");
+  const locale = useLocale();
+  const isRtl = locale === "ar" || locale === "ur";
+
   const defaultTestimonials = [
     {
       id: 1,
-      name: "سارة الدوسري",
-      role: "المديرة التنفيذية · عيادات لمسة",
-      comment:
-        "التزام كامل بالمواعيد ونتائج ملموسة، مع دعم مستمر بعد الإطلاق. شركاء نجاح حقيقيون.",
+      name: t("items.item1.name"),
+      role: t("items.item1.role"),
+      comment: t("items.item1.comment"),
       rating: 5,
       image: "/client1.png",
     },
     {
       id: 2,
-      name: "خالد العتيبي",
-      role: "مدير التسويق · مجموعة العتيبي للمقاولات",
-      comment:
-        "أصبح موقعنا أول نتيجة تظهر لعملائنا المحتملين في الرياض، والتعامل كان مؤسسياً ومنظماً.",
+      name: t("items.item2.name"),
+      role: t("items.item2.role"),
+      comment: t("items.item2.comment"),
       rating: 5,
       image: "/client2.png",
     },
     {
       id: 3,
-      name: "أروى القحطاني",
-      role: "المؤسسة والرئيسة التنفيذية · متجر أروى",
-      comment:
-        "ضاعفنا مبيعاتنا خلال 3 أشهر فقط بعد إطلاق المتجر الجديد. الفريق فهم أهدافنا التجارية بدقة.",
+      name: t("items.item3.name"),
+      role: t("items.item3.role"),
+      comment: t("items.item3.comment"),
       rating: 5,
       image: "/client3.png",
+    },
+    {
+      id: 4,
+      name: t("items.item4.name"),
+      role: t("items.item4.role"),
+      comment: t("items.item4.comment"),
+      rating: 5,
+      image: "/client4.png",
+    },
+    {
+      id: 5,
+      name: t("items.item5.name"),
+      role: t("items.item5.role"),
+      comment: t("items.item5.comment"),
+      rating: 5,
+      image: "/client5.png",
     },
   ];
 
@@ -47,15 +65,16 @@ export default function TestimonialsSlider({ testimonials = [], isAr = true }) {
       {/* عنوان القسم */}
       <div className="text-center mb-12 space-y-3">
         <div className="inline-block bg-[#F3E8FF] text-[#7C3AED] px-4 py-1.5 rounded-full text-sm font-bold">
-          {isAr ? "آراء عملائنا" : "Testimonials"}
+          {t("badge")}
         </div>
         <h2 className="text-3xl md:text-4xl font-black text-[#1E293B]">
-          {isAr ? "ماذا يقول عملاؤنا عنا" : "What Our Clients Say"}
+          {t("title")}
         </h2>
       </div>
 
       {/* سلايدر السويبر */}
       <Swiper
+        key={locale}
         modules={[Autoplay, Pagination]}
         spaceBetween={24}
         slidesPerView={1}
@@ -72,7 +91,7 @@ export default function TestimonialsSlider({ testimonials = [], isAr = true }) {
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
         }}
-        dir={isAr ? "rtl" : "ltr"}
+        dir={isRtl ? "rtl" : "ltr"}
         className="pb-12"
       >
         {dataToDisplay.map((item) => (
@@ -90,29 +109,18 @@ export default function TestimonialsSlider({ testimonials = [], isAr = true }) {
                 &ldquo;{item.comment}&rdquo;
               </p>
 
-              {/* بيانات العميل والصورة */}
+              {/* بيانات العميل والصورة/الأيقونة */}
               <div className="flex items-center justify-between border-t border-gray-100 pt-6 mt-auto">
-                <div>
-                  <h4 className="font-bold text-gray-900 text-base">
+                <div className="text-start">
+                  <h3 className="font-bold text-gray-900 text-base">
                     {item.name}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-gray-400 mt-1">{item.role}</p>
                 </div>
 
-                {/* دائرة الصورة */}
-                <div className="w-14 h-14 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 overflow-hidden relative shrink-0">
-                  {item.image ? (
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <span className="text-[10px] text-gray-400 font-bold">
-                      عميل
-                    </span>
-                  )}
+                {/* دائرة الصورة أو الأيقونة */}
+                <div className="w-14 h-14 rounded-full border-2 border-dashed border-purple-200 flex items-center justify-center bg-purple-50 overflow-hidden relative shrink-0">
+                  <FaUserCircle className="w-9 h-9 text-[#7C3AED]/60" />
                 </div>
               </div>
             </div>

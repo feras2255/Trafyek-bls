@@ -18,6 +18,22 @@
     "view-details": "Voir les détails",
     "view-all": "Voir tout"
   },
+  "hero": {
+    "preTitle": "Votre ambition a besoin d'un parcours numérique intelligent",
+    "title": "Menez votre entreprise au premier plan.",
+    "description": "Chez Traffic, nous dépassons les limites du design traditionnel pour créer des plateformes numériques et des boutiques intelligentes qui transforment les visiteurs en partenaires de réussite.",
+    "button": "Contactez-nous maintenant",
+    "ourWork": "Nos réalisations",
+    "trustedBy": "+220 clients nous ont fait confiance",
+    "rating": "4.9/5 Évaluation des clients",
+    "projectsCount": "+250 Projets",
+    "delivered": "Livrées avec succès"
+  },
+  "evaluationBanner": {
+    "title": "Obtenez une évaluation gratuite de votre site web sous 24 heures",
+    "description": "Nous révélons les points faibles qui vous coûtent des clients — sans aucun engagement.",
+    "button": "Demandez votre évaluation"
+  },
 
   "about": {
     "badge": "Qui sommes-nous",
@@ -37,6 +53,32 @@
     "projects": "Projets réussis",
     "clients": "Partenaires de réussite",
     "experience": "Années d'expérience"
+  },
+
+  "aiGeoSection": {
+    "badge": "Nouveau - Intelligence Artificielle",
+    "titleMain": "Connectez votre entreprise à l'IA et",
+    "titleHighlight": "Optimisation des moteurs GEO",
+    "description": "Google n'est plus le seul — vos clients posent leurs questions à ChatGPT, Gemini et Claude. Nous optimisons votre site pour apparaître directement dans les réponses de l'IA.",
+    "button": "Optimisez votre site pour l'IA",
+    "features": {
+      "chatbot": {
+        "title": "Assistant IA (Chatbot)",
+        "desc": "Répond à vos clients et collecte automatiquement les commandes."
+      },
+      "geo": {
+        "title": "Optimisation GEO",
+        "desc": "Contenu structuré cité directement par les moteurs IA."
+      },
+      "schema": {
+        "title": "Données structurées (Schema)",
+        "desc": "Pour figurer en tête des réponses et clarifier votre activité."
+      },
+      "automation": {
+        "title": "Automation Marketing",
+        "desc": "Campagnes et contenus propulsés par l'intelligence artificielle."
+      }
+    }
   },
   "services": {
     "title": "Nos solutions numériques",
@@ -61,16 +103,72 @@
   },
 
   "serviceRequest": {
-    "statusBadge": "Nous acceptons actuellement de nouvelles demandes de projets",
-    "heroTitle": "Ne cherchez pas <primary>un simple développeur</primary> , cherchez <underlined>un partenaire de croissance</underlined>",
-    "description": "Nous développons des solutions numériques intelligentes qui doublent les ventes de votre boutique sur <accent>Salla et Zid</accent> et vous garantissent une présence technologique inoubliable.",
-    "planText": "Plan d'affaires technique personnalisé",
-    "ctaStart": "Lancer votre projet",
-    "ctaCall": "Parler avec nous",
-    "socialProof": "Le choix des boutiques ambitieuses en Arabie Saoudite",
-    "whatsappMessage": "Je souhaite démarrer une consultation gratuite avec Traffic"
+    "statusBadge": "Pour Entreprises & Grandes Sociétés",
+    "title": "Sécurité et Fiabilité de Niveau Entreprise",
+    "description": "Gérez des projets d'entreprise d'envergure avec des normes strictes — propriété totale, sécurité et intégration avec vos systèmes.",
+    "ctaBook": "Réserver एक Réunion",
+    "ctaQuote": "Demander un Devis",
+    "whatsappMsg": "Bonjour, je souhaite me renseigner sur l'offre Entreprise",
+    "features": {
+      "nda": {
+        "title": "Accord de Confidentialité (NDA)",
+        "desc": "Protection complète de vos données et idées avant de commencer."
+      },
+      "codeOwnership": {
+        "title": "Propriété Totale du Code Source",
+        "desc": "Le projet vous appartient à 100% avec livraison intégrale."
+      },
+      "backupSsl": {
+        "title": "Sauvegardes & SSL",
+        "desc": "Hébergement sécurisé, sauvegardes régulières et certificats SSL."
+      },
+      "integration": {
+        "title": "Intégration de Systèmes",
+        "desc": "Connexion directe avec vos ERP, passerelles de paiement et outils."
+      },
+      "scalability": {
+        "title": "Haute Évolutivité",
+        "desc": "Une architecture (Next.js) conçue pour accompagner votre croissance."
+      },
+      "slaSupport": {
+        "title": "Support & Engagement SLA",
+        "desc": "Support technique dédié avec délais de réponse garantis."
+      }
+    }
   },
 
+  "testimonialsSlider": {
+    "badge": "Témoignages",
+    "title": "Ce Que Disent Nos Clients",
+    "fallbackImageText": "Client",
+    "items": {
+      "item1": {
+        "name": "Sarah Al-Dossary",
+        "role": "PDG · Cliniques Lamsa",
+        "comment": "Respect total des délais et résultats tangibles avec un soutien continu après le lancement."
+      },
+      "item2": {
+        "name": "Khaled Al-Otaibi",
+        "role": "Directeur Marketing · Groupe Al-Otaibi",
+        "comment": "Notre site est devenu le premier résultat à Riyadh. Collaboration très professionnelle."
+      },
+      "item3": {
+        "name": "Arwa Al-Qahtani",
+        "role": "Fondatrice & PDG · Boutique Arwa",
+        "comment": "Nous avons doublé nos ventes en 3 mois après le lancement de la nouvelle boutique."
+      },
+      "item4": {
+        "name": "Ing. Faisal Al-Shammari",
+        "role": "Chef de Projet · Smart Tech Co.",
+        "comment": "Grand professionnalisme dans l'architecture logicielle. Réactivité et qualité au rendez-vous."
+      },
+      "item5": {
+        "name": "Mona Al-Ghamdi",
+        "role": "Directrice des Opérations · Plateforme EdTech",
+        "comment": "Le design UX est magnifique et fluide. L'engagement de nos étudiants a fortement augmenté."
+      }
+    }
+  },
   "why_us": {
     "title": "Pourquoi faire confiance à Traffic ?",
     "item1": "Une expertise au-delà des attentes",
@@ -100,6 +198,71 @@
       "question": "Besoin d'une réponse instantanée ?",
       "availability": "Nous sommes disponibles 24/7 pour le support technique",
       "button": "Contactez-nous maintenant"
+    }
+  },
+
+  "aboutPage": {
+    "metaTitle": "À Propos | Traffic Plus - Programmation & Marketing Digital",
+    "metaDescription": "Découvrez Traffic Plus, votre partenaire technologique et marketing.",
+    "ogTitle": "À Propos | Traffic Plus",
+    "ogDescription": "Notre histoire et notre succès dans la fourniture de solutions numériques.",
+    "teamAlt": "Équipe Traffic Plus",
+    "pageNotFound": "Page non trouvée.",
+    "breadcrumb": "À Propos",
+    "heroTitle": "À Propos de Nous",
+    "heroDescription": "Découvrez le parcours de Traffic Plus dans le façonnage de l'avenir numérique.",
+    "badge": "Notre Histoire & Succès",
+    "title": "Notre Histoire & Succès.. Qui sommes-nous ?",
+    "storyP1": "Traffic Plus est une entreprise de marketing digital spécialisée dans les solutions innovantes qui aident les magasins en ligne à développer leurs activités.",
+    "storyHighlight": "Nous ne vendons pas de promesses... Nous obtenons des résultats !",
+    "storyP2": "Avec une équipe créative et une solide expertise du marché du Golfe, nous proposons des services intégrés : gestion de campagnes, SEO, création de contenu et gestion des réseaux sociaux.",
+    "visualTag": "Innovation Hub",
+    "visualQuote": "Construire l'avenir.. avec un code créatif",
+    "stats": {
+      "projects": "Projets Réussis",
+      "partners": "Partenaires de Succès",
+      "experience": "Années d'Expérience",
+      "satisfaction": "Satisfaction Client"
+    },
+    "vision": {
+      "title": "Notre Vision",
+      "description": "Être le premier partenaire marketing et le moteur technologique incontournable dans le Golfe pour propulser les marques vers le leadership numérique."
+    },
+    "mission": {
+      "title": "Notre Mission",
+      "description": "Permettre aux entreprises d'atteindre une croissance réelle et durable grâce à des stratégies de marketing digital intelligentes. Nous contribuons directement à votre croissance !"
+    },
+    "whyUs": {
+      "title": "Pourquoi Traffic Plus ?",
+      "subtitle": "Parce que nous ne faisons pas du 'copier-coller'... Nous travaillons avec stratégie et passion !",
+      "point1Title": "Axe sur les Résultats",
+      "point1Desc": "Augmenter vos ventes et développer votre clientèle grâce à des analyses précises.",
+      "point2Title": "Solutions Sur Mesure",
+      "point2Desc": "Chaque marque bénéficie d'une stratégie adaptée à ses besoins.",
+      "point3Title": "Équipe Créative & Experte",
+      "point3Desc": "Des spécialistes réunis autour d'un seul objectif : votre réussite.",
+      "point4Title": "Services Tout-en-Un",
+      "point4Desc": "De la publicité Google/Meta au SEO et développement web.",
+      "point5Title": "Transparence & Support",
+      "point5Desc": "Un accompagnement pas à pas avec une transparence totale."
+    },
+    "features": {
+      "title": "Nos Avantages Concurrentiels",
+      "f1Title": "Expertise du Marché du Golfe",
+      "f1Desc": "Expérience spécialisée dans les besoins des clients du Golfe.",
+      "f2Title": "Haute Performance",
+      "f2Desc": "Sites propulsés par Next.js garantissant une vitesse fulgurante.",
+      "f3Title": "Design UI/UX Distinctif",
+      "f3Desc": "Interfaces conçues pour maximiser le taux de conversion.",
+      "f4Title": "Support Technique Humain",
+      "f4Desc": "Accès direct à des ingénieurs techniques 24/7."
+    },
+    "cta": {
+      "titlePart1": "Prêt à transformer votre vision numérique en ",
+      "titleHighlight": "réalité ?",
+      "description": "Rejoignez nos partenaires d'élite et laissez-nous créer une plateforme alliant luxe et performance.",
+      "startBtn": "Commencez Maintenant",
+      "consultBtn": "Consultation Gratuite"
     }
   },
 

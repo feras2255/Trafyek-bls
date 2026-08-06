@@ -18,6 +18,22 @@
     "view-details": "Details anzeigen",
     "view-all": "Alle anzeigen"
   },
+  "hero": {
+    "preTitle": "Ihr Ehrgeiz braucht einen smarten digitalen Pfad",
+    "title": "Führen Sie Ihr Unternehmen an die Spitze.",
+    "description": "Bei Traffic überschreiten wir traditionelle Designgrenzen, um digitale Plattformen und smarte Shops zu bauen, die Besucher in Erfolgs partner verwandeln.",
+    "button": "Kontaktieren Sie uns jetzt",
+    "ourWork": "Unsere Arbeiten",
+    "trustedBy": "+220 Kunden vertrauen uns bereits",
+    "rating": "4.9/5 Kundenbewertung",
+    "projectsCount": "+250 Projekte",
+    "delivered": "Erfolgreich geliefert"
+  },
+  "evaluationBanner": {
+    "title": "Erhalten Sie innerhalb von 24 Stunden eine kostenlose Analyse Ihrer Website",
+    "description": "Wir decken die Schwachstellen auf, die Sie Kunden kosten — völlig unverbindlich.",
+    "button": "Jetzt Analyse anfordern"
+  },
 
   "about": {
     "badge": "Wer wir sind",
@@ -37,6 +53,32 @@
     "projects": "Erfolgreiche Projekte",
     "clients": "Erfolgs-Partner",
     "experience": "Jahre Erfahrung"
+  },
+
+  "aiGeoSection": {
+    "badge": "Neu - Künstliche Intelligenz",
+    "titleMain": "Verbinden Sie Ihr Unternehmen mit KI &",
+    "titleHighlight": "GEO-Antwort-Engine-Optimierung",
+    "description": "Google ist nicht mehr allein — Ihre Kunden fragen ChatGPT, Gemini und Claude. Wir optimieren Ihre Website, damit sie direkt in KI-Antworten erscheint.",
+    "button": "Website für KI optimieren",
+    "features": {
+      "chatbot": {
+        "title": "KI-Assistent (Chatbot)",
+        "desc": "Antwortet Ihren Kunden und erfasst Bestellungen automatisch."
+      },
+      "geo": {
+        "title": "GEO-Optimierung",
+        "desc": "Strukturierte Inhalte, die von KI-Suchmaschinen zitiert werden."
+      },
+      "schema": {
+        "title": "Strukturierte Daten (Schema)",
+        "desc": "Für Top-Platzierungen in KI-Antworten und präzises Verständnis."
+      },
+      "automation": {
+        "title": "Marketing-Automatisierung",
+        "desc": "KI-gestützte Inhalte und automatisierte Kampagnen."
+      }
+    }
   },
   "services": {
     "title": "Unsere digitalen Lösungen",
@@ -61,16 +103,72 @@
   },
 
   "serviceRequest": {
-    "statusBadge": "Wir nehmen derzeit neue Projektanfragen entgegen",
-    "heroTitle": "Suchen Sie nicht nach <primary>einem einfachen Entwickler</primary>, suchen Sie nach <underlined>einem Wachstumspartner</underlined>",
-    "description": "Wir entwickeln intelligente digitale Lösungen, die Ihre Shop-Verkäufe auf <accent>Salla und Zid</accent> verdoppeln und Ihnen eine unvergessliche technologische Präsenz verschaffen.",
-    "planText": "Maßgeschneiderter technischer Geschäftsplan",
-    "ctaStart": "Projekt starten",
-    "ctaCall": "Sprechen Sie mit uns",
-    "socialProof": "Die Wahl ehrgeiziger Online-Shops in Saudi-Arabien",
-    "whatsappMessage": "Ich möchte eine kostenlose Beratung mit Traffic starten"
+    "statusBadge": "Für Unternehmen & Konzerne",
+    "title": "Sicherheit & Zuverlässigkeit auf Enterprise-Niveau",
+    "description": "Realisieren Sie Großprojekte mit klaren Sicherheits- und Compliance-Standards — volle Eigentümerschaft, Schutz und Systemintegration.",
+    "ctaBook": "Termin Buchen",
+    "ctaQuote": "Angebot Anfordern",
+    "whatsappMsg": "Hallo, ich möchte mich über das Enterprise-Paket informieren",
+    "features": {
+      "nda": {
+        "title": "Geheimhaltungsvereinbarung (NDA)",
+        "desc": "Vollständiger Schutz Ihrer Daten und Ideen vor Projektstart."
+      },
+      "codeOwnership": {
+        "title": "Volles Quellcode-Eigentum",
+        "desc": "Das Projekt gehört Ihnen zu 100% inkl. Quellcode-Übergabe."
+      },
+      "backupSsl": {
+        "title": "Backups & SSL-Verschlüsselung",
+        "desc": "Sicheres Hosting, regelmäßige Backups und SSL-Zertifikate."
+      },
+      "integration": {
+        "title": "Systemintegration",
+        "desc": "Anbindung an ERP-Systeme, Payment-Gateways und interne Tools."
+      },
+      "scalability": {
+        "title": "Hohe Skalierbarkeit",
+        "desc": "Zukunftssichere Next.js-Architektur für Ihr mögliches Wachstum."
+      },
+      "slaSupport": {
+        "title": "SLA-Support & Betreuung",
+        "desc": "Dedizierter technischer Support mit garantierten Reaktionszeiten."
+      }
+    }
   },
 
+  "testimonialsSlider": {
+    "badge": "Kundenstimmen",
+    "title": "Was Unsere Kunden Sagen",
+    "fallbackImageText": "Kunde",
+    "items": {
+      "item1": {
+        "name": "Sarah Al-Dossary",
+        "role": "CEO · Lamsa Kliniken",
+        "comment": "Absolute Termintreue und spürbare Ergebnisse mit kontinuierlichem Support nach dem Launch."
+      },
+      "item2": {
+        "name": "Khaled Al-Otaibi",
+        "role": "Marketingleiter · Al-Otaibi Gruppe",
+        "comment": "Unsere Website ist jetzt das Top-Ergebnis in Riad. Sehr professionelle Zusammenarbeit."
+      },
+      "item3": {
+        "name": "Arwa Al-Qahtani",
+        "role": "Gründerin & CEO · Arwa Store",
+        "comment": "Wir haben unseren Umsatz innerhalb von nur 3 Monaten nach dem Relaunch verdoppelt."
+      },
+      "item4": {
+        "name": "Ing. Faisal Al-Shammari",
+        "role": "Projektleiter · Smart Tech Co.",
+        "comment": "Höchste Professionalität bei der Softwarearchitektur. Die Qualität hat unsere Erwartungen übertroffen."
+      },
+      "item5": {
+        "name": "Mona Al-Ghamdi",
+        "role": "COO · Bildungsplattform",
+        "comment": "Das UX-Design war großartig und nahtlos. Die Nutzerbindung ist deutlich gestiegen."
+      }
+    }
+  },
   "why_us": {
     "title": "Warum Sie Traffic vertrauen können?",
     "item1": "Expertise über den Erwartungen",
@@ -103,6 +201,70 @@
     }
   },
 
+  "aboutPage": {
+    "metaTitle": "Über Uns | Traffic Plus - Programmierung & Digitales Marketing",
+    "metaDescription": "Entdecken Sie Traffic Plus, Ihren Tech- und Marketingpartner.",
+    "ogTitle": "Über Uns | Traffic Plus",
+    "ogDescription": "Unsere Geschichte und Erfolge bei der Bereitstellung digitaler Lösungen.",
+    "teamAlt": "Traffic Plus Team",
+    "pageNotFound": "Seite nicht gefunden.",
+    "breadcrumb": "Über Uns",
+    "heroTitle": "Über Uns",
+    "heroDescription": "Entdecken Sie die Reise von Traffic Plus zur Gestaltung der digitalen Zukunft.",
+    "badge": "Unsere Geschichte & Erfolg",
+    "title": "Unsere Geschichte & Erfolg.. Wer sind wir?",
+    "storyP1": "Traffic Plus ist eine Agentur für digitales Marketing, die innovative Lösungen bietet, um E-Commerce-Shops beim Wachstum zu unterstützen.",
+    "storyHighlight": "Wir verkaufen keine Versprechen... Wir liefern Ergebnisse!",
+    "storyP2": "Mit einem kreativen Team und tiefem Fachwissen bieten wir integrierte Dienstleistungen von Kampagnenmanagement über SEO bis hin zur Webentwicklung.",
+    "visualTag": "Innovation Hub",
+    "visualQuote": "Die Zukunft bauen.. mit kreativem Code",
+    "stats": {
+      "projects": "Erfolgreiche Projekte",
+      "partners": "Erfolgspartner",
+      "experience": "Jahre Erfahrung",
+      "satisfaction": "Kundenzufriedenheit"
+    },
+    "vision": {
+      "title": "Unsere Vision",
+      "description": "Der führende Marketing- und Technologiepartner in der Golfregion zu sein, der Marken zur digitalen Marktführerschaft führt."
+    },
+    "mission": {
+      "title": "Unsere Mission",
+      "description": "Unternehmen durch intelligente digitale Marketingstrategien zu nachhaltigem Wachstum zu verhelfen. Wir fördern Ihr echtes Wachstum!"
+    },
+    "whyUs": {
+      "title": "Warum Traffic Plus?",
+      "subtitle": "Weil wir nicht nach Schema F arbeiten... Wir arbeiten mit Strategie und Engagement!",
+      "point1Title": "Fokus auf Ergebnisse",
+      "point1Desc": "Steigerung von Umsatz und Kundenbindung durch präzise Datenanalysen.",
+      "point2Title": "Maßgeschneiderte Lösungen",
+      "point2Desc": "Jede Marke erhält eine individuell angepasste Strategie.",
+      "point3Title": "Kreatives Expertenteam",
+      "point3Desc": "Ein vielfältiges Team, das gemeinsam an Ihrem Erfolg arbeitet.",
+      "point4Title": "Komplettlösungen aus einer Hand",
+      "point4Desc": "Von Google Ads und SEO bis hin zur professionellen Entwicklung.",
+      "point5Title": "Transparenz & Support",
+      "point5Desc": "Wir begleiten Sie Schritt für Schritt mit voller Transparenz."
+    },
+    "features": {
+      "title": "Unsere Wettbewerbsvorteile",
+      "f1Title": "Golf-Marktexpertise",
+      "f1Desc": "Spezialisierte Erfahrung für Kundenanforderungen in der Golfregion.",
+      "f2Title": "Höchste Performance",
+      "f2Desc": "Next.js-gestützte Websites mit blitzschneller Ladezeit.",
+      "f3Title": "Herausragendes UI/UX Design",
+      "f3Desc": "Benutzeroberflächen zur Maximierung von Konversionsraten.",
+      "f4Title": "Persönlicher Technischer Support",
+      "f4Desc": "Direkter Zugang zu Fachingenieuren rund um die Uhr."
+    },
+    "cta": {
+      "titlePart1": "Bereit, Ihre digitale Vision in ",
+      "titleHighlight": "die Realität umzusetzen?",
+      "description": "Schließen Sie sich unseren Partnern an und lassen Sie uns eine Plattform bauen, die Leistung und Eleganz vereint.",
+      "startBtn": "Jetzt Starten",
+      "consultBtn": "Kostenlose Beratung"
+    }
+  },
   "contact": {
     "hero": {
       "title": "Lassen Sie uns gemeinsam etwas Großartiges erschaffen!",

@@ -19,6 +19,23 @@
     "view-all": "Tümünü Gör"
   },
 
+  "hero": {
+    "preTitle": "Hedefleriniz akıllı bir dijital yol gerektirir",
+    "title": "İşinizi En Ön Sıraya Taşıyın.",
+    "description": "Traffic'te, ziyaretçileri başarı ortaklarına dönüştüren dijital platformlar ve akıllı mağazalar inşa etmek için geleneksel tasarım sınırlarını aşıyoruz.",
+    "button": "Hemen İletişime Geçin",
+    "ourWork": "Çalışmalarımız",
+    "trustedBy": "+220 müşteri bize güvendi",
+    "rating": "4.9/5 Müşteri Değerlendirmesi",
+    "projectsCount": "+250 Proje",
+    "delivered": "Başarıyla Teslim Edildi"
+  },
+  "evaluationBanner": {
+    "title": "Mevcut web siteniz için 24 saat içinde ücretsiz bir analiz alın",
+    "description": "Size müşteri kaybettiren zayıf noktaları ortaya çıkarıyoruz — hiçbir taahhüt olmadan.",
+    "button": "Şimdi Ücretsiz Analiz İsteyin"
+  },
+
   "about": {
     "badge": "Biz Kimiz",
     "title": "Traffic... Dijital Büyüme İçin Stratejik Ortağınız",
@@ -37,6 +54,32 @@
     "projects": "Başarılı Projeler",
     "clients": "Başarı Ortakları",
     "experience": "Yıllık Deneyim"
+  },
+
+  "aiGeoSection": {
+    "badge": "Yeni - Yapay Zeka",
+    "titleMain": "İşinizi Yapay Zekaya Bağlayın &",
+    "titleHighlight": "GEO Yanıt Motoru Optimizasyonu",
+    "description": "Müşterileriniz artık sadece Google'da aramıyor; ChatGPT, Gemini ve Claude'a soruyor. Sitenizi yapay zeka yanıtlarında görünecek şekilde optimize ediyoruz.",
+    "button": "Sitenizi Yapay Zekaya Uyarlayın",
+    "features": {
+      "chatbot": {
+        "title": "Yapay Zeka Asistanı (Chatbot)",
+        "desc": "Müşterilerinize yanıt verir ve siparişleri otomatik toplar."
+      },
+      "geo": {
+        "title": "GEO Optimizasyonu",
+        "desc": "Yapay zeka motorlarının kaynak gösterdiği yapılandırılmış içerik."
+      },
+      "schema": {
+        "title": "Yapılandırılmış Veri (Schema)",
+        "desc": "Öne çıkan yanıtlar ve işletmenizin net anlaşılması için."
+      },
+      "automation": {
+        "title": "Pazarlama Otomasyonu",
+        "desc": "Yapay zeka destekli içerik üretimi ve kampanyalar."
+      }
+    }
   },
   "services": {
     "title": "Dijital Çözümlerimiz",
@@ -61,16 +104,72 @@
   },
 
   "serviceRequest": {
-    "statusBadge": "Şu anda yeni proje taleplerini kabul ediyoruz",
-    "heroTitle": "<primary>Sadece bir yazılımcı</primary> aramayın, <underlined>bir büyüme ortağı</underlined> arayın",
-    "description": "<accent>Salla ve Zid</accent> üzerindeki mağaza satışlarınızı ikiye katlayan ve size unutulmaz bir teknolojik varlık kazandıran akıllı dijital çözümler geliştiriyoruz.",
-    "planText": "Özelleştirilmiş teknik iş planı",
-    "ctaStart": "Projenizi başlatın",
-    "ctaCall": "Bizimle konuşun",
-    "socialProof": "Suudi Arabistan'daki iddialı mağazaların tercihi",
-    "whatsappMessage": "Traffic ile ücretsiz bir danışmanlık başlatmak istiyorum"
+    "statusBadge": "Kurumsal ve Şirketler İçin",
+    "title": "Kurumsal Düzeyde Güvenlik ve Güvenilirlik",
+    "description": "Büyük ölçekli projelerinizi net güvenlik standartlarıyla yönetin — tam sahiplik, koruma ve sistemlerinizle entegrasyon.",
+    "ctaBook": "Toplantı Planlayın",
+    "ctaQuote": "Teklif Alın",
+    "whatsappMsg": "Merhaba, kurumsal paket hakkında bilgi almak istiyorum",
+    "features": {
+      "nda": {
+        "title": "Gizlilik Sözleşmesi (NDA)",
+        "desc": "Proje başlamadan önce verileriniz ve fikirleriniz için tam koruma."
+      },
+      "codeOwnership": {
+        "title": "Tam Kaynak Kod Sahipliği",
+        "desc": "Projeniz %100 size aittir, kaynak kodlar eksiksiz teslim edilir."
+      },
+      "backupSsl": {
+        "title": "Yedekleme ve SSL",
+        "desc": "Güvenli barındırma, düzenli yedekler ve SSL şifreleme."
+      },
+      "integration": {
+        "title": "Sistem Entegrasyonu",
+        "desc": "ERP, ödeme altyapıları ve iç sistemlerinizle tam entegrasyon."
+      },
+      "scalability": {
+        "title": "Yüksek Ölçeklenebilirlik",
+        "desc": "Gelecekteki büyümenize uyum sağlayan Next.js mimarisi."
+      },
+      "slaSupport": {
+        "title": "SLA ve Destek Anlaşması",
+        "desc": "Belirli yanıt süreleriyle yayın sonrası kesintisiz teknik destek."
+      }
+    }
   },
 
+  "testimonialsSlider": {
+    "badge": "Müşteri Yorumları",
+    "title": "Müşterilerimiz Ne Diyor?",
+    "fallbackImageText": "Müşteri",
+    "items": {
+      "item1": {
+        "name": "Sarah Al-Dossary",
+        "role": "CEO · Lamsa Klinikleri",
+        "comment": "Zamanında teslimat ve somut sonuçlar. Yayından sonra da kesintisiz destek sağladılar."
+      },
+      "item2": {
+        "name": "Khaled Al-Otaibi",
+        "role": "Pazarlama Müdürü · Al-Otaibi Grubu",
+        "comment": "Web sitemiz Riyad'daki potansiyel müşterilerimiz için ilk sırada çıkıyor. Çok profesyoneller."
+      },
+      "item3": {
+        "name": "Arwa Al-Qahtani",
+        "role": "Kurucu & CEO · Arwa Mağazası",
+        "comment": "Yeni mağazanın açılışından sonraki 3 ay içinde satışlarımızı ikiye katladık."
+      },
+      "item4": {
+        "name": "Müh. Faisal Al-Shammari",
+        "role": "Proje Müdürü · Smart Tech Co.",
+        "comment": "Yazılım mimarisinde yüksek profesyonellik. Hız ve kalite beklentilerimizi aştı."
+      },
+      "item5": {
+        "name": "Mona Al-Ghamdi",
+        "role": "Operasyon Direktörü · EdTech Platformu",
+        "comment": "Kullanıcı deneyimi tasarımı harika ve akıcıydı. Öğrenci katılım oranımız gözle görülür şekilde arttı."
+      }
+    }
+  },
   "why_us": {
     "title": "Neden Traffic'e Güvenmelisiniz?",
     "item1": "Beklentilerin Ötesinde Uzmanlık",
@@ -103,6 +202,70 @@
     }
   },
 
+  "aboutPage": {
+    "metaTitle": "Hakkımızda | Traffic Plus - Yazılım & Dijital Pazarlama",
+    "metaDescription": "Teknoloji ve dijital pazarlama ortağınız Traffic Plus'ı keşfedin.",
+    "ogTitle": "Hakkımızda | Traffic Plus",
+    "ogDescription": "Yenilikçi dijital çözümler sunma hikayemiz ve başarımız.",
+    "teamAlt": "Traffic Plus Ekibi",
+    "pageNotFound": "Sayfa bulunamadı.",
+    "breadcrumb": "Hakkımızda",
+    "heroTitle": "Hakkımızda",
+    "heroDescription": "Dijital geleceği şekillendiren Traffic Plus yolculuğunu keşfedin.",
+    "badge": "Hikayemiz ve Başarımız",
+    "title": "Hikayemiz ve Başarımız.. Biz Kimiz?",
+    "storyP1": "Traffic Plus, e-ticaret mağazalarının büyümesine ve somut sonuçlar elde etmesine yardımcı olan dijital pazarlama ajansıdır.",
+    "storyHighlight": "Vaat satmıyoruz... Sonuç üretiyoruz!",
+    "storyP2": "Yaratıcı ekibimiz ve Körfez pazarındaki derin deneyimimizle reklam yönetimi, SEO, içerik ve yazılım geliştirme dâhil bütünleşik hizmetler sunuyoruz.",
+    "visualTag": "Innovation Hub",
+    "visualQuote": "Geleceği inşa ediyoruz.. yaratıcı kodlarla",
+    "stats": {
+      "projects": "Başarılı Proje",
+      "partners": "Başarı Ortağı",
+      "experience": "Yıllık Deneyim",
+      "satisfaction": "Müşteri Memnuniyeti"
+    },
+    "vision": {
+      "title": "Vizyonumuz",
+      "description": "Körfez bölgesinde bir numaralı pazarlama ortağı ve teknoloji itici gücü olarak markaları dijital liderliğe taşımak."
+    },
+    "mission": {
+      "title": "Misyonumuz",
+      "description": "İşletmelerin akıllı dijital pazarlama stratejileriyle sürdürülebilir büyüme elde etmelerini sağlamak. Büyümenize doğrudan katkıda bulunuyoruz!"
+    },
+    "whyUs": {
+      "title": "Neden Traffic Plus?",
+      "subtitle": "'Kopyala-yapıştır' mantığıyla çalışmıyoruz... Strateji ve tutkuyla çalışıyoruz!",
+      "point1Title": "Sonuç Odaklı Yaklaşım",
+      "point1Desc": "Veri analizleriyle satışlarınızı ve müşteri etkileşiminizi artırmak.",
+      "point2Title": "Kişiselleştirilmiş Çözümler",
+      "point2Desc": "Her marka için özel olarak tasarlanmış stratejiler.",
+      "point3Title": "Uzman ve Yaratıcı Ekip",
+      "point3Desc": "Başarınız için çalışan uzman bir kadro.",
+      "point4Title": "Tek Çatı Altında Tüm Hizmetler",
+      "point4Desc": "Google/Meta reklamlarından SEO ve web geliştirmeye kadar her şey.",
+      "point5Title": "Şeffaf İletişim ve Destek",
+      "point5Desc": "Süreç boyunca şeffaf ve kesintisiz destek."
+    },
+    "features": {
+      "title": "Rekabetçi Avantajlarımız",
+      "f1Title": "Körfez Pazarı Uzmanlığı",
+      "f1Desc": "Körfez müşterilerinin ihtiyaçlarına yönelik uzmanlaşmış deneyim.",
+      "f2Title": "Yüksek Performans",
+      "f2Desc": "Işık hızında performans sağlayan Next.js tabanlı web siteleri.",
+      "f3Title": "Özgün UI/UX Tasarımı",
+      "f3Desc": "Dönüşüm oranlarını artırmak için tasarlanmış arayüzler.",
+      "f4Title": "İnsan Odaklı Teknik Destek",
+      "f4Desc": "7/24 uzman mühendislerle doğrudan iletişim."
+    },
+    "cta": {
+      "titlePart1": "Dijital vizyonunuzu gerçeğe dönüştürmeye ",
+      "titleHighlight": "hazır mısınız?",
+      "description": "Seçkin başarı ortaklarımızın arasına katılın, lüks ve performansı birleştiren platformunuzu inşa edelim.",
+      "startBtn": "Yolculuğa Başla",
+      "consultBtn": "Ücretsiz Danışmanlık"
+    }
+  },
   "contact": {
     "hero": {
       "title": "Birlikte Harika Bir Şey İnşa Edelim!",

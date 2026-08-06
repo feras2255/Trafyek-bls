@@ -39,11 +39,11 @@ export default function ProjectCard({ item, isAr }) {
       >
         {/* details */}
         <div
-          className={`text-center px-6 transition-transform duration-500 delay-75 
+          className={`text-center px-2 md:px-6 transition-transform duration-500 delay-75 
           ${showOverlay ? "translate-y-0" : "transform translate-y-8 group-hover:translate-y-0"}
         `}
         >
-          <h3 className="text-text text-lg md:text-2xl font-black mb-2 drop-shadow-md">
+          <h3 className="text-text text-sm md:text-2xl font-black mb-2 drop-shadow-md">
             {item.title}
           </h3>
           <p className="text-text/90 text-xs md:text-sm line-clamp-2 leading-relaxed mb-4 md:mb-8 max-w-[250px] mx-auto">
@@ -57,10 +57,10 @@ export default function ProjectCard({ item, isAr }) {
               // stopPropagation
               aria-label="عرض التفاصيل"
               onClick={(e) => e.stopPropagation()}
-              className="size-12 md:size-14 bg-white text-accent rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-2xl hover:-translate-y-2 active:scale-90"
+              className="bg-white p-2 text-accent rounded-2xl flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 shadow-2xl hover:-translate-y-2 active:scale-90"
               title={isAr ? "عرض التفاصيل" : "View Details"}
             >
-              <FiEye className="text-2xl md:text-3xl" />
+              <FiEye className="text-sm md:text-3xl" />
             </Link>
 
             {item.project_link && (
@@ -69,10 +69,10 @@ export default function ProjectCard({ item, isAr }) {
                 onClick={(e) => e.stopPropagation()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="size-12 md:size-14 bg-primary text-white rounded-2xl flex items-center justify-center hover:bg-white hover:text-primary transition-all duration-300 shadow-2xl hover:-translate-y-2 active:scale-90"
+                className="bg-primary p-2 text-white rounded-2xl flex items-center justify-center hover:bg-white hover:text-primary transition-all duration-300 shadow-2xl hover:-translate-y-2 active:scale-90"
                 title={isAr ? "زيارة الموقع" : "Visit Site"}
               >
-                <FiExternalLink className="text-2xl md:text-3xl" />
+                <FiExternalLink className="text-sm md:text-3xl" />
               </a>
             )}
           </div>

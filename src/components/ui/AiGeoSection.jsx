@@ -1,11 +1,14 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
-export default function AiGeoSection({ isAr = true }) {
+export default function AiGeoSection() {
+  const t = useTranslations("aiGeoSection");
+
   const features = [
     {
       id: 1,
-      title: "مساعد ذكي (Chatbot)",
-      desc: "يرد على عملائك ويجمع الطلبات تلقائياً.",
+      title: t("features.chatbot.title"),
+      desc: t("features.chatbot.desc"),
       icon: (
         <svg
           className="w-6 h-6 text-[#5E3286]"
@@ -24,8 +27,8 @@ export default function AiGeoSection({ isAr = true }) {
     },
     {
       id: 2,
-      title: "تحسين GEO",
-      desc: "محتوى وبنية تقتبس منها محركات الذكاء الاصطناعي.",
+      title: t("features.geo.title"),
+      desc: t("features.geo.desc"),
       icon: (
         <svg
           className="w-6 h-6 text-[#5E3286]"
@@ -44,8 +47,8 @@ export default function AiGeoSection({ isAr = true }) {
     },
     {
       id: 3,
-      title: "بيانات منظمة (Schema)",
-      desc: "لتصدر الإجابات وفهم أدق لنشاطك.",
+      title: t("features.schema.title"),
+      desc: t("features.schema.desc"),
       icon: (
         <svg
           className="w-6 h-6 text-[#5E3286]"
@@ -64,8 +67,8 @@ export default function AiGeoSection({ isAr = true }) {
     },
     {
       id: 4,
-      title: "أتمتة التسويق",
-      desc: "محتوى وحملات مدعومة بالذكاء الاصطناعي.",
+      title: t("features.automation.title"),
+      desc: t("features.automation.desc"),
       icon: (
         <svg
           className="w-6 h-6 text-[#5E3286]"
@@ -90,32 +93,18 @@ export default function AiGeoSection({ isAr = true }) {
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-200/40 blur-[100px] rounded-full pointer-events-none" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
-          <div
-            className={`lg:col-span-5 space-y-6 ${isAr ? "text-right" : "text-left"}`}
-          >
+          <div className="lg:col-span-5 space-y-6 text-start">
             <div className="inline-block bg-[#5E3286] text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-wide shadow-sm">
-              {isAr
-                ? "جديد - الذكاء الاصطناعي"
-                : "New - Artificial Intelligence"}
+              {t("badge")}
             </div>
 
-            <h2 className="text-2xl md:text-4xl lg:text-[42px] font-black text-[#1E293B] leading-tight">
-              {isAr ? (
-                <>
-                  نربط أعمالك بالذكاء الاصطناعي <br />
-                  <span className="text-[#5E3286]">
-                    وتحسين محركات الإجابة GEO
-                  </span>
-                </>
-              ) : (
-                "Connecting your business to AI & Improving GEO answers"
-              )}
+            <h2 className="text-2xl md:text-4xl  font-black text-[#1E293B] leading-tight">
+              {t("titleMain")} <br />
+              <span className="text-[#5E3286]">{t("titleHighlight")}</span>
             </h2>
 
             <p className="text-sm md:text-base text-gray-600 leading-relaxed">
-              {isAr
-                ? "لم يعد البحث في جوجل وحده — عملاؤك يسألون ChatGPT وGemini وClaude AI. نَهيئ موقعك ليظهر داخل إجابات الذكاء الاصطناعي، لا في نتائج البحث فقط."
-                : "Your customers are asking AI engines directly. We optimize your brand to show up inside AI answers."}
+              {t("description")}
             </p>
 
             <div>
@@ -123,13 +112,12 @@ export default function AiGeoSection({ isAr = true }) {
                 href="#optimize"
                 className="inline-flex items-center justify-center bg-[#5E3286] hover:bg-[#4d286d] text-white font-bold px-8 py-4 rounded-2xl shadow-lg shadow-purple-900/20 transition-all duration-300 text-sm md:text-base"
               >
-                {isAr
-                  ? "هيئ موقعك للذكاء الاصطناعي"
-                  : "Optimize Your Site for AI"}
+                {t("button")}
               </Link>
             </div>
           </div>
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 ">
+
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
             {features.map((item) => (
               <div
                 key={item.id}

@@ -1,5 +1,5 @@
 "use client";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function CategoriesFilter({
   categories,
@@ -8,6 +8,7 @@ export default function CategoriesFilter({
   type,
 }) {
   const t = useTranslations("ourwork");
+  const locale = useLocale();
 
   return (
     <div className="w-full mb-10 overflow-hidden">
@@ -17,7 +18,7 @@ export default function CategoriesFilter({
         </span>
       </h2>
 
-      {/* حاوية الفلتر */}
+      {/* filter container */}
       <div className="relative w-full max-w-full">
         <div
           className="bg-secondary w-full md:w-fit mx-auto flex items-center justify-start md:justify-center gap-2 py-2 px-3 rounded-2xl md:rounded-full overflow-x-auto no-scrollbar scroll-smooth"
@@ -26,10 +27,10 @@ export default function CategoriesFilter({
             msOverflowStyle: "none",
           }}
         >
-          {/* زر الكل */}
+          {/* all button */}
           <button
             onClick={() => setSelected("all")}
-            aria-label="الكل"
+            aria-label={t("all")}
             className={`whitespace-nowrap text-xs md:text-base px-4 md:px-6 py-2.5 rounded-xl md:rounded-full transition-all duration-300 cursor-pointer shrink-0 font-bold ${
               selected === "all"
                 ? "bg-linear-to-r from-primary to-hover text-text shadow-md shadow-primary/20"
@@ -39,24 +40,30 @@ export default function CategoriesFilter({
             {t("all")}
           </button>
 
-          {/* أزرار التصنيفات */}
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelected(cat.id)}
-              aria-label={cat.title}
-              className={`whitespace-nowrap text-xs md:text-sm px-4 md:px-5 py-2.5 font-semibold rounded-xl md:rounded-full transition-all duration-300 cursor-pointer shrink-0 ${
-                selected === cat.id
-                  ? "bg-linear-to-r from-primary to-hover text-text shadow-md shadow-primary/20"
-                  : "bg-transparent text-maintext hover:text-primary"
-              }`}
-            >
-              {cat.title}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const categoryTitle =
+              cat[`title_${locale}`] ||
+              cat.title_en ||
+              cat.title_ar ||
+              cat.title;
+
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setSelected(cat.id)}
+                aria-label={categoryTitle}
+                className={`whitespace-nowrap text-xs md:text-sm px-4 md:px-5 py-2.5 font-semibold rounded-xl md:rounded-full transition-all duration-300 cursor-pointer shrink-0 ${
+                  selected === cat.id
+                    ? "bg-linear-to-r from-primary to-hover text-text shadow-md shadow-primary/20"
+                    : "bg-transparent text-maintext hover:text-primary"
+                }`}
+              >
+                {categoryTitle}
+              </button>
+            );
+          })}
         </div>
 
-        {/* إخفاء شريط التمرير لمتصفحات الويب الحديثة */}
         <style jsx>{`
           .no-scrollbar::-webkit-scrollbar {
             display: none;
