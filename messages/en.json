@@ -32,6 +32,37 @@
       "marketing": "Results-Driven Digital Marketing",
       "web": "Fast & Responsive Web Development",
       "ecommerce": "High-Converting E-commerce Design"
+    },
+    "hero_title": "Your digital partner for 6 years",
+    "hero_description": "A team of designers, developers and marketers working together to turn your digital presence into a real growth engine for your business.",
+    "story": {
+      "badge": "Our story",
+      "title": "We started with a simple idea: every business deserves a digital presence worthy of it",
+      "description": "Since we launched we've helped dozens of companies and retailers build websites, online stores and marketing campaigns that deliver measurable results — from more traffic to real sales growth.",
+      "image_alt": "The Traffic Plus team at the office",
+      "stat": "10+",
+      "stat_label": "Projects delivered each year"
+    },
+    "values": {
+      "title": "How we work",
+      "description": "What sets our approach apart on every project",
+      "transparency": {
+        "title": "Transparency",
+        "description": "Clear reporting and measurable results at every stage."
+      },
+      "quality": {
+        "title": "Quality",
+        "description": "We don't hand over a project until we're fully happy with it."
+      },
+      "growth": {
+        "title": "Continuous growth",
+        "description": "We build long-term relationships based on always improving results."
+      }
+    },
+    "cta": {
+      "title": "Ready to start your project with us?",
+      "description": "Book a free consultation with our team today.",
+      "button": "Get in touch"
     }
   },
   "stats": {
