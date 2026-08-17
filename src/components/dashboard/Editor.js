@@ -9,9 +9,19 @@ const Editor = memo(({ data, onChange, isAr }) => {
   const quillRef = useRef(null);
   const hasInitialized = useRef(false);
 
+  // Quill is initialised exactly once, but the init closure reads data, isAr
+  // and onChange. Listing them as effect dependencies would tear the editor
+  // down and rebuild it on every keystroke, so the latest values are held in
+  // refs instead. Same behaviour as before, without the stale-closure warning.
+  const propsRef = useRef({ data, onChange, isAr });
+  propsRef.current = { data, onChange, isAr };
+
   useEffect(() => {
     if (hasInitialized.current) return;
     hasInitialized.current = true;
+
+    const { data: initialData, onChange: onChangeProp, isAr: rtl } =
+      propsRef.current;
 
     const editorDiv = document.createElement("div");
     wrapperRef.current.appendChild(editorDiv);
@@ -21,7 +31,7 @@ const Editor = memo(({ data, onChange, isAr }) => {
 
       const quill = new Quill(editorDiv, {
         theme: "snow",
-        placeholder: isAr ? "ابدأ الكتابة هنا..." : "Start writing...",
+        placeholder: rtl ? "ابدأ الكتابة هنا..." : "Start writing...",
         modules: {
           toolbar: {
             container: [
@@ -50,7 +60,7 @@ const Editor = memo(({ data, onChange, isAr }) => {
                   const range = quill.getSelection(true);
                   quill.insertText(
                     range.index,
-                    isAr ? "جاري رفع الصورة..." : "Uploading image...",
+                    rtl ? "جاري رفع الصورة..." : "Uploading image...",
                   );
 
                   try {
@@ -72,13 +82,13 @@ const Editor = memo(({ data, onChange, isAr }) => {
                     } = supabase.storage.from("blogs").getPublicUrl(filePath);
 
                     // احذف نص الـ loading وأدرج الصورة
-                    quill.deleteText(range.index, isAr ? 18 : 18);
+                    quill.deleteText(range.index, rtl ? 18 : 18);
                     quill.insertEmbed(range.index, "image", publicUrl);
                     quill.setSelection(range.index + 1);
                   } catch (error) {
-                    quill.deleteText(range.index, isAr ? 18 : 18);
+                    quill.deleteText(range.index, rtl ? 18 : 18);
                     alert(
-                      isAr
+                      rtl
                         ? "فشل رفع الصورة: " + error.message
                         : "Upload failed: " + error.message,
                     );
@@ -92,19 +102,19 @@ const Editor = memo(({ data, onChange, isAr }) => {
 
       quillRef.current = quill;
 
-      if (isAr) {
+      if (rtl) {
         quill.format("direction", "rtl");
         quill.format("align", "right");
       }
 
-      quill.root.setAttribute("dir", isAr ? "rtl" : "ltr");
+      quill.root.setAttribute("dir", rtl ? "rtl" : "ltr");
 
-      if (data) {
-        quill.root.innerHTML = data;
+      if (initialData) {
+        quill.root.innerHTML = initialData;
       }
 
       quill.on("text-change", () => {
-        onChange(quill.root.innerHTML);
+        onChangeProp(quill.root.innerHTML);
       });
     };
 
