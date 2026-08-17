@@ -21,7 +21,68 @@
     "services": "Services",
     "d-services": "We provide innovative digital solutions to help you grow your business and enhance your digital presence.",
     "view-details": "View Details",
-    "view-all": "View All"
+    "view-all": "View All",
+    "hero": {
+      "badge": "Digital marketing + AI solutions",
+      "title_lead": "We turn your company into a business that runs on",
+      "title_highlight": "artificial intelligence",
+      "description": "We connect your systems to AI so they work for you — automation, more customers, lower costs. Results measured in profit, not promises.",
+      "cta_primary": "Book a free consultation",
+      "cta_secondary": "See our work",
+      "years": "Years of experience",
+      "years_value": "6",
+      "projects": "Projects delivered",
+      "mock_leads": "New leads",
+      "mock_conversion": "Conversion rate"
+    },
+    "why": {
+      "title": "Why choose us?",
+      "experience": {
+        "title": "Field experience",
+        "description": "Years working with companies and stores in the Saudi market — not theory."
+      },
+      "results": {
+        "title": "Measurable results",
+        "description": "We agree on clear metrics before starting, and report on them regularly."
+      },
+      "ai": {
+        "title": "AI solutions",
+        "description": "Automation, smart assistants, and preparing your site to surface in AI answers."
+      },
+      "google": {
+        "title": "Google Maps expertise",
+        "description": "Real specialism in local SEO, business verification and fixing suspensions."
+      },
+      "projects": {
+        "title": "End-to-end delivery",
+        "description": "Websites, stores, apps and ad campaigns from one team."
+      },
+      "support": {
+        "title": "Ongoing support",
+        "description": "Post-launch support from 30 days up to 180 days depending on the package."
+      }
+    },
+    "ai": {
+      "title": "We connect your whole business to AI",
+      "description": "We don't bolt an AI tool onto your business. We rebuild the customer journey so it runs itself from first visit to close.",
+      "automate": {
+        "title": "Process automation",
+        "description": "Automatic replies, lead follow-up and reports built with no manual work."
+      },
+      "attract": {
+        "title": "Visibility in AI answers",
+        "description": "We prepare your content to be cited in Google, ChatGPT and Gemini answers."
+      },
+      "decide": {
+        "title": "Decisions from data",
+        "description": "Dashboards showing which channel brings real customers and which burns budget."
+      }
+    },
+    "cta": {
+      "title": "Your company's future starts today",
+      "description": "A free consultation where we understand your goal and map the shortest route to it.",
+      "button": "Get started"
+    }
   },
   "about": {
     "badge": "Who We Are",
