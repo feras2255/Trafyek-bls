@@ -539,5 +539,15 @@
     "cta_title": "Need help putting this into practice?",
     "cta_description": "Our team does this for clients every day.",
     "cta_button": "Free consultation"
+  },
+  "city": {
+    "badge": "Local services",
+    "hero_title": "Digital marketing & SEO in {city}",
+    "hero_description": "We help companies and stores in {city} reach local customers and turn them into sales.",
+    "local_title": "The digital market in {city}",
+    "faq_title": "Questions from our clients in {city}",
+    "cta_title": "Ready to start in {city}?",
+    "cta_description": "A free consultation where we map your local market and the fastest route to results.",
+    "cta_button": "Get in touch"
   }
 }

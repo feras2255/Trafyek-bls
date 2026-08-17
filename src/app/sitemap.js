@@ -40,6 +40,32 @@ export default async function sitemap() {
     supabaseAdmin.from("pages").select("slug, updated_at, created_at"),
   ]);
 
+  // City pages, published only. Wrapped because city_pages does not exist until
+  // migration 008 runs, and a missing table must not take down the sitemap.
+  let cities = [];
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("city_pages")
+      .select("slug, updated_at, created_at")
+      .eq("is_published", true);
+    if (!error) cities = data ?? [];
+  } catch {
+    cities = [];
+  }
+
+  const cityRoutes = locales.flatMap((locale) =>
+    cities.map((c) => ({
+      url: `${baseUrl}/${locale}/cities/${c.slug}`,
+      lastModified: c.updated_at
+        ? new Date(c.updated_at)
+        : c.created_at
+          ? new Date(c.created_at)
+          : new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    })),
+  );
+
   const projectRoutes = locales.flatMap((locale) =>
     (projects || []).map((p) => ({
       url: `${baseUrl}/${locale}/ourwork/${p.id}`,
@@ -93,5 +119,6 @@ export default async function sitemap() {
     ...blogRoutes,
     ...serviceRoutes,
     ...pageRoutes,
+    ...cityRoutes,
   ];
 }
