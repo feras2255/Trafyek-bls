@@ -5,7 +5,7 @@ import { FiPlus, FiMinus, FiHelpCircle, FiPhoneCall } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function FAQ() {
+export default function FAQ({ whatsapp }) {
   const t = useTranslations("faq");
   const locale = useLocale();
   const isRtl = locale === "ar";
@@ -130,7 +130,7 @@ export default function FAQ() {
               </div>
 
               <Link
-                href="https://wa.me/966530446151"
+                href={whatsapp ? `https://wa.me/${whatsapp}` : "/contact"}
                 aria-label="واتساب"
                 className="flex items-center justify-center w-full bg-secondary text-primary font-black py-4 rounded-2xl text-lg uppercase tracking-tighter hover:bg-primary hover:text-white transition-all shadow-sm"
               >

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { FiInfo } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
 import { alternatesFor } from "@/lib/seo";
+import { siteSettings } from "@/lib/siteSettings";
 import { sanitize } from "@/lib/sanitize";
 
 export async function generateStaticParams() {
@@ -49,6 +50,8 @@ export default async function ServiceDetails({ params }) {
   const t = await getTranslations("services");
   const locale = await getLocale();
   const isAr = locale === "ar";
+  const settings = await siteSettings();
+  const waNumber = settings?.whatsapp?.replace(/[^\d]/g, "");
 
   const { data: service, error } = await supabase
     .from("categories")
@@ -106,6 +109,7 @@ export default async function ServiceDetails({ params }) {
         breadcrumbData={breadcrumb}
         isAr={isAr}
         showButtons={true}
+        whatsapp={waNumber}
       />
 
       {/* 1. Header Section: Image & Brief Description Side by Side */}
@@ -181,14 +185,14 @@ export default async function ServiceDetails({ params }) {
                   color="primary"
                   size="lg"
                   className=" shadow-xl hover:scale-105 transition-transform"
-                  href={`https://wa.me/966530446151?text=${encodeURIComponent(isAr ? `استفسار عن: ${title}` : `Inquiry about: ${title}`)}`}
+                  href={waNumber ? `https://wa.me/${waNumber}?text=${encodeURIComponent(isAr ? `استفسار عن: ${title}` : `Inquiry about: ${title}`)}` : "/contact"}
                 />
                 <Button
                   title={isAr ? "اتصال هاتفي" : "Call Us"}
                   color="secondary"
                   size="lg"
                   className=" border-2 border-white/20 hover:bg-white/10"
-                  href="tel:966530446151"
+                  href={settings?.phone ? `tel:${settings.phone}` : "/contact"}
                 />
               </div>
 

@@ -12,6 +12,7 @@ import {
 } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
 import { buildMetadata } from "@/lib/seo";
+import { siteSettings } from "@/lib/siteSettings";
 import { sanitize } from "@/lib/sanitize";
 
 export async function generateMetadata({ params }) {
@@ -54,6 +55,8 @@ export default async function ProjectDetails({ params }) {
   const { id } = await params;
   const locale = await getLocale();
   const isAr = locale === "ar";
+  const settings = await siteSettings();
+  const waNumber = settings?.whatsapp?.replace(/[^\d]/g, "");
 
   const { data: project, error } = await supabase
     .from("projects")
@@ -104,6 +107,7 @@ export default async function ProjectDetails({ params }) {
         }
         breadcrumbData={breadcrumb}
         isAr={isAr}
+        whatsapp={waNumber}
       />
 
       {/* 2. Project Showcase Section */}

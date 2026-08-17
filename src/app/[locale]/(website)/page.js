@@ -282,7 +282,7 @@ export default async function Home() {
 
       <Partners />
 
-      <FAQ />
+      <FAQ whatsapp={waNumber} />
 
       {/* BIG CTA */}
       <section className="px-6 pt-4 pb-24">
