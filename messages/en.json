@@ -48,7 +48,17 @@
     "all": "All",
     "page_title": "Page",
     "products": "Services",
-    "projects": "Projects"
+    "projects": "Projects",
+    "badge": "Our services",
+    "hero_title": "Complete digital solutions to grow your business",
+    "hero_description": "From design to marketing — everything you need to build a digital presence that attracts customers and turns them into sales.",
+    "details": "Details",
+    "view_all": "All services",
+    "load_error": "Something went wrong loading the services",
+    "empty": "No services to show yet.",
+    "cta_title": "Not sure which service fits you?",
+    "cta_description": "Get in touch and we'll help you pick the right solution for your business.",
+    "cta_button": "Free consultation"
   },
   "ourwork": {
     "title": "Our Work",

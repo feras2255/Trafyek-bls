@@ -1,5 +1,6 @@
 import { siteSettings } from "@/lib/siteSettings";
 import ContactForm from "./_Component/ContactForm";
+import PageIntro from "@/components/ui/PageIntro";
 import { getLocale, getTranslations } from "next-intl/server";
 
 export async function generateMetadata() {
@@ -169,24 +170,11 @@ export default async function ContactPage() {
         }}
       />
 
-      {/* hero */}
-      <section className="relative overflow-hidden bg-linear-to-b from-[#faf7ff] to-background px-6 pt-[70px] pb-[60px]">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-25 right-[10%] size-100 rounded-full bg-primary/15 blur-[80px]"
-        />
-        <div className="relative mx-auto max-w-[900px] text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4.5 py-1.5 text-[13px] font-extrabold text-primary">
-            {t("form.badge")}
-          </span>
-          <h1 className="mt-4.5 mb-3 text-3xl font-black tracking-[-0.01em] text-accent md:text-[44px]">
-            {t("hero.title")}
-          </h1>
-          <p className="mx-auto max-w-[640px] text-[17px] leading-[1.8] text-subtext">
-            {t("hero.description")}
-          </p>
-        </div>
-      </section>
+      <PageIntro
+        badge={t("form.badge")}
+        title={t("hero.title")}
+        description={t("hero.description")}
+      />
 
       {/* form + channels */}
       <section className="px-6 py-20">
