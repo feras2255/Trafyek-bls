@@ -4,6 +4,9 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { siteSettings } from "@/lib/siteSettings";
+// areaServed is a factual claim about where the business operates, so it lives
+// in one reviewable place and is empty until confirmed. See lib/regions.js.
+import { AREA_SERVED } from "@/lib/regions";
 import {
   alternatesFor,
   faqSchema,
@@ -16,16 +19,6 @@ import FAQ from "@/components/home/FAQ";
 import MarqueeSlider from "@/components/home/MarqueeSlider";
 import Services from "@/components/home/Services";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
-
-// Cities the business serves, used for LocalBusiness areaServed.
-const AREA_SERVED = [
-  "الرياض",
-  "جدة",
-  "الدمام",
-  "الخبر",
-  "مكة المكرمة",
-  "المدينة المنورة",
-];
 
 const WHY_KEYS = [
   "experience",
@@ -135,7 +128,11 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLd(
-            localBusinessSchema({ locale, settings, areaServed: AREA_SERVED }),
+            localBusinessSchema({
+              locale,
+              settings,
+              areaServed: AREA_SERVED,
+            }),
             faqSchema({ items: faqItems }),
           ),
         }}
