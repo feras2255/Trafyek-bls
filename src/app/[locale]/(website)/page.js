@@ -6,7 +6,7 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { siteSettings } from "@/lib/siteSettings";
 // areaServed is a factual claim about where the business operates, so it lives
 // in one reviewable place and is empty until confirmed. See lib/regions.js.
-import { AREA_SERVED } from "@/lib/regions";
+import { AREA_SERVED, AREA_SERVED_EN } from "@/lib/regions";
 import {
   alternatesFor,
   faqSchema,
@@ -131,7 +131,7 @@ export default async function Home() {
             localBusinessSchema({
               locale,
               settings,
-              areaServed: AREA_SERVED,
+              areaServed: isAr ? AREA_SERVED : AREA_SERVED_EN,
             }),
             faqSchema({ items: faqItems }),
           ),

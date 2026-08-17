@@ -39,16 +39,23 @@ export const MAJOR_CITIES = [
 ];
 
 /**
- * Cities this business actually serves, for LocalBusiness `areaServed`.
+ * Cities this business serves, for LocalBusiness `areaServed`.
  *
- * DELIBERATELY EMPTY. areaServed is a factual claim in structured data about
- * where the business operates, so it must come from the business, not from a
- * plausible-looking guess. While this is empty, localBusinessSchema() falls
- * back to country-level (Saudi Arabia), which the site's own copy supports.
+ * Confirmed by the business as nationwide coverage across Saudi Arabia, so this
+ * is derived from the verified lists above rather than typed out by hand — the
+ * official spellings are guaranteed, and adding a region here later keeps the
+ * schema in sync automatically.
  *
- * TO FILL IN: add the Arabic city names you genuinely serve, e.g.
- *   export const AREA_SERVED = ["الرياض", "جدة", "الدمام"];
- * Use the spellings from SAUDI_REGIONS / MAJOR_CITIES above so they match what
- * people search for.
+ * Note this is a factual claim search engines read as fact. If coverage ever
+ * narrows, edit this list; the schema falls back to country level when empty.
  */
-export const AREA_SERVED = [];
+export const AREA_SERVED = [
+  ...SAUDI_REGIONS.map((region) => region.capitalAr),
+  ...MAJOR_CITIES.map((city) => city.ar),
+];
+
+/** Same list in English, for the /en locale. */
+export const AREA_SERVED_EN = [
+  ...SAUDI_REGIONS.map((region) => region.capitalEn),
+  ...MAJOR_CITIES.map((city) => city.en),
+];
