@@ -1,4 +1,5 @@
-export const revalidate = 0;
+// Content changes rarely; 0 forced a DB round-trip on every request.
+export const revalidate = 3600;
 
 import Button from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";

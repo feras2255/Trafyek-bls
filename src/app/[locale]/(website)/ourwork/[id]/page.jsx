@@ -1,4 +1,5 @@
-export const revalidate = 0;
+// Content changes rarely; 0 forced a DB round-trip on every request.
+export const revalidate = 3600;
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import Link from "next/link";
@@ -65,7 +66,7 @@ export default async function ProjectDetails({ params }) {
         <p className="text-xl text-gray-500 font-bold">
           {isAr ? "المشروع غير موجود" : "Project not found"}
         </p>
-        <Link href="/projects" className="text-primary underline">
+        <Link href="/ourwork" className="text-primary underline">
           {isAr ? "العودة للمشاريع" : "Back to projects"}
         </Link>
       </div>
@@ -86,7 +87,7 @@ export default async function ProjectDetails({ params }) {
       : "General";
 
   const breadcrumb = [
-    { label: isAr ? "أعمالنا" : "Portfolio", href: "/projects" },
+    { label: isAr ? "أعمالنا" : "Portfolio", href: "/ourwork" },
     { label: title, href: null },
   ];
 

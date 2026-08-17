@@ -7,11 +7,16 @@ import AboutSection from "@/components/home/AboutSection";
 import StatsSection from "@/components/home/StatsSection";
 import ServiceRequest from "@/components/ui/ServiceRequest";
 import Services from "@/components/home/Services";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { siteSettings } from "@/lib/siteSettings";
-import { alternatesFor, jsonLd, localBusinessSchema } from "@/lib/seo";
+import {
+  alternatesFor,
+  faqSchema,
+  jsonLd,
+  localBusinessSchema,
+} from "@/lib/seo";
 
 // Cities the business serves, used for LocalBusiness areaServed. Kept here
 // rather than invented per page so the schema stays consistent site-wide.
@@ -36,6 +41,16 @@ export default async function Home() {
   const locale = await getLocale();
   const isAr = locale === "ar";
   const settings = await siteSettings();
+
+  // The FAQ section has been on the page all along with no FAQPage schema —
+  // exactly the content search engines and AI answer systems quote. Read from
+  // the same translation keys the FAQ component renders, so the markup can
+  // never drift from what the visitor actually sees.
+  const tFaq = await getTranslations("faq");
+  const faqItems = ["1", "2", "3", "4", "5"].map((n) => ({
+    question: tFaq(`q${n}`),
+    answer: tFaq(`a${n}`),
+  }));
   const { data: projects } = await supabaseAdmin
     .from("projects")
     .select("*")
@@ -58,6 +73,7 @@ export default async function Home() {
         dangerouslySetInnerHTML={{
           __html: jsonLd(
             localBusinessSchema({ locale, settings, areaServed: AREA_SERVED }),
+            faqSchema({ items: faqItems }),
           ),
         }}
       />

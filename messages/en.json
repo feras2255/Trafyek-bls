@@ -386,5 +386,14 @@
     "pricing": "Pricing",
     "copyright": "All rights reserved",
     "name": "Takamul Box"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "That link is wrong or the page has moved. Try one of these sections instead.",
+    "home": "Home",
+    "services": "Services",
+    "ourwork": "Our work",
+    "blog": "Blog",
+    "contact": "Contact"
   }
 }
