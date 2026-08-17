@@ -95,7 +95,54 @@
     "title": "Our Work",
     "description": "We provide a comprehensive range of technical and marketing services tailored to grow your business and enhance your digital presence.",
     "all": "All",
-    "ourwork": "Browse our work by category"
+    "ourwork": "Browse our work by category",
+    "badge": "Our work",
+    "hero_title": "Real results for real clients",
+    "hero_description": "Projects we delivered for companies and stores across Saudi Arabia, and what they actually achieved after launch.",
+    "case_study": "Case study",
+    "read_case_study": "Read the details",
+    "impact_title": "Our impact in numbers",
+    "all_projects": "All projects",
+    "empty": "No projects to show yet.",
+    "impact": {
+      "projects": "Projects delivered",
+      "satisfaction": "Client satisfaction",
+      "satisfaction_value": "—",
+      "growth": "Average sales growth",
+      "growth_value": "—",
+      "years": "Years of experience",
+      "years_value": "6"
+    },
+    "faq_title": "What clients ask before we start",
+    "faq": {
+      "duration": {
+        "q": "How long does a project take?",
+        "a": "It depends on scope. A one-page site takes 5-7 days, a full multi-page site 10-13 days, and an online store from 4 days depending on product count."
+      },
+      "cost": {
+        "q": "How much does it cost?",
+        "a": "We price after understanding the scope, and send a detailed quote before any work starts with no obligation."
+      },
+      "tech": {
+        "q": "Which technologies do you use?",
+        "a": "We build sites with Next.js and modern databases, stores on Salla and Zid, and apps with Flutter."
+      },
+      "support": {
+        "q": "Is there support after launch?",
+        "a": "Yes. Every package includes a support period starting at 30 days and going up to 180 days depending on the package."
+      },
+      "ownership": {
+        "q": "Who owns the finished work?",
+        "a": "Full ownership transfers to you once payment is complete. We only retain the right to show the work in our portfolio."
+      },
+      "start": {
+        "q": "How do we get started?",
+        "a": "Message us on WhatsApp or through the contact form. We'll understand what you need and send a quote with a clear timeline."
+      }
+    },
+    "cta_title": "Your next project could be here",
+    "cta_description": "Book a free consultation and let's talk about your goal.",
+    "cta_button": "Start your project"
   },
   "partners": {
     "title": "Partners in Success",
