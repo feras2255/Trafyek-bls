@@ -422,5 +422,14 @@
       "invalid": "Enter a valid email address",
       "error": "Couldn't subscribe — please try again"
     }
+  },
+  "article": {
+    "breadcrumb": "Breadcrumb",
+    "author": "Traffic Plus team",
+    "read_time": "{minutes} min read",
+    "related": "Related articles",
+    "cta_title": "Need help putting this into practice?",
+    "cta_description": "Our team does this for clients every day.",
+    "cta_button": "Free consultation"
   }
 }
