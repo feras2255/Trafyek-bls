@@ -10,7 +10,7 @@ export default async function sitemap() {
     { path: "/about-us", priority: 0.8 },
     { path: "/services", priority: 0.8 },
     { path: "/ourwork", priority: 0.8 },
-    { path: "/blog", priority: 0.8 },
+    { path: "/blogs", priority: 0.8 },
     { path: "/contact", priority: 0.8 },
   ];
 
@@ -74,7 +74,7 @@ export default async function sitemap() {
     (pages || [])
       .filter((p) => p.slug && !excludedSlugs.includes(p.slug))
       .map((p) => ({
-        url: `${baseUrl}/${locale}/${p.slug}`,
+        url: `${baseUrl}/${locale}/pages/${p.slug}`,
         lastModified: p.updated_at
           ? new Date(p.updated_at)
           : p.created_at

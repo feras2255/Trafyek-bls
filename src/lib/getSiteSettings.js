@@ -47,18 +47,16 @@ export async function uploadImage(file) {
   const fileName = `${Date.now()}.${fileExt}`;
   const filePath = `${fileName}`;
 
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from("site-images")
     .upload(filePath, file, { upsert: true });
 
   if (error) throw error;
 
   // Get the public URL
-  const { publicURL, error: urlError } = supabase.storage
+  const { data } = supabase.storage
     .from("site-images")
     .getPublicUrl(filePath);
 
-  if (urlError) throw urlError;
-
-  return publicURL;
+  return data.publicUrl;
 }

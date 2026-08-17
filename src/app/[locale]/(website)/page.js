@@ -21,7 +21,7 @@ export default async function Home() {
     .order("created_at", { ascending: false })
     .limit(6);
 
-  const localizedProjects = projects.map((proj) => ({
+  const localizedProjects = (projects || []).map((proj) => ({
     ...proj,
     title: isAr ? proj.title_ar : proj.title_en,
     description: isAr ? proj.description_ar : proj.description_en,

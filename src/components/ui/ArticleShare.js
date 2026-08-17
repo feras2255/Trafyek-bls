@@ -11,10 +11,10 @@ import {
 import { useState } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
 
-export default function ArticleShare({ title, slug }) {
+export default function ArticleShare({ title, slug, locale = "ar" }) {
   const [copied, setCopied] = useState(false);
 
-  const articleUrl = `https://www.daraltebyan.com/blog/${slug}`;
+  const articleUrl = `https://www.trafyekbls.com/${locale}/blogs/${slug}`;
 
   const encodedTitle = encodeURIComponent(title);
   const encodedUrl = encodeURIComponent(articleUrl);

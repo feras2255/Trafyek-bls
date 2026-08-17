@@ -37,12 +37,12 @@ export async function generateMetadata({ params }) {
     title: `${title} | ترافيك بلس`,
     description: description,
     alternates: {
-      canonical: `https://www.trafyekbls.com/${locale}/blog/${id}`,
+      canonical: `https://www.trafyekbls.com/${locale}/blogs/${id}`,
     },
     openGraph: {
       title: title,
       description: description,
-      url: `https://www.trafyekbls.com/${locale}/blog/${id}`,
+      url: `https://www.trafyekbls.com/${locale}/blogs/${id}`,
       siteName: "ترافيك بلس - Traffic Plus",
       type: "article",
       publishedTime: post.created_at,
@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }) {
   const breadcrumb = [
     {
       label: isAr ? "المدونة" : "Blog",
-      href: `/${locale}/blog`,
+      href: `/${locale}/blogs`,
     },
     {
       label: isAr ? "قراءة المقال" : "Read Post",
@@ -140,7 +140,7 @@ export default async function BlogPostPage({ params }) {
             description: content?.replace(/<[^>]*>?/gm, "")?.substring(0, 160),
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": `https://www.trafyekbls.com/${locale}/blog/${id}`,
+              "@id": `https://www.trafyekbls.com/${locale}/blogs/${id}`,
             },
           }),
         }}
@@ -207,7 +207,7 @@ export default async function BlogPostPage({ params }) {
             />
           </div>
           {/* Footer of the article */}
-          <ArticleShare title={title} slug={id} />
+          <ArticleShare title={title} slug={id} locale={locale} />
         </div>
       </div>
     </article>

@@ -23,13 +23,13 @@ export default function MessageDetails() {
   }, [id]);
 
   if (!message) {
-    return;
-    <div className="">
-      <p className="text-lg text-fourth text-center py-10">
-        جاري تحميل الرسالة...
-      </p>
-      ;
-    </div>;
+    return (
+      <div className="">
+        <p className="text-lg text-fourth text-center py-10">
+          جاري تحميل الرسالة...
+        </p>
+      </div>
+    );
   }
 
   return (
