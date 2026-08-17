@@ -10,6 +10,43 @@ import {
   FiLayers,
 } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
+import { buildMetadata } from "@/lib/seo";
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
+  const { data: project } = await supabase
+    .from("projects")
+    .select("title_ar, title_en, description_ar, description_en, image_url")
+    .eq("id", id)
+    .single();
+
+  if (!project) {
+    return {
+      title: isAr ? "المشروع غير موجود" : "Project not found",
+      robots: { index: false, follow: true },
+    };
+  }
+
+  const title = isAr ? project.title_ar : project.title_en;
+  const description = (isAr ? project.description_ar : project.description_en)
+    ?.replace(/<[^>]*>?/gm, "")
+    ?.trim()
+    ?.slice(0, 160);
+
+  return buildMetadata({
+    locale,
+    path: `/ourwork/${id}`,
+    title,
+    description,
+    type: "article",
+    images: project.image_url
+      ? [{ url: project.image_url, width: 1200, height: 630, alt: title }]
+      : undefined,
+  });
+}
 
 export default async function ProjectDetails({ params }) {
   const { id } = await params;

@@ -12,6 +12,7 @@ import {
 } from "react-icons/fi";
 import Link from "next/link";
 import ArticleShare from "@/components/ui/ArticleShare";
+import { alternatesFor } from "@/lib/seo";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -36,9 +37,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${title} | ترافيك بلس`,
     description: description,
-    alternates: {
-      canonical: `https://www.trafyekbls.com/${locale}/blogs/${id}`,
-    },
+    alternates: alternatesFor(locale, `/blogs/${id}`),
     openGraph: {
       title: title,
       description: description,

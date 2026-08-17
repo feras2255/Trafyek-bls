@@ -1,20 +1,55 @@
-export const revalidate = 0;
+// CMS pages change rarely; re-fetch hourly instead of on every request.
+export const revalidate = 3600;
 
 import { getPageContent } from "@/lib/pages";
 import { supabase } from "@/lib/supabaseClient";
 import { getLocale } from "next-intl/server";
+import { buildMetadata } from "@/lib/seo";
 
-export default async function Privacy() {
+async function getPage(slug) {
+  const { data } = await supabase
+    .from("pages")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+  return data;
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+  const page = await getPage(slug);
+
+  if (!page) {
+    return {
+      title: isAr ? "الصفحة غير موجودة" : "Page not found",
+      robots: { index: false, follow: true },
+    };
+  }
+
+  const { title, content } = getPageContent(page, isAr);
+
+  return buildMetadata({
+    locale,
+    path: `/pages/${slug}`,
+    title,
+    description: content
+      ?.replace(/<[^>]*>?/gm, "")
+      ?.trim()
+      ?.slice(0, 160),
+  });
+}
+
+export default async function CmsPage({ params }) {
+  const { slug } = await params;
   const locale = await getLocale();
   const isAr = locale === "ar";
 
-  const { data: page } = await supabase
-    .from("pages")
-    .select("*")
-    .eq("slug", "privacy-policy")
-    .single();
-
-  console.log(page);
+  // Was hardcoded to .eq("slug", "privacy-policy") and ignored the route
+  // param, so /pages/terms-conditions served the privacy policy and the terms
+  // page was unreachable.
+  const page = await getPage(slug);
 
   if (!page)
     return (

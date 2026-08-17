@@ -5,6 +5,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient";
 import { FiArrowUpLeft, FiClock, FiTag } from "react-icons/fi";
+import { buildMetadata } from "@/lib/seo";
+
+export async function generateMetadata() {
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
+  return buildMetadata({
+    locale,
+    path: "/blogs",
+    title: isAr
+      ? "المدونة | مقالات السيو والتسويق الرقمي"
+      : "Blog | SEO & Digital Marketing Articles",
+    description: isAr
+      ? "مقالات ودلائل عملية في السيو المحلي وخرائط جوجل والإعلانات وتصميم المتاجر، تساعد نشاطك التجاري في السعودية على النمو."
+      : "Practical guides on local SEO, Google Maps, paid ads and e-commerce, written to help businesses in Saudi Arabia grow.",
+  });
+}
 
 export default async function Blog({ searchParams }) {
   const locale = await getLocale();

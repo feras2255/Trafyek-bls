@@ -2,6 +2,7 @@ import PageIntro from "@/components/ui/PageIntro";
 import { getLocale, getTranslations } from "next-intl/server";
 import { siteSettings } from "@/lib/siteSettings";
 import Services from "@/components/home/Services";
+import { alternatesFor } from "@/lib/seo";
 
 export async function generateMetadata() {
   const locale = await getLocale();
@@ -14,9 +15,7 @@ export async function generateMetadata() {
     description: isAr
       ? "اكتشف خدمات ترافيك بلس: إنشاء متاجر سلة وزد، برمجة مواقع Next.js، تحسين سيو خرائط جوجل، وإدارة الحملات الإعلانية في السعودية."
       : "Discover Traffic Plus services: Salla & Zid stores, Next.js development, Google Maps SEO, and digital marketing in Saudi Arabia.",
-    alternates: {
-      canonical: `https://www.trafyekbls.com/${locale}/services`,
-    },
+    alternates: alternatesFor(locale, "/services"),
     keywords: [
       "تصميم متاجر سلة",
       "برمجة مواقع السعودية",

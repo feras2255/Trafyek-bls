@@ -2,6 +2,7 @@ import { siteSettings } from "@/lib/siteSettings";
 import ContactForm from "./_Component/ContactForm";
 import PageIntro from "@/components/ui/PageIntro";
 import { getLocale, getTranslations } from "next-intl/server";
+import { alternatesFor } from "@/lib/seo";
 
 export async function generateMetadata() {
   const locale = await getLocale();
@@ -18,9 +19,7 @@ export async function generateMetadata() {
   return {
     title,
     description,
-    alternates: {
-      canonical: `https://www.trafyekbls.com/${locale}/contact`,
-    },
+    alternates: alternatesFor(locale, "/contact"),
     openGraph: {
       title,
       description,

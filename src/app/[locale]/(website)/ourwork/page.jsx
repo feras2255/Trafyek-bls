@@ -2,6 +2,23 @@ import { supabase } from "@/lib/supabaseClient";
 import Showcase from "@/components/showcase/Showcase";
 import { getLocale, getTranslations } from "next-intl/server";
 import PageHero from "@/components/ui/PageHero";
+import { buildMetadata } from "@/lib/seo";
+
+export async function generateMetadata() {
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
+  return buildMetadata({
+    locale,
+    path: "/ourwork",
+    title: isAr
+      ? "أعمالنا | مشاريع ومتاجر ومواقع نفّذناها"
+      : "Our Work | Projects, Stores and Websites We Built",
+    description: isAr
+      ? "نماذج من مشاريع ترافيك بلس: مواقع ومتاجر إلكترونية وحملات سيو وإعلانات لعملاء في السعودية، بنتائج قابلة للقياس."
+      : "A selection of Traffic Plus projects: websites, online stores, SEO and ad campaigns for clients across Saudi Arabia, with measurable results.",
+  });
+}
 
 export default async function OurWork() {
   const t = await getTranslations("ourwork");

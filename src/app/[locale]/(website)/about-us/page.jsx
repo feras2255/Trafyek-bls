@@ -4,6 +4,7 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { getLocale, getTranslations } from "next-intl/server";
 import { siteSettings } from "@/lib/siteSettings";
 import Image from "next/image";
+import { alternatesFor } from "@/lib/seo";
 
 export async function generateMetadata() {
   const locale = await getLocale();
@@ -20,9 +21,7 @@ export async function generateMetadata() {
   return {
     title,
     description,
-    alternates: {
-      canonical: `https://www.trafyekbls.com/${locale}/about-us`,
-    },
+    alternates: alternatesFor(locale, "/about-us"),
     openGraph: {
       title,
       description,

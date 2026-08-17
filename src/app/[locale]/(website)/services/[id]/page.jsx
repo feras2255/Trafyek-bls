@@ -6,6 +6,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { FiInfo } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
+import { alternatesFor } from "@/lib/seo";
 
 export async function generateStaticParams() {
   const { data: services } = await supabase.from("categories").select("id");
@@ -33,8 +34,11 @@ export async function generateMetadata({ params }) {
   return {
     title: isAr ? service.title_ar : service.title_en,
     description: isAr ? service.description_ar : service.description_en,
+    // Had no alternates at all, so it inherited the layout's static canonical
+    // pointing at the Arabic home page.
+    alternates: alternatesFor(locale, `/services/${id}`),
     openGraph: {
-      images: [service.image_url],
+      images: service.image_url ? [service.image_url] : undefined,
     },
   };
 }

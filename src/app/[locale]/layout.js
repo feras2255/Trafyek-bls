@@ -67,13 +67,19 @@ export const metadata = {
     "Supabase",
   ],
 
-  alternates: {
-    canonical: "https://www.trafyekbls.com/ar",
-    languages: {
-      ar: "https://www.trafyekbls.com/ar",
-      en: "https://www.trafyekbls.com/en",
-    },
-  },
+  // NO `alternates` here on purpose.
+  //
+  // Next.js inherits metadata from this layout into every page that does not
+  // define its own, so a static canonical here was emitted on pages it did not
+  // describe. Verified in the built HTML before removal:
+  //   GET /ar/ourwork -> <link rel="canonical" href=".../ar">
+  //   GET /en/ourwork -> <link rel="canonical" href=".../ar">
+  // Every page group without its own generateMetadata — the project pages, the
+  // blog index, the CMS pages and the English home page — was asking Google to
+  // index the Arabic home page instead of itself.
+  //
+  // Canonical and hreflang are now built per page via alternatesFor() /
+  // buildMetadata() in src/lib/seo.js. Any new page must set them.
 
   openGraph: {
     title:
