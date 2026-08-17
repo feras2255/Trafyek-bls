@@ -1,15 +1,38 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
-import { useState } from "react";
+import { Link, usePathname } from "@/i18n/navigation";
+import { useEffect, useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslations } from "next-intl";
 
+// The approved design draws the brand as a gradient tile with a rising-trend
+// glyph beside the wordmark. It's the fallback when no logo is set in the
+// dashboard, so the settings-driven logo keeps working.
+function BrandMark() {
+  return (
+    <span className="flex size-[34px] shrink-0 items-center justify-center rounded-[9px] bg-linear-135 from-accent to-primary shadow-[0_8px_20px_-6px_color-mix(in_srgb,var(--primary)_50%,transparent)]">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M4 17l6-6 4 4 6-7" />
+      </svg>
+    </span>
+  );
+}
+
 export default function Navbar({ settings }) {
   const t = useTranslations("infoSite");
-
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
@@ -21,33 +44,65 @@ export default function Navbar({ settings }) {
     { id: "nav-6", title: t("contact"), href: "/contact" },
   ];
 
+  const isActive = (href) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  // Close the drawer on navigation so it never stays open over the new page.
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // A drawer that scrolls the page behind it reads as broken on touch.
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  const whatsappHref = settings?.whatsapp
+    ? `https://wa.me/${settings.whatsapp}`
+    : "/contact";
+
   return (
     <nav className="w-full">
-      <div className="flex items-center justify-between w-full">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4">
         <Link
           href="/"
-          aria-label="شعار"
-          className="relative w-24 h-10 lg:w-32 lg:h-12"
+          aria-label={t("siteName")}
+          className="flex items-center gap-2.5"
         >
-          <Image
-            src={settings?.image_url || "/t-logo.webp"}
-            alt="logo"
-            fill
-            sizes="120px"
-            className="object-contain"
-            priority
-            loading="eager"
-          />
+          {settings?.image_url ? (
+            <span className="relative block h-10 w-24 lg:w-32">
+              <Image
+                src={settings.image_url}
+                alt={t("siteName")}
+                fill
+                sizes="128px"
+                className="object-contain"
+                priority
+              />
+            </span>
+          ) : (
+            <>
+              <BrandMark />
+              <span className="text-xl font-black text-accent">
+                ترافيك <span className="text-primary">بلس</span>
+              </span>
+            </>
+          )}
         </Link>
 
         {/* desktop links */}
-        <ul className="hidden md:flex items-center gap-x-4 lg:gap-x-6 ">
+        <ul className="hidden items-center gap-7 lg:flex">
           {links.map((link) => (
             <li key={link.id}>
               <Link
                 href={link.href}
-                aria-label={link.title}
-                className="text-maintext text-sm lg:text-xl font-bold hover:text-accent transition-colors"
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`text-[15px] font-bold transition-colors hover:text-primary ${
+                  isActive(link.href) ? "text-primary" : "text-maintext"
+                }`}
               >
                 {link.title}
               </Link>
@@ -55,87 +110,79 @@ export default function Navbar({ settings }) {
           ))}
         </ul>
 
-        {/* contact links */}
-        <div className="flex items-center gap-x-4">
-          <div className="hidden md:flex gap-x-4">
+        <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-3 lg:flex">
             <LanguageSwitcher isDashboard={false} />
             <Link
-              href={`https://wa.me/${settings?.whatsapp || ""}`}
-              aria-label="واتساب"
-              className="text-sm md:text-base bg-primary text-text px-5 py-2 rounded-lg font-bold hover:bg-opacity-90 transition-all"
+              href={whatsappHref}
+              className="inline-flex rounded-[10px] bg-linear-135 from-accent to-primary px-[22px] py-[11px] text-sm font-extrabold text-text shadow-[0_10px_24px_-8px_color-mix(in_srgb,var(--primary)_60%,transparent)] transition-transform hover:-translate-y-0.5"
             >
               {t("contact")}
             </Link>
           </div>
 
-          {/* mobile menu button */}
           <button
-            className="md:hidden text-maintext"
+            type="button"
+            className="p-1.5 text-accent lg:hidden"
             onClick={() => setIsOpen(true)}
-            aria-label="فتح القائمة"
+            aria-label={t("openMenu")}
+            aria-expanded={isOpen}
           >
-            <FiMenu size={28} />
+            <FiMenu size={26} />
           </button>
         </div>
       </div>
 
-      {/* mobile menu */}
+      {/* mobile drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-white shadow-2xl transform transition-transform duration-300 z-50 overflow-auto ${
+        className={`fixed top-0 right-0 z-60 flex h-full w-[280px] flex-col gap-[22px] bg-background p-6 shadow-[-10px_0_40px_rgba(0,0,0,0.15)] transition-transform duration-300 lg:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        aria-hidden={!isOpen}
       >
         <button
-          className="absolute top-5 left-5 text-maintext"
+          type="button"
+          className="self-start text-accent"
           onClick={() => setIsOpen(false)}
-          aria-label="اغلاق القائمة"
+          aria-label={t("closeMenu")}
+          tabIndex={isOpen ? 0 : -1}
         >
-          <FiX size={28} />
+          <FiX size={26} />
         </button>
 
-        <div className="flex flex-col px-5 ">
-          <div className="relative w-32 h-16 my-6">
-            <Image
-              src={settings?.image_url || "/t-logo.webp"}
-              alt="logo"
-              fill
-              sizes="120px"
-              className="object-contain"
-            />
-          </div>
+        <ul className="flex flex-col gap-5">
+          {links.map((link) => (
+            <li key={link.id}>
+              <Link
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                tabIndex={isOpen ? 0 : -1}
+                className={`text-[17px] font-extrabold ${
+                  isActive(link.href) ? "text-primary" : "text-maintext"
+                }`}
+              >
+                {link.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-          <ul className="flex flex-col gap-y-5 text-maintext text-xl font-bold">
-            {links.map((link) => (
-              <li key={link.id} className="border-b border-border pb-2">
-                <Link
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  aria-label={link.title}
-                >
-                  {link.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <LanguageSwitcher isDashboard={false} />
 
-          <div className="mt-6 flex flex-col gap-y-4">
-            <LanguageSwitcher isDashboard={false} />
-
-            <Link
-              href={`https://wa.me/${settings?.whatsapp || ""}`}
-              aria-label="واتساب"
-              className="text-center bg-primary text-text py-3 rounded-lg font-semibold"
-            >
-              {t("contact")}
-            </Link>
-          </div>
-        </div>
+        <Link
+          href={whatsappHref}
+          tabIndex={isOpen ? 0 : -1}
+          className="mt-auto rounded-[10px] bg-linear-135 from-accent to-primary p-3.5 text-center text-[15px] font-extrabold text-text"
+        >
+          {t("contact")}
+        </Link>
       </div>
 
-      {/* overlay background */}
       {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40"
+        <button
+          type="button"
+          aria-label={t("closeMenu")}
+          className="fixed inset-0 z-55 bg-black/45 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}

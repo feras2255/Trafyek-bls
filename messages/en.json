@@ -10,7 +10,12 @@
     "privacy": "Privacy Policy",
     "terms": "Terms and Conditions",
     "siteName": "Trafik Bls",
-    "copyright": "All rights reserved"
+    "copyright": "All rights reserved",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "whatsapp": "Chat on WhatsApp",
+    "followUs": "Follow us",
+    "tagline": "Your digital partner in design, marketing and technology."
   },
   "home": {
     "services": "Services",
@@ -18,7 +23,6 @@
     "view-details": "View Details",
     "view-all": "View All"
   },
-
   "about": {
     "badge": "Who We Are",
     "title": "Traffic.. Your Strategic Partner for Digital Growth",
@@ -30,7 +34,6 @@
       "ecommerce": "High-Converting E-commerce Design"
     }
   },
-
   "stats": {
     "badge": "Digital Success Journey",
     "title": "Achievements We Pride In",
@@ -47,19 +50,16 @@
     "products": "Services",
     "projects": "Projects"
   },
-
   "ourwork": {
     "title": "Our Work",
     "description": "We provide a comprehensive range of technical and marketing services tailored to grow your business and enhance your digital presence.",
     "all": "All",
     "ourwork": "Browse our work by category"
   },
-
   "partners": {
     "title": "Partners in Success",
     "description": "Companies we are proud to call friends and partners in business growth"
   },
-
   "serviceRequest": {
     "statusBadge": "We are accepting new project requests now",
     "heroTitle": "Don't look for <primary>just a developer</primary> ,  look for <underlined>a growth partner</underlined>",
@@ -70,7 +70,6 @@
     "socialProof": "The choice of ambitious stores in Saudi Arabia",
     "whatsappMessage": "I would like to start a free consultation with Traffic"
   },
-
   "why_us": {
     "title": "Why Put Your Trust in Traffic?",
     "item1": "Expertise Beyond Expectations",
@@ -82,7 +81,6 @@
     "item4": "Specialized Creative Thinking",
     "item4_desc": "A dedicated team of creators and engineers working for one goal: your market leadership."
   },
-
   "faq": {
     "title": "Common Questions",
     "badge": "Have Questions?",
@@ -102,24 +100,52 @@
       "button": "Contact Us Now"
     }
   },
-
   "contact": {
     "hero": {
-      "title": "Let's Build Something Amazing Together!",
-      "description": "Whether you have a new project or just an inquiry, the Traffic team is ready to turn your ideas into a tangible digital reality."
+      "title": "Let's start your next project",
+      "description": "Send us a message and we'll get back to you within business hours, or reach us directly on WhatsApp."
     },
     "form": {
       "placeholder_name": "Full Name",
       "placeholder_email": "Email Address",
       "placeholder_phone": "Phone Number",
-      "placeholder_message": "Type your message here...",
-      "submit_button": "Send Message Now",
+      "placeholder_message": "Tell us about your project...",
+      "submit_button": "Send message",
       "success_msg": "Message sent successfully!",
       "error_msg": "Failed to send message, please try again",
       "badge": "Contact Us",
       "title_part1": "Send us a ",
       "title_highlight": "Message",
-      "description": "Our technical team will review your request and respond to you in less than 24 hours."
+      "description": "Our technical team will review your request and respond to you in less than 24 hours.",
+      "title": "Send your message",
+      "placeholder_company": "Company / business name",
+      "sending": "Sending...",
+      "validation_msg": "Please check the highlighted fields",
+      "service_label": "Service you need",
+      "budget_label": "Estimated budget",
+      "services": {
+        "website": "Website design & development",
+        "ecommerce": "Online store",
+        "mobile_app": "Mobile app",
+        "seo_ads": "SEO & Google Ads",
+        "ai_geo": "AI / GEO",
+        "other": "Something else"
+      },
+      "budgets": {
+        "under_5k": "Under SAR 5,000",
+        "5k_15k": "SAR 5,000 - 15,000",
+        "15k_50k": "SAR 15,000 - 50,000",
+        "over_50k": "Over SAR 50,000"
+      },
+      "errors": {
+        "name": "Name is required (at least 2 characters)",
+        "email": "Enter a valid email address",
+        "phone": "Enter a valid phone number",
+        "message": "Write at least 10 characters",
+        "serviceType": "Choose a service from the list",
+        "budgetRange": "Choose a budget from the list",
+        "form": "Couldn't send that — please try again"
+      }
     },
     "info": {
       "title": "Direct Contact Channels",
@@ -128,7 +154,9 @@
       "email": "Official Email",
       "customer_service": "Customer Service",
       "location": "Headquarters",
-      "address": "Riyadh, Saudi Arabia"
+      "address": "Riyadh, Saudi Arabia",
+      "map_title": "Our location on the map",
+      "map_query": "Riyadh, Saudi Arabia"
     },
     "working_hours": {
       "title": "Official Working Hours",
@@ -138,7 +166,6 @@
     },
     "breadcrumb": "Contact Us"
   },
-
   "dashboard": {
     "dash": "Dashboard",
     "site": "Visit Site",
@@ -197,7 +224,6 @@
     "confirm_delete_message": "Are you sure you want to delete this item?",
     "add_success": "Added successfully",
     "update_success": "Updated successfully",
-
     "sidebar": {
       "dashboard": "Dashboard",
       "home": "Home",
@@ -213,11 +239,9 @@
       "messages": "messages",
       "settings": "Settings"
     },
-
     "category": {
       "categories": "Categories",
       "add_category": "Add Category",
-
       "confirm_delete_title": "Confirm Deletion",
       "confirm_delete_message": "Are you sure you want to delete this category?",
       "fetch_categories_error": "Failed to fetch categories",
@@ -226,14 +250,12 @@
       "delete_error": "Failed to delete",
       "delete_success": "Category deleted successfully",
       "edit_category": "Edit Category",
-
       "update_category": "Update Category",
       "add_success": "Category added ✅",
       "update_success": "Category updated ✅",
       "operation_failed": "Operation failed",
       "upload_error": "Upload failed"
     },
-
     "partner": {
       "partners": "Partners",
       "add": "Add Partner",
@@ -251,7 +273,6 @@
       "upload_error": "Failed to upload image",
       "operation_failed": "Operation failed"
     },
-
     "feature": {
       "features": "Features",
       "add": "Add Feature",
@@ -264,7 +285,6 @@
       "confirm_delete_title": "Confirm Delete",
       "confirm_delete_message": "Are you sure you want to delete this feature?"
     },
-
     "salesFeature": {
       "features": "Sales Features",
       "add_feature": "Add Feature",
@@ -285,7 +305,6 @@
       "update": "Update Slide"
     }
   },
-
   "site": {
     "website": "Visit Site",
     "settings": "Settings",

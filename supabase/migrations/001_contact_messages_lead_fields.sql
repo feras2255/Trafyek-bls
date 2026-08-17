@@ -11,6 +11,8 @@
 -- Review before running. Not applied by the app.
 
 alter table public.contact_messages
+  -- from the design's "اسم الشركة / النشاط" field
+  add column if not exists company text,
   -- from the design's "نوع الخدمة المطلوبة" selector
   add column if not exists service_type text,
   -- from the design's "الميزانية التقديرية" selector; stored as the bucket
