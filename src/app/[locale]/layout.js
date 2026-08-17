@@ -1,4 +1,4 @@
-import { Cairo } from "next/font/google";
+import { Cairo, Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import AOSProvider from "./AOSProvider";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -9,6 +9,25 @@ const cairo = Cairo({
   subsets: ["arabic"],
   weight: ["300", "400", "500", "700", "900"],
   preload: true,
+});
+
+// Latin display faces used by the approved designs for numerals,
+// English fragments and technical labels. Not preloaded — Cairo carries
+// the running text and these appear only in accent positions.
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+  preload: false,
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
+  preload: false,
 });
 
 // meta data
@@ -119,7 +138,7 @@ export default async function RootLayout({ children, params }) {
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <GoogleTagManager gtmId="GTM-K46W3W6N" />
       <body
-        className={`${cairo.className} bg-white text-slate-900 selection:bg-purple-100 selection:text-purple-900`}
+        className={`${cairo.className} ${spaceGrotesk.variable} ${spaceMono.variable} bg-white text-slate-900 selection:bg-purple-100 selection:text-purple-900`}
       >
         <NextIntlClientProvider messages={messages}>
           <AOSProvider>
