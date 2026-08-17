@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { siteSettings } from "@/lib/siteSettings";
+import { existingLegalSlugs } from "@/lib/legalPages";
 import SocialLinks from "./SocialLinks";
 import PaymentIcons from "./PaymentIcons";
 import ContactButtons from "./ContactButtons";
@@ -11,15 +12,30 @@ export default async function Footer() {
   const isRtl = locale === "ar";
   const settings = await siteSettings();
 
+  // The legal pages come from the database (migration 007 seeds them), and
+  // this footer renders on every page. Linking to a row that does not exist
+  // would put a sitewide 404 in front of visitors and crawlers alike, so a
+  // legal link is shown only once its row is really there. Fails open — if the
+  // lookup itself errors, both links are kept.
+  const legalSlugs = await existingLegalSlugs();
+
   // The footer holds the legal links, so it must render even if the settings
   // read fails; the settings-driven blocks below are individually guarded.
   const quickLinks = [
     { id: "f-1", title: t("about"), href: "/about-us" },
     { id: "f-2", title: t("services"), href: "/services" },
     { id: "f-3", title: t("ourwork"), href: "/ourwork" },
-    { id: "f-4", title: t("privacy"), href: "/pages/privacy-policy" },
-    { id: "f-5", title: t("terms"), href: "/pages/terms-conditions" },
-  ];
+    legalSlugs.has("privacy-policy") && {
+      id: "f-4",
+      title: t("privacy"),
+      href: "/pages/privacy-policy",
+    },
+    legalSlugs.has("terms-conditions") && {
+      id: "f-5",
+      title: t("terms"),
+      href: "/pages/terms-conditions",
+    },
+  ].filter(Boolean);
 
   const description = isRtl
     ? settings?.description_ar || settings?.description
