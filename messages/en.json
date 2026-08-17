@@ -402,5 +402,25 @@
     "cta_title": "Have a legal question?",
     "cta_description": "Get in touch and we'll answer as soon as we can.",
     "cta_button": "Message us"
+  },
+  "blog": {
+    "badge": "Blog",
+    "hero_title": "Articles that help your business grow",
+    "hero_description": "Practical guides on local SEO, Google Maps and digital marketing — drawn from our field work.",
+    "all": "All",
+    "read_more": "Read article",
+    "read_time": "{minutes} min read",
+    "load_error": "Something went wrong loading the articles",
+    "empty": "No articles in this category yet.",
+    "newsletter": {
+      "title": "Never miss a new article",
+      "description": "Subscribe for our latest digital marketing guides and tips.",
+      "placeholder": "Your email address",
+      "button": "Subscribe",
+      "sending": "Subscribing...",
+      "success": "You're subscribed",
+      "invalid": "Enter a valid email address",
+      "error": "Couldn't subscribe — please try again"
+    }
   }
 }

@@ -1,167 +1,230 @@
-import PageHero from "@/components/ui/PageHero";
-import Pagination from "@/components/ui/Pagination";
-import { getLocale } from "next-intl/server";
-import Link from "next/link";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient";
-import { FiArrowUpLeft, FiClock, FiTag } from "react-icons/fi";
-import { buildMetadata } from "@/lib/seo";
+import { FiClock } from "react-icons/fi";
+import { buildMetadata, alternatesFor } from "@/lib/seo";
 import { sanitize } from "@/lib/sanitize";
+import PageIntro from "@/components/ui/PageIntro";
+import Pagination from "@/components/ui/Pagination";
+import NewsletterForm from "./_components/NewsletterForm";
 
-export async function generateMetadata() {
+const PER_PAGE = 9;
+
+export async function generateMetadata({ searchParams }) {
   const locale = await getLocale();
   const isAr = locale === "ar";
+  const params = await searchParams;
+  const category = params?.category;
 
-  return buildMetadata({
+  const meta = buildMetadata({
     locale,
     path: "/blogs",
     title: isAr
       ? "المدونة | مقالات السيو والتسويق الرقمي"
       : "Blog | SEO & Digital Marketing Articles",
     description: isAr
-      ? "مقالات ودلائل عملية في السيو المحلي وخرائط جوجل والإعلانات وتصميم المتاجر، تساعد نشاطك التجاري في السعودية على النمو."
-      : "Practical guides on local SEO, Google Maps, paid ads and e-commerce, written to help businesses in Saudi Arabia grow.",
+      ? "دلائل عملية في السيو المحلي وخرائط جوجل والإعلانات وتصميم المتاجر، من خبرتنا الميدانية في السوق السعودي."
+      : "Practical guides on local SEO, Google Maps, paid ads and e-commerce, drawn from our field work in the Saudi market.",
   });
+
+  // A category-filtered view is a subset of the same articles. Indexing it
+  // would compete with /blogs for the same terms, so it stays out of the index
+  // while still being crawlable for discovery.
+  if (category) {
+    return { ...meta, robots: { index: false, follow: true } };
+  }
+
+  return meta;
+}
+
+function readingMinutes(html) {
+  const words = String(html ?? "")
+    .replace(/<[^>]*>?/gm, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
 }
 
 export default async function Blog({ searchParams }) {
   const locale = await getLocale();
   const isAr = locale === "ar";
+  const t = await getTranslations("blog");
 
   const params = await searchParams;
-  const page = Number(params?.page || 1);
-  const limit = 8;
-  const from = (page - 1) * limit;
-  const to = from + limit - 1;
+  const page = Math.max(1, Number(params?.page) || 1);
+  const activeCategory = params?.category ?? null;
+  const from = (page - 1) * PER_PAGE;
 
-  const {
-    data: blogs,
-    count,
-    error,
-  } = await supabase
+  const categoryColumn = isAr ? "category_ar" : "category_en";
+
+  let query = supabase
     .from("blogs")
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false })
-    .range(from, to);
+    .range(from, from + PER_PAGE - 1);
 
-  if (error) {
-    console.error(error);
-  }
+  if (activeCategory) query = query.eq(categoryColumn, activeCategory);
 
-  const totalPages = Math.ceil((count || 0) / limit);
+  const { data: blogs, count, error } = await query;
 
-  const breadcrumb = [
-    {
-      label: isAr ? "المدونة" : "Blog",
-      href: null,
-    },
+  // Category pills are derived from the articles themselves. The blogs table
+  // stores category as free text today; migration 004 adds a proper
+  // category_id relation, and this switches to it once that is applied.
+  const { data: allCategories } = await supabase
+    .from("blogs")
+    .select(categoryColumn);
+
+  const categories = [
+    ...new Set((allCategories ?? []).map((r) => r[categoryColumn]).filter(Boolean)),
   ];
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString(isAr ? "ar-EG" : "en-US", {
+  const totalPages = Math.ceil((count || 0) / PER_PAGE);
+
+  const formatDate = (value) =>
+    new Date(value).toLocaleDateString(isAr ? "ar-EG" : "en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
     });
-  };
 
   return (
-    <section className="pb-24 bg-[#fcfcfd]">
-      <PageHero
-        title={isAr ? "مدونة ترافيك بلس" : "Traffic Plus Blog"}
-        description={
-          isAr
-            ? "مقالات تقنية وتسويقية متخصصة."
-            : "Technical and marketing articles."
-        }
-        breadcrumbData={breadcrumb}
-        isAr={isAr}
-        showButtons
+    <>
+      <PageIntro
+        badge={t("badge")}
+        title={t("hero_title")}
+        description={t("hero_description")}
       />
 
-      <div className="container mx-auto px-4 mt-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {blogs?.map((post) => (
-            <article
-              key={post.id}
-              dir={isAr ? "rtl" : "ltr"}
-              className="
-                group
-                bg-white
-                rounded-2xl
-                overflow-hidden
-                border
-                border-border
-                shadow-sm
-                hover:-translate-y-2
-                transition-all
-                duration-500
-              "
+      {/* category filter — real links, so the list works without JS and each
+          view is crawlable */}
+      {categories.length > 1 ? (
+        <section className="px-6 pt-10">
+          <nav className="mx-auto flex max-w-[1280px] flex-wrap justify-center gap-3">
+            <Link
+              href="/blogs"
+              aria-current={!activeCategory ? "page" : undefined}
+              className={`rounded-full border-2 px-5 py-2.5 text-sm font-extrabold transition-colors ${
+                !activeCategory
+                  ? "border-primary bg-primary text-text"
+                  : "border-border bg-card text-maintext hover:border-primary"
+              }`}
             >
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={post.image_url || "/he.png"}
-                  alt={isAr ? post.title_ar : post.title_en}
-                  fill
-                  sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-
-                <span
-                  className={`absolute top-5 ${
-                    isAr ? "right-5" : "left-5"
-                  } bg-white/95 backdrop-blur px-4 py-2 rounded-full text-xs font-bold text-primary flex items-center gap-2`}
-                >
-                  <FiTag />
-                  {isAr
-                    ? post.category_ar || "عام"
-                    : post.category_en || "General"}
-                </span>
-              </div>
-
-              <div className="py-6 px-3">
-                <div className="flex items-center gap-2 text-slate-500 text-sm mb-3">
-                  <FiClock />
-                  {formatDate(post.created_at)}
-                </div>
-
-                <h2 className="text-base md:text-xl font-extrabold text-slate-900 line-clamp-2 mb-3">
-                  {isAr ? post.title_ar : post.title_en}
-                </h2>
-
-                <div
-                  className="text-slate-600 text-xs md:text-sm leading-7 line-clamp-3"
-                  dangerouslySetInnerHTML={{
-                    __html: sanitize(isAr ? post.description_ar : post.description_en),
-                  }}
-                />
-
+              {t("all")}
+            </Link>
+            {categories.map((category) => {
+              const active = category === activeCategory;
+              return (
                 <Link
-                  href={`/${locale}/blogs/${post.id}`}
-                  className="inline-flex items-center gap-3 mt-6 font-bold text-primary"
+                  key={category}
+                  href={{ pathname: "/blogs", query: { category } }}
+                  aria-current={active ? "page" : undefined}
+                  className={`rounded-full border-2 px-5 py-2.5 text-sm font-extrabold transition-colors ${
+                    active
+                      ? "border-primary bg-primary text-text"
+                      : "border-border bg-card text-maintext hover:border-primary"
+                  }`}
                 >
-                  {isAr ? "اقرأ المزيد" : "Read More"}
-
-                  <span
-                    className={`w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center transition-all group-hover:bg-primary group-hover:text-white ${
-                      !isAr ? "rotate-180" : ""
-                    }`}
-                  >
-                    <FiArrowUpLeft />
-                  </span>
+                  {category}
                 </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+              );
+            })}
+          </nav>
+        </section>
+      ) : null}
 
-        <Pagination
-          totalPages={totalPages}
-          currentPage={page}
-          locale={locale}
-          isAr={isAr}
-        />
-      </div>
-    </section>
+      <section className="px-6 pt-10 pb-20">
+        <div className="mx-auto max-w-[1280px]">
+          {error ? (
+            <p className="py-16 text-center text-subtext italic">
+              {t("load_error")}
+            </p>
+          ) : !blogs?.length ? (
+            <p className="py-16 text-center text-subtext">{t("empty")}</p>
+          ) : (
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-7">
+              {blogs.map((post) => {
+                const title = isAr ? post.title_ar : post.title_en;
+                const excerpt = isAr
+                  ? post.description_ar
+                  : post.description_en;
+                const category = post[categoryColumn];
+
+                return (
+                  <Link
+                    key={post.id}
+                    href={`/blogs/${post.id}`}
+                    dir={isAr ? "rtl" : "ltr"}
+                    className="group flex flex-col overflow-hidden rounded-[22px] border border-surface-tint bg-card shadow-[0_22px_50px_-28px_color-mix(in_srgb,var(--accent)_20%,transparent)] transition-transform duration-500 hover:-translate-y-2.5"
+                  >
+                    <div className="relative h-52 overflow-hidden">
+                      <Image
+                        src={post.image_url || "/he.png"}
+                        alt={title || ""}
+                        fill
+                        sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      {category ? (
+                        <span className="absolute top-3.5 right-3.5 rounded-full bg-card px-3 py-1.5 text-xs font-extrabold text-primary">
+                          {category}
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <div className="flex flex-1 flex-col gap-2.5 p-6">
+                      <div className="flex items-center gap-2 text-xs font-bold text-subtext">
+                        {formatDate(post.created_at)}
+                        <span aria-hidden="true">·</span>
+                        <span className="inline-flex items-center gap-1">
+                          <FiClock />
+                          {t("read_time", { minutes: readingMinutes(excerpt) })}
+                        </span>
+                      </div>
+
+                      <h2 className="m-0 text-[19px] leading-[1.4] font-black text-accent">
+                        {title}
+                      </h2>
+
+                      <div
+                        className="m-0 line-clamp-3 text-sm leading-[1.7] text-subtext"
+                        dangerouslySetInnerHTML={{ __html: sanitize(excerpt) }}
+                      />
+
+                      <span className="mt-auto pt-3.5 text-[13px] font-extrabold text-primary">
+                        {t("read_more")} {isAr ? "←" : "→"}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {totalPages > 1 ? (
+            <Pagination
+              totalPages={totalPages}
+              currentPage={page}
+              locale={locale}
+              isAr={isAr}
+            />
+          ) : null}
+        </div>
+      </section>
+
+      {/* newsletter — requires migration 002 */}
+      <section className="px-6 pb-24">
+        <div className="mx-auto max-w-[900px] rounded-3xl bg-background-2 px-10 py-12 text-center shadow-[0_30px_60px_-25px_color-mix(in_srgb,var(--accent)_15%,transparent)]">
+          <h2 className="mb-2.5 text-[26px] font-black text-accent">
+            {t("newsletter.title")}
+          </h2>
+          <p className="mb-6 text-[15px] text-subtext">
+            {t("newsletter.description")}
+          </p>
+          <NewsletterForm />
+        </div>
+      </section>
+    </>
   );
 }
