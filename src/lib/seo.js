@@ -49,9 +49,12 @@ export function buildMetadata({
 }) {
   const isAr = locale === "ar";
   const url = `${SITE_URL}/${locale}${path && !path.startsWith("/") ? `/${path}` : path}`;
-  const ogImages = images ?? [
-    { url: "/og-image.jpg", width: 1200, height: 630, alt: title },
-  ];
+  // No default image here on purpose. This used to fall back to
+  // "/og-image.jpg", a file that does not exist in public/ — so every page
+  // without its own image asked crawlers for a 404 and rendered a blank share
+  // card. Leaving it undefined lets the generated opengraph-image.js route
+  // apply instead. Pass `images` explicitly when a page has a real one.
+  const ogImages = images;
 
   return {
     title,

@@ -1,12 +1,55 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+
 // Was force-dynamic, so every crawler hit re-queried four tables. Content
 // changes rarely; regenerate hourly instead.
 export const revalidate = 3600;
-export default async function sitemap() {
-  const baseUrl = "https://www.trafyekbls.com";
-  const locales = ["ar", "en"];
 
-  // Static routes
+const BASE_URL = "https://www.trafyekbls.com";
+const LOCALES = ["ar", "en"];
+
+/**
+ * Builds the two locale entries for one path, each carrying the full
+ * hreflang set.
+ *
+ * The sitemap previously emitted no `alternates` at all, so the ar/en pairing
+ * was declared only in each page's <head>. Google accepts either channel, but
+ * the sitemap one is the more reliable of the two for a bilingual site because
+ * it does not depend on the page being crawled and rendered first. Both are
+ * now present and they agree.
+ *
+ * `lastModified` is omitted when we do not actually know it. It used to be
+ * `new Date()` on every static route, which told crawlers that every page on
+ * the site changed the moment the sitemap regenerated — a claim that is false
+ * every hour, and one Google learns to discount. No value is better than a
+ * value that is always wrong.
+ */
+function entriesFor(path, { lastModified, changeFrequency, priority }) {
+  const languages = Object.fromEntries(
+    LOCALES.map((l) => [l, `${BASE_URL}/${l}${path}`]),
+  );
+  // x-default points at the Arabic version: it is the site's default locale in
+  // i18n/routing and the primary market is Saudi Arabia.
+  languages["x-default"] = `${BASE_URL}/ar${path}`;
+
+  return LOCALES.map((locale) => ({
+    url: `${BASE_URL}/${locale}${path}`,
+    ...(lastModified ? { lastModified } : {}),
+    changeFrequency,
+    priority,
+    alternates: { languages },
+  }));
+}
+
+/** Prefers updated_at, falls back to created_at, and gives up rather than lie. */
+function knownDate(row) {
+  if (row?.updated_at) return new Date(row.updated_at);
+  if (row?.created_at) return new Date(row.created_at);
+  return undefined;
+}
+
+export default async function sitemap() {
+  // No lastModified: these are code-defined pages, and the database has no
+  // modification date for them.
   const staticPages = [
     { path: "", priority: 1 },
     { path: "/about-us", priority: 0.8 },
@@ -16,13 +59,8 @@ export default async function sitemap() {
     { path: "/contact", priority: 0.8 },
   ];
 
-  const staticRoutes = locales.flatMap((locale) =>
-    staticPages.map(({ path, priority }) => ({
-      url: `${baseUrl}/${locale}${path}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority,
-    })),
+  const staticRoutes = staticPages.flatMap(({ path, priority }) =>
+    entriesFor(path, { changeFrequency: "monthly", priority }),
   );
 
   // الصفحات التي لها مسار ثابت ولا نريد تكرارها من DB
@@ -53,65 +91,47 @@ export default async function sitemap() {
     cities = [];
   }
 
-  const cityRoutes = locales.flatMap((locale) =>
-    cities.map((c) => ({
-      url: `${baseUrl}/${locale}/cities/${c.slug}`,
-      lastModified: c.updated_at
-        ? new Date(c.updated_at)
-        : c.created_at
-          ? new Date(c.created_at)
-          : new Date(),
+  const cityRoutes = cities.flatMap((c) =>
+    entriesFor(`/cities/${c.slug}`, {
+      lastModified: knownDate(c),
       changeFrequency: "monthly",
       priority: 0.7,
-    })),
+    }),
   );
 
-  const projectRoutes = locales.flatMap((locale) =>
-    (projects || []).map((p) => ({
-      url: `${baseUrl}/${locale}/ourwork/${p.id}`,
-      lastModified: p.updated_at
-        ? new Date(p.updated_at)
-        : p.created_at
-          ? new Date(p.created_at)
-          : new Date(),
-      changeFrequency: "daily",
+  const projectRoutes = (projects || []).flatMap((p) =>
+    entriesFor(`/ourwork/${p.id}`, {
+      lastModified: knownDate(p),
+      changeFrequency: "monthly",
       priority: 0.7,
-    })),
+    }),
   );
 
-  const blogRoutes = locales.flatMap((locale) =>
-    (blogs || []).map((b) => ({
-      url: `${baseUrl}/${locale}/blogs/${b.id}`,
-      lastModified: b.created_at ? new Date(b.created_at) : new Date(),
-      changeFrequency: "daily",
+  const blogRoutes = (blogs || []).flatMap((b) =>
+    entriesFor(`/blogs/${b.id}`, {
+      lastModified: knownDate(b),
+      changeFrequency: "monthly",
       priority: 0.6,
-    })),
+    }),
   );
 
-  const serviceRoutes = locales.flatMap((locale) =>
-    (categories || []).map((s) => ({
-      url: `${baseUrl}/${locale}/services/${s.id}`,
-      lastModified: s.created_at ? new Date(s.created_at) : new Date(),
-      changeFrequency: "daily",
+  const serviceRoutes = (categories || []).flatMap((s) =>
+    entriesFor(`/services/${s.id}`, {
+      lastModified: knownDate(s),
+      changeFrequency: "monthly",
       priority: 0.7,
-    })),
+    }),
   );
 
-  //  Pages
-  const pageRoutes = locales.flatMap((locale) =>
-    (pages || [])
-      .filter((p) => p.slug && !excludedSlugs.includes(p.slug))
-      .map((p) => ({
-        url: `${baseUrl}/${locale}/pages/${p.slug}`,
-        lastModified: p.updated_at
-          ? new Date(p.updated_at)
-          : p.created_at
-            ? new Date(p.created_at)
-            : new Date(),
+  const pageRoutes = (pages || [])
+    .filter((p) => p.slug && !excludedSlugs.includes(p.slug))
+    .flatMap((p) =>
+      entriesFor(`/pages/${p.slug}`, {
+        lastModified: knownDate(p),
         changeFrequency: "monthly",
         priority: 0.5,
-      })),
-  );
+      }),
+    );
 
   return [
     ...staticRoutes,
