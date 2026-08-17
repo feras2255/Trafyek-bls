@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { siteSettings } from "@/lib/siteSettings";
 // areaServed is a factual claim about where the business operates, so it lives
-// in one reviewable place and is empty until confirmed. See lib/regions.js.
+// in one reviewable place with verified city spellings. See lib/regions.js.
 import { AREA_SERVED, AREA_SERVED_EN } from "@/lib/regions";
 import {
   alternatesFor,
