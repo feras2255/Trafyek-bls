@@ -6,6 +6,7 @@ import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient";
 import { FiArrowUpLeft, FiClock, FiTag } from "react-icons/fi";
 import { buildMetadata } from "@/lib/seo";
+import { sanitize } from "@/lib/sanitize";
 
 export async function generateMetadata() {
   const locale = await getLocale();
@@ -131,7 +132,7 @@ export default async function Blog({ searchParams }) {
                 <div
                   className="text-slate-600 text-xs md:text-sm leading-7 line-clamp-3"
                   dangerouslySetInnerHTML={{
-                    __html: isAr ? post.description_ar : post.description_en,
+                    __html: sanitize(isAr ? post.description_ar : post.description_en),
                   }}
                 />
 

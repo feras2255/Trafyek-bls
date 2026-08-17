@@ -12,6 +12,7 @@ import {
 } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
 import { buildMetadata } from "@/lib/seo";
+import { sanitize } from "@/lib/sanitize";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -135,7 +136,7 @@ export default async function ProjectDetails({ params }) {
                 </h2>
                 <div
                   className="text-subtext text-lg leading-relaxed prose prose-slate"
-                  dangerouslySetInnerHTML={{ __html: description }}
+                  dangerouslySetInnerHTML={{ __html: sanitize(description) }}
                 />
               </div>
 

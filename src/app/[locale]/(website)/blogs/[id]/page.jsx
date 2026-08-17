@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import ArticleShare from "@/components/ui/ArticleShare";
 import { alternatesFor } from "@/lib/seo";
+import { sanitize } from "@/lib/sanitize";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -202,7 +203,7 @@ export default async function BlogPostPage({ params }) {
                 direction: isAr ? "rtl" : "ltr",
                 textAlign: isAr ? "right" : "left",
               }}
-              dangerouslySetInnerHTML={{ __html: content }}
+              dangerouslySetInnerHTML={{ __html: sanitize(content) }}
             />
           </div>
           {/* Footer of the article */}

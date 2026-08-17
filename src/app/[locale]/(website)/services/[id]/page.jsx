@@ -8,6 +8,7 @@ import Image from "next/image";
 import { FiInfo } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
 import { alternatesFor } from "@/lib/seo";
+import { sanitize } from "@/lib/sanitize";
 
 export async function generateStaticParams() {
   const { data: services } = await supabase.from("categories").select("id");
@@ -157,7 +158,7 @@ export default async function ServiceDetails({ params }) {
                   prose-headings:text-accent prose-headings:font-black
                   prose-p:text-subtext prose-strong:text-primary
                   dangerously-style-fix"
-                dangerouslySetInnerHTML={{ __html: longDescription }}
+                dangerouslySetInnerHTML={{ __html: sanitize(longDescription) }}
               />
             </div>
 

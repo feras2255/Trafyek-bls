@@ -5,6 +5,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { siteSettings } from "@/lib/siteSettings";
 import Image from "next/image";
 import { alternatesFor } from "@/lib/seo";
+import { sanitize } from "@/lib/sanitize";
 
 export async function generateMetadata() {
   const locale = await getLocale();
@@ -147,7 +148,7 @@ export default async function About() {
             {story?.content ? (
               <div
                 className="text-base leading-[1.85] text-subtext [&_a]:text-primary [&_h3]:mt-4 [&_h3]:font-bold [&_h3]:text-accent [&_p]:mb-3"
-                dangerouslySetInnerHTML={{ __html: story.content }}
+                dangerouslySetInnerHTML={{ __html: sanitize(story.content) }}
               />
             ) : (
               <p className="m-0 text-base leading-[1.85] text-subtext">

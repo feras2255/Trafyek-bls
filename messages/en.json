@@ -395,5 +395,12 @@
     "ourwork": "Our work",
     "blog": "Blog",
     "contact": "Contact"
+  },
+  "legal": {
+    "badge": "Legal",
+    "last_updated": "Last updated",
+    "cta_title": "Have a legal question?",
+    "cta_description": "Get in touch and we'll answer as soon as we can.",
+    "cta_button": "Message us"
   }
 }
