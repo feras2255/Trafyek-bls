@@ -2,7 +2,10 @@
 export const revalidate = 3600;
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
-import Link from "next/link";
+// The locale-aware Link, not next/link. A bare next/link href of "/ourwork"
+// omits the locale prefix, so every click cost a middleware redirect before
+// the page could render.
+import { Link } from "@/i18n/navigation";
 import { getLocale } from "next-intl/server";
 import {
   FiExternalLink,
@@ -89,6 +92,13 @@ export default async function ProjectDetails({ params }) {
     : isAr
       ? "عام"
       : "General";
+
+  // Real completion year, or nothing. Prefers the delivery date if the record
+  // carries one, then falls back to when the project was added.
+  const yearSource = project.completed_at || project.created_at;
+  const projectYear = yearSource
+    ? new Date(yearSource).getFullYear()
+    : null;
 
   const breadcrumb = [
     { label: isAr ? "أعمالنا" : "Portfolio", href: "/ourwork" },
@@ -199,14 +209,34 @@ export default async function ProjectDetails({ params }) {
                   <p className="text-xs text-gray-400 font-bold uppercase">
                     {isAr ? "التصنيف" : "Category"}
                   </p>
-                  <p className="text-accent font-bold">{categoryName} </p>
+                  {/* The category was plain text, so this page linked out to
+                      nothing. It now points at the service it belongs to, and
+                      that service page links back to this project — the two
+                      halves of the topic cluster the link audit found missing. */}
+                  {project.category_id ? (
+                    <Link
+                      href={`/services/${project.category_id}`}
+                      className="font-bold text-primary underline"
+                    >
+                      {categoryName}
+                    </Link>
+                  ) : (
+                    <p className="text-accent font-bold">{categoryName}</p>
+                  )}
                 </div>
-                <div>
-                  <p className="text-xs text-gray-400 font-bold uppercase">
-                    {isAr ? "سنة التنفيذ" : "Year"}
-                  </p>
-                  <p className="text-accent font-bold">2026</p>
-                </div>
+                {/* Year was hardcoded to 2026, so every project in the
+                    portfolio claimed the same delivery year regardless of when
+                    it shipped. Uses the real record date, and the block is
+                    dropped entirely when that is unknown rather than filled in
+                    with a plausible number. */}
+                {projectYear ? (
+                  <div>
+                    <p className="text-xs text-gray-400 font-bold uppercase">
+                      {isAr ? "سنة التنفيذ" : "Year"}
+                    </p>
+                    <p className="text-accent font-bold">{projectYear}</p>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>

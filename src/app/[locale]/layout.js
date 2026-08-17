@@ -5,9 +5,21 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
+// Cairo is a variable font. Omitting `weight` loads the variable axis as a
+// single file instead of one static file per weight.
+//
+// The previous list was wrong in both directions, measured against actual
+// class usage in src/:
+//   font-light     (300) — loaded, used 0 times          → pure download waste
+//   font-semibold  (600) — NOT loaded, used 43 times     → browser faked it
+//   font-extrabold (800) — NOT loaded, used 31 times     → browser faked it
+// Synthesised weights are especially poor on Arabic letterforms, where the
+// browser smears the strokes of a lighter weight rather than using the real
+// design. One variable file is both lighter than five static ones and the only
+// version that renders all 74 of those elements correctly.
 const cairo = Cairo({
   subsets: ["arabic"],
-  weight: ["300", "400", "500", "700", "900"],
+  display: "swap",
   preload: true,
 });
 

@@ -47,6 +47,32 @@ function knownDate(row) {
   return undefined;
 }
 
+/**
+ * Runs one sitemap query and degrades to an empty list instead of throwing.
+ *
+ * This route runs at build time. Before this wrapper, an unreachable Supabase
+ * — an outage, a rotated key, a network blip in CI — rejected the Promise.all
+ * below and failed the ENTIRE build with "Failed to collect page data for
+ * /sitemap.xml". Reproduced in this container simply by having no credentials
+ * present. A sitemap that is temporarily short is a minor, self-healing
+ * problem; a deploy that cannot ship is not.
+ */
+async function safeSelect(table, columns, refine) {
+  try {
+    let query = supabaseAdmin.from(table).select(columns);
+    if (refine) query = refine(query);
+    const { data, error } = await query;
+    if (error) {
+      console.error(`sitemap: ${table} query failed:`, error.message);
+      return [];
+    }
+    return data ?? [];
+  } catch (err) {
+    console.error(`sitemap: ${table} unreachable:`, err?.message ?? err);
+    return [];
+  }
+}
+
 export default async function sitemap() {
   // No lastModified: these are code-defined pages, and the database has no
   // modification date for them.
@@ -66,30 +92,17 @@ export default async function sitemap() {
   // الصفحات التي لها مسار ثابت ولا نريد تكرارها من DB
   const excludedSlugs = ["about-us"];
 
-  const [
-    { data: projects },
-    { data: blogs },
-    { data: categories },
-    { data: pages },
-  ] = await Promise.all([
-    supabaseAdmin.from("projects").select("id, updated_at, created_at"),
-    supabaseAdmin.from("blogs").select("id, created_at"),
-    supabaseAdmin.from("categories").select("id, created_at"),
-    supabaseAdmin.from("pages").select("slug, updated_at, created_at"),
-  ]);
-
-  // City pages, published only. Wrapped because city_pages does not exist until
+  // City pages are published-only; city_pages also does not exist until
   // migration 008 runs, and a missing table must not take down the sitemap.
-  let cities = [];
-  try {
-    const { data, error } = await supabaseAdmin
-      .from("city_pages")
-      .select("slug, updated_at, created_at")
-      .eq("is_published", true);
-    if (!error) cities = data ?? [];
-  } catch {
-    cities = [];
-  }
+  const [projects, blogs, categories, pages, cities] = await Promise.all([
+    safeSelect("projects", "id, updated_at, created_at"),
+    safeSelect("blogs", "id, created_at"),
+    safeSelect("categories", "id, created_at"),
+    safeSelect("pages", "slug, updated_at, created_at"),
+    safeSelect("city_pages", "slug, updated_at, created_at", (q) =>
+      q.eq("is_published", true),
+    ),
+  ]);
 
   const cityRoutes = cities.flatMap((c) =>
     entriesFor(`/cities/${c.slug}`, {
@@ -99,7 +112,7 @@ export default async function sitemap() {
     }),
   );
 
-  const projectRoutes = (projects || []).flatMap((p) =>
+  const projectRoutes = projects.flatMap((p) =>
     entriesFor(`/ourwork/${p.id}`, {
       lastModified: knownDate(p),
       changeFrequency: "monthly",
@@ -107,7 +120,7 @@ export default async function sitemap() {
     }),
   );
 
-  const blogRoutes = (blogs || []).flatMap((b) =>
+  const blogRoutes = blogs.flatMap((b) =>
     entriesFor(`/blogs/${b.id}`, {
       lastModified: knownDate(b),
       changeFrequency: "monthly",
@@ -115,7 +128,7 @@ export default async function sitemap() {
     }),
   );
 
-  const serviceRoutes = (categories || []).flatMap((s) =>
+  const serviceRoutes = categories.flatMap((s) =>
     entriesFor(`/services/${s.id}`, {
       lastModified: knownDate(s),
       changeFrequency: "monthly",
@@ -123,7 +136,7 @@ export default async function sitemap() {
     }),
   );
 
-  const pageRoutes = (pages || [])
+  const pageRoutes = pages
     .filter((p) => p.slug && !excludedSlugs.includes(p.slug))
     .flatMap((p) =>
       entriesFor(`/pages/${p.slug}`, {
