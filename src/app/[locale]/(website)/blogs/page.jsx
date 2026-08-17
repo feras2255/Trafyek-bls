@@ -3,7 +3,13 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient";
 import { FiClock } from "react-icons/fi";
-import { buildMetadata, alternatesFor } from "@/lib/seo";
+import {
+  buildMetadata,
+  alternatesFor,
+  breadcrumbSchema,
+  jsonLd,
+  SITE_URL,
+} from "@/lib/seo";
 import { sanitize } from "@/lib/sanitize";
 import PageIntro from "@/components/ui/PageIntro";
 import Pagination from "@/components/ui/Pagination";
@@ -51,6 +57,7 @@ export default async function Blog({ searchParams }) {
   const locale = await getLocale();
   const isAr = locale === "ar";
   const t = await getTranslations("blog");
+  const tInfo = await getTranslations("infoSite");
 
   const params = await searchParams;
   const page = Math.max(1, Number(params?.page) || 1);
@@ -91,6 +98,32 @@ export default async function Blog({ searchParams }) {
 
   return (
     <>
+      {/* Blog + breadcrumb. The index emitted no structured data, so the
+          article hub had no declared relationship to the Organization even
+          though every individual post carries BlogPosting. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            {
+              "@context": "https://schema.org",
+              "@type": "Blog",
+              "@id": `${SITE_URL}/${locale}/blogs#blog`,
+              url: `${SITE_URL}/${locale}/blogs`,
+              inLanguage: isAr ? "ar-SA" : "en-US",
+              publisher: { "@id": `${SITE_URL}/#organization` },
+            },
+            breadcrumbSchema({
+              locale,
+              items: [
+                { name: tInfo("home"), path: "" },
+                { name: tInfo("blog") },
+              ],
+            }),
+          ),
+        }}
+      />
+
       <PageIntro
         badge={t("badge")}
         title={t("hero_title")}

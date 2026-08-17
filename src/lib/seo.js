@@ -164,7 +164,16 @@ export function breadcrumbSchema({ locale, items }) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      ...(item.path ? { item: `${SITE_URL}/${locale}${item.path}` } : {}),
+      // `item.path` is checked against null/undefined rather than for
+      // truthiness: the home crumb is passed as path: "", which is falsy, so
+      // the previous check silently dropped its URL. Verified in the rendered
+      // JSON-LD on /ar/services — position 1 was emitted with a name and no
+      // `item`, which makes the trail unresolvable from the top. The final
+      // crumb is the one that legitimately omits `item`, and it does so by
+      // being passed no path at all.
+      ...(item.path === undefined || item.path === null
+        ? {}
+        : { item: `${SITE_URL}/${locale}${item.path}` }),
     })),
   };
 }

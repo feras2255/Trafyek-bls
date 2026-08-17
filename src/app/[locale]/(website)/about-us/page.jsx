@@ -4,7 +4,12 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { getLocale, getTranslations } from "next-intl/server";
 import { siteSettings } from "@/lib/siteSettings";
 import Image from "next/image";
-import { alternatesFor } from "@/lib/seo";
+import {
+  alternatesFor,
+  breadcrumbSchema,
+  jsonLd,
+  SITE_URL,
+} from "@/lib/seo";
 import { sanitize } from "@/lib/sanitize";
 
 export async function generateMetadata() {
@@ -77,6 +82,7 @@ export default async function About() {
   const locale = await getLocale();
   const isAr = locale === "ar";
   const t = await getTranslations("about");
+  const tInfo = await getTranslations("infoSite");
   const settings = await siteSettings();
 
   const { data: page } = await supabaseAdmin
@@ -111,6 +117,32 @@ export default async function About() {
 
   return (
     <>
+      {/* AboutPage + breadcrumb. This page carried no structured data, so the
+          entity behind the brand story was never connected to the Organization
+          node the website layout emits. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            {
+              "@context": "https://schema.org",
+              "@type": "AboutPage",
+              name: isAr ? "من نحن | ترافيك بلس" : "About Us | Traffic Plus",
+              url: `${SITE_URL}/${locale}/about-us`,
+              inLanguage: isAr ? "ar-SA" : "en-US",
+              mainEntity: { "@id": `${SITE_URL}/#organization` },
+            },
+            breadcrumbSchema({
+              locale,
+              items: [
+                { name: tInfo("home"), path: "" },
+                { name: tInfo("about") },
+              ],
+            }),
+          ),
+        }}
+      />
+
       <PageIntro
         badge={t("badge")}
         title={t("hero_title")}

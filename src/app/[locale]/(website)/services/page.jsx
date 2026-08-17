@@ -2,7 +2,7 @@ import PageIntro from "@/components/ui/PageIntro";
 import { getLocale, getTranslations } from "next-intl/server";
 import { siteSettings } from "@/lib/siteSettings";
 import Services from "@/components/home/Services";
-import { alternatesFor } from "@/lib/seo";
+import { alternatesFor, breadcrumbSchema, jsonLd } from "@/lib/seo";
 
 export async function generateMetadata() {
   const locale = await getLocale();
@@ -34,6 +34,7 @@ export async function generateMetadata() {
 
 export default async function ServicesPage() {
   const t = await getTranslations("services");
+  const tInfo = await getTranslations("infoSite");
   const locale = await getLocale();
   const isAr = locale === "ar";
   const settings = await siteSettings();
@@ -42,6 +43,24 @@ export default async function ServicesPage() {
 
   return (
     <>
+      {/* This page emitted no structured data at all, so search engines had no
+          declared hierarchy for it. The audit found the same on /blogs,
+          /about-us and /ourwork/[id]. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            breadcrumbSchema({
+              locale,
+              items: [
+                { name: tInfo("home"), path: "" },
+                { name: tInfo("services") },
+              ],
+            }),
+          ),
+        }}
+      />
+
       <PageIntro
         badge={t("badge")}
         title={t("hero_title")}

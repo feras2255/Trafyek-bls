@@ -11,7 +11,7 @@ import {
   FiLayers,
 } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, breadcrumbSchema, jsonLd, SITE_URL } from "@/lib/seo";
 import { siteSettings } from "@/lib/siteSettings";
 import { sanitize } from "@/lib/sanitize";
 
@@ -97,6 +97,37 @@ export default async function ProjectDetails({ params }) {
 
   return (
     <main className="bg-[#fcfcfc] min-h-screen">
+      {/* The page rendered a visual breadcrumb but emitted no BreadcrumbList,
+          so search engines could not read the hierarchy the visitor could see.
+          CreativeWork describes the case study itself and points at the
+          Organization node rather than repeating a partial copy of it. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLd(
+            {
+              "@context": "https://schema.org",
+              "@type": "CreativeWork",
+              name: title,
+              url: `${SITE_URL}/${locale}/ourwork/${id}`,
+              ...(description ? { description } : {}),
+              ...(project.image_url ? { image: project.image_url } : {}),
+              ...(categoryName ? { genre: categoryName } : {}),
+              inLanguage: isAr ? "ar-SA" : "en-US",
+              creator: { "@id": `${SITE_URL}/#organization` },
+            },
+            breadcrumbSchema({
+              locale,
+              items: [
+                { name: isAr ? "الرئيسية" : "Home", path: "" },
+                { name: isAr ? "أعمالنا" : "Portfolio", path: "/ourwork" },
+                { name: title },
+              ],
+            }),
+          ),
+        }}
+      />
+
       {/*  Page Hero*/}
       <PageHero
         title={title}
