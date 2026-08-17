@@ -1,5 +1,7 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
-export const dynamic = "force-dynamic";
+// Was force-dynamic, so every crawler hit re-queried four tables. Content
+// changes rarely; regenerate hourly instead.
+export const revalidate = 3600;
 export default async function sitemap() {
   const baseUrl = "https://www.trafyekbls.com";
   const locales = ["ar", "en"];
