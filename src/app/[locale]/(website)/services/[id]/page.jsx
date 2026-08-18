@@ -1,4 +1,5 @@
-export const revalidate = 0;
+// Content changes rarely; 0 forced a DB round-trip on every request.
+export const revalidate = 3600;
 
 import Button from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
@@ -6,6 +7,10 @@ import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { FiInfo } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
+import { Link } from "@/i18n/navigation";
+import { alternatesFor } from "@/lib/seo";
+import { siteSettings } from "@/lib/siteSettings";
+import { sanitize } from "@/lib/sanitize";
 
 export async function generateStaticParams() {
   const { data: services } = await supabase.from("categories").select("id");
@@ -33,8 +38,11 @@ export async function generateMetadata({ params }) {
   return {
     title: isAr ? service.title_ar : service.title_en,
     description: isAr ? service.description_ar : service.description_en,
+    // Had no alternates at all, so it inherited the layout's static canonical
+    // pointing at the Arabic home page.
+    alternates: alternatesFor(locale, `/services/${id}`),
     openGraph: {
-      images: [service.image_url],
+      images: service.image_url ? [service.image_url] : undefined,
     },
   };
 }
@@ -43,6 +51,8 @@ export default async function ServiceDetails({ params }) {
   const t = await getTranslations("services");
   const locale = await getLocale();
   const isAr = locale === "ar";
+  const settings = await siteSettings();
+  const waNumber = settings?.whatsapp?.replace(/[^\d]/g, "");
 
   const { data: service, error } = await supabase
     .from("categories")
@@ -58,6 +68,21 @@ export default async function ServiceDetails({ params }) {
           : "This service is not available."}
       </div>
     );
+  }
+
+  // Projects delivered under this service. Guarded rather than awaited bare:
+  // a failure here must cost the related-work strip only, never the page.
+  let relatedProjects = [];
+  try {
+    const { data } = await supabase
+      .from("projects")
+      .select("id, title_ar, title_en, image_url")
+      .eq("category_id", id)
+      .order("created_at", { ascending: false })
+      .limit(3);
+    relatedProjects = data ?? [];
+  } catch {
+    relatedProjects = [];
   }
 
   const title = isAr ? service.title_ar : service.title_en || service.title;
@@ -100,6 +125,7 @@ export default async function ServiceDetails({ params }) {
         breadcrumbData={breadcrumb}
         isAr={isAr}
         showButtons={true}
+        whatsapp={waNumber}
       />
 
       {/* 1. Header Section: Image & Brief Description Side by Side */}
@@ -152,7 +178,7 @@ export default async function ServiceDetails({ params }) {
                   prose-headings:text-accent prose-headings:font-black
                   prose-p:text-subtext prose-strong:text-primary
                   dangerously-style-fix"
-                dangerouslySetInnerHTML={{ __html: longDescription }}
+                dangerouslySetInnerHTML={{ __html: sanitize(longDescription) }}
               />
             </div>
 
@@ -175,14 +201,14 @@ export default async function ServiceDetails({ params }) {
                   color="primary"
                   size="lg"
                   className=" shadow-xl hover:scale-105 transition-transform"
-                  href={`https://wa.me/966530446151?text=${encodeURIComponent(isAr ? `استفسار عن: ${title}` : `Inquiry about: ${title}`)}`}
+                  href={waNumber ? `https://wa.me/${waNumber}?text=${encodeURIComponent(isAr ? `استفسار عن: ${title}` : `Inquiry about: ${title}`)}` : "/contact"}
                 />
                 <Button
                   title={isAr ? "اتصال هاتفي" : "Call Us"}
                   color="secondary"
                   size="lg"
                   className=" border-2 border-white/20 hover:bg-white/10"
-                  href="tel:966530446151"
+                  href={settings?.phone ? `tel:${settings.phone}` : "/contact"}
                 />
               </div>
 
@@ -192,6 +218,69 @@ export default async function ServiceDetails({ params }) {
           </div>
         </div>
       </section>
+
+      {/*
+        Real work delivered under this service.
+
+        The internal-link graph built during the SEO audit showed /services/:id
+        receiving exactly two inbound links site-wide and emitting none to
+        anything except the WhatsApp CTA — no horizontal links between related
+        pages, so the site was a set of lists rather than topic clusters. This
+        section links each service to the projects actually delivered under it,
+        and ourwork/[id] now links back, closing the loop in both directions.
+
+        Rendered only when real projects exist. An empty "our work" strip would
+        be worse than no strip.
+      */}
+      {relatedProjects.length > 0 ? (
+        <section className="bg-background-2 py-16">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <h2 className="mb-8 text-2xl font-black text-accent md:text-3xl">
+              {isAr ? `أعمالنا في ${title}` : `Our work in ${title}`}
+            </h2>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedProjects.map((p) => {
+                const pTitle = isAr ? p.title_ar : p.title_en || p.title_ar;
+                return (
+                  <Link
+                    key={p.id}
+                    href={`/ourwork/${p.id}`}
+                    className="group block overflow-hidden rounded-2xl border border-gray-100 bg-card shadow-lg shadow-black/5 transition-transform hover:-translate-y-1"
+                  >
+                    {p.image_url ? (
+                      <div className="relative h-40 w-full overflow-hidden">
+                        <Image
+                          src={p.image_url}
+                          alt={pTitle || ""}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </div>
+                    ) : null}
+                    <div className="p-5">
+                      <h3 className="text-base font-extrabold text-accent">
+                        {pTitle}
+                      </h3>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+
+            <div className="mt-8">
+              <Link
+                href="/ourwork"
+                className="text-sm font-extrabold text-primary underline"
+              >
+                {isAr ? "عرض جميع الأعمال" : "View all work"}{" "}
+                {isAr ? "←" : "→"}
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }

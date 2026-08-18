@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import { sanitize } from "@/lib/sanitize";
 
 export default function PageContent() {
   const { slug } = useParams();
@@ -44,7 +45,7 @@ export default function PageContent() {
       <h1 className="text-2xl font-bold mb-4">{page.title}</h1>
       <div
         className="prose prose-lg"
-        dangerouslySetInnerHTML={{ __html: page.content }}
+        dangerouslySetInnerHTML={{ __html: sanitize(page.content) }}
       />
     </div>
   );

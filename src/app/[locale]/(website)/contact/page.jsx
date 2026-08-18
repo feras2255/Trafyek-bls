@@ -1,13 +1,10 @@
 import { siteSettings } from "@/lib/siteSettings";
-import { FaLocationDot, FaPhoneFlip, FaWhatsapp } from "react-icons/fa6";
-import { MdOutlineEmail } from "react-icons/md";
 import ContactForm from "./_Component/ContactForm";
-import PageHero from "@/components/ui/PageHero";
-import Link from "next/link";
+import PageIntro from "@/components/ui/PageIntro";
 import { getLocale, getTranslations } from "next-intl/server";
+import { alternatesFor } from "@/lib/seo";
 
 export async function generateMetadata() {
-  const t = await getTranslations("contact");
   const locale = await getLocale();
   const isAr = locale === "ar";
 
@@ -20,32 +17,117 @@ export async function generateMetadata() {
     : "Contact Traffic Plus team in Saudi Arabia to start your next digital project. We are here to answer your questions about programming and digital marketing.";
 
   return {
-    title: title,
-    description: description,
-    alternates: {
-      canonical: `https://www.trafyekbls.com/${locale}/contact`,
-    },
+    title,
+    description,
+    alternates: alternatesFor(locale, "/contact"),
     openGraph: {
-      title: title,
-      description: description,
+      title,
+      description,
       url: `https://www.trafyekbls.com/${locale}/contact`,
       siteName: "ترافيك بلس",
-      images: [
-        {
-          url: "/favicon.png",
-          width: 800,
-          height: 600,
-        },
-      ],
+      images: [{ url: "/favicon.png", width: 800, height: 600 }],
       locale: isAr ? "ar_SA" : "en_US",
       type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title: title,
-      description: description,
-    },
+    twitter: { card: "summary_large_image", title, description },
   };
+}
+
+const PhoneIcon = () => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M3 5a2 2 0 0 1 2-2h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5z" />
+  </svg>
+);
+
+const MailIcon = () => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="M3 7l9 6 9-6" />
+  </svg>
+);
+
+const PinIcon = () => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" />
+    <circle cx="12" cy="10" r="2.5" />
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3 2" />
+  </svg>
+);
+
+function InfoCard({ tone, icon, label, value, href }) {
+  const body = (
+    <>
+      <span
+        className={`flex size-[50px] shrink-0 items-center justify-center rounded-[14px] text-text ${tone}`}
+      >
+        {icon}
+      </span>
+      <span className="flex flex-col">
+        <span className="text-[13px] text-subtext">{label}</span>
+        <span className="text-base font-extrabold text-accent">{value}</span>
+      </span>
+    </>
+  );
+
+  const shell =
+    "flex items-center gap-4 rounded-[20px] bg-background-2 p-7 shadow-[0_20px_40px_-20px_color-mix(in_srgb,var(--accent)_15%,transparent)]";
+
+  return href ? (
+    <a
+      href={href}
+      className={`${shell} transition-transform hover:-translate-y-1`}
+    >
+      {body}
+    </a>
+  ) : (
+    <div className={shell}>{body}</div>
+  );
 }
 
 export default async function ContactPage() {
@@ -54,45 +136,12 @@ export default async function ContactPage() {
   const isAr = locale === "ar";
   const settings = await siteSettings();
 
-  if (!settings) return null;
-
-  const contactInfo = [
-    {
-      icon: <FaWhatsapp size={28} />,
-      title: t("info.whatsapp"),
-      value: settings.phone,
-      styles: "bg-[#25D366]/10 text-[#25D366] border-[#25D366]/20",
-      link: settings.phone
-        ? `https://wa.me/${settings.phone.replace(/\s+/g, "")}`
-        : "#",
-    },
-    {
-      icon: <MdOutlineEmail size={28} />,
-      title: t("info.email"),
-      value: settings.email,
-      styles: "bg-blue-50 text-blue-600 border-blue-100",
-      link: settings.email ? `mailto:${settings.email}` : "#",
-    },
-    {
-      icon: <FaPhoneFlip size={24} />,
-      title: t("info.customer_service"),
-      value: settings.phone,
-      styles: "bg-primary/10 text-primary border-primary/20",
-      link: settings.phone ? `tel:${settings.phone}` : "#",
-    },
-    {
-      icon: <FaLocationDot size={26} />,
-      title: t("info.location"),
-      value: t("info.address"),
-      styles: "bg-red-50 text-red-600 border-red-100",
-      link: "#",
-    },
-  ];
-
-  const breadcrumb = [{ label: t("breadcrumb"), href: null }];
+  // Digits only — a number stored as "+966 53 044 6151" breaks a wa.me link.
+  const waNumber = settings?.whatsapp?.replace(/[^\d]/g, "");
+  const mapQuery = encodeURIComponent(t("info.map_query"));
 
   return (
-    <section className="bg-[#fcfcfd]">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -100,16 +149,18 @@ export default async function ContactPage() {
             "@context": "https://schema.org",
             "@type": "ContactPage",
             name: isAr ? "اتصل بنا - ترافيك بلس" : "Contact Us - Traffic Plus",
-            description: "اتصل بنا | ترافيك بلس - حلول تقنية متكاملة",
+            description: isAr
+              ? "اتصل بنا | ترافيك بلس - حلول تقنية متكاملة"
+              : "Contact Us | Traffic Plus - Integrated Tech Solutions",
             mainEntity: {
               "@type": "Organization",
               name: "ترافيك بلس",
-              telephone: settings.phone,
-              email: settings.email,
+              telephone: settings?.phone,
+              email: settings?.email,
               areaServed: "SA",
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: settings.phone,
+                telephone: settings?.phone,
                 contactType: "customer service",
                 availableLanguage: ["Arabic", "English"],
               },
@@ -117,103 +168,75 @@ export default async function ContactPage() {
           }),
         }}
       />
-      <PageHero
+
+      <PageIntro
+        badge={t("form.badge")}
         title={t("hero.title")}
         description={t("hero.description")}
-        breadcrumbData={breadcrumb}
-        isAr={isAr}
       />
 
-      <div
-        id="contact"
-        className="container mx-auto px-6 py-24 lg:py-32 relative z-10"
-      >
-        <div className="flex flex-col lg:flex-row gap-20 items-start">
-          {/* Contact Form */}
-          <div className="w-full lg:w-7/12 bg-white py-8 md:p-16 rounded-[3.5rem] shadow-2xl shadow-slate-200/40 border border-slate-50 relative overflow-hidden group order-2 lg:order-1">
-            <div className="absolute top-0 right-0 size-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32 transition-all group-hover:bg-primary/10" />
-
-            <div className="mb-12 relative z-10 px-4">
-              <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-[10px] font-black tracking-[0.2em] uppercase mb-4">
-                {t("form.badge")}
-              </span>
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter italic">
-                {t("form.title_part1")}
-                <span className="text-primary italic">
-                  {t("form.title_highlight")}
-                </span>
-              </h2>
-              <p className="text-slate-500 font-bold text-base md:text-lg max-w-md">
-                {t("form.description")}
-              </p>
-            </div>
-
-            <ContactForm isAr={isAr} />
+      {/* form + channels */}
+      <section className="px-6 py-20">
+        <div className="mx-auto flex max-w-[1100px] flex-wrap gap-10">
+          <div className="flex-[1_1_380px] rounded-3xl border border-border bg-card p-6 shadow-[0_30px_60px_-25px_color-mix(in_srgb,var(--accent)_22%,transparent)] md:p-10">
+            <h2 className="mb-5.5 text-[22px] font-black text-accent">
+              {t("form.title")}
+            </h2>
+            <ContactForm />
           </div>
 
-          {/* information */}
-          <div className="w-full lg:w-5/12 space-y-12 order-1 lg:order-2">
-            <div className="px-4">
-              <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tight">
-                {t("info.title")}
-              </h3>
-              <p className="text-slate-500 leading-relaxed text-base md:text-lg font-medium">
-                {t("info.description")}
-              </p>
-            </div>
+          <div className="flex flex-[1_1_300px] flex-col gap-5">
+            {settings?.whatsapp ? (
+              <InfoCard
+                tone="bg-primary"
+                icon={<PhoneIcon />}
+                label={t("info.whatsapp")}
+                value={settings.whatsapp}
+                href={waNumber ? `https://wa.me/${waNumber}` : undefined}
+              />
+            ) : null}
 
-            {/* contact info cards */}
-            <div className="grid grid-cols-1 gap-6">
-              {contactInfo.map((info, idx) => (
-                <Link
-                  href={info.link}
-                  key={idx}
-                  aria-label={info.title}
-                  className="group flex items-center gap-6 py-6 px-3 md:p-6 rounded-[2.5rem] transition-all duration-500 bg-white border border-slate-100 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
-                >
-                  <div
-                    className={`flex-shrink-0 size-20 rounded-[1.5rem] flex items-center justify-center border transition-all duration-700 group-hover:scale-110 group-hover:rotate-[10deg] ${info.styles}`}
-                  >
-                    {info.icon}
-                  </div>
+            {settings?.email ? (
+              <InfoCard
+                tone="bg-accent"
+                icon={<MailIcon />}
+                label={t("info.email")}
+                value={settings.email}
+                href={`mailto:${settings.email}`}
+              />
+            ) : null}
 
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">
-                      {info.title}
-                    </span>
-                    <p className="text-slate-900 font-black text-lg md:text-2xl break-all leading-tight">
-                      {info.value}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <InfoCard
+              tone="bg-brand-orange"
+              icon={<PinIcon />}
+              label={t("info.location")}
+              value={t("info.address")}
+            />
 
-            {/* Card Working Hours */}
-            <div className="py-10 px-5 md:p-10 bg-accent text-white rounded-2xl md:rounded-[3.5rem] shadow-2xl shadow-accent/20 relative overflow-hidden group border border-white/5">
-              <div className="absolute -top-10 -right-10 size-40 bg-primary/20 rounded-full blur-[80px] group-hover:size-60 transition-all duration-700" />
-
-              <div className="relative z-10 flex flex-col gap-4">
-                <div className="flex items-center gap-3">
-                  <span className="size-3 bg-primary rounded-full animate-ping shadow-[0_0_15px_#7c3aed]"></span>
-                  <h4 className="font-black text-xl md:text-2xl tracking-tight">
-                    {t("working_hours.title")}
-                  </h4>
-                </div>
-                <div className="h-px bg-white/10 w-full" />
-                <p className="text-white/70 font-bold text-lg md:text-xl leading-relaxed">
-                  {t("working_hours.days")}
-                  <span className="text-white">{t("working_hours.time")}</span>
-                  <br />
-                  <span className="text-xs text-white/40 font-medium">
-                    {t("working_hours.note")}
-                  </span>
-                </p>
-              </div>
-            </div>
+            {/* Kept from the previous page — the design dropped it, but the
+                hours are real information a visitor acts on. */}
+            <InfoCard
+              tone="bg-sucsses"
+              icon={<ClockIcon />}
+              label={t("working_hours.title")}
+              value={`${t("working_hours.days")}${t("working_hours.time")}`}
+            />
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* map */}
+      <section className="px-6 pb-24">
+        <div className="mx-auto max-w-[1100px] overflow-hidden rounded-3xl border border-border shadow-[0_30px_60px_-25px_color-mix(in_srgb,var(--accent)_22%,transparent)]">
+          <iframe
+            title={t("info.map_title")}
+            src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            className="block h-90 w-full border-0"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </section>
+    </>
   );
 }

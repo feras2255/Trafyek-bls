@@ -20,7 +20,10 @@ export default async function Hero() {
     description: isRtl ? data.description_ar : data.description_en,
     button: isRtl ? data.button_ar : data.button_en,
     btn_url: data.btn_url,
-    image_url: data.image_url,
+    // Was hardcoded to "/hero.png" at the <Image> tag, so the dashboard's
+    // hero image never took effect. Reads the row now, falling back to the
+    // committed asset so an unset value doesn't blank the hero.
+    image_url: data.image_url || "/hero.png",
   };
 
   return (
@@ -37,7 +40,7 @@ export default async function Hero() {
               className="inline-flex items-center gap-2 bg-secondary/30 text-primary border border-primary/10 px-4 py-1.5 rounded-full text-sm md:text-base font-bold"
               data-aos="fade-down"
             >
-              <span className="w-2 h-2 bg-orange rounded-full animate-pulse" />
+              <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
               {content.preTitle}
             </div>
           )}
@@ -97,8 +100,7 @@ export default async function Hero() {
             <div className="relative w-full max-w-[500px] mx-auto group">
               <div className="relative w-full h-64 lg:h-100 overflow-hidden rounded-[2.5rem] md:border-8 md:border-white">
                 <Image
-                  // {content.image_url}
-                  src="/hero.png"
+                  src={content.image_url}
                   alt={content.title || "Hero Image"}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"

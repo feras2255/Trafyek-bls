@@ -6,9 +6,15 @@
   --background: #ffffff;
   --background-2: #f8f5ff;
   --card: #ffffff;
+  /* purple-tinted surfaces used for alternating sections */
+  --surface-tint: #ece7f3;
+  --surface-tint-2: #faf8fc;
+  /* dark ground for inverted sections and the footer */
+  --ink: #17130d;
 
   /* (Primary) */
   --primary: #7b3f98;
+  --primary-dark: #5c2d75;
   --secondary: #e9d5ff;
   --third: #c9c5cf;
 
@@ -19,20 +25,37 @@
   /* Text */
   --maintext: #1a1a1a;
   --text: #ffffff;
-  --subtext: #888a8d;
+  /* #888a8d scored ~3.4:1 on white and failed WCAG AA for body copy;
+     #5a5c60 reaches ~6.4:1 and matches the approved designs */
+  --subtext: #5a5c60;
+  --muted: #a49db3;
 
   /* Border and Hover */
   --border: #ced3da;
   --hover: #9e58c7;
   --sucsses: #10b981;
   --worning: #ef4444;
+  --whatsapp: #25d366;
+}
+
+/* Card lift shadow — was repeated as a literal rgba(123,63,152,…) in
+   Services, WhyUs, StatsSection and FAQ. Single source now. */
+@utility shadow-card-lift {
+  box-shadow: 0 30px 60px -15px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+@utility shadow-card-lift-sm {
+  box-shadow: 0 30px 60px -15px color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-background-2: var(--background-2);
   --color-card: var(--card);
+  --color-surface-tint: var(--surface-tint);
+  --color-surface-tint-2: var(--surface-tint-2);
+  --color-ink: var(--ink);
   --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
   --color-secondary: var(--secondary);
   --color-third: var(--third);
   --color-accent: var(--accent);
@@ -40,10 +63,14 @@
   --color-maintext: var(--maintext);
   --color-text: var(--text);
   --color-subtext: var(--subtext);
+  --color-muted: var(--muted);
   --color-border: var(--border);
   --color-hover: var(--hover);
   --color-sucsses: var(--sucsses);
   --color-worning: var(--worning);
+  --color-whatsapp: var(--whatsapp);
+  --font-grotesk: var(--font-space-grotesk);
+  --font-mono-display: var(--font-space-mono);
 }
 
 html {

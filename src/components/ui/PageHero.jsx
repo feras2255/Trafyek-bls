@@ -9,6 +9,7 @@ import {
 } from "react-icons/fi";
 
 export default function PageHero({
+  whatsapp,
   title,
   description,
   breadcrumbData = [],
@@ -91,7 +92,7 @@ export default function PageHero({
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4 animate-fade-in-up animation-delay-500">
             {/* contact button */}
             <Link
-              href="https://wa.me/966530446151"
+              href={whatsapp ? `https://wa.me/${whatsapp}` : "/contact"}
               aria-label="تواصل معنا"
               className="group flex items-center justify-center gap-2 w-full md:w-auto bg-primary hover:bg-white text-white hover:text-primary px-8 py-4 rounded-full font-black text-lg transition-all duration-300 shadow-xl shadow-primary/20"
             >

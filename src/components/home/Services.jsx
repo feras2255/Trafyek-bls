@@ -1,12 +1,34 @@
 import { supabase } from "@/lib/supabaseClient";
 import { getLocale, getTranslations } from "next-intl/server";
-import { FiArrowUpLeft, FiArrowUpRight, FiLayers } from "react-icons/fi";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+
+// Fallback glyph for a category with no image set in the dashboard. The
+// approved design gives every card an icon, so an empty tile would read as a
+// loading failure rather than a deliberate blank.
+function ServiceGlyph({ className }) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <polyline points="3 17 9 11 13 15 21 6" />
+      <polyline points="15 6 21 6 21 12" />
+    </svg>
+  );
+}
 
 export default async function Services({ isHomePage = false }) {
   const locale = await getLocale();
-  const t = await getTranslations("home");
+  const t = await getTranslations("services");
   const isRtl = locale === "ar";
 
   let query = supabase
@@ -14,119 +36,119 @@ export default async function Services({ isHomePage = false }) {
     .select("*")
     .order("order", { ascending: true });
 
-  // Limit categories to 6 on the home page
-  if (isHomePage) {
-    query = query.limit(6);
-  }
+  if (isHomePage) query = query.limit(6);
 
   const { data: categories, error } = await query;
 
-  if (error)
+  if (error) {
     return (
-      <p className="text-center py-20 text-subtext italic">
-        {isRtl ? "حدث خطأ أثناء تحميل البيانات" : "Error loading data"}
-      </p>
+      <p className="py-20 text-center text-subtext italic">{t("load_error")}</p>
     );
+  }
+
+  if (!categories?.length) {
+    return <p className="py-20 text-center text-subtext">{t("empty")}</p>;
+  }
 
   return (
-    <section className="relative py-14 bg-background-2 overflow-hidden">
-      <div
-        className={`absolute top-0 ${isRtl ? "left-0" : "right-0"} w-96 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none`}
-      />
-
-      <div className="container mx-auto px-4 lg:px-6 relative z-10">
-        {/* إخفاء العنوان إذا لم نكن في الصفحة الرئيسية */}
-        {isHomePage && (
-          <div
-            className="mb-16 flex flex-col lg:flex-row items-center md:items-start justify-between gap-8"
-            data-aos="fade-down"
-          >
-            <div className="max-w-3xl space-y-4">
-              <div className="flex items-end gap-2">
-                <span className="w-10 h-1 bg-primary rounded-full" />
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-accent leading-tight">
-                  {t("services")}
-                </h2>
-              </div>
-              <p className="text-subtext text-sm md:text-base lg:text-xl leading-relaxed">
-                {t("d-services")}
-              </p>
-            </div>
-
-            <Link
-              href="/services"
-              aria-label="عرض جميع الخدمات"
-              className="group flex items-center justify-center w-fit gap-3 bg-primary/5 text-primary border-2 border-primary/20 hover:border-primary hover:bg-primary hover:text-text py-3 px-8 rounded-xl font-bold transition-all duration-300 shadow-sm"
-            >
-              {t("view-all")}
-              <FiLayers className="group-hover:rotate-12 transition-transform" />
-            </Link>
+    <section className="px-6 py-24">
+      <div className="mx-auto max-w-[1280px]">
+        {isHomePage ? (
+          <div className="mb-14 text-center">
+            <h2 className="mb-3 text-3xl font-black text-accent md:text-4xl">
+              {t("title")}
+            </h2>
+            <p className="mx-auto max-w-[640px] text-[17px] leading-[1.8] text-subtext">
+              {t("description")}
+            </p>
           </div>
-        )}
+        ) : null}
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {categories.map((category, index) => (
-            <div
-              key={category.id}
-              className="group block h-full"
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-            >
-              {/* card */}
-              <div className="relative h-full bg-text border border-border rounded-xl md:rounded-3xl p-4 lg:p-8 transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-[0_30px_60px_-15px_rgba(123,63,152,0.15)] group-hover:border-primary/20">
-                <div className="flex items-start justify-between mb-8">
-                  <div className="w-16 h-16 bg-background-2 rounded-2xl flex items-center justify-center shadow-inner group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
-                    {category.image_url ? (
-                      <Image
-                        src={category.image_url}
-                        alt={category.title_ar || category.title_en}
-                        width={35}
-                        height={35}
-                        className="w-9 h-9 object-contain transition-all"
-                      />
-                    ) : (
-                      <FiLayers className="w-8 h-8 text-primary group-hover:text-white" />
-                    )}
-                  </div>
-                  <div className="p-3 rounded-full bg-secondary/20 text-primary opacity-40 group-hover:opacity-100 group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                    {isRtl ? (
-                      <FiArrowUpLeft size={24} />
-                    ) : (
-                      <FiArrowUpRight size={24} />
-                    )}
-                  </div>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-7">
+          {categories.map((category) => {
+            const title = isRtl ? category.title_ar : category.title_en;
+            const description = isRtl
+              ? category.description_ar
+              : category.description_en;
+            const badge = isRtl ? category.badge_ar : category.badge_en;
+            const highlighted = Boolean(category.is_highlighted);
+
+            return (
+              <article
+                key={category.id}
+                className={`relative overflow-hidden rounded-3xl border p-9 shadow-[0_25px_55px_-25px_color-mix(in_srgb,var(--accent)_22%,transparent)] transition-transform duration-500 hover:-translate-y-2 ${
+                  highlighted
+                    ? "border-accent bg-accent"
+                    : "border-border bg-card"
+                }`}
+              >
+                {highlighted && badge ? (
+                  <span className="absolute top-5 left-5 rounded-full bg-brand-orange px-3 py-1 text-[11px] font-black text-ink">
+                    {badge}
+                  </span>
+                ) : null}
+
+                <div
+                  className={`mb-5.5 flex size-15 items-center justify-center overflow-hidden rounded-2xl ${
+                    highlighted ? "bg-white/12" : "bg-background-2"
+                  }`}
+                >
+                  {category.image_url ? (
+                    <Image
+                      src={category.image_url}
+                      alt=""
+                      width={28}
+                      height={28}
+                      className="size-7 object-contain"
+                    />
+                  ) : (
+                    <ServiceGlyph
+                      className={
+                        highlighted ? "text-brand-orange" : "text-primary"
+                      }
+                    />
+                  )}
                 </div>
-                <div className="space-y-4">
-                  <h3 className="text-lg md:text-xl lg:text-2xl font-black text-accent group-hover:text-primary transition-colors duration-300">
-                    {isRtl
-                      ? category.title_ar
-                      : category.title_en || category.title}
-                  </h3>
-                  <p className="text-subtext text-base leading-relaxed line-clamp-3">
-                    {isRtl
-                      ? category.description_ar
-                      : category.description_en ||
-                        "Professional digital solutions."}
-                  </p>
-                </div>
+
+                <h3
+                  className={`mb-2.5 text-[21px] font-black ${
+                    highlighted ? "text-text" : "text-accent"
+                  }`}
+                >
+                  {title}
+                </h3>
+
+                <p
+                  className={`mb-4.5 line-clamp-3 text-[15px] leading-[1.75] ${
+                    highlighted ? "text-white/75" : "text-subtext"
+                  }`}
+                >
+                  {description}
+                </p>
+
                 <Link
                   href={`/services/${category.id}`}
-                  aria-label="عرض التفاصيل"
-                  className="mt-8 pt-8 border-t border-border flex items-center justify-between"
+                  className={`text-[13px] font-extrabold ${
+                    highlighted ? "text-brand-orange" : "text-primary"
+                  }`}
                 >
-                  <span className="text-primary font-black text-sm uppercase tracking-wider">
-                    {t("view-details")}
-                  </span>
-                  <div className="flex gap-1">
-                    <span className="w-1 h-1 rounded-full bg-primary/20 group-hover:bg-primary transition-colors" />
-                    <span className="w-4 h-1 rounded-full bg-primary/20 group-hover:w-8 group-hover:bg-primary transition-all" />
-                  </div>
+                  {t("details")} {isRtl ? "←" : "→"}
                 </Link>
-              </div>
-            </div>
-          ))}
+              </article>
+            );
+          })}
         </div>
+
+        {isHomePage ? (
+          <div className="mt-12 text-center">
+            <Link
+              href="/services"
+              className="inline-flex rounded-[10px] bg-linear-135 from-accent to-primary px-9 py-4 text-base font-extrabold text-text transition-transform hover:-translate-y-0.5"
+            >
+              {t("view_all")}
+            </Link>
+          </div>
+        ) : null}
       </div>
     </section>
   );

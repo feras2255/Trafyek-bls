@@ -1,215 +1,298 @@
-import { supabase } from "@/lib/supabaseClient";
-import { getLocale } from "next-intl/server";
-import Image from "next/image";
-import PageHero from "@/components/ui/PageHero";
+export const revalidate = 3600;
 
-import {
-  FiClock,
-  FiTag,
-  FiCalendar,
-  FiChevronRight,
-  FiChevronLeft,
-} from "react-icons/fi";
-import Link from "next/link";
+import { supabase } from "@/lib/supabaseClient";
+import { getLocale, getTranslations } from "next-intl/server";
+import Image from "next/image";
+import { Link } from "@/i18n/navigation";
+import { siteSettings } from "@/lib/siteSettings";
 import ArticleShare from "@/components/ui/ArticleShare";
+import { sanitize } from "@/lib/sanitize";
+import { buildMetadata, breadcrumbSchema, jsonLd, SITE_URL } from "@/lib/seo";
+import { notFound } from "next/navigation";
+
+async function getPost(id) {
+  const { data } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("id", id)
+    .single();
+  return data;
+}
+
+function readingMinutes(html) {
+  const words = String(html ?? "")
+    .replace(/<[^>]*>?/gm, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
+}
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
   const locale = await getLocale();
   const isAr = locale === "ar";
+  const post = await getPost(id);
 
-  // جلب بيانات المقال للميتا تاقز
-  const { data: post } = await supabase
-    .from("blogs")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (!post) return { title: isAr ? "المقال غير موجود" : "Post Not Found" };
+  if (!post) {
+    return {
+      title: isAr ? "المقال غير موجود" : "Post not found",
+      robots: { index: false, follow: true },
+    };
+  }
 
   const title = isAr ? post.title_ar : post.title_en;
-  // تنظيف الوصف من تاقز HTML إذا كان مخزناً كـ Rich Text
-  const description = (isAr ? post.description_ar : post.description_en)
-    ?.replace(/<[^>]*>?/gm, "")
-    ?.substring(0, 160);
+  const body = isAr ? post.description_ar : post.description_en;
 
-  return {
-    title: `${title} | ترافيك بلس`,
-    description: description,
-    alternates: {
-      canonical: `https://www.trafyekbls.com/${locale}/blog/${id}`,
-    },
-    openGraph: {
-      title: title,
-      description: description,
-      url: `https://www.trafyekbls.com/${locale}/blog/${id}`,
-      siteName: "ترافيك بلس - Traffic Plus",
-      type: "article",
-      publishedTime: post.created_at,
-      images: [
-        {
-          url: post.image_url || "/he.png",
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-      locale: isAr ? "ar_SA" : "en_US",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: title,
-      description: description,
-      images: [post.image_url || "/he.png"],
-    },
-  };
+  return buildMetadata({
+    locale,
+    path: `/blogs/${id}`,
+    title,
+    description: body
+      ?.replace(/<[^>]*>?/gm, "")
+      ?.trim()
+      ?.slice(0, 160),
+    type: "article",
+    images: post.image_url
+      ? [{ url: post.image_url, width: 1200, height: 630, alt: title }]
+      : undefined,
+  });
 }
 
 export default async function BlogPostPage({ params }) {
   const { id } = await params;
   const locale = await getLocale();
   const isAr = locale === "ar";
+  const t = await getTranslations("article");
+  const tInfo = await getTranslations("infoSite");
+  const settings = await siteSettings();
 
-  //  fetch data from Supabase
-  const { data: post, error } = await supabase
-    .from("blogs")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error || !post) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-bold">
-          {isAr ? "المقال غير موجود" : "Post Not Found"}
-        </h1>
-      </div>
-    );
-  }
+  const post = await getPost(id);
+  // A real 404 instead of a soft 200 carrying an error message, which would be
+  // indexable thin content.
+  if (!post) notFound();
 
   const title = isAr ? post.title_ar : post.title_en;
-  const content = isAr ? post.description_ar : post.description_en;
-  const category = isAr ? post.category_ar : post.category_en;
+  const body = isAr ? post.description_ar : post.description_en;
+  const categoryColumn = isAr ? "category_ar" : "category_en";
+  const category = post[categoryColumn];
+  // Was hardcoded as "قراءة ٥ دقائق" on every article regardless of length.
+  const minutes = readingMinutes(body);
+  const waNumber = settings?.whatsapp?.replace(/[^\d]/g, "");
+
   const date = new Date(post.created_at).toLocaleDateString(
     isAr ? "ar-EG" : "en-US",
-    {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    },
+    { year: "numeric", month: "long", day: "numeric" },
   );
 
-  const breadcrumb = [
-    {
-      label: isAr ? "المدونة" : "Blog",
-      href: `/${locale}/blog`,
-    },
-    {
-      label: isAr ? "قراءة المقال" : "Read Post",
-      href: null,
-    },
-  ];
+  // Related articles: same category, newest first, excluding this one. Uses the
+  // existing free-text category column so it works before migration 004 adds
+  // the proper relation.
+  let relatedQuery = supabase
+    .from("blogs")
+    .select("id, title_ar, title_en, image_url")
+    .neq("id", id)
+    .order("created_at", { ascending: false })
+    .limit(3);
+  if (category) relatedQuery = relatedQuery.eq(categoryColumn, category);
+  let { data: related } = await relatedQuery;
 
-  const excerpt = content?.replace(/<[^>]*>?/gm, "")?.substring(0, 220) || "";
+  // Fall back to the most recent overall so the strip is never empty when a
+  // category holds a single article.
+  if (!related?.length) {
+    const { data: recent } = await supabase
+      .from("blogs")
+      .select("id, title_ar, title_en, image_url")
+      .neq("id", id)
+      .order("created_at", { ascending: false })
+      .limit(3);
+    related = recent ?? [];
+  }
 
   return (
-    <article className="min-h-screen">
+    <article>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: title,
-            image: post.image_url || "/he.png",
-            datePublished: post.created_at,
-            dateModified: post.updated_at || post.created_at,
-            author: {
-              "@type": "Organization",
-              name: "ترافيك بلس",
-              url: "https://www.trafyekbls.com",
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "ترافيك بلس",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://www.trafyekbls.com/favicon.png",
+          __html: jsonLd(
+            {
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: title,
+              ...(post.image_url ? { image: post.image_url } : {}),
+              datePublished: post.created_at,
+              dateModified: post.updated_at || post.created_at,
+              // Points at the Organization node the website layout emits
+              // rather than repeating a partial copy of it.
+              author: { "@id": `${SITE_URL}/#organization` },
+              publisher: { "@id": `${SITE_URL}/#organization` },
+              description: body?.replace(/<[^>]*>?/gm, "")?.slice(0, 160),
+              inLanguage: isAr ? "ar-SA" : "en-US",
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `${SITE_URL}/${locale}/blogs/${id}`,
               },
             },
-            description: content?.replace(/<[^>]*>?/gm, "")?.substring(0, 160),
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": `https://www.trafyekbls.com/${locale}/blog/${id}`,
-            },
-          }),
+            breadcrumbSchema({
+              locale,
+              items: [
+                { name: tInfo("home"), path: "" },
+                { name: tInfo("blog"), path: "/blogs" },
+                { name: title },
+              ],
+            }),
+          ),
         }}
       />
-      {/* Header / Hero Section */}
-      <PageHero
-        title={isAr ? "مدونة ترافيك بلس" : "Traffic Plus Blog"}
-        description={
-          isAr
-            ? "مقالات تقنية وتسويقية متخصصة."
-            : "Technical and marketing articles."
-        }
-        breadcrumbData={breadcrumb}
-        isAr={isAr}
-      />
 
-      {/* Main Content */}
-      <div className="container mx-auto -mt-10">
-        <div className=" px-3 md:px-16 ">
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col md:flex-row items-center gap-4">
-              <div className="relative w-72 h-48">
-                <Image
-                  src={post.image_url || "/he.png"}
-                  alt={title}
-                  fill
-                  priority
-                  className="object-contain rounded-lg"
-                />
-              </div>
+      {/* header */}
+      <section className="relative overflow-hidden bg-linear-to-b from-[#faf7ff] to-background px-6 pt-11 pb-5">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-30 -left-15 size-100 rounded-full bg-primary/15 blur-[80px]"
+        />
+        <div className="relative mx-auto max-w-[820px]">
+          <nav
+            aria-label={t("breadcrumb")}
+            className="font-grotesk mb-4 flex flex-wrap items-center gap-2 text-[13px] text-subtext"
+          >
+            <Link href="/" className="hover:text-primary">
+              {tInfo("home")}
+            </Link>
+            <span aria-hidden="true">›</span>
+            <Link href="/blogs" className="hover:text-primary">
+              {tInfo("blog")}
+            </Link>
+            {category ? (
+              <>
+                <span aria-hidden="true">›</span>
+                <span className="text-primary">{category}</span>
+              </>
+            ) : null}
+          </nav>
 
-              <div className="flex items-center gap-2 mb-6">
-                <span className="flex gap-2 bg-primary text-white px-2 py-2 rounded-lg text-[10px] md:text-sm font-bold">
-                  <FiTag />
-                  <span className="ms-2">{category}</span>
-                </span>
+          {category ? (
+            <span className="inline-block rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-[13px] font-extrabold text-primary">
+              {category}
+            </span>
+          ) : null}
 
-                <span className="flex gap-2 bg-primary text-white px-2 py-2 rounded-lg text-[10px] md:text-sm font-bold">
-                  <FiCalendar />
-                  {date}
-                </span>
+          <h1 className="mt-4 mb-4.5 text-3xl leading-[1.25] font-black text-accent md:text-[40px]">
+            {title}
+          </h1>
 
-                <span className="flex gap-2 bg-primary text-white px-2 py-2 rounded-lg text-[10px] md:text-sm font-bold">
-                  <FiClock />
-                  {isAr ? "قراءة ٥ دقائق" : "5 min read"}
-                </span>
-              </div>
-            </div>
-
-            <h1 className="mt-4 text-base md:text-3xl font-black text-accent leading-tight mb-6">
-              {title}
-            </h1>
+          <div className="flex flex-wrap items-center gap-3.5 border-b border-border pb-6">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-linear-135 from-accent to-primary text-sm font-black text-text">
+              {isAr ? "ت.ب" : "TP"}
+            </span>
+            <span className="flex flex-col">
+              <span className="text-sm font-extrabold text-accent">
+                {t("author")}
+              </span>
+              <span className="font-grotesk text-xs text-subtext">
+                {date} · {t("read_time", { minutes })}
+              </span>
+            </span>
           </div>
+        </div>
+      </section>
 
-          {/* Rich Text Content */}
-          <div className="prose prose-lg prose-primary max-w-none">
-            <div
-              className="text-t-second leading-[2.2] text-base md:text-lg whitespace-pre-wrap font-medium"
-              style={{
-                direction: isAr ? "rtl" : "ltr",
-                textAlign: isAr ? "right" : "left",
-              }}
-              dangerouslySetInnerHTML={{ __html: content }}
+      {/* cover */}
+      {post.image_url ? (
+        <section className="px-6 py-6">
+          <div className="mx-auto max-w-[900px] overflow-hidden rounded-3xl shadow-[0_34px_70px_-30px_color-mix(in_srgb,var(--accent)_35%,transparent)]">
+            <Image
+              src={post.image_url}
+              alt={title || ""}
+              width={900}
+              height={400}
+              priority
+              className="h-auto w-full object-cover"
             />
           </div>
-          {/* Footer of the article */}
-          <ArticleShare title={title} slug={id} />
+        </section>
+      ) : null}
+
+      {/* body + sticky CTA */}
+      <section className="px-6 pt-10 pb-16">
+        <div className="mx-auto grid max-w-[1100px] items-start gap-10 lg:grid-cols-[1fr_240px]">
+          <div
+            dir={isAr ? "rtl" : "ltr"}
+            className="text-base leading-[1.9] text-subtext
+              [&>p:first-child]:text-[19px] [&>p:first-child]:font-semibold
+              [&_h2]:mt-9 [&_h2]:mb-3 [&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-accent
+              [&_h3]:mt-7 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-black [&_h3]:text-accent
+              [&_p]:mb-4
+              [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:ps-6 [&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:ps-6
+              [&_li]:mb-2
+              [&_a]:font-bold [&_a]:text-primary [&_a]:underline
+              [&_img]:my-6 [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-2xl
+              [&_blockquote]:my-6 [&_blockquote]:rounded-e-xl [&_blockquote]:border-s-4 [&_blockquote]:border-primary [&_blockquote]:bg-surface-tint-2 [&_blockquote]:p-5 [&_blockquote]:text-[17px] [&_blockquote]:font-bold [&_blockquote]:text-accent
+              [&_table]:mb-4 [&_table]:w-full [&_table]:border-collapse
+              [&_td]:border [&_td]:border-border [&_td]:p-2
+              [&_th]:border [&_th]:border-border [&_th]:bg-background-2 [&_th]:p-2"
+            dangerouslySetInnerHTML={{ __html: sanitize(body) }}
+          />
+
+          <aside className="top-24 flex flex-col gap-5 lg:sticky">
+            <div className="rounded-[20px] bg-linear-160 from-accent to-primary p-6 text-text">
+              <div className="mb-1.5 text-base font-black">
+                {t("cta_title")}
+              </div>
+              <p className="m-0 mb-4 text-[13px] text-white/85">
+                {t("cta_description")}
+              </p>
+              <a
+                href={waNumber ? `https://wa.me/${waNumber}` : "/contact"}
+                className="inline-flex rounded-[10px] bg-brand-orange px-5 py-3 text-[13px] font-black text-ink"
+              >
+                {t("cta_button")}
+              </a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <div className="px-6">
+        <div className="mx-auto max-w-[1100px]">
+          <ArticleShare title={title} slug={id} locale={locale} />
         </div>
       </div>
+
+      {/* related */}
+      {related?.length ? (
+        <section className="bg-background-2 px-6 py-20">
+          <div className="mx-auto max-w-[1100px]">
+            <h2 className="mb-8 text-2xl font-black text-accent">
+              {t("related")}
+            </h2>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
+              {related.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/blogs/${item.id}`}
+                  className="group flex flex-col overflow-hidden rounded-[18px] border border-surface-tint bg-card transition-transform hover:-translate-y-1.5"
+                >
+                  <div className="relative h-40 overflow-hidden">
+                    <Image
+                      src={item.image_url || "/he.png"}
+                      alt={(isAr ? item.title_ar : item.title_en) || ""}
+                      fill
+                      sizes="(max-width:768px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="m-0 text-base leading-[1.5] font-black text-accent">
+                      {isAr ? item.title_ar : item.title_en}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
     </article>
   );
 }
