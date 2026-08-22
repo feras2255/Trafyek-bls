@@ -30,24 +30,24 @@ export default function ConfirmDialog({
           {title || "تأكيد الحذف"}
         </h2>
 
-        <p className="text-scondary text-center mb-6">
+        <p className="text-secondarytext text-center mb-6">
           {message || "هل أنت متأكد أنك تريد حذف هذا العنصر؟"}
         </p>
 
         <div className="flex justify-center gap-3">
           <ButtonSubmit
             text="اغلاق"
-            type="submit"
+            type="button"
             title="اغلاق"
-            color="secondary"
+            variant="secondary"
             onClick={onClose}
           />
 
           <ButtonSubmit
             text="حذف"
-            type="submit"
+            type="button"
             title="حذف"
-            color="destructive"
+            variant="destructive"
             onClick={onConfirm}
           />
         </div>

@@ -4,102 +4,107 @@ import SortableTable from "@/components/dashboard/SortableTable";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
+import { localized } from "@/lib/localized";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
+const PLACEHOLDER = "/t-logo.webp";
+
 export default function Categories() {
-  const params = useParams();
-  const locale = params.locale;
+  const locale = useLocale();
+  const isAr = locale === "ar";
 
   const [categories, setCategories] = useState([]);
-  const [editingCategory, setEditingCategory] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     fetchCategories();
   }, []);
 
-  // fetch categories
   const fetchCategories = async () => {
     const { data, error } = await supabase
       .from("categories")
       .select("*")
       .order("order", { ascending: true });
 
-    if (error) toast.error("فشل جلب التصنيفات.");
-    else setCategories(data || []);
+    if (error) {
+      console.error(error);
+      toast.error("فشل جلب التصنيفات.");
+      return;
+    }
+    setCategories(data || []);
   };
 
-  // update order
   const handleReorder = async (newCategories) => {
+    const previous = categories;
     setCategories(newCategories);
 
-    try {
-      for (let c of newCategories) {
-        await supabase
-          .from("categories")
-          .update({ order: c.order })
-          .eq("id", c.id);
-      }
-      toast.success("تم تحديث الترتيب بنجاح.");
-    } catch (err) {
+    const results = await Promise.all(
+      newCategories.map((c) =>
+        supabase.from("categories").update({ order: c.order }).eq("id", c.id),
+      ),
+    );
+
+    if (results.some((r) => r.error)) {
+      setCategories(previous);
       toast.error("فشل تحديث الترتيب.");
+      return;
     }
+    toast.success("تم تحديث الترتيب بنجاح.");
   };
 
-  // extract the file path from the URL
+  // استخراج مسار الملف داخل الـ bucket من الرابط العام
   const extractFilePath = (url) => {
-    try {
-      const parts = url.split("categories/");
-      return parts[1];
-    } catch {
-      return null;
-    }
+    if (!url) return null;
+    const marker = "/storage/v1/object/public/categories/";
+    const index = url.indexOf(marker);
+    if (index === -1) return null;
+    return decodeURIComponent(url.slice(index + marker.length).split("?")[0]);
   };
 
-  // delete category
-  const handleDelete = async (id, imageUrl) => {
-    if (imageUrl) {
-      const filePath = extractFilePath(imageUrl);
-      if (filePath) {
-        const { error: storageError } = await supabase.storage
-          .from("categories")
-          .remove([filePath]);
+  const handleDelete = async (category) => {
+    if (!category) return;
+    setDeleting(true);
 
-        if (storageError)
-          console.error("خطأ في حذف الصورة:", storageError.message);
-        else console.log("Storage remove success:", filePath);
-      }
-    }
+    const { error } = await supabase
+      .from("categories")
+      .delete()
+      .eq("id", category.id);
 
-    const { error } = await supabase.from("categories").delete().eq("id", id);
-    if (!error) {
-      setCategories((prev) => prev.filter((c) => c.id !== id));
-      toast.success("تم حذف التصنيف بنجاح.");
-    } else {
-      toast.error("فشل حذف التصنيف.");
-    }
-  };
-
-  // add category or update
-  const handleSaved = (category) => {
-    if (editingCategory) {
-      setCategories((prev) =>
-        prev.map((c) => (c.id === category.id ? category : c)),
+    if (error) {
+      setDeleting(false);
+      // 23503 = foreign_key_violation (منتجات مرتبطة بهذا التصنيف)
+      toast.error(
+        error.code === "23503"
+          ? "لا يمكن حذف التصنيف لوجود منتجات مرتبطة به."
+          : "فشل حذف التصنيف.",
       );
-      setEditingCategory(null);
-    } else {
-      setCategories((prev) => [...prev, category]);
+      return;
     }
+
+    // نحذف الصورة بعد نجاح حذف السجل فقط
+    const filePath = extractFilePath(category.image_url);
+    if (filePath) {
+      const { error: storageError } = await supabase.storage
+        .from("categories")
+        .remove([filePath]);
+      if (storageError)
+        console.error("خطأ في حذف الصورة:", storageError.message);
+    }
+
+    setCategories((prev) => prev.filter((c) => c.id !== category.id));
+    setDeleting(false);
+    toast.success("تم حذف التصنيف بنجاح.");
   };
 
   return (
     <section>
       <TitleWithBack
-        title="إضافة تصنيف جديد"
+        title="إدارة التصنيفات"
         textBtn="إضافة تصنيف"
         url="/dashboard/categories/new"
       />
@@ -114,24 +119,21 @@ export default function Categories() {
               {category.order}
             </td>
             <td className="text-maintext text-md font-semibold">
-              {locale === "ar" ? category.title_ar : category.title_en}
+              {localized(category, "title", isAr)}
             </td>
             <td>
               <p className="truncate max-w-32 text-md mx-auto text-maintext">
-                {locale === "ar"
-                  ? category.description_ar
-                  : category.description_en}
+                {localized(category, "description", isAr)}
               </p>
             </td>
 
             <td className="p-2 text-center">
               <Image
-                src={category.image_url || "/default.png"}
-                alt={category.title_ar || category.title_en}
+                src={category.image_url || PLACEHOLDER}
+                alt={category.title_ar || category.title_en || "category"}
                 width={50}
                 height={50}
-                style={{ width: "auto", height: "auto" }}
-                className="rounded-full mx-auto object-cover"
+                className="rounded-full mx-auto object-cover w-[50px] h-[50px]"
               />
             </td>
             <td className="space-x-2">
@@ -143,8 +145,9 @@ export default function Categories() {
                 تعديل
               </Link>
               <button
+                type="button"
                 onClick={() => {
-                  setSelectedId(category.id);
+                  setSelected(category);
                   setConfirmOpen(true);
                 }}
                 aria-label="حذف"
@@ -160,17 +163,17 @@ export default function Categories() {
       <ConfirmDialog
         open={confirmOpen}
         title="تأكيد الحذف"
-        message="هل أنت متأكد من رغبتك في حذف هذا المشروع؟"
+        message="هل أنت متأكد من رغبتك في حذف هذا التصنيف؟"
         onClose={() => {
+          if (deleting) return;
           setConfirmOpen(false);
-          setSelectedId(null);
+          setSelected(null);
         }}
         onConfirm={async () => {
-          if (selectedId) {
-            await handleDelete(selectedId);
-            setConfirmOpen(false);
-            setSelectedId(null);
-          }
+          if (!selected || deleting) return;
+          await handleDelete(selected);
+          setConfirmOpen(false);
+          setSelected(null);
         }}
       />
     </section>

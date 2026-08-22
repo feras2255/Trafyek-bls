@@ -1,7 +1,9 @@
+export const revalidate = 0;
+
 import { supabase } from "@/lib/supabaseClient";
 import { getLocale } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import DeleteButton from "./components/DeleteButton";
 
 export default async function BlogsPage() {
@@ -44,7 +46,7 @@ export default async function BlogsPage() {
           </p>
         </div>
         <Link
-          href="blogs/new"
+          href="/dashboard/blogs/new"
           title={isAr ? "إضافة مقال جديد" : "Add New Blog"}
           className="bg-primary text-white px-6 py-2.5 rounded-xl flex items-center gap-2"
         >
@@ -95,7 +97,8 @@ export default async function BlogsPage() {
             <div className="p-5 flex flex-col flex-grow">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-accent/10 px-2.5 py-1 rounded-lg">
-                  {isAr ? blog.category_ar : blog.category_en}
+                  {(isAr ? blog.category_ar : blog.category_en) ||
+                  (isAr ? "عام" : "General")}
                 </span>
                 <span className="text-[11px] text-subtext">
                   {new Date(blog.created_at).toLocaleDateString(
@@ -123,7 +126,7 @@ export default async function BlogsPage() {
               {/* Actions */}
               <div className="flex items-center gap-3 pt-4 border-t border-gray-50">
                 <Link
-                  href={`blogs/${blog.id}/edit`}
+                  href={`/dashboard/blogs/${blog.id}/edit`}
                   aria-label="زر تعديل"
                   className="flex-1 text-center text-sm font-medium py-2 rounded-lg text-text bg-accent hover:bg-accent/90 transition-colors"
                 >

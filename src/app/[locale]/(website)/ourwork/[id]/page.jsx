@@ -1,7 +1,7 @@
 export const revalidate = 0;
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { getLocale } from "next-intl/server";
 import {
   FiExternalLink,
@@ -10,6 +10,8 @@ import {
   FiLayers,
 } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
+import { localized } from "@/lib/localized";
+import { notFound } from "next/navigation";
 
 export default async function ProjectDetails({ params }) {
   const { id } = await params;
@@ -20,36 +22,19 @@ export default async function ProjectDetails({ params }) {
     .from("projects")
     .select("*, categories(title_ar, title_en)")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
-  if (error || !project) {
-    return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
-        <p className="text-xl text-gray-500 font-bold">
-          {isAr ? "المشروع غير موجود" : "Project not found"}
-        </p>
-        <Link href="/projects" className="text-primary underline">
-          {isAr ? "العودة للمشاريع" : "Back to projects"}
-        </Link>
-      </div>
-    );
-  }
+  if (error) console.error("Error loading project:", id, error);
+  if (!project) notFound();
 
   // get project details
-  const title = isAr ? project.title_ar : project.title_en || project.title;
-  const description = isAr
-    ? project.description_ar
-    : project.description_en || "";
-  const categoryName = project.categories
-    ? isAr
-      ? project.categories.title_ar
-      : project.categories.title_en
-    : isAr
-      ? "عام"
-      : "General";
+  const title = localized(project, "title", isAr);
+  const description = localized(project, "description", isAr);
+  const categoryName =
+    localized(project.categories, "title", isAr) || (isAr ? "عام" : "General");
 
   const breadcrumb = [
-    { label: isAr ? "أعمالنا" : "Portfolio", href: "/projects" },
+    { label: isAr ? "أعمالنا" : "Portfolio", href: "/ourwork" },
     { label: title, href: null },
   ];
 
@@ -76,9 +61,10 @@ export default async function ProjectDetails({ params }) {
             <div className="group relative  rounded-2xl md:rounded-[2rem] shadow-2xl shadow-black/5 border border-gray-100 overflow-hidden">
               <div className="relative w-full h-48 md:h-80  overflow-hidden">
                 <Image
-                  src={project.image_url}
+                  src={project.image_url || "/t-logo.webp"}
                   alt={title}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   priority
                 />
@@ -97,7 +83,7 @@ export default async function ProjectDetails({ params }) {
                 </h2>
                 <div
                   className="text-subtext text-lg leading-relaxed prose prose-slate"
-                  dangerouslySetInnerHTML={{ __html: description }}
+                  dangerouslySetInnerHTML={{ __html: description || "" }}
                 />
               </div>
 
@@ -131,7 +117,9 @@ export default async function ProjectDetails({ params }) {
                   <p className="text-xs text-gray-400 font-bold uppercase">
                     {isAr ? "سنة التنفيذ" : "Year"}
                   </p>
-                  <p className="text-accent font-bold">2026</p>
+                  <p className="text-accent font-bold">
+                    {new Date(project.created_at).getFullYear()}
+                  </p>
                 </div>
               </div>
             </div>

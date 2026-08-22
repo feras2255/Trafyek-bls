@@ -1,7 +1,7 @@
 import PageHero from "@/components/ui/PageHero";
 import { getLocale, getTranslations } from "next-intl/server";
 import Services from "@/components/home/Services";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export async function generateMetadata() {
   const locale = await getLocale();

@@ -10,9 +10,7 @@ export default async function Footer() {
   const t = await getTranslations("infoSite");
   const locale = await getLocale();
   const isRtl = locale === "ar";
-  const settings = await siteSettings();
-
-  if (!settings) return null;
+  const settings = (await siteSettings()) || {};
 
   const quickLinks = [
     { id: 2, title: t("about") || "عن الشركة", href: "/about-us" },
@@ -44,7 +42,7 @@ export default async function Footer() {
                 <p className="text-third text-base leading-relaxed max-w-md">
                   {isRtl
                     ? settings.description_ar
-                    : settings.description_en || settings.description}
+                    : settings.description_en || settings.description_ar}
                 </p>
               </div>
 

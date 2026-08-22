@@ -2,17 +2,21 @@ import { supabase } from "@/lib/supabaseClient";
 import Showcase from "@/components/showcase/Showcase";
 import { getLocale, getTranslations } from "next-intl/server";
 import PageHero from "@/components/ui/PageHero";
-import { CATEGORIES } from "@/lib/categories";
+import { localized } from "@/lib/localized";
 
 export default async function OurWork() {
   const t = await getTranslations("ourwork");
   const locale = await getLocale();
   const isAr = locale === "ar";
 
-  const { data: projects, error: projectsError } = await supabase
-    .from("projects")
-    .select("*")
-    .order("order", { ascending: true });
+  const [{ data: projects, error: projectsError }, { data: categories }] =
+    await Promise.all([
+      supabase.from("projects").select("*").order("order", { ascending: true }),
+      supabase
+        .from("categories")
+        .select("id, title_ar, title_en")
+        .order("order", { ascending: true }),
+    ]);
 
   if (projectsError) {
     console.error("خطأ أثناء جلب المشاريع:", projectsError);
@@ -25,16 +29,19 @@ export default async function OurWork() {
     );
   }
 
-  // localize the fixed categories list
-  const localizedCategories = CATEGORIES.map((cat) => ({
-    ...cat,
-    title: isAr ? cat.title_ar : cat.title_en,
-  }));
+  // نعرض فقط التصنيفات التي لها مشاريع فعلاً
+  const usedCategoryIds = new Set(
+    (projects || []).map((proj) => proj.category_id).filter(Boolean),
+  );
 
-  const localizedProjects = projects.map((proj) => ({
+  const localizedCategories = (categories || [])
+    .filter((cat) => usedCategoryIds.has(cat.id))
+    .map((cat) => ({ ...cat, title: localized(cat, "title", isAr) }));
+
+  const localizedProjects = (projects || []).map((proj) => ({
     ...proj,
-    title: isAr ? proj.title_ar : proj.title_en,
-    description: isAr ? proj.description_ar : proj.description_en,
+    title: localized(proj, "title", isAr),
+    description: localized(proj, "description", isAr),
   }));
 
   const breadcrumb = [{ label: isAr ? "المشاريع" : "Projects", href: null }];

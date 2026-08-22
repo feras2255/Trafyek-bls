@@ -6,6 +6,8 @@ import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { FiInfo } from "react-icons/fi";
 import PageHero from "@/components/ui/PageHero";
+import { localized } from "@/lib/localized";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const { data: services } = await supabase.from("categories").select("id");
@@ -19,22 +21,25 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
+  const locale = await getLocale();
+  const isAr = locale === "ar";
+
   const { data: service } = await supabase
     .from("categories")
     .select("title_ar, title_en, description_ar, description_en, image_url")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
-  if (!service) return { title: "Service Not Found" };
-
-  const locale = await getLocale();
-  const isAr = locale === "ar";
+  if (!service) return { title: isAr ? "الخدمة غير موجودة" : "Service Not Found" };
 
   return {
     title: isAr ? service.title_ar : service.title_en,
     description: isAr ? service.description_ar : service.description_en,
+    alternates: {
+      canonical: `https://www.trafyekbls.com/${locale}/services/${id}`,
+    },
     openGraph: {
-      images: [service.image_url],
+      images: service.image_url ? [service.image_url] : [],
     },
   };
 }
@@ -48,25 +53,14 @@ export default async function ServiceDetails({ params }) {
     .from("categories")
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
-  if (error || !service) {
-    return (
-      <div className="text-center py-20 text-gray-500 font-bold">
-        {isAr
-          ? "هذه الخدمة غير موجودة حالياً."
-          : "This service is not available."}
-      </div>
-    );
-  }
+  if (error) console.error("Error loading service:", id, error);
+  if (!service) notFound();
 
-  const title = isAr ? service.title_ar : service.title_en || service.title;
-  const description = isAr
-    ? service.description_ar
-    : service.description_en || service.description;
-  const longDescription = isAr
-    ? service.long_description_ar
-    : service.long_description_en || service.long_description;
+  const title = localized(service, "title", isAr);
+  const description = localized(service, "description", isAr);
+  const longDescription = localized(service, "long_description", isAr);
 
   const breadcrumb = [
     { label: isAr ? "الخدمات" : "Services", href: "/services" },
@@ -109,7 +103,7 @@ export default async function ServiceDetails({ params }) {
             <div className="flex flex-col md:flex-row items-center">
               <div className="relative w-full md:w-5/12 h-56 lg:h-90 overflow-hidden group">
                 <Image
-                  src={service.image_url}
+                  src={service.image_url || "/t-logo.webp"}
                   alt={title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
@@ -152,7 +146,7 @@ export default async function ServiceDetails({ params }) {
                   prose-headings:text-accent prose-headings:font-black
                   prose-p:text-subtext prose-strong:text-primary
                   dangerously-style-fix"
-                dangerouslySetInnerHTML={{ __html: longDescription }}
+                dangerouslySetInnerHTML={{ __html: longDescription || "" }}
               />
             </div>
 

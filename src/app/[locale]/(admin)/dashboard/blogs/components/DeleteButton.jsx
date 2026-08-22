@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import Dialog from "@/components/dashboard/Dialog";
 
 export default function DeleteButton({ id, isAr }) {
@@ -15,8 +16,9 @@ export default function DeleteButton({ id, isAr }) {
     const { error } = await supabase.from("blogs").delete().eq("id", id);
 
     if (error) {
-      alert(error.message);
+      toast.error(error.message);
     } else {
+      toast.success(isAr ? "تم حذف المقال" : "Blog deleted");
       setIsOpen(false);
       router.refresh();
     }

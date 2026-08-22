@@ -26,6 +26,36 @@
   --hover: #9e58c7;
   --sucsses: #10b981;
   --worning: #ef4444;
+
+  /* ---- ألوان لوحة التحكم ----
+     كانت هذه الأسماء مستخدمة في الـ className عبر المشروع
+     دون تعريفها هنا، فكانت الأدوات (bg-fourth ...) لا تُولَّد إطلاقاً. */
+  --fourth: #5e3286;
+  --fourthtext: #6b7280;
+  --secondarytext: #4b5563;
+  --t-second: #374151;
+
+  --foreground: #1a1a1a;
+  --card-foreground: #1a1a1a;
+  --primary-foreground: #ffffff;
+  --secondary-foreground: #1a1a1a;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --warning: #f59e0b;
+  --sucsses-foreground: #ffffff;
+
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --input: #e2e8f0;
+  --ring: #7b3f98;
+  --sand: #e7e2f0;
+
+  /* الشريط الجانبي وترويسة اللوحة */
+  --sidebar: #0f172a;
+  --sidebar-foreground: #e2e8f0;
+  --sidebar-primary: #f8fafc;
+  --sidebar-accent: #e2e8f0;
 }
 
 @theme inline {
@@ -44,6 +74,31 @@
   --color-hover: var(--hover);
   --color-sucsses: var(--sucsses);
   --color-worning: var(--worning);
+
+  --color-fourth: var(--fourth);
+  --color-fourthtext: var(--fourthtext);
+  --color-secondarytext: var(--secondarytext);
+  --color-t-second: var(--t-second);
+
+  --color-foreground: var(--foreground);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-warning: var(--warning);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sand: var(--sand);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-accent: var(--sidebar-accent);
 }
 
 html {

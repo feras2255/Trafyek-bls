@@ -4,7 +4,9 @@ export async function siteSettings() {
   const { data, error } = await supabase
     .from("site_settings")
     .select("*")
-    .single();
+    .order("id", { ascending: true })
+    .limit(1)
+    .maybeSingle();
 
   if (error) {
     console.error("Error fetching settings:", error);

@@ -1,64 +1,69 @@
 import { supabase } from "./supabaseClient";
 
+const DEFAULT_SETTINGS = {
+  description_ar: "",
+  description_en: "",
+  image_url: "",
+  whatsapp: "",
+  phone: "",
+  email: "",
+  instagram: "",
+  tiktok: "",
+  snapchat: "",
+  x_account: "",
+};
+
+// يجلب صف الإعدادات الوحيد، وينشئه إن لم يكن موجوداً
 export async function getSiteSettings() {
   const { data, error } = await supabase
     .from("site_settings")
     .select("*")
+    .order("id", { ascending: true })
     .limit(1);
 
   if (error) throw error;
+  if (data?.length) return data[0];
 
-  if (data.length > 0) return data[0];
-
-  const { data: newData } = await supabase
+  const { data: created, error: insertError } = await supabase
     .from("site_settings")
-    .insert([
-      {
-        description: "",
-        image_url: "",
-        whatsapp: "",
-        phone: "",
-        email: "",
-        instagram: "",
-        tiktok: "",
-        snapchat: "",
-        x_account: "",
-      },
-    ])
-    .select();
+    .insert([DEFAULT_SETTINGS])
+    .select()
+    .single();
 
-  return newData[0];
+  if (insertError) throw insertError;
+  return created;
 }
 
-// update site settings
+// يحدّث صف الإعدادات الحالي (بدون افتراض أن المعرّف = 1)
 export async function updateSiteSettings(settings) {
+  const current = await getSiteSettings();
+
+  const { id, created_at, ...payload } = settings;
+
   const { data, error } = await supabase
     .from("site_settings")
-    .update(settings)
-    .eq("id", 1)
-    .select();
+    .update(payload)
+    .eq("id", current.id)
+    .select()
+    .single();
+
   if (error) throw error;
   return data;
 }
 
-// upload image to supabase
+// يرفع صورة إلى bucket الإعدادات ويعيد رابطها العام
 export async function uploadImage(file) {
   const fileExt = file.name.split(".").pop();
-  const fileName = `${Date.now()}.${fileExt}`;
-  const filePath = `${fileName}`;
+  const filePath = `${Date.now()}-${Math.random().toString(36).slice(2)}.${fileExt}`;
 
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from("site-images")
-    .upload(filePath, file, { upsert: true });
+    .upload(filePath, file, { upsert: true, cacheControl: "3600" });
 
   if (error) throw error;
 
-  // Get the public URL
-  const { publicURL, error: urlError } = supabase.storage
-    .from("site-images")
-    .getPublicUrl(filePath);
+  // supabase-js v2 يعيد { data: { publicUrl } } وليس { publicURL }
+  const { data } = supabase.storage.from("site-images").getPublicUrl(filePath);
 
-  if (urlError) throw urlError;
-
-  return publicURL;
+  return data.publicUrl;
 }

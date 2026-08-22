@@ -2,12 +2,17 @@
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import SortableTable from "@/components/dashboard/SortableTable";
 import ConfirmDialog from "@/components/common/ConfirmDialog";
 import { useLocale } from "next-intl";
+import { localized } from "@/lib/localized";
+
+const PLACEHOLDER = "/t-logo.webp";
+
+const stripHtml = (html) => (html || "").replace(/<[^>]*>/g, "");
 
 export default function Projects() {
   const locale = useLocale();
@@ -15,6 +20,7 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     fetchProjects();
@@ -28,39 +34,41 @@ export default function Projects() {
 
     if (error) {
       console.error("Error fetching projects", error);
-      toast("فشل جلب المشاريع.");
-    } else {
-      setProjects(data || []);
+      toast.error("فشل جلب المشاريع.");
+      return;
     }
+    setProjects(data || []);
   };
 
-  // update order
   const handleReorder = async (newProjects) => {
+    const previous = projects;
     setProjects(newProjects);
 
-    try {
-      for (let p of newProjects) {
-        await supabase
-          .from("projects")
-          .update({ order: p.order })
-          .eq("id", p.id);
-      }
-      toast("تم تحديث ترتيب المشاريع بنجاح.");
-    } catch (err) {
-      toast("فشل تحديث الترتيب.");
-      console.error(err);
+    const results = await Promise.all(
+      newProjects.map((p) =>
+        supabase.from("projects").update({ order: p.order }).eq("id", p.id),
+      ),
+    );
+
+    if (results.some((r) => r.error)) {
+      setProjects(previous);
+      toast.error("فشل تحديث الترتيب.");
+      return;
     }
+    toast.success("تم تحديث ترتيب المشاريع بنجاح.");
   };
 
-  // delete project
   const handleDelete = async (id) => {
+    setDeleting(true);
     const { error } = await supabase.from("projects").delete().eq("id", id);
+    setDeleting(false);
+
     if (error) {
-      toast("فشل حذف المشروع.");
-    } else {
-      toast("تم حذف المشروع بنجاح.");
-      setProjects(projects.filter((p) => p.id !== id));
+      toast.error("فشل حذف المشروع.");
+      return;
     }
+    toast.success("تم حذف المشروع بنجاح.");
+    setProjects((prev) => prev.filter((p) => p.id !== id));
   };
 
   return (
@@ -68,36 +76,34 @@ export default function Projects() {
       <TitleWithBack
         title="إدارة المشاريع"
         url="/dashboard/projects/new"
-        textBtn={"إضافة مشروع"}
+        textBtn="إضافة مشروع"
       />
 
       <SortableTable
         items={projects}
         columns={["#", "الترتيب", "الصورة", "العنوان", "الوصف", "التحكم"]}
         onReorder={handleReorder}
-        renderRow={(project, index) => (
+        renderRow={(project) => (
           <>
             <td className="text-lg font-semibold">{project.order}</td>
             <td className="p-3">
               <Image
-                src={project.image_url || "/default.png"}
-                alt={project.title_ar || project.title_en}
+                src={project.image_url || PLACEHOLDER}
+                alt={project.title_ar || project.title_en || "project"}
                 width={80}
                 height={80}
-                className="object-cover rounded mx-auto"
+                className="object-cover rounded mx-auto w-20 h-20"
               />
             </td>
             <td className="text-maintext text-lg font-semibold">
-              {isAr ? project.title_ar : project.title_en}
+              {localized(project, "title", isAr)}
             </td>
             <td>
               <p className="truncate max-w-xs text-sm mx-auto text-maintext">
-                {(isAr
-                  ? project.description_ar
-                  : project.description_en || project.description_ar || ""
-                )
-                  .replace(/<[^>]*>/g, "")
-                  .substring(0, 120)}
+                {stripHtml(localized(project, "description", isAr)).substring(
+                  0,
+                  120,
+                )}
               </p>
             </td>
             <td className="p-3 text-center space-x-2">
@@ -109,6 +115,7 @@ export default function Projects() {
                 تعديل
               </Link>
               <button
+                type="button"
                 onClick={() => {
                   setSelectedId(project.id);
                   setConfirmOpen(true);
@@ -128,15 +135,15 @@ export default function Projects() {
         title="تأكيد الحذف"
         message="هل أنت متأكد من رغبتك في حذف هذا المشروع؟"
         onClose={() => {
+          if (deleting) return;
           setConfirmOpen(false);
           setSelectedId(null);
         }}
         onConfirm={async () => {
-          if (selectedId) {
-            await handleDelete(selectedId);
-            setConfirmOpen(false);
-            setSelectedId(null);
-          }
+          if (!selectedId || deleting) return;
+          await handleDelete(selectedId);
+          setConfirmOpen(false);
+          setSelectedId(null);
         }}
       />
     </section>

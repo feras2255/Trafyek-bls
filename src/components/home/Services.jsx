@@ -1,8 +1,9 @@
 import { supabase } from "@/lib/supabaseClient";
 import { getLocale, getTranslations } from "next-intl/server";
 import { FiArrowUpLeft, FiArrowUpRight, FiLayers } from "react-icons/fi";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { localized } from "@/lib/localized";
 
 export default async function Services({ isHomePage = false }) {
   const locale = await getLocale();
@@ -66,7 +67,7 @@ export default async function Services({ isHomePage = false }) {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {categories.map((category, index) => (
+          {(categories || []).map((category, index) => (
             <div
               key={category.id}
               className="group block h-full"
@@ -99,15 +100,10 @@ export default async function Services({ isHomePage = false }) {
                 </div>
                 <div className="space-y-4">
                   <h3 className="text-lg md:text-xl lg:text-2xl font-black text-accent group-hover:text-primary transition-colors duration-300">
-                    {isRtl
-                      ? category.title_ar
-                      : category.title_en || category.title}
+                    {localized(category, "title", isRtl)}
                   </h3>
                   <p className="text-subtext text-base leading-relaxed line-clamp-3">
-                    {isRtl
-                      ? category.description_ar
-                      : category.description_en ||
-                        "Professional digital solutions."}
+                    {localized(category, "description", isRtl)}
                   </p>
                 </div>
                 <Link

@@ -1,5 +1,5 @@
 // "use client";
-// import Link from "next/link";
+// import { Link } from "@/i18n/navigation";
 // import {
 //   FiChevronLeft,
 //   FiChevronRight,
@@ -123,7 +123,7 @@
 // }
 
 "use client";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import {
   FiChevronLeft,

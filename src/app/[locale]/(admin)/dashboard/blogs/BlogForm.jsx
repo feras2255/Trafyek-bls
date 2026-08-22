@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { toast } from "sonner";
 import { supabase } from "@/lib/supabaseClient";
 import { useTranslations } from "next-intl";
 import Input from "@/components/ui/input";
@@ -33,7 +34,9 @@ export default function BlogForm({ initialData = null, isAr }) {
     if (formData.image_file) {
       const file = formData.image_file;
       const fileExt = file.name.split(".").pop();
-      const fileName = `${Math.random()}.${fileExt}`;
+      const fileName = `${Date.now()}-${Math.random()
+        .toString(36)
+        .slice(2)}.${fileExt}`;
       const filePath = `blog-images/${fileName}`;
 
       const { error: uploadError, data } = await supabase.storage
@@ -41,7 +44,10 @@ export default function BlogForm({ initialData = null, isAr }) {
         .upload(filePath, file);
 
       if (uploadError) {
-        alert("Error uploading image: " + uploadError.message);
+        toast.error(
+          (isAr ? "فشل رفع الصورة: " : "Error uploading image: ") +
+            uploadError.message,
+        );
         setLoading(false);
         return;
       }
@@ -64,11 +70,15 @@ export default function BlogForm({ initialData = null, isAr }) {
       : await supabase.from("blogs").insert([payload]);
 
     if (!error) {
-      router.push(isAr ? "/ar/dashboard/blogs" : "/en/dashboard/blogs");
+      toast.success(isAr ? "تم حفظ المقال" : "Blog saved");
+      router.push("/dashboard/blogs");
       router.refresh();
-    } else {
-      alert(isAr ? "حدث خطأ: " + error.message : "Error: " + error.message);
+      return;
     }
+
+    toast.error(
+      (isAr ? "حدث خطأ: " : "Error: ") + error.message,
+    );
     setLoading(false);
   };
   const handleFieldChange = (name, value) => {

@@ -1,49 +1,78 @@
 "use client";
+import { Link } from "@/i18n/navigation";
 import {
   RiDatabase2Line,
   RiLayoutGridLine,
   RiArchiveDrawerLine,
+  RiArticleLine,
+  RiTeamLine,
+  RiMailLine,
 } from "react-icons/ri";
 
-export default function StatsCards({ stats }) {
-  const data = [
-    {
-      label: "المنتجات",
-      value: stats.products,
-      icon: <RiArchiveDrawerLine />,
-      color: "from-blue-600 to-blue-400",
-      shadow: "shadow-blue-200",
-      bgLight: "bg-blue-50/50",
-    },
-    {
-      label: "الأقسام",
-      value: stats.categories,
-      icon: <RiLayoutGridLine />,
-      color: "from-purple-600 to-purple-400",
-      shadow: "shadow-purple-200",
-      bgLight: "bg-purple-50/50",
-    },
-    {
-      label: "المشاريع",
-      value: stats.projects,
-      icon: <RiDatabase2Line />,
-      color: "from-emerald-600 to-emerald-400",
-      shadow: "shadow-emerald-200",
-      bgLight: "bg-emerald-50/50",
-    },
-  ];
+const CARDS = [
+  {
+    key: "products",
+    label: "المنتجات",
+    href: "/dashboard/products",
+    icon: <RiArchiveDrawerLine />,
+    color: "from-blue-600 to-blue-400",
+    shadow: "shadow-blue-200",
+  },
+  {
+    key: "categories",
+    label: "الأقسام",
+    href: "/dashboard/categories",
+    icon: <RiLayoutGridLine />,
+    color: "from-purple-600 to-purple-400",
+    shadow: "shadow-purple-200",
+  },
+  {
+    key: "projects",
+    label: "المشاريع",
+    href: "/dashboard/projects",
+    icon: <RiDatabase2Line />,
+    color: "from-emerald-600 to-emerald-400",
+    shadow: "shadow-emerald-200",
+  },
+  {
+    key: "blogs",
+    label: "المقالات",
+    href: "/dashboard/blogs",
+    icon: <RiArticleLine />,
+    color: "from-amber-600 to-amber-400",
+    shadow: "shadow-amber-200",
+  },
+  {
+    key: "partners",
+    label: "الشركاء",
+    href: "/dashboard/partners",
+    icon: <RiTeamLine />,
+    color: "from-rose-600 to-rose-400",
+    shadow: "shadow-rose-200",
+  },
+  {
+    key: "messages",
+    label: "الرسائل",
+    href: "/dashboard/messages",
+    icon: <RiMailLine />,
+    color: "from-slate-700 to-slate-500",
+    shadow: "shadow-slate-200",
+  },
+];
 
+export default function StatsCards({ stats = {}, loading = false }) {
   return (
     <div
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 rtl"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
       dir="rtl"
     >
-      {data.map((item, index) => (
-        <div
-          key={index}
+      {CARDS.map((item) => (
+        <Link
+          key={item.key}
+          href={item.href}
+          aria-label={item.label}
           className="group relative bg-white p-8 rounded-[2rem] border border-slate-100 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-2 overflow-hidden"
         >
-          {/* دائرة ضوئية خلفية خافتة جداً */}
           <div
             className={`absolute -right-10 -bottom-10 w-32 h-32 rounded-full bg-gradient-to-br ${item.color} opacity-[0.03] group-hover:opacity-10 transition-opacity duration-500`}
           />
@@ -65,19 +94,22 @@ export default function StatsCards({ stats }) {
                 {item.label}
               </h4>
               <div className="flex items-end gap-2">
-                <span className="text-4xl font-black text-slate-900 tracking-tight">
-                  {item.value || 0}
-                </span>
+                {loading ? (
+                  <span className="inline-block h-9 w-16 bg-slate-100 rounded animate-pulse" />
+                ) : (
+                  <span className="text-4xl font-black text-slate-900 tracking-tight">
+                    {stats[item.key] ?? 0}
+                  </span>
+                )}
                 <div className="mb-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
               </div>
             </div>
           </div>
 
-          {/* خط جمالي سفلي ناعم */}
           <div
             className={`absolute bottom-0 left-0 h-[3px] w-0 bg-gradient-to-r ${item.color} group-hover:w-full transition-all duration-700`}
           />
-        </div>
+        </Link>
       ))}
     </div>
   );

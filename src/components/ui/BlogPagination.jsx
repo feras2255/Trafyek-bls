@@ -1,15 +1,23 @@
-// components/ui/Pagination.jsx
-
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-export default function Pagination({ totalPages, currentPage, locale, isAr }) {
+// ترقيم صفحات المدونة يعتمد على الروابط (SEO friendly)
+export default function BlogPagination({ totalPages, currentPage, isAr }) {
   if (totalPages <= 1) return null;
 
+  const prevPage = Math.max(1, currentPage - 1);
+  const nextPage = Math.min(totalPages, currentPage + 1);
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
   return (
-    <div className="flex items-center justify-center gap-2 mt-16">
+    <nav
+      aria-label={isAr ? "ترقيم الصفحات" : "Pagination"}
+      className="flex items-center justify-center gap-2 mt-16"
+    >
       <Link
-        href={`/${locale}/blogs?page=${Math.max(1, currentPage - 1)}`}
+        href={{ pathname: "/blogs", query: { page: prevPage } }}
+        aria-label={isAr ? "الصفحة السابقة" : "Previous page"}
+        aria-disabled={currentPage === 1}
         className={`h-11 w-11 flex items-center justify-center rounded-xl border transition-all ${
           currentPage === 1
             ? "pointer-events-none opacity-40"
@@ -19,10 +27,11 @@ export default function Pagination({ totalPages, currentPage, locale, isAr }) {
         {isAr ? <FiChevronRight /> : <FiChevronLeft />}
       </Link>
 
-      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+      {pages.map((page) => (
         <Link
           key={page}
-          href={`/${locale}/blogs?page=${page}`}
+          href={{ pathname: "/blogs", query: { page } }}
+          aria-current={currentPage === page ? "page" : undefined}
           className={`h-11 min-w-11 px-4 flex items-center justify-center rounded-xl font-bold transition-all ${
             currentPage === page
               ? "bg-primary text-white"
@@ -34,7 +43,9 @@ export default function Pagination({ totalPages, currentPage, locale, isAr }) {
       ))}
 
       <Link
-        href={`/${locale}/blogs?page=${Math.min(totalPages, currentPage + 1)}`}
+        href={{ pathname: "/blogs", query: { page: nextPage } }}
+        aria-label={isAr ? "الصفحة التالية" : "Next page"}
+        aria-disabled={currentPage === totalPages}
         className={`h-11 w-11 flex items-center justify-center rounded-xl border transition-all ${
           currentPage === totalPages
             ? "pointer-events-none opacity-40"
@@ -43,6 +54,6 @@ export default function Pagination({ totalPages, currentPage, locale, isAr }) {
       >
         {isAr ? <FiChevronLeft /> : <FiChevronRight />}
       </Link>
-    </div>
+    </nav>
   );
 }

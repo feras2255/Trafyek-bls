@@ -1,5 +1,5 @@
 import ShowcaseList from "@/components/showcase/ShowcaseList";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function FeaturedProjects({ items, type, isAr }) {
   if (!items?.length) return null;

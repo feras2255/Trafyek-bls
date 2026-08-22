@@ -1,30 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import ProductsCard from "../card/";
+import ProductsCard from "@/components/ui/ProductsCard";
 
-export default function ServicesGrid() {
+export default function ServicesGrid({ category = "" }) {
   const [products, setProducts] = useState([]);
-  const [category, setCategory] = useState("");
 
-  useEffect(() => {
-    fetchProducts();
-  }, [category]);
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     let query = supabase
       .from("products")
-      .select("id, title, price, image_url, categories(title)");
+      .select("id, title, price, image_url, categories(title_ar, title_en)")
+      .order("order", { ascending: true });
 
-    if (category) {
-      query = query.eq("category_id", category);
-    }
+    if (category) query = query.eq("category_id", category);
 
     const { data, error } = await query;
 
-    if (!error) setProducts(data);
-  };
+    if (error) {
+      console.error("Error fetching products:", error);
+      return;
+    }
+    setProducts(data || []);
+  }, [category]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <div className="container mx-auto px-4 py-8">

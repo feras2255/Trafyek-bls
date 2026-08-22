@@ -1,4 +1,4 @@
-export const revalidate = 3600;
+export const revalidate = 0;
 
 import Button from "@/components/ui/button";
 import { supabase } from "@/lib/supabaseClient";
@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 
 import { cities } from "@/data/cities";
 import { serviceCities } from "@/data/serviceCities";
+import { localized } from "@/lib/localized";
 
 /* =========================================================
    Generate Static Params
@@ -60,7 +61,7 @@ export async function generateMetadata({ params }) {
     .from("categories")
     .select("id, title_ar, title_en, description_ar, description_en, image_url")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (!service) {
     return {
@@ -88,9 +89,7 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const serviceTitle = isAr
-    ? service.title_ar
-    : service.title_en || service.title_ar;
+  const serviceTitle = localized(service, "title", isAr);
 
   const title = isAr ? content.meta_title_ar : content.meta_title_en;
 
@@ -161,7 +160,7 @@ export default async function ServiceCityPage({ params }) {
     .from("categories")
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error || !service) {
     notFound();
@@ -191,9 +190,7 @@ export default async function ServiceCityPage({ params }) {
      Text
   ======================================================= */
 
-  const serviceTitle = isAr
-    ? service.title_ar
-    : service.title_en || service.title_ar;
+  const serviceTitle = localized(service, "title", isAr);
 
   const cityName = isAr ? city.name_ar : city.name_en;
 
@@ -212,12 +209,12 @@ export default async function ServiceCityPage({ params }) {
   const breadcrumb = [
     {
       label: isAr ? "الخدمات" : "Services",
-      href: `/${locale}/services`,
+      href: `/services`,
     },
 
     {
       label: serviceTitle,
-      href: `/${locale}/services/${id}`,
+      href: `/services/${id}`,
     },
 
     {
@@ -321,7 +318,7 @@ export default async function ServiceCityPage({ params }) {
 
               <div className="relative w-full md:w-5/12 h-56 lg:h-90 overflow-hidden group">
                 <Image
-                  src={service.image_url}
+                  src={service.image_url || "/t-logo.webp"}
                   alt={pageTitle}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
@@ -389,7 +386,7 @@ export default async function ServiceCityPage({ params }) {
                   dangerously-style-fix
                 "
                 dangerouslySetInnerHTML={{
-                  __html: content,
+                  __html: content || "",
                 }}
               />
             </div>

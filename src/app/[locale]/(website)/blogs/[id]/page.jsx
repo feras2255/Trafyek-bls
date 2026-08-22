@@ -10,8 +10,9 @@ import {
   FiChevronRight,
   FiChevronLeft,
 } from "react-icons/fi";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import ArticleShare from "@/components/ui/ArticleShare";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }) {
     .from("blogs")
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (!post) return { title: isAr ? "المقال غير موجود" : "Post Not Found" };
 
@@ -37,12 +38,12 @@ export async function generateMetadata({ params }) {
     title: `${title} | ترافيك بلس`,
     description: description,
     alternates: {
-      canonical: `https://www.trafyekbls.com/${locale}/blog/${id}`,
+      canonical: `https://www.trafyekbls.com/${locale}/blogs/${id}`,
     },
     openGraph: {
       title: title,
       description: description,
-      url: `https://www.trafyekbls.com/${locale}/blog/${id}`,
+      url: `https://www.trafyekbls.com/${locale}/blogs/${id}`,
       siteName: "ترافيك بلس - Traffic Plus",
       type: "article",
       publishedTime: post.created_at,
@@ -75,17 +76,10 @@ export default async function BlogPostPage({ params }) {
     .from("blogs")
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
-  if (error || !post) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-bold">
-          {isAr ? "المقال غير موجود" : "Post Not Found"}
-        </h1>
-      </div>
-    );
-  }
+  if (error) console.error("Error loading post:", id, error);
+  if (!post) notFound();
 
   const title = isAr ? post.title_ar : post.title_en;
   const content = isAr ? post.description_ar : post.description_en;
@@ -102,7 +96,7 @@ export default async function BlogPostPage({ params }) {
   const breadcrumb = [
     {
       label: isAr ? "المدونة" : "Blog",
-      href: `/${locale}/blog`,
+      href: "/blogs",
     },
     {
       label: isAr ? "قراءة المقال" : "Read Post",
@@ -140,7 +134,7 @@ export default async function BlogPostPage({ params }) {
             description: content?.replace(/<[^>]*>?/gm, "")?.substring(0, 160),
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": `https://www.trafyekbls.com/${locale}/blog/${id}`,
+              "@id": `https://www.trafyekbls.com/${locale}/blogs/${id}`,
             },
           }),
         }}
@@ -175,7 +169,9 @@ export default async function BlogPostPage({ params }) {
               <div className="flex items-center gap-2 mb-6">
                 <span className="flex gap-2 bg-primary text-white px-2 py-2 rounded-lg text-[10px] md:text-sm font-bold">
                   <FiTag />
-                  <span className="ms-2">{category}</span>
+                  <span className="ms-2">
+                    {category || (isAr ? "عام" : "General")}
+                  </span>
                 </span>
 
                 <span className="flex gap-2 bg-primary text-white px-2 py-2 rounded-lg text-[10px] md:text-sm font-bold">
@@ -203,11 +199,11 @@ export default async function BlogPostPage({ params }) {
                 direction: isAr ? "rtl" : "ltr",
                 textAlign: isAr ? "right" : "left",
               }}
-              dangerouslySetInnerHTML={{ __html: content }}
+              dangerouslySetInnerHTML={{ __html: content || "" }}
             />
           </div>
           {/* Footer of the article */}
-          <ArticleShare title={title} slug={id} />
+          <ArticleShare title={title} slug={id} locale={locale} />
         </div>
       </div>
     </article>

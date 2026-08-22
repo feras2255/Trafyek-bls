@@ -2,18 +2,20 @@
 import { useEffect, useState } from "react";
 import { getMessages } from "@/lib/contact";
 import MainTitle from "@/components/dashboard/MainTitle";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function Messages() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   useEffect(() => {
     async function fetchMessages() {
       try {
         const data = await getMessages();
         setMessages(data);
-      } catch (error) {
-        console.log("Error fetching messages:", error.message);
+      } catch (err) {
+        console.error("Error fetching messages:", err);
+        setError("تعذّر تحميل الرسائل.");
       } finally {
         setLoading(false);
       }
@@ -23,6 +25,8 @@ export default function Messages() {
   }, []);
 
   if (loading) return <p className="text-center mt-10">جاري التحميل...</p>;
+  if (error)
+    return <p className="text-center mt-10 text-destructive">{error}</p>;
   return (
     <div className="">
       <MainTitle title="رسائل التواصل" />

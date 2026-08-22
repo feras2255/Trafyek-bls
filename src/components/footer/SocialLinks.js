@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { FaSnapchatGhost, FaTiktok, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { FiPlus, FiMinus, FiHelpCircle, FiPhoneCall } from "react-icons/fi";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function FAQ() {
   const t = useTranslations("faq");

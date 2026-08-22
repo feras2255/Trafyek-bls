@@ -1,8 +1,7 @@
 "use client";
-import Link from "next/link";
-import React from "react";
+import { Link } from "@/i18n/navigation";
 
-export default function StatsCards({ stats }) {
+export default function StatsCards({ stats = {} }) {
   const cards = [
     {
       id: 1,
@@ -32,18 +31,18 @@ export default function StatsCards({ stats }) {
       {cards.map((card) => (
         <div
           key={card.id}
-          className="bg-card shadow rounded-lg p-6  border border-border hover:shadow-lg transition"
+          className="bg-card shadow rounded-lg p-6 border border-border hover:shadow-lg transition"
         >
           <h2 className="text-lg text-secondary font-semibold">{card.title}</h2>
           <p
             className={`text-xl md:text-4xl text-center font-bold m-3 ${card.color}`}
           >
-            {card.value}
+            {card.value ?? 0}
           </p>
           <Link
             href={card.link}
             aria-label={card.title}
-            className="py-2 px-4 text-blue-600 flex justify-end underline "
+            className="py-2 px-4 text-blue-600 flex justify-end underline"
           >
             عرض الكل
           </Link>

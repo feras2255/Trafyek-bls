@@ -1,5 +1,5 @@
 import { FaWhatsapp, FaPhone, FaEnvelope } from "react-icons/fa";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function ContactButtons({ settings, locale }) {
   const contactMethods = [

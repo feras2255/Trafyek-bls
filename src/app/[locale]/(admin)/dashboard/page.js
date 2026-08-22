@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { toast } from "sonner";
 import {
   RiSettings4Line,
   RiUserLine,
@@ -10,27 +11,56 @@ import {
 } from "react-icons/ri";
 import StatsCards from "@/components/dashboard/StatsCards";
 
+const EMPTY_STATS = {
+  products: 0,
+  categories: 0,
+  projects: 0,
+  blogs: 0,
+  partners: 0,
+  messages: 0,
+};
+
 export default function Dashboard() {
-  const [stats, setStats] = useState({
-    products: 0,
-    categories: 0,
-    projects: 0,
-  });
+  const [stats, setStats] = useState(EMPTY_STATS);
+  const [loading, setLoading] = useState(true);
+
+  const fetchStats = useCallback(async () => {
+    setLoading(true);
+
+    // نحاول أولاً عبر دالة RPC (استعلام واحد)، ونعود للعدّ المباشر عند فشلها
+    const { data, error } = await supabase.rpc("get_dashboard_stats");
+
+    if (!error && data) {
+      setStats({ ...EMPTY_STATS, ...data });
+      setLoading(false);
+      return;
+    }
+
+    const tables = Object.keys(EMPTY_STATS);
+    const results = await Promise.all(
+      tables.map((table) =>
+        supabase
+          .from(table === "messages" ? "contact_messages" : table)
+          .select("id", { count: "exact", head: true }),
+      ),
+    );
+
+    const fallback = { ...EMPTY_STATS };
+    let failed = false;
+
+    results.forEach((res, i) => {
+      if (res.error) failed = true;
+      else fallback[tables[i]] = res.count || 0;
+    });
+
+    if (failed) toast.error("تعذّر جلب بعض الإحصائيات");
+    setStats(fallback);
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
     fetchStats();
-  }, []);
-
-  const fetchStats = async () => {
-    const { data, error } = await supabase.rpc("get_dashboard_stats");
-    if (!error && data) {
-      setStats({
-        products: data.products,
-        categories: data.categories,
-        projects: data.projects,
-      });
-    }
-  };
+  }, [fetchStats]);
 
   const menuItems = [
     {
@@ -54,11 +84,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div
-      className="min-h-screen bg-[#f8fafc] p-6 lg:p-10 font-sans rtl"
-      dir="rtl"
-    >
-      {/* Header */}
+    <div className="min-h-screen bg-[#f8fafc] p-6 lg:p-10 font-sans" dir="rtl">
       <div className="max-w-6xl mx-auto mb-10">
         <div className="flex items-center gap-4 mb-2">
           <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white text-2xl shadow-lg shadow-blue-200">
@@ -76,20 +102,18 @@ export default function Dashboard() {
       </div>
 
       <div className="max-w-6xl mx-auto space-y-10">
-        {/* Stats Section */}
         <section>
-          <StatsCards stats={stats} />
+          <StatsCards stats={stats} loading={loading} />
         </section>
 
-        {/* Links Section */}
         <section>
           <h2 className="text-lg font-bold text-slate-800 mb-6 px-2">
             إدارة الصفحات القانونية
           </h2>
           <div className="grid grid-cols-1 gap-4">
-            {menuItems.map((item, idx) => (
+            {menuItems.map((item) => (
               <Link
-                key={idx}
+                key={item.href}
                 href={item.href}
                 aria-label={item.title}
                 className="group"

@@ -8,6 +8,13 @@ const Editor = memo(({ data, onChange, isAr }) => {
   const wrapperRef = useRef(null);
   const quillRef = useRef(null);
   const hasInitialized = useRef(false);
+  // نحتفظ بآخر onChange حتى لا يلتقط المحرر نسخة قديمة عند أول تهيئة
+  const onChangeRef = useRef(onChange);
+  const isSyncingRef = useRef(false);
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
   useEffect(() => {
     if (hasInitialized.current) return;
@@ -104,7 +111,9 @@ const Editor = memo(({ data, onChange, isAr }) => {
       }
 
       quill.on("text-change", () => {
-        onChange(quill.root.innerHTML);
+        if (isSyncingRef.current) return;
+        const html = quill.root.innerHTML;
+        onChangeRef.current?.(html === "<p><br></p>" ? "" : html);
       });
     };
 
@@ -113,21 +122,26 @@ const Editor = memo(({ data, onChange, isAr }) => {
     return () => {
       quillRef.current = null;
     };
+    // تهيئة لمرة واحدة فقط - إعادة الإنشاء تفقد محتوى المحرر
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (quillRef.current && data) {
-      const current = quillRef.current.root.innerHTML;
-      if (current !== data) {
-        quillRef.current.root.innerHTML = data;
-      }
-    }
+    if (!quillRef.current || !data) return;
+
+    const current = quillRef.current.root.innerHTML;
+    if (current === data) return;
+
+    // منع حلقة text-change -> onChange -> data -> setInnerHTML
+    isSyncingRef.current = true;
+    quillRef.current.root.innerHTML = data;
+    isSyncingRef.current = false;
   }, [data]);
 
   return (
     <div
       ref={wrapperRef}
-      className={`rounded-2xl overflow-hidden bg-bg-sand/50 ${isAr ? "rtl" : "ltr"}`}
+      className={`rounded-2xl overflow-hidden bg-sand/50 ${isAr ? "rtl" : "ltr"}`}
     />
   );
 });

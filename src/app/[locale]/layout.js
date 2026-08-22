@@ -68,7 +68,7 @@ export const metadata = {
 
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/t-logo.webp",
         width: 1200,
         height: 630,
         alt: "Traffic Plus Digital Solutions",
@@ -87,7 +87,7 @@ export const metadata = {
     description:
       "نساعد الشركات والمتاجر على النمو عبر المواقع الاحترافية والسيو وخرائط جوجل.",
 
-    images: ["/og-image.jpg"],
+    images: ["/t-logo.webp"],
   },
 
   icons: {

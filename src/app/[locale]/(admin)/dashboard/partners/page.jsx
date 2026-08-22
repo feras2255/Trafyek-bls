@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -15,6 +15,7 @@ export default function PartnersList() {
   const [selectedId, setSelectedId] = useState(null);
   const [editingPartner, setEditingPartner] = useState(null);
   const [addOpen, setAddOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const [page, setPage] = useState(1);
   const pageSize = 10;
@@ -24,7 +25,7 @@ export default function PartnersList() {
   const totalPages = Math.ceil(total / pageSize) || 1;
 
   // get partners list
-  const fetchPartners = async () => {
+  const fetchPartners = useCallback(async () => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize - 1;
 
@@ -41,41 +42,54 @@ export default function PartnersList() {
       setPartners(data || []);
       setTotal(count || 0);
     }
-  };
+  }, [page]);
 
   useEffect(() => {
     fetchPartners();
-  }, [page]);
+  }, [fetchPartners]);
 
   // update order
   const handleReorder = async (newOrder) => {
+    const previous = partners;
     setPartners(newOrder);
-    try {
-      const updates = newOrder.map((partner, index) =>
+
+    const results = await Promise.all(
+      newOrder.map((partner) =>
         supabase
           .from("partners")
-          .update({ order: index + 1 })
+          .update({ order: partner.order })
           .eq("id", partner.id),
-      );
-      await Promise.all(updates);
-      toast.success("تم تحديث ترتيب الشركاء");
-    } catch (error) {
-      console.error(error);
+      ),
+    );
+
+    if (results.some((r) => r.error)) {
+      setPartners(previous);
       toast.error("حدث خطأ أثناء تحديث الترتيب");
+      return;
     }
+    toast.success("تم تحديث ترتيب الشركاء");
   };
 
   // delete partner
   const handleDelete = async (id) => {
+    if (!id || deleting) return;
+    setDeleting(true);
+
     const { error } = await supabase.from("partners").delete().eq("id", id);
+    setDeleting(false);
+
     if (error) {
       toast.error("فشل في الحذف");
-    } else {
-      toast.success("تم حذف الشريك بنجاح");
-      setConfirmOpen(false);
-      setSelectedId(null);
-      fetchPartners();
+      return;
     }
+
+    toast.success("تم حذف الشريك بنجاح");
+    setConfirmOpen(false);
+    setSelectedId(null);
+
+    // إن كانت الصفحة الحالية أصبحت فارغة نرجع صفحة للخلف
+    if (partners.length === 1 && page > 1) setPage((p) => p - 1);
+    else fetchPartners();
   };
 
   return (
@@ -105,7 +119,7 @@ export default function PartnersList() {
             <td className="p-2 text-center">
               <div className="w-16 h-16 relative mx-auto">
                 <Image
-                  src={partner.image_url || "/default.png"}
+                  src={partner.image_url || "/t-logo.webp"}
                   alt="صورة الشريك"
                   fill
                   sizes="100%"
@@ -169,6 +183,7 @@ export default function PartnersList() {
         title="تأكيد الحذف"
         message="هل أنت متأكد من رغبتك في حذف هذا الشريك؟"
         onClose={() => {
+          if (deleting) return;
           setConfirmOpen(false);
           setSelectedId(null);
         }}

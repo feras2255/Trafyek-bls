@@ -2,7 +2,7 @@
 import { useParams } from "next/navigation";
 import TitleWithBack from "@/components/dashboard/TitleWithBack";
 import FormManager from "@/components/dashboard/FormManager";
-import { useTranslations } from "use-intl";
+import { useTranslations } from "next-intl";
 
 export default function EditCategoryPage() {
   const { id } = useParams();

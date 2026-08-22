@@ -2,9 +2,8 @@ import { siteSettings } from "@/lib/siteSettings";
 import Navbar from "./Navbar";
 
 export default async function Header() {
-  const settings = await siteSettings();
+  const settings = (await siteSettings()) || {};
 
-  if (!settings) return null;
   return (
     <header
       className={`fixed left-0 right-0 py-2 md:py-1 z-40  shadow top-0 bg-background`}

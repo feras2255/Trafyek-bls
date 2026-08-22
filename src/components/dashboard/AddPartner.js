@@ -7,123 +7,125 @@ import FileInput from "../ui/FileInput";
 import Input from "../ui/input";
 
 export default function AddPartner({ onAdded, partnerToEdit = null, onClose }) {
-  const [open, setOpen] = useState(false);
   const [image, setImage] = useState(null);
-  const [order, setOrder] = useState(0);
+  const [order, setOrder] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setOpen(true);
-    if (partnerToEdit) {
-      setOrder(partnerToEdit.order || 0);
-    }
+    setOrder(partnerToEdit?.order ?? "");
+    setImage(null);
   }, [partnerToEdit]);
 
+  // استخراج مسار الملف داخل الـ bucket من الرابط العام
   const extractFilePath = (url) => {
-    try {
-      const parts = url.split("/storage/v1/object/public/partners/");
-      return parts[1];
-    } catch {
-      return null;
-    }
+    if (!url) return null;
+    const marker = "/storage/v1/object/public/partners/";
+    const index = url.indexOf(marker);
+    if (index === -1) return null;
+    return decodeURIComponent(url.slice(index + marker.length).split("?")[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+
+    if (!partnerToEdit && !image) {
+      toast.error("من فضلك اختر صورة الشريك");
+      return;
+    }
+
     setLoading(true);
-
     let imageUrl = partnerToEdit?.image_url || "";
+    let oldPathToRemove = null;
 
-    // ✅ رفع الصورة الجديدة
-    if (image) {
-      if (partnerToEdit?.image_url) {
-        const oldPath = extractFilePath(partnerToEdit.image_url);
-        if (oldPath) await supabase.storage.from("partners").remove([oldPath]);
+    try {
+      if (image) {
+        const fileExt = image.name.split(".").pop();
+        const filePath = `uploads/${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2)}.${fileExt}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("partners")
+          .upload(filePath, image, { cacheControl: "3600" });
+
+        if (uploadError) throw uploadError;
+
+        const { data: publicData } = supabase.storage
+          .from("partners")
+          .getPublicUrl(filePath);
+
+        imageUrl = publicData.publicUrl;
+        // نحذف الصورة القديمة بعد نجاح الحفظ فقط
+        oldPathToRemove = extractFilePath(partnerToEdit?.image_url);
       }
 
-      const fileExt = image.name.split(".").pop();
-      const fileName = `${Date.now()}.${fileExt}`;
-      const filePath = `uploads/${fileName}`;
+      if (partnerToEdit) {
+        const { error } = await supabase
+          .from("partners")
+          .update({
+            image_url: imageUrl,
+            order: order === "" ? partnerToEdit.order : Number(order),
+          })
+          .eq("id", partnerToEdit.id);
+        if (error) throw error;
+      } else {
+        const { data: lastPartner } = await supabase
+          .from("partners")
+          .select("order")
+          .order("order", { ascending: false })
+          .limit(1)
+          .maybeSingle();
 
-      const { error: uploadError } = await supabase.storage
-        .from("partners")
-        .upload(filePath, image);
+        const nextOrder =
+          order === "" ? (lastPartner?.order || 0) + 1 : Number(order);
 
-      if (uploadError) {
-        toast.error("فشل رفع الصورة: " + uploadError.message);
-        setLoading(false);
-        return;
+        const { error } = await supabase
+          .from("partners")
+          .insert([{ image_url: imageUrl, order: nextOrder }]);
+        if (error) throw error;
       }
 
-      const { data: publicData } = supabase.storage
-        .from("partners")
-        .getPublicUrl(filePath);
+      if (oldPathToRemove) {
+        await supabase.storage.from("partners").remove([oldPathToRemove]);
+      }
 
-      imageUrl = publicData.publicUrl;
-    }
-
-    let error;
-
-    if (partnerToEdit) {
-      const { error: updateError } = await supabase
-        .from("partners")
-        .update({ image_url: imageUrl, order })
-        .eq("id", partnerToEdit.id);
-      error = updateError;
-    } else {
-      const { data: lastPartner } = await supabase
-        .from("partners")
-        .select("order")
-        .order("order", { ascending: false })
-        .limit(1)
-        .maybeSingle();
-
-      const nextOrder = lastPartner ? lastPartner.order + 1 : 1;
-
-      const { error: insertError } = await supabase
-        .from("partners")
-        .insert([{ image_url: imageUrl, order: nextOrder }]);
-      error = insertError;
-    }
-
-    setLoading(false);
-
-    if (error) {
-      toast.error("فشل العملية: " + error.message);
-    } else {
-      toast.success(
-        partnerToEdit ? "تم تحديث الشريك ✅" : "تم إضافة الشريك ✅",
-      );
+      toast.success(partnerToEdit ? "تم تحديث الشريك" : "تم إضافة الشريك");
       setImage(null);
-      setOpen(false);
       onAdded?.();
       onClose?.();
+    } catch (err) {
+      console.error(err);
+      toast.error(err?.message || "فشلت العملية");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <Dialog
-      open={open}
+      open
       onClose={() => {
-        setOpen(false);
+        if (loading) return;
         onClose?.();
       }}
       title={partnerToEdit ? "تعديل الشريك" : "إضافة شريك"}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
-        <FileInput setImage={setImage} />
+        <FileInput setImage={setImage} initialImage={partnerToEdit?.image_url} />
         <Input
           type="number"
+          min="1"
           name="order"
           placeholder="الترتيب"
           value={order}
-          onChange={(e) => setOrder(Number(e.target.value))}
+          onChange={(e) => setOrder(e.target.value)}
         />
 
         <button
           type="submit"
           aria-label={partnerToEdit ? "تحديث الشريك" : "إضافة شريك"}
-          className="rounded bg-secondary px-4 py-2 text-white w-full cursor-pointer"
+          className="rounded bg-secondary px-4 py-2 text-white w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={loading}
         >
           {loading

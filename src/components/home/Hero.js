@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import Button from "../ui/button";
@@ -53,7 +53,7 @@ export default async function Hero() {
             className="pt-2 flex flex-col sm:flex-row gap-3 items-center justify-center lg:justify-start"
           >
             <Button title={t("button")} color="primary" href="/contact" />
-            <Link
+            <a
               href="/trafyekbls.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -61,7 +61,7 @@ export default async function Hero() {
               className="w-full md:w-auto group relative inline-flex items-center justify-center bg-secondary border border-primary/30 text-gray-800 font-bold px-8 py-3.5 rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-1 active:scale-95 cursor-pointer"
             >
               {t("ourWork")}
-            </Link>
+            </a>
           </div>
 
           {/* partners  images */}

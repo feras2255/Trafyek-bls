@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import Input from "@/components/ui/input";
 import { useTranslations } from "next-intl";
+import { Loader2 } from "lucide-react";
 
 export default function SigninPage() {
   const t = useTranslations("dashboard");
@@ -15,58 +16,52 @@ export default function SigninPage() {
   const [loading, setLoading] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
-  // useEffect(() => {
-  //   const checkUser = async () => {
-  //     const {
-  //       data: { user },
-  //     } = await supabase.auth.getUser();
-
-  //     if (user) {
-  //       router.replace("/dashboard");
-  //     } else {
-  //       setCheckingAuth(false);
-  //     }
-  //   };
-  //   checkUser();
-  // }, [router]);
-
   useEffect(() => {
+    let active = true;
+
     const checkUser = async () => {
       const {
         data: { session },
-      } = await supabase.auth.getSession(); // استخدام getSession أدق هنا
-      if (session) {
-        router.replace("/dashboard");
-      } else {
-        setCheckingAuth(false);
-      }
+      } = await supabase.auth.getSession();
+      if (!active) return;
+
+      if (session) router.replace("/dashboard");
+      else setCheckingAuth(false);
     };
+
     checkUser();
+    return () => {
+      active = false;
+    };
   }, [router]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (loading) return;
+
     setLoading(true);
     setError(null);
 
     try {
-      const { data, error: signInError } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
 
       if (signInError) {
-        console.log("Supabase Error Details:", signInError);
-        setError(signInError.message || "حدث خطأ ما");
+        setError(
+          signInError.message === "Invalid login credentials"
+            ? "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+            : signInError.message,
+        );
         setLoading(false);
         return;
       }
 
       router.replace("/dashboard");
     } catch (err) {
-      setError("حدث خطأ في الاتصال بالخادم");
       console.error(err);
-    } finally {
+      setError("حدث خطأ في الاتصال بالخادم");
       setLoading(false);
     }
   };
@@ -74,7 +69,7 @@ export default function SigninPage() {
   if (checkingAuth) {
     return (
       <div className="flex h-screen justify-center items-center bg-background">
-        <p>جارٍ التحقق...</p>
+        <Loader2 className="w-10 h-10 text-primary animate-spin" />
       </div>
     );
   }
@@ -91,7 +86,9 @@ export default function SigninPage() {
 
         <div className="pb-4 space-y-4">
           <Input
+            name="email"
             type="email"
+            autoComplete="email"
             placeholder={t("email")}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -99,7 +96,9 @@ export default function SigninPage() {
           />
 
           <Input
+            name="password"
             type="password"
+            autoComplete="current-password"
             placeholder={t("password")}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -111,13 +110,15 @@ export default function SigninPage() {
           type="submit"
           aria-label="دخول"
           disabled={loading}
-          className="bg-secondary text-maintext py-2 px-4 w-full rounded cursor-pointer hover:bg-secondarytext transition duration-300 disabled:opacity-50"
+          className="bg-secondary text-maintext py-2 px-4 w-full rounded cursor-pointer hover:bg-secondarytext transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "جاري الدخول..." : "دخول"}
         </button>
 
         {error && (
-          <p className="text-sm md:text-base mt-2 text-red-500">{error}</p>
+          <p role="alert" className="text-sm md:text-base mt-2 text-red-500">
+            {error}
+          </p>
         )}
       </form>
     </div>

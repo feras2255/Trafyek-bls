@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   FaWhatsapp,
   FaFacebookF,
@@ -8,13 +7,19 @@ import {
   FaLinkedinIn,
   FaLink,
 } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
 
-export default function ArticleShare({ title, slug }) {
+export default function ArticleShare({ title, slug, locale = "ar" }) {
   const [copied, setCopied] = useState(false);
+  const [canNativeShare, setCanNativeShare] = useState(false);
 
-  const articleUrl = `https://www.daraltebyan.com/blog/${slug}`;
+  // navigator غير متاح أثناء التصيير على الخادم -> نتفادى اختلاف الترطيب
+  useEffect(() => {
+    setCanNativeShare(typeof navigator !== "undefined" && !!navigator.share);
+  }, []);
+
+  const articleUrl = `https://www.trafyekbls.com/${locale}/blogs/${slug}`;
 
   const encodedTitle = encodeURIComponent(title);
   const encodedUrl = encodeURIComponent(articleUrl);
@@ -90,7 +95,7 @@ export default function ArticleShare({ title, slug }) {
 
       <div className="flex flex-wrap justify-center gap-3">
         {socialLinks.map((item) => (
-          <Link
+          <a
             key={item.name}
             href={item.href}
             target="_blank"
@@ -99,7 +104,7 @@ export default function ArticleShare({ title, slug }) {
             className={`size-12 rounded-full text-white flex items-center justify-center transition-all duration-300 shadow-lg ${item.className}`}
           >
             {item.icon}
-          </Link>
+          </a>
         ))}
 
         {/* copy link */}
@@ -113,15 +118,15 @@ export default function ArticleShare({ title, slug }) {
         </button>
 
         {/* native share */}
-        {typeof navigator !== "undefined" &&
-          typeof navigator.share === "function" && (
-            <button
-              onClick={handleNativeShare}
-              className="px-5 h-12 rounded-full bg-brand-orange text-white font-bold transition-all hover:-translate-y-1 cursor-pointer"
-            >
-              مشاركة
-            </button>
-          )}
+        {canNativeShare && (
+          <button
+            type="button"
+            onClick={handleNativeShare}
+            className="px-5 h-12 rounded-full bg-brand-orange text-white font-bold transition-all hover:-translate-y-1 cursor-pointer"
+          >
+            مشاركة
+          </button>
+        )}
       </div>
 
       {copied && (

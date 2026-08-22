@@ -4,14 +4,21 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import Input from "../ui/input";
-import Button from "../ui/button";
 import MainTitle from "./MainTitle";
 import { toast } from "sonner";
 import Editor from "./Editor";
 
+const SLUG_TITLES = {
+  "about-us": "من نحن",
+  "privacy-policy": "سياسة الخصوصية",
+  "terms-conditions": "الشروط والأحكام",
+};
+
 export default function PageViewer() {
   const { slug } = useParams();
   const [page, setPage] = useState(null);
+  const [fetching, setFetching] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     title_ar: "",
     title_en: "",
@@ -20,47 +27,39 @@ export default function PageViewer() {
   });
 
   const handleChange = (eOrHtml, lang) => {
-    // Input fields
     if (eOrHtml?.target) {
       const { name, value } = eOrHtml.target;
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
+      return;
     }
-    // Rich text editor
-    else {
-      setFormData((prev) => ({
-        ...prev,
-        [lang]: eOrHtml,
-      }));
-    }
+    setFormData((prev) => ({ ...prev, [lang]: eOrHtml }));
   };
 
   useEffect(() => {
-    async function fetchPage() {
-      if (!slug) return;
+    if (!slug) return;
 
+    async function fetchPage() {
       const { data, error } = await supabase
         .from("pages")
         .select("*")
         .eq("slug", slug)
-        .single();
+        .maybeSingle();
 
       if (error) {
         console.error(error);
-        setPage(null);
-        return;
+        toast.error("تعذّر تحميل الصفحة");
       }
 
-      setPage(data);
-
-      setFormData({
-        title_ar: data.title_ar || "",
-        title_en: data.title_en || "",
-        content_ar: data.content_ar || "",
-        content_en: data.content_en || "",
-      });
+      setPage(data || null);
+      if (data) {
+        setFormData({
+          title_ar: data.title_ar || "",
+          title_en: data.title_en || "",
+          content_ar: data.content_ar || "",
+          content_en: data.content_en || "",
+        });
+      }
+      setFetching(false);
     }
 
     fetchPage();
@@ -68,17 +67,28 @@ export default function PageViewer() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (saving) return;
 
-    const { error } = await supabase
+    setSaving(true);
+
+    // upsert حتى نتمكن من إنشاء الصفحة إن لم تكن موجودة بعد
+    const { data, error } = await supabase
       .from("pages")
-      .update({
-        title_ar: formData.title_ar,
-        title_en: formData.title_en,
-        content_ar: formData.content_ar,
-        content_en: formData.content_en,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("slug", slug);
+      .upsert(
+        {
+          slug,
+          title_ar: formData.title_ar,
+          title_en: formData.title_en,
+          content_ar: formData.content_ar,
+          content_en: formData.content_en,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "slug" },
+      )
+      .select()
+      .single();
+
+    setSaving(false);
 
     if (error) {
       console.error(error);
@@ -86,33 +96,41 @@ export default function PageViewer() {
       return;
     }
 
+    setPage(data);
     toast.success("تم حفظ الصفحة بنجاح");
   };
 
-  if (!page) return <p>الصفحة غير موجودة.</p>;
-
-  const slugTitles = {
-    "about-us": "من نحن",
-    "privacy-policy": "سياسة الخصوصية",
-    "terms-conditions": "الشروط والأحكام",
-  };
+  if (fetching) {
+    return (
+      <div className="container mx-auto space-y-4 animate-pulse mt-8">
+        <div className="h-10 w-64 bg-gray-200 rounded" />
+        <div className="h-12 bg-gray-200 rounded" />
+        <div className="h-64 bg-gray-200 rounded" />
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto">
-      <MainTitle title={slugTitles[slug] || page.title_ar} />
+      <MainTitle title={SLUG_TITLES[slug] || page?.title_ar || slug} />
+
+      {!page && (
+        <p className="mt-6 text-sm text-amber-600 bg-amber-50 border border-amber-200 rounded-lg p-4">
+          هذه الصفحة غير موجودة في قاعدة البيانات بعد، وسيتم إنشاؤها عند الحفظ.
+        </p>
+      )}
 
       <div className="rounded-lg my-8 bg-card p-6 space-y-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Arabic Title */}
           <Input
             type="text"
             placeholder="العنوان بالعربية"
             name="title_ar"
             value={formData.title_ar}
             onChange={handleChange}
+            required
           />
 
-          {/* English Title */}
           <Input
             type="text"
             placeholder="English Title"
@@ -121,17 +139,15 @@ export default function PageViewer() {
             onChange={handleChange}
           />
 
-          {/* Arabic Content */}
           <div>
             <h3 className="mb-2 font-bold">المحتوى بالعربية</h3>
             <Editor
               data={formData.content_ar}
               onChange={(val) => handleChange(val, "content_ar")}
-              isAr={true}
+              isAr
             />
           </div>
 
-          {/* English Content */}
           <div>
             <h3 className="mb-2 font-bold">English Content</h3>
             <Editor
@@ -140,12 +156,14 @@ export default function PageViewer() {
               isAr={false}
             />
           </div>
+
           <button
             type="submit"
+            disabled={saving}
             aria-label="حفظ التغييرات"
             className="bg-primary text-white px-10 py-3 rounded-xl font-black text-lg hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/20 cursor-pointer"
           >
-            حفظ التغييرات
+            {saving ? "جاري الحفظ..." : "حفظ التغييرات"}
           </button>
         </form>
       </div>

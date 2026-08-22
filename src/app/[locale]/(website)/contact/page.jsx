@@ -8,7 +8,7 @@ import {
 import { MdOutlineEmail } from "react-icons/md";
 import ContactForm from "./_Component/ContactForm";
 import PageHero from "@/components/ui/PageHero";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 
 export async function generateMetadata() {
@@ -57,19 +57,21 @@ export default async function ContactPage() {
   const t = await getTranslations("contact");
   const locale = await getLocale();
   const isAr = locale === "ar";
-  const settings = await siteSettings();
-
-  if (!settings) return null;
+  const settings = (await siteSettings()) || {};
 
   const contactInfo = [
     {
       icon: <FaWhatsapp size={26} />,
       title: t("info.whatsapp"),
-      value: settings.phone,
+      value: settings.whatsapp || settings.phone,
       styles: "bg-[#25D366]/10 text-[#25D366] border-[#25D366]/20",
-      link: settings.phone
-        ? `https://wa.me/${settings.phone.replace(/\s+/g, "")}`
-        : "#",
+      link:
+        settings.whatsapp || settings.phone
+          ? `https://wa.me/${(settings.whatsapp || settings.phone).replace(
+              /\D/g,
+              "",
+            )}`
+          : "#",
     },
     {
       icon: <MdOutlineEmail size={26} />,

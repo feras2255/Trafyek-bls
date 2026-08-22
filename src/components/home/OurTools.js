@@ -36,7 +36,7 @@ export default function OurTools() {
               className="mx-auto object-cover"
               priority
             />
-            <div className="text-base md:text-2xl text-scondary font-semibold mt-2">
+            <div className="text-base md:text-2xl text-secondarytext font-semibold mt-2">
               {skill.name}
             </div>
           </div>

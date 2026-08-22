@@ -1,12 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 export default function TitleWithBack({ title, onBack, url, textBtn }) {
   const router = useRouter();
 
   const handleBack = () => {
     if (typeof onBack === "function") return onBack();
-    router.push(url);
+    if (url) return router.push(url);
+    router.back();
   };
 
   return (
@@ -15,8 +16,8 @@ export default function TitleWithBack({ title, onBack, url, textBtn }) {
       <button
         type="button"
         onClick={handleBack}
-        aria-label="عودة إلى لوحة التحكم"
-        className="inline-flex items-center  bg-primary text-text hover:bg-hover px-3 py-2 rounded shadow-sm cursor-pointer transition duration-300"
+        aria-label={textBtn || "عودة"}
+        className="inline-flex items-center gap-1 bg-primary text-text hover:bg-hover px-3 py-2 rounded shadow-sm cursor-pointer transition duration-300"
       >
         <span className="text-md font-semibold">{textBtn}</span>
 

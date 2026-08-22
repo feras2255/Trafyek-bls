@@ -1,7 +1,9 @@
+export const revalidate = 0;
+
 import PageHero from "@/components/ui/PageHero";
-import Pagination from "@/components/ui/Pagination";
+import BlogPagination from "@/components/ui/BlogPagination";
 import { getLocale } from "next-intl/server";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient";
 import { FiArrowUpLeft, FiClock, FiTag } from "react-icons/fi";
@@ -11,7 +13,9 @@ export default async function Blog({ searchParams }) {
   const isAr = locale === "ar";
 
   const params = await searchParams;
-  const page = Number(params?.page || 1);
+  const requestedPage = Number.parseInt(params?.page, 10);
+  const page =
+    Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
   const limit = 8;
   const from = (page - 1) * limit;
   const to = from + limit - 1;
@@ -26,9 +30,7 @@ export default async function Blog({ searchParams }) {
     .order("created_at", { ascending: false })
     .range(from, to);
 
-  if (error) {
-    console.error(error);
-  }
+  if (error) console.error("Error loading blogs:", error);
 
   const totalPages = Math.ceil((count || 0) / limit);
 
@@ -114,12 +116,13 @@ export default async function Blog({ searchParams }) {
                 <div
                   className="text-slate-600 text-xs md:text-sm leading-7 line-clamp-3"
                   dangerouslySetInnerHTML={{
-                    __html: isAr ? post.description_ar : post.description_en,
+                    __html:
+                      (isAr ? post.description_ar : post.description_en) || "",
                   }}
                 />
 
                 <Link
-                  href={`/${locale}/blogs/${post.id}`}
+                  href={`/blogs/${post.id}`}
                   className="inline-flex items-center gap-3 mt-6 font-bold text-primary"
                 >
                   {isAr ? "اقرأ المزيد" : "Read More"}
@@ -137,10 +140,9 @@ export default async function Blog({ searchParams }) {
           ))}
         </div>
 
-        <Pagination
+        <BlogPagination
           totalPages={totalPages}
           currentPage={page}
-          locale={locale}
           isAr={isAr}
         />
       </div>

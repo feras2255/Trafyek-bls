@@ -168,6 +168,7 @@ import { toast } from "sonner";
 export default function Settings() {
   const [settings, setSettings] = useState({
     description_ar: "",
+    description_en: "",
     image_url: "",
     whatsapp: "",
     phone: "",
@@ -188,6 +189,7 @@ export default function Settings() {
         const data = await getSiteSettings();
         setSettings({
           description_ar: data.description_ar || "",
+          description_en: data.description_en || "",
           image_url: data.image_url || "",
           whatsapp: data.whatsapp || "",
           phone: data.phone || "",
@@ -262,9 +264,14 @@ export default function Settings() {
             بيانات الموقع
           </h2>
           <Textarea
-            placeholder="وصف الموقع"
+            placeholder="وصف الموقع (بالعربية)"
             value={settings.description_ar}
             onChange={(e) => field("description_ar", e.target.value)}
+          />
+          <Textarea
+            placeholder="Site description (English)"
+            value={settings.description_en}
+            onChange={(e) => field("description_en", e.target.value)}
           />
           <FileInput
             setImage={handleImageUpload}
@@ -327,7 +334,7 @@ export default function Settings() {
             />
             <Input
               type="text"
-              placeholder="رابط لينكدان"
+              placeholder="رابط منصة X"
               value={settings.x_account}
               onChange={(e) => field("x_account", e.target.value)}
             />

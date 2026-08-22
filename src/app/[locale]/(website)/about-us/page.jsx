@@ -5,7 +5,7 @@
 // import { supabaseAdmin } from "@/lib/supabaseAdmin";
 // import { getLocale } from "next-intl/server";
 // import Image from "next/image";
-// import Link from "next/link";
+// import { Link } from "@/i18n/navigation";
 // import { FaWhatsapp } from "react-icons/fa";
 // import {
 //   FiCheckCircle,
@@ -318,7 +318,7 @@
 import PageHero from "@/components/ui/PageHero";
 import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { FaWhatsapp } from "react-icons/fa";
 import {
   FiCheckCircle,
@@ -340,7 +340,7 @@ export async function generateMetadata() {
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: {
-      canonical: `https://www.trafficplus.com/${locale}/about-us`,
+      canonical: `https://www.trafyekbls.com/${locale}/about-us`,
     },
     robots: {
       index: true,
@@ -349,7 +349,7 @@ export async function generateMetadata() {
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: `https://www.trafficplus.com/${locale}/about-us`,
+      url: `https://www.trafyekbls.com/${locale}/about-us`,
       siteName: "ترافيك بلس - Traffic Plus",
       images: [
         {
@@ -400,6 +400,7 @@ export default async function About() {
         title={t("heroTitle")}
         description={t("heroDescription")}
         breadcrumbData={breadcrumb}
+        isAr={isRtl}
         showButtons
       />
 
